@@ -1,0 +1,77 @@
+The Origin of HTML
+This document serves as an introduction to HTML (HyperText Markup Language), the essential building block for front-end development. As the first language you will encounter in your coding journey, understanding HTML is crucial for structuring and organizing content on web pages. This guide will cover the basics of HTML, its history, and its evolution, preparing you for the exciting world of web development.
+
+
+Understanding HTML
+HTML stands for HyperText Markup Language, which is a markup language that defines the structure and presentation of raw text. Unlike programming languages, markup languages do not involve logic or computation; they simply organize and format text to be displayed correctly. HTML allows computers to interpret and present text in a structured format.
+
+Key Concepts of HTML
+Markup Language: A markup language is a type of computer language that defines the structure and presentation of raw text. It organizes and formats text to ensure it displays correctly on web pages.
+
+
+HTML Elements: In HTML, raw text is wrapped in HTML elements, which are tags that help the computer understand how to display the content. This enables the creation of well-structured and visually organized web pages.
+
+HyperText: HyperText refers to text displayed on a computer or device that provides access to other text through links, commonly known as hyperlinks. You've likely clicked on a few hyperlinks on your way to this course.
+
+HTML's Creator: A Look at Its History
+HTML was created by Tim Berners-Lee in 1993 to define the structure of a web page. Without it, you wouldn’t be able to organize text or add images or videos to your pages. HTML is the beginning of everything you need to know to make your first website.
+
+Sir Tim Berners-Lee is an English computer scientist popularly known for his development of the World Wide Web in 1989.
+
+While working at the European Organization for Nuclear Research (CERN) in the European Particle Physics Laboratory, Berners-Lee saw the need for a system that would share information amongst researchers globally. With this motivation, Tim Berners-Lee facilitated the first transmission between an HTTP client and server. Berners-Lee then developed the first web browser in 1990. With these milestones met, Berners-Lee developed the first-ever website, https://info.cern.ch./
+
+In 1993, Berners-Lee wrote the very first version of HTML (HyperText Markup Language), the standard markup language for web pages.
+
+
+Evolution of HTML
+Version
+
+Year
+
+Key Features
+
+HTML 1.0
+
+1993
+
+First version of HTML.
+
+Capable of formatting text, adding links, and creating lists.
+
+HTML 2.0
+
+1995
+
+Introduced more tags and attributes.
+
+Added support for forms and tables, setting the foundation for more complex web pages.
+
+HTML 3.2
+
+1997
+
+Introduced new tags like <font> and <center>.
+
+HTML 4.01
+
+1999
+
+Standardized many features.
+
+Introduced CSS for styling.
+
+Supported scripting languages like JavaScript.
+
+Laid the groundwork for separating content from design.
+
+HTML5
+
+2014
+
+Introduced new elements for multimedia, such as <video> and <audio>.
+
+Enhanced support for mobile devices.
+
+Offered powerful APIs for building interactive applications.
+
+Learning HTML is the first step in creating websites. As you continue learning, you can layer HTML with CSS and JavaScript to create visually compelling and dynamic websites. But for now, we’re going to focus on how to add and modify basic content on a page, like text, images, and videos.
