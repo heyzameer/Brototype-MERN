@@ -1,0 +1,192 @@
+Below is a detailed guide to **HTML (HyperText Markup Language)**, covering its **basics to advanced concepts**, including elements, attributes, and examples. This guide is designed to give you a thorough understanding of HTML and how to use it effectively in web development.
+
+---
+
+## **1. HTML Basics**
+### **1.1 What is HTML?**
+- HTML stands for **HyperText Markup Language**.
+- It is used to structure content on the web.
+- HTML uses **tags** to define elements.
+
+### **1.2 Basic Structure of an HTML Document**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic HTML Structure</title>
+</head>
+<body>
+    <h1>Welcome to HTML</h1>
+    <p>This is a basic HTML page.</p>
+</body>
+</html>
+```
+
+- `<!DOCTYPE html>`: Declares the document type as HTML5.
+- `<html>`: The root element of the document.
+- `<head>`: Contains metadata, title, and links to resources.
+- `<body>`: Contains the visible content of the page.
+
+---
+
+## **2. HTML Elements**
+### **2.1 Common Elements**
+| **Element** | **Description**                  | **Example**                                                 |
+|-------------|----------------------------------|------------------------------------------------------------|
+| `<h1>`-`<h6>` | Headings (1 is largest, 6 is smallest) | `<h1>Heading 1</h1>`                                        |
+| `<p>`       | Paragraph                        | `<p>This is a paragraph.</p>`                               |
+| `<a>`       | Anchor (hyperlink)              | `<a href="https://example.com">Click here</a>`             |
+| `<img>`     | Image                           | `<img src="image.jpg" alt="Description" />`                |
+| `<ul>`      | Unordered list                  | `<ul><li>Item 1</li><li>Item 2</li></ul>`                  |
+| `<ol>`      | Ordered list                    | `<ol><li>First</li><li>Second</li></ol>`                   |
+| `<table>`   | Table                           | `<table><tr><td>Cell</td></tr></table>`                    |
+| `<div>`     | Division (block-level)          | `<div>Content</div>`                                        |
+| `<span>`    | Inline container                | `<span style="color: red;">Red Text</span>`                |
+
+---
+
+## **3. HTML Attributes**
+Attributes provide additional information about elements. They are defined in the opening tag.
+
+### **3.1 Common Attributes**
+| **Attribute** | **Description**                              | **Example**                       |
+|---------------|----------------------------------------------|-----------------------------------|
+| `id`          | Unique identifier for an element            | `<div id="uniqueId"></div>`      |
+| `class`       | Groups elements with similar styles          | `<p class="text-class"></p>`     |
+| `src`         | Source for images, videos, or scripts        | `<img src="image.jpg" />`        |
+| `alt`         | Alternative text for an image               | `<img alt="Description" />`      |
+| `href`        | URL for a link                              | `<a href="https://example.com">` |
+| `style`       | Inline CSS styling                          | `<p style="color: blue;">Blue</p>` |
+| `title`       | Tooltip text                                | `<p title="Tooltip">Hover me</p>` |
+
+---
+
+## **4. Forms in HTML**
+Forms are used to collect user input.
+
+### **4.1 Basic Form Example**
+```html
+<form action="/submit" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <input type="submit" value="Submit">
+</form>
+```
+
+### **4.2 Form Elements**
+| **Element**   | **Description**                    | **Example**                                |
+|---------------|------------------------------------|--------------------------------------------|
+| `<input>`     | Input field                       | `<input type="text" name="username">`      |
+| `<textarea>`  | Multi-line text input             | `<textarea name="message"></textarea>`     |
+| `<select>`    | Dropdown                         | `<select><option>Option 1</option></select>` |
+| `<button>`    | Button                           | `<button>Click Me</button>`                |
+
+---
+
+## **5. Semantic HTML**
+Semantic HTML uses meaningful tags to describe content.
+| **Tag**         | **Purpose**                    | **Example**                   |
+|-----------------|--------------------------------|-------------------------------|
+| `<header>`      | Header section                | `<header>Site Header</header>` |
+| `<nav>`         | Navigation links              | `<nav><a href="/">Home</a></nav>` |
+| `<main>`        | Main content                  | `<main>Main Content</main>`   |
+| `<section>`     | Section of content            | `<section>Section Content</section>` |
+| `<footer>`      | Footer section                | `<footer>Footer Content</footer>` |
+
+---
+
+## **6. Multimedia**
+### **6.1 Adding Images**
+```html
+<img src="image.jpg" alt="Sample Image" width="300" height="200">
+```
+
+### **6.2 Adding Videos**
+```html
+<video controls width="600">
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+```
+
+### **6.3 Adding Audio**
+```html
+<audio controls>
+    <source src="audio.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+</audio>
+```
+
+---
+
+## **7. Advanced Concepts**
+### **7.1 HTML5 APIs**
+1. **Canvas API**:
+   ```html
+   <canvas id="myCanvas" width="400" height="200"></canvas>
+   ```
+2. **Geolocation API**:
+   ```html
+   <button onclick="getLocation()">Get Location</button>
+   <script>
+       function getLocation() {
+           navigator.geolocation.getCurrentPosition(
+               (position) => alert(position.coords.latitude)
+           );
+       }
+   </script>
+   ```
+
+### **7.2 Responsive Design**
+1. Add a viewport meta tag:
+   ```html
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   ```
+2. Use responsive elements:
+   ```html
+   <img src="image.jpg" style="max-width: 100%; height: auto;">
+   ```
+
+---
+
+## **8. Complete Example**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Advanced Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Advanced HTML</h1>
+        <nav>
+            <a href="#about">About</a> | <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>About HTML</h2>
+            <p>HTML is the backbone of the web.</p>
+            <img src="example.jpg" alt="HTML Example" style="width: 100%; height: auto;">
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <form action="/submit" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HTML Mastery</p>
+    </footer>
+</body>
+</html>
+```
+
+---

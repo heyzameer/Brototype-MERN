@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive HTML Example">
+    <title>HTML Advanced Features</title>
+    
+    <!-- Linking an External CSS Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Linking an External JavaScript File -->
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to HTML Advanced Features</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#media">Media</a></li>
+                <li><a href="#iframe">Iframe</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section id="about">
+            <h2>About HTML</h2>
+            <p>
+                HTML is the foundation of the web. It allows us to structure content, link stylesheets, and integrate multimedia easily.
+            </p>
+        </section>
+
+        <!-- Multimedia Section -->
+        <section id="media">
+            <h2>Media Integration</h2>
+
+            <!-- Audio with Controls -->
+            <h3>Audio Example</h3>
+            <audio controls>
+                <source src="example-audio.mp3" type="audio/mpeg">
+                <source src="example-audio.ogg" type="audio/ogg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <!-- Video with Controls -->
+            <h3>Video Example</h3>
+            <video controls width="600" height="400" poster="video-poster.jpg">
+                <source src="example-video.mp4" type="video/mp4">
+                <source src="example-video.webm" type="video/webm">
+                Your browser does not support the video element.
+            </video>
+        </section>
+
+        <!-- Iframe Section -->
+        <section id="iframe">
+            <h2>Embedding External Content</h2>
+            <h3>Iframe Example</h3>
+            <p>
+                Below is an embedded YouTube video about HTML:
+            </p>
+            <iframe 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/dD2EISBDjWM" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Advanced HTML Features. All rights reserved.</p>
+    </footer>
+</body>
+</html>

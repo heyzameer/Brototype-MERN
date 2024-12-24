@@ -1,0 +1,134 @@
+
+### **Global Attributes**
+1. **`id`**: Assigns a unique identifier to an element.  
+   Example: `<div id="header"></div>`
+
+2. **`class`**: Specifies one or more class names for CSS styling.  
+   Example: `<p class="intro text-bold"></p>`
+
+3. **`style`**: Inline CSS for styling the element directly.  
+   Example: `<h1 style="color: blue;">Hello World</h1>`
+
+4. **`title`**: Adds a tooltip text displayed on hover.  
+   Example: `<button title="Click to submit">Submit</button>`
+
+5. **`data-*`**: Custom data attributes for storing extra information.  
+   Example: `<div data-user-id="12345">User Info</div>`
+
+6. **`hidden`**: Hides the element from view.  
+   Example: `<p hidden>This is hidden text.</p>`
+
+7. **`tabindex`**: Controls the tab order for keyboard navigation.  
+   Example: `<button tabindex="1">First</button>`
+
+8. **`lang`**: Specifies the language of the element's content.  
+   Example: `<p lang="en">Hello!</p>`
+
+---
+
+### **Event Attributes**
+1. **`onclick`**: Triggered when an element is clicked.  
+   Example: `<button onclick="alert('Button clicked!')">Click me</button>`
+
+2. **`onmouseover`**: Triggered when the pointer moves onto an element.  
+   Example: `<img src="image.jpg" onmouseover="showDetails()">`
+
+3. **`onchange`**: Triggered when an input value changes.  
+   Example: `<input type="text" onchange="validateInput()">`
+
+4. **`onsubmit`**: Triggered when a form is submitted.  
+   Example: `<form onsubmit="return validateForm()">`
+
+---
+
+### **Form Attributes**
+1. **`action`**: Specifies the URL to send form data when submitted.  
+   Example: `<form action="/submit"></form>`
+
+2. **`method`**: Defines the HTTP method to use (`GET` or `POST`).  
+   Example: `<form method="post"></form>`
+
+3. **`name`**: Specifies the name of the form or input.  
+   Example: `<input type="text" name="username">`
+
+4. **`placeholder`**: Provides a hint for what to enter in the input.  
+   Example: `<input type="text" placeholder="Enter your name">`
+
+5. **`value`**: Defines the initial value of the input element.  
+   Example: `<input type="text" value="John Doe">`
+
+6. **`required`**: Marks the input as required, preventing empty submission.  
+   Example: `<input type="text" required>`
+
+7. **`maxlength`**: Limits the number of characters in an input field.  
+   Example: `<input type="text" maxlength="10">`
+
+8. **`disabled`**: Disables an element, making it unclickable or uneditable.  
+   Example: `<button disabled>Submit</button>`
+
+9. **`autocomplete`**: Allows the browser to suggest previous entries.  
+   Example: `<input type="text" autocomplete="on">`
+
+---
+
+### **Media Attributes**
+1. **`src`**: Specifies the source file for media.  
+   Example: `<img src="image.jpg">`
+
+2. **`alt`**: Alternative text for images (for accessibility).  
+   Example: `<img src="image.jpg" alt="A beautiful scenery">`
+
+3. **`width` / `height`**: Defines the width and height of media in pixels or percentages.  
+   Example: `<img src="image.jpg" width="200" height="100">`
+
+4. **`controls`**: Adds controls like play, pause, and volume for `<audio>` and `<video>`.  
+   Example: `<video controls src="video.mp4"></video>`
+
+5. **`autoplay`**: Starts playing media automatically (may be muted initially).  
+   Example: `<audio autoplay src="song.mp3"></audio>`
+
+6. **`loop`**: Plays media repeatedly.  
+   Example: `<video loop src="video.mp4"></video>`
+
+7. **`muted`**: Mutes audio or video by default.  
+   Example: `<video muted src="video.mp4"></video>`
+
+---
+
+### **Anchor Attributes**
+1. **`href`**: Specifies the URL the link goes to.  
+   Example: `<a href="https://example.com">Visit Example</a>`
+
+2. **`target`**: Opens the link in a specific way, like a new tab (`_blank`).  
+   Example: `<a href="https://example.com" target="_blank">Open in New Tab</a>`
+
+3. **`download`**: Prompts a download when the link is clicked.  
+   Example: `<a href="file.zip" download>Download File</a>`
+
+---
+
+### **Table Attributes**
+1. **`colspan`**: Spans a cell across multiple columns.  
+   Example: `<td colspan="2">Combined Cell</td>`
+
+2. **`rowspan`**: Spans a cell across multiple rows.  
+   Example: `<td rowspan="3">Three Rows Combined</td>`
+
+3. **`border`**: Specifies the border width (though generally replaced by CSS).  
+   Example: `<table border="1"></table>`
+
+---
+
+### **ARIA (Accessible Rich Internet Applications) Attributes**
+1. **`aria-label`**: Labels an element for accessibility.  
+   Example: `<button aria-label="Close">X</button>`
+
+2. **`aria-hidden`**: Hides an element from assistive technologies.  
+   Example: `<span aria-hidden="true">*</span>`
+
+3. **`role`**: Defines the role of an element (e.g., `button`, `navigation`, `alert`).  
+   Example: `<div role="navigation"></div>`
+
+---
+
+Let me know if you want this saved as a text file!

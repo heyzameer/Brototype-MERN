@@ -1,3 +1,11 @@
+Vint Cerf and Bob Kahn
+In 1974, Cerf and Kahn invented Transmission Control Protocol/Internet Protocol (TCP/IP), a set of protocols that govern how data moves through a network. Cerf is often called the "Father of the Internet". 
+Tim Berners-Lee
+In 1989, Berners-Lee invented the World Wide Web (WWW), a way to access information on the internet. 
+Paul Baran
+In the 1960s, Baran developed the field of redundant distributed networks, which included ideas like decentralized networks and message block switching.
+
+
 The Origin of HTML
 This document serves as an introduction to HTML (HyperText Markup Language), the essential building block for front-end development. As the first language you will encounter in your coding journey, understanding HTML is crucial for structuring and organizing content on web pages. This guide will cover the basics of HTML, its history, and its evolution, preparing you for the exciting world of web development.
 
@@ -12,66 +20,72 @@ Markup Language: A markup language is a type of computer language that defines t
 HTML Elements: In HTML, raw text is wrapped in HTML elements, which are tags that help the computer understand how to display the content. This enables the creation of well-structured and visually organized web pages.
 
 HyperText: HyperText refers to text displayed on a computer or device that provides access to other text through links, commonly known as hyperlinks. You've likely clicked on a few hyperlinks on your way to this course.
+This content provides a foundational understanding of HTML, its history, evolution, and significance. Below is an overview and highlights of the provided information:
 
-HTML's Creator: A Look at Its History
-HTML was created by Tim Berners-Lee in 1993 to define the structure of a web page. Without it, you wouldn’t be able to organize text or add images or videos to your pages. HTML is the beginning of everything you need to know to make your first website.
+---
 
-Sir Tim Berners-Lee is an English computer scientist popularly known for his development of the World Wide Web in 1989.
+### **Contributors to Networking and the Web**
+1. **Vint Cerf and Bob Kahn**:
+   - Invented **TCP/IP** in 1974, foundational protocols for data transmission on networks.
+   - Vint Cerf is known as the "Father of the Internet."
 
-While working at the European Organization for Nuclear Research (CERN) in the European Particle Physics Laboratory, Berners-Lee saw the need for a system that would share information amongst researchers globally. With this motivation, Tim Berners-Lee facilitated the first transmission between an HTTP client and server. Berners-Lee then developed the first web browser in 1990. With these milestones met, Berners-Lee developed the first-ever website, https://info.cern.ch./
+2. **Tim Berners-Lee**:
+   - Invented the **World Wide Web (WWW)** in 1989.
+   - Created the first web browser and the first website.
+   - Developed the first version of **HTML** in 1993.
 
-In 1993, Berners-Lee wrote the very first version of HTML (HyperText Markup Language), the standard markup language for web pages.
+3. **Paul Baran**:
+   - Pioneered concepts of **redundant distributed networks** in the 1960s, including decentralized networks and message block switching.
 
+---
 
-Evolution of HTML
-Version
+### **HTML Overview**
+- **Definition**: HTML (HyperText Markup Language) is the standard markup language for creating web pages.
+- **Purpose**: Structures and organizes content for display in web browsers.
 
-Year
+---
 
-Key Features
+### **Key Concepts of HTML**
+1. **Markup Language**:
+   - Organizes and formats raw text for proper display on web pages.
 
-HTML 1.0
+2. **HTML Elements**:
+   - Composed of **tags** that structure content (e.g., `<p>` for paragraphs, `<img>` for images).
 
-1993
+3. **HyperText**:
+   - Text with links (hyperlinks) to other text or resources.
 
-First version of HTML.
+---
 
-Capable of formatting text, adding links, and creating lists.
+### **History of HTML**
+- Developed in **1993** by **Tim Berners-Lee** to structure web pages.
+- First used in **info.cern.ch**, the world's first website.
 
-HTML 2.0
+---
 
-1995
+### **Evolution of HTML**
+| Version     | Year | Key Features                                                                 |
+|-------------|------|-----------------------------------------------------------------------------|
+| **HTML 1.0** | 1993 | Basic formatting, links, lists.                                             |
+| **HTML 2.0** | 1995 | Introduced forms, tables, and more attributes.                              |
+| **HTML 3.2** | 1997 | Added `<font>` and `<center>` tags.                                         |
+| **HTML 4.01**| 1999 | Standardized features, CSS support, scripting (JavaScript), content-design separation. |
+| **HTML5**    | 2014 | New multimedia tags (`<video>`, `<audio>`), enhanced mobile support, APIs.  |
 
-Introduced more tags and attributes.
+---
 
-Added support for forms and tables, setting the foundation for more complex web pages.
+### **Significance of HTML**
+- **Foundation of Web Development**: Serves as the first step in creating web pages.
+- **Building Block for Modern Websites**:
+  - Combine with **CSS** for styling.
+  - Use **JavaScript** for interactivity.
 
-HTML 3.2
+---
 
-1997
+### **Next Steps in Learning HTML**
+Focus on:
+- Adding/modifying basic content like **text**, **images**, and **videos**.
+- Learning essential tags and attributes.
+- Transitioning to combining HTML with CSS and JavaScript for dynamic web development.
 
-Introduced new tags like <font> and <center>.
-
-HTML 4.01
-
-1999
-
-Standardized many features.
-
-Introduced CSS for styling.
-
-Supported scripting languages like JavaScript.
-
-Laid the groundwork for separating content from design.
-
-HTML5
-
-2014
-
-Introduced new elements for multimedia, such as <video> and <audio>.
-
-Enhanced support for mobile devices.
-
-Offered powerful APIs for building interactive applications.
-
-Learning HTML is the first step in creating websites. As you continue learning, you can layer HTML with CSS and JavaScript to create visually compelling and dynamic websites. But for now, we’re going to focus on how to add and modify basic content on a page, like text, images, and videos.
+This progression prepares you to build visually appealing, interactive, and functional websites. If you'd like to explore a specific aspect in more detail, let me know!
