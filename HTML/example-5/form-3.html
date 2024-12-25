@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Form</title>
+</head>
+<body>
+    <h2>Registration Form</h2>
+    <form>
+        <!-- Password Input Field -->
+        <label for="email">Email</label><br>
+        <input type="email" name="email" id="email" placeholder="Enter your email" title="Enter valid Email"><br><br>
+
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required title="Password must be at least 6 characters long"><br><br>
+
+        <!-- Number Input Field -->
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" placeholder="Enter your age" required title="Please enter your age in years" min="18" max="35"><br><br>
+
+        <label for="date">Select a date:</label><br>
+        <input type="date" id="date" name="date" required>
+    
+
+        <label for="time">Select a time:</label><br>
+        <input type="time" id="time" name="time" required>
+
+        <label for="website">Enter your website:</label><br>
+        <input type="url" id="website" name="website" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

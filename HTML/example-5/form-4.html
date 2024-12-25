@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Various Inputs</title>
+</head>
+<body>
+    <h2>Form Example</h2>
+    <form>
+        <!-- Checkbox -->
+        <label for="subscribe">Subscribe to newsletter:</label>
+        <input type="checkbox" id="subscribe" name="subscribe" value="yes"><br><br>
+
+        <!-- Radio Buttons -->
+        <p>Choose your preferred payment method:</p>
+        <label for="creditCard">Credit Card</label>
+        <input type="radio" id="creditCard" name="paymentMethod" value="creditCard">
+        <label for="paypal">PayPal</label>
+        <input type="radio" id="paypal" name="paymentMethod" value="paypal"><br><br>
+
+        <!-- File Upload -->
+        <label for="fileUpload">Upload your resume:</label>
+        <input type="file" id="fileUpload" name="resume"><br><br>
+
+        <!-- Volume Control -->
+        <label for="volume">Volume Control:</label>
+        <input type="range" id="volume" name="volume" min="0" max="100" value="50"><br><br>
+  
+  
+        <label for="uploadImage">Upload an image:</label>
+            <input type="file" id="uploadImage" name="image" accept="image/*" multiple><br><br>
+            
+            <label for="uploadVideo">Upload a video:</label>
+            <input type="file" id="uploadVideo" name="video" accept="video/*"><br><br>
+        
+            <label for="uploadAudio">Upload an audio file:</label>
+            <input type="file" id="uploadAudio" name="audio" accept="audio/*"><br><br>
+        
+            <label for="uploadDocuments">Upload a document:</label>
+            <input type="file" id="uploadDocuments" name="documents" accept=".pdf,.docx,.txt"><br><br>
+            
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
