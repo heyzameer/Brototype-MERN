@@ -1,0 +1,10 @@
+Summary of the Box Model
+The CSS Box Model organizes how elements take up space on a webpage and interact with each other. It ensures clear spacing and layout structure through four layers:
+
+Content: Holds the primary element, like text or images.
+
+Padding: Creates internal space between the content and the border to enhance readability.
+
+Border: Outlines the element, adding visual definition and separation.
+
+Margin: Provides external space, separating the element from others to create a balanced layout.

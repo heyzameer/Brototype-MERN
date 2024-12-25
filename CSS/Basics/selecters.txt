@@ -1,0 +1,183 @@
+Here’s a detailed explanation of the different types of CSS selectors with examples:
+
+### 1. **Universal Selector (`*`)**
+- **Definition**: Selects all elements in the document.
+- **When to Use**: Use when you want to apply a style to every element, such as resetting margin and padding.
+
+**Example:**
+```css
+* {
+    margin: 0;
+    padding: 0;
+}
+```
+This rule applies to all elements in the document, removing any default margins and padding.
+
+### 2. **Type Selector (Element Selector)**
+- **Definition**: Selects all elements of a specific type (e.g., all `<p>`, `<h1>`).
+- **When to Use**: Use when you want to style all elements of a particular type uniformly, like all paragraphs or headings.
+
+**Example:**
+```css
+p {
+    font-size: 16px;
+    color: black;
+}
+```
+This rule applies to all `<p>` elements, setting their font size to `16px` and color to `black`.
+
+### 3. **Class Selector (`.`)**
+- **Definition**: Selects all elements with a specific class.
+- **When to Use**: Use when you want to apply styles to multiple elements that share the same class for consistent styling.
+
+**Example:**
+```css
+.button {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+}
+```
+This rule applies to all elements with the class `button`.
+
+```html
+<button class="button">Click Me</button>
+```
+
+### 4. **ID Selector (`#`)**
+- **Definition**: Selects a single element with a specific ID.
+- **When to Use**: Use when you need to style a unique element, as IDs should be unique within a page.
+
+**Example:**
+```css
+#header {
+    background-color: lightgray;
+    padding: 20px;
+}
+```
+This rule applies to the element with the `id="header"`.
+
+```html
+<div id="header">Header Content</div>
+```
+
+### 5. **Attribute Selector**
+- **Definition**: Selects elements based on their attributes or specific attribute values.
+- **When to Use**: Use when you want to style elements based on attributes, such as input fields with certain types (e.g., text).
+
+**Example:**
+```css
+input[type="text"] {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+```
+This rule applies to all `<input>` elements with `type="text"`.
+
+```html
+<input type="text" placeholder="Enter text">
+```
+
+### 6. **Descendant Selector (Space)**
+- **Definition**: Selects elements that are descendants (children, grandchildren, etc.) of a specified element.
+- **When to Use**: Use when you want to target nested elements within a parent container, such as styling paragraphs within a div.
+
+**Example:**
+```css
+div p {
+    color: red;
+}
+```
+This rule applies to all `<p>` elements that are descendants of a `<div>` element.
+
+```html
+<div>
+    <p>This is a paragraph inside a div.</p>
+</div>
+```
+
+### 7. **Child Selector (`>`)**
+- **Definition**: Selects elements that are direct children of a specified element.
+- **When to Use**: Use when you want to style only the immediate children of an element, avoiding deeper nested elements.
+
+**Example:**
+```css
+ul > li {
+    list-style-type: square;
+}
+```
+This rule applies to all `<li>` elements that are direct children of a `<ul>` element.
+
+```html
+<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+</ul>
+```
+
+### 8. **Adjacent Sibling Selector (`+`)**
+- **Definition**: Selects an element that is directly adjacent to another specified element.
+- **When to Use**: Use when you want to style an element that comes immediately after another element, such as removing margins.
+
+**Example:**
+```css
+h1 + p {
+    margin-top: 0;
+}
+```
+This rule applies to the first `<p>` element that immediately follows an `<h1>` element.
+
+```html
+<h1>Heading</h1>
+<p>This paragraph has no top margin because it follows the heading.</p>
+```
+
+### 9. **General Sibling Selector (`~`)**
+- **Definition**: Selects all siblings of a specified element that follow it.
+- **When to Use**: Use when you want to apply styles to all following siblings, not just the first one.
+
+**Example:**
+```css
+h1 ~ p {
+    color: gray;
+}
+```
+This rule applies to all `<p>` elements that are siblings of an `<h1>` and come after it.
+
+```html
+<h1>Heading</h1>
+<p>This paragraph is gray because it follows the heading.</p>
+<p>This paragraph is also gray because it follows the heading.</p>
+```
+
+### 10. **Group Selector (`,`)**
+- **Definition**: Applies the same styles to multiple selectors.
+- **When to Use**: Use when you want to apply identical styles to multiple elements to keep your CSS concise and maintainable.
+
+**Example:**
+```css
+h1, h2, p {
+    color: blue;
+}
+```
+This rule applies the color blue to all `<h1>`, `<h2>`, and `<p>` elements.
+
+```html
+<h1>This is a heading</h1>
+<h2>This is a subheading</h2>
+<p>This is a paragraph</p>
+```
+
+### Summary of Selectors:
+- **Universal Selector (`*`)**: Selects all elements.
+- **Type Selector**: Selects all elements of a specific type.
+- **Class Selector (`.`)**: Selects elements with a specific class.
+- **ID Selector (`#`)**: Selects an element with a specific ID.
+- **Attribute Selector**: Selects elements based on attributes.
+- **Descendant Selector**: Selects elements that are descendants of a specified element.
+- **Child Selector (`>`)**: Selects direct children of an element.
+- **Adjacent Sibling Selector (`+`)**: Selects the element immediately following another.
+- **General Sibling Selector (`~`)**: Selects all following siblings of an element.
+- **Group Selector (`,`)**: Groups multiple selectors and applies the same styles.
+
+These selectors allow you to target specific elements in different ways to apply the desired styles.
