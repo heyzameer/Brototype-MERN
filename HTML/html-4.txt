@@ -46,12 +46,61 @@ In HTML, there are a variety of tags, each serving a unique purpose in creating 
 
 ### 6. **List Tags**
    - `<ul>`: Unordered list (bulleted).
+   <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+    <li>Java</li>
+    <li>Python</li>
+</ul>
+
+
    - `<ol>`: Ordered list (numbered).
+   <ol>
+    <li>Update your resume</li>
+    <li>Apply to job portals</li>
+    <li>Prepare for coding interviews</li>
+    <li>Attend technical interviews</li>
+    <li>Receive your offer letter</li>
+</ol>
+
+
    - `<li>`: List item.
    - `<dl>`: Description list.
+
+
+   <dl>
+    <dt>HTML</dt>
+    <dd>HyperText Markup Language, used to create the structure of web pages.</dd>
+    
+    <dt>CSS</dt>
+    <dd>Cascading Style Sheets, used for styling the appearance of web pages.</dd>
+    
+    <dt>JavaScript</dt>
+    <dd>A programming language that adds interactivity to websites.</dd>
+</dl>
    - `<dt>`: Description term.
    - `<dd>`: Description definition.
 
+You can nest one list inside another to create more complex structures. This is useful when you want to display hierarchical data.
+
+Code Example:
+<ul>
+    <li>Frontend Technologies
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ul>
+    </li>
+    <li>Backend Technologies
+        <ul>
+            <li>Java</li>
+            <li>Python</li>
+            <li>Node.js</li>
+        </ul>
+    </li>
+</ul>
 ### 7. **Table Tags**
    - `<table>`: Table element.
    - `<tr>`: Table row.
@@ -72,12 +121,57 @@ In HTML, there are a variety of tags, each serving a unique purpose in creating 
 ### 9. **Media Tags**
    - `<img>`: Embeds images.
    - `<audio>`: Embeds audio files.
+   <h1>Listen to the Audio</h1>
+<audio 
+    src="https://example.com/audio-file.mp3" 
+    controls 
+    loop 
+    autoplay 
+    muted>
+  Your browser does not support the audio tag.
+</audio>
+
    - `<video>`: Embeds video files.
+   example|
+
+   <h1>Watch the Video</h1>
+<video 
+    src="https://kodnest-docs.b-cdn.net/assets/closeup_of_natural_weather_phenomenon_6891973.mp4" 
+    controls 
+    loop 
+    muted 
+    autoplay 
+    poster="https://kodnest-docs.b-cdn.net/assets/sunrise.png" 
+    height="200px" 
+    width="300px">
+  Your browser does not support the video tag.
+</video>
+
    - `<source>`: Defines multiple media resources for `<audio>` or `<video>`.
    - `<track>`: Adds text tracks, like captions, to `<video>` or `<audio>`.
 
 ### 10. **Embedded Content Tags**
    - `<iframe>`: Embeds another HTML page within the current page.
+   <h1>Iframe with srcdoc Example</h1>
+    <iframe src="https://www.kodnest.com/" 
+            height="300px" 
+            width="500px" 
+            frameborder="0" 
+            scrolling="yes">
+    </iframe>
+
+    ***************
+    <h1>Iframe with srcdoc Example</h1>
+    <iframe srcdoc='
+        <a href="https://www.kodnest.com/" target="iframe1">
+            Click here to open Kodnest website
+        </a>'
+        height="300" 
+        width="500"
+        name="iframe1">
+    </iframe>
+
+
    - `<embed>`: Embeds external content, such as a plugin.
    - `<object>`: Represents external resources, like multimedia or interactive content.
    - `<param>`: Defines parameters for `<object>`.

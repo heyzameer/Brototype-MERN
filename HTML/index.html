@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image and Data Layout</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; /* Space between the rows */
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .row img {
+            width: 300px;
+            height: auto;
+        }
+
+        .description {
+            max-width: 300px;
+            text-align: left;
+        }
+
+        /* Reverse the layout for the second row */
+       
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- First Row: Image on the left, Data on the right -->
+        <div class="row">
+            <img src="https://via.placeholder.com/300" alt="Image 1">
+            <div class="description">
+                <h3>Image 1</h3>
+                <p>This is the description for the first image. It is displayed on the right of the image.</p>
+            </div>
+        </div>
+
+        <!-- Second Row: Image on the right, Data on the left -->
+        <div class="row row-reversed">
+            <div class="description">
+                <h3>Image 2</h3>
+                <p>This is the description for the second image. It is displayed on the left of the image.</p>
+            </div>
+            <img src="https://via.placeholder.com/300" alt="Image 2">
+        </div>
+    </div>
+
+</body>
+</html>
