@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Basic User Form</title>
+</head>
+
+<body>
+
+    <h1>Registration Form</h1>
+
+    <form>
+        <fieldset>
+            <legend>Personal Information</legend>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" required><br><br>
+            <!-- Email Input -->
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" required><br><br>
+
+            <!-- Password Input -->
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" required><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Additional Information</legend>
+            <!-- Gender Radio Buttons -->
+            <label>Gender:</label><br>
+            <input type="radio" id="male" value="male">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" value="female">
+            <label for="female">Female</label><br><br>
+
+            <!-- Favorite Color Dropdown -->
+            <label for="color">Favorite Color:</label><br>
+            <select id="color">
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="yellow">Yellow</option>
+            </select><br><br>
+            <!-- Message Textarea -->
+            <label for="message">Message:</label><br>
+            <textarea id="message"></textarea><br><br>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+
+</html>

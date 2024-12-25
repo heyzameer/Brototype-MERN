@@ -1,0 +1,83 @@
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(68, 67, 69);
+    font-weight: bold;
+    font-family: cursive;
+    }
+
+.outer {
+    background-color: rgb(3, 3, 3);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    width: 400px;
+    box-shadow: 0px 0px 10px rgb(254, 254, 254);
+    }
+
+.form-group input {
+    border: 2px solid;
+    border-radius: 6px;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 18px;
+    }
+
+.form-container a {
+    text-decoration: none;
+    color: rgb(252, 252, 252);
+    font-size: 15px;
+    margin: 9px;
+   
+    }
+
+.form-container {
+    text-align: left;
+    position: relative;
+    color: white;
+    }
+
+.form-group button {
+    width: 100%;
+    background-color: rgb(68, 67, 69);
+    padding: 9px;
+    border-radius: 9px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-family: cursive;
+    margin: 4px;
+    }
+
+.form-group input[type='email']:focus+label {
+    position: absolute;
+    margin-top: -97px;
+    margin-left: 10px;
+    background-color: rgb(10, 10, 10);
+    padding:2px ;
+    }
+
+.form-group input[type='password']:focus+label {
+    position: absolute;
+    margin-top: -97px;
+    margin-left: 11px;
+    background-color: rgb(6, 6, 6);
+    padding:2px ;
+    }
+
+.form-group input[type='password']:not(:focus)+label,
+.form-group input[type='email']:not(:focus)+label {
+    display: none;
+    }
+
+.outer img {
+    object-fit: cover;
+    object-position: center;
+    width: 250px;
+    height: 100px;
+    }
