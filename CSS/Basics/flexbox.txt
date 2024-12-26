@@ -196,3 +196,39 @@ With Flexbox, you'll no longer have to rely on complex tricks or hacks to create
 | `gap`            | `<length>`                                                             | Adds space between flex items.                                  |
 
 Happy Flexbox-ing! 😄
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  flex-wrap: wrap;
+  align-content:space-around;
+}
+
+.item-1 {
+  order: 1;
+  flex-grow:1;
+  flex-shrink:1;
+}
+
+.item-3 {
+  align-self: baseline;
+  order: -1;
+}
+https://youtu.be/phWxA89Dy94?si=1sJ1jt3uZWRziIqC
