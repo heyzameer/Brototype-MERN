@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airbnb</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/5bb133d614.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="header">
-        <nav>
+        <nav id="navBar">
             <img src="images/logo.png" alt="" class="logo" >
             <ul class="nav-links">
-                <li><a href="#">Popular Places</a></li>
+                <li><a href="#" class="active">Popular Places</a></li>
                 <li><a href="#">Travel Outside</a></li>
                 <li><a href="#">Online Packages</a></li>
             </ul>
             <a href="#" class="register-btn">Register Now</a>
+            <i class="fas fa-bars" onclick="togglebtn()"></i>
         </nav>
         <div class="container">
             <h1>Find Your Next Stay.</h1>
@@ -143,13 +145,59 @@
             </div>
         </div>
 
+
+
         <div class="cta">
-            <h3>Sharing Is Earrning Now</h3>
-            <p>Great opportunity to make money by sharing your extra space.</p>
+            <h3>Sharing <br>Is Earrning Now</h3>
+            <p class="cta-p">Great opportunity to make money by sharing your extra space.</p>
             <a href="#" class="cta-btn">Know More</a>
         </div>
 
 
+
+
+        <h2 class="sub-title">Travellers Stories</h2>
+        <div class="stories">
+            <div>
+                <img src="images/story-1.png" alt="">
+                <p>Popular European countries with a budget of just $10,000</p>
+            </div>
+            <div>
+                <img src="images/story-2.png" alt="">
+                <p>Traveled more than 100 Countries in less thann a year</p>
+            </div>
+            <div>
+                <img src="images/story-3.png" alt="">
+                <p>Best experience you get while travelling to Thailand</p>
+            </div>
+        </div>
+
+        <a href="#" class="start-btn">Star making money</a>
+
+        <div class="about-msg">
+            <h2>About Airbnb</h2>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique quisquam ex eius porro veritatis iste ipsum consequatur nesciunt officia quos dolor, quidem ea, voluptatibus tenetur reprehenderit illum exercitationem? Facilis, ipsa consequatur nesciunt officia quos dolor, quidem ea, voluptatibus tenetur reprehenderit illum exercitationem? Facilis, ipsa.consequatur nesciunt officia quos dolor, quidem ea, voluptatibus tenetur reprehenderit illum exercitationem Facilis, ipsa Similique quisquam ex eius porro veritatis.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique quisquam ex eius porro veritatis iste ipsum consequatur nesciunt officia quos dolor, quidem ea, voluptatibus tenetur reprehenderit illum exercitationem? Facilis, ipsa consequatur nesciunt officia quos dolor, quidem ea, voluptatibus tenetur reprehenderit illum exercitationem? Facilis, ipsa.consequatur nesciunt officia quos dolor, quidem ea, voluptatibus tenetur reprehenderit illum exercitationem Facilis, ipsa Similique quisquam ex eius porro veritatis.
+            </p>
+        </div>
+
+
+        <div class="footer">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <hr>
+        <p>Copyright &copy;. All rights reserved. </p>    
+        </div>
     </div>
+
+    <script>
+        var navBar = document.getElementById("navBar");
+
+        function togglebtn(){
+            navBar.classList.toggle("hidemenu");
+        }
+    </script>
 </body>
 </html>
