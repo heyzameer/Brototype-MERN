@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inline Block Centering</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .inline-block {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      line-height: 100px; /* Centers text vertically */
+      background-color: lightblue;
+      border: 1px solid #333;
+    }
+
+    .parent {
+      position: relative; /* Required for absolute positioning of child */
+      background-color: #333;
+      display: block;
+      width: 100%; /* Makes parent fit the viewport width */
+      height: 500px; /* Adjust the height as needed */
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="inline-block">Box 1</div>
+  </div>
+</body>
+</html>

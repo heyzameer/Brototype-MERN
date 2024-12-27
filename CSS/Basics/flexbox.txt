@@ -232,3 +232,49 @@ Happy Flexbox-ing! 😄
   order: -1;
 }
 https://youtu.be/phWxA89Dy94?si=1sJ1jt3uZWRziIqC
+
+
+
+
+
+
+
+
+
+
+Key Characteristics of display: inline;
+Flows Horizontally: Inline elements flow along with the text and do not start on a new line.
+No Width or Height: You cannot explicitly set width or height for inline elements. Their size depends on their content.
+Spacing and Alignment: They respect the padding, margin, and border properties but only affect spacing horizontally, not vertically.
+Default Inline Elements: Examples include <span>, <a>, <strong>, <em>, etc.
+
+
+
+
+Key Characteristics of display: block;
+Takes Full Width: A block element takes up the entire width of its container, unless a width is specified.
+Forces a New Line: Block-level elements are stacked vertically, unlike inline elements, which flow horizontally.
+Customizable Dimensions: You can apply width, height, margin, padding, etc., to block elements.
+
+
+
+Key Characteristics of display: inline;
+Flows Horizontally: Inline elements flow along with the text and do not start on a new line.
+No Width or Height: You cannot explicitly set width or height for inline elements. Their size depends on their content.
+Spacing and Alignment: They respect the padding, margin, and border properties but only affect spacing horizontally, not vertically.
+Default Inline Elements: Examples include <span>, <a>, <strong>, <em>, etc.
+
+
+
+
+Key Characteristics of display: block;
+Takes Full Width: A block element takes up the entire width of its container, unless a width is specified.
+Forces a New Line: Block-level elements are stacked vertically, unlike inline elements, which flow horizontally.
+Customizable Dimensions: You can apply width, height, margin, padding, etc., to block elements.
+
+
+
+Key Characteristics of display: inline-block;
+Flows Inline: Similar to inline, it flows horizontally with other inline elements and does not break onto a new line.
+Allows Box Model: Like block, you can explicitly set width, height, padding, margin, and border.
+No Line Break: Unlike block, it doesn’t force a new line for itself or adjacent elements.

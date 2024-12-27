@@ -1,0 +1,284 @@
+display:block;
+text-align:center;
+text-decoration:none;
+
+flex
+align-item-center;
+flex-wrap:wrap;
+
+flex: 1; /* equivalent to */
+flex-grow: 1; /* Grow to fill available space */
+flex-shrink: 1; /* Shrink if necessary */
+flex-basis: 0; /* Start with no intrinsic size */
+
+background: transparent;
+cursor: pointer;
+
+display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    grid-gap:30px;
+
+display: grid;
+This enables the grid layout for the container, turning its children into grid items.
+
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+This creates a responsive grid with dynamic columns:
+
+repeat(auto-fit, ...): Automatically fits as many columns as possible in the available space.
+minmax(200px, 1fr): Each column's width will be at least 200px but can grow to occupy one fractional unit (1fr) of the available space.
+grid-gap: 30px;
+This adds a 30px gap between the grid items (both rows and columns).
+
+
+
+vh` (Viewport Height) and `vw` (Viewport Width
+
+
+
+***********************************
+background-image: linear-gradient(to right,#3f2321,transparent),url(images/banner-2.png);
+linear-gradient(to right, #3f2321, transparent):
+This is a linear gradient that goes from left to right (to right).
+The gradient starts with the color #3f2321 (a deep reddish-brown color) on the left and gradually becomes transparent towards the right.
+The gradient creates a fade effect, and since it starts with a solid color and fades to transparency, it can be used to overlay on top of the background image for a subtle fade-out effect.
+url(images/banner-2.png):
+This applies a background image from the path images/banner-2.png (relative to your CSS or HTML file).
+
+
+
+background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(images/banner.png);linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)):
+
+This creates a linear gradient from one color to another.
+The color used here is rgba(0, 0, 0, 0.3), which is a semi-transparent black (rgba stands for Red, Green, Blue, Alpha).
+The alpha value (0.3) indicates the transparency level: 0 is completely transparent, and 1 is fully opaque. 0.3 is partially transparent.
+***********************************************
+
+
+
+??????????????????????????????????????????????????????????????\
+centering element in a div
+
+.exclusives div{
+    position: relative;
+}
+.exclusives div span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+**.exclusives div { position: relative; }
+
+This sets the parent div in .exclusives as a relatively positioned container.
+The position: relative; ensures that child elements with position: absolute; are positioned relative to this div.
+**.exclusives div span { position: absolute; }
+
+This positions the span absolutely within the bounds of the nearest ancestor that has position: relative; (the div in this case).
+top: 50%; left: 50%;
+
+These properties move the top-left corner of the span to the midpoint of the parent div.
+transform: translate(-50%, -50%);
+
+The transform property shifts the span back by half of its own width and height, effectively centering it both horizontally and vertically.
+**********************************************************************
+
+
+Key Characteristics of display: inline;
+Flows Horizontally: Inline elements flow along with the text and do not start on a new line.
+No Width or Height: You cannot explicitly set width or height for inline elements. Their size depends on their content.
+Spacing and Alignment: They respect the padding, margin, and border properties but only affect spacing horizontally, not vertically.
+Default Inline Elements: Examples include <span>, <a>, <strong>, <em>, etc.
+
+
+
+
+Key Characteristics of display: block;
+Takes Full Width: A block element takes up the entire width of its container, unless a width is specified.
+Forces a New Line: Block-level elements are stacked vertically, unlike inline elements, which flow horizontally.
+Customizable Dimensions: You can apply width, height, margin, padding, etc., to block elements.
+
+
+
+Key Characteristics of display: inline-block;
+Flows Inline: Similar to inline, it flows horizontally with other inline elements and does not break onto a new line.
+Allows Box Model: Like block, you can explicitly set width, height, padding, margin, and border.
+No Line Break: Unlike block, it doesn’t force a new line for itself or adjacent elements.
+
+
+
+
+
+
+
+
+************************************************************************************
+
+.active{
+    position: relative;
+
+}
+
+.active::after{
+    content: '';
+    background: #fff;
+    width: 25px;
+    height:2px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -12px;
+    border-radius: 2px;
+}
+
+1. .active Class:
+css
+Copy code
+.active{
+    position: relative;
+}
+position: relative;: This is applied to the .active class. It allows you to position child elements (like ::after) relative to this element. The child element (::after) will be positioned based on the parent’s boundaries.
+2. ::after Pseudo-Element:
+css
+Copy code
+.active::after{
+    content: '';
+    background: #fff;
+    width: 25px;
+    height: 2px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -12px;
+    border-radius: 2px;
+}
+content: '';: The ::after pseudo-element generates an empty content block. Even though the content is empty, this block will still be visible because other styles (like background, width, and height) are applied.
+
+background: #fff;: The background color of the ::after pseudo-element is set to white (#fff). You can change this color to suit your design.
+
+width: 25px;: The width of the pseudo-element is 25 pixels.
+
+height: 2px;: The height is 2 pixels, so this will be a very thin line.
+
+position: absolute;: The ::after element is absolutely positioned with respect to the nearest positioned ancestor (in this case, .active since it's set to relative).
+
+left: 50%;: This positions the element 50% from the left of its containing element (the .active element).
+
+transform: translateX(-50%);: This moves the pseudo-element left by 50% of its own width to truly center it horizontally within its parent. Without this, the left edge would be at the 50% mark, but the element would not be centered.
+
+bottom: -12px;: This moves the pseudo-element 12 pixels below the .active element, creating the appearance of a line beneath it.
+
+border-radius: 2px;: This rounds the corners of the pseudo-element slightly, giving it a more polished, soft appearance.
+
+*****************************************************************
+
+    nav {
+        position: fixed;
+        top:0;
+        z-index: 100;
+        display: inline-block;
+        width: 100%;
+        padding: 100px 7% 0;
+        background: #000;
+        text-align: right;
+        max-height: 100px;
+        overflow: hidden;
+        transition: max-height 0.5s;
+    }
+
+
+
+
+Explanation of Properties:
+position: fixed;:
+
+The nav element is fixed to the top of the viewport, meaning it stays in place even when the user scrolls.
+top: 0;:
+
+Positions the nav element at the top of the screen (relative to the viewport).
+z-index: 100;:
+
+The z-index ensures that the nav element appears above other elements on the page. A higher value places it in front of elements with lower z-index values.
+display: inline-block;:
+
+This makes the nav element behave like an inline element, but it also allows it to accept block-level styles (e.g., width, height). This is an unusual choice for a nav, as typically display: block; or display: flex; would be used, but inline-block will still work for layout purposes.
+width: 100%;:
+
+The nav element will take up the full width of the viewport.
+padding: 100px 7% 0;:
+
+This sets padding around the nav element. The padding on the top is 100px, the left and right padding are 7% of the width of the parent element, and there is no padding on the bottom.
+This likely creates a large space at the top of the page before the navigation bar itself, possibly due to a desire to offset the content or to accommodate other design elements.
+background: #000;:
+
+Sets the background color of the nav to black (#000).
+text-align: right;:
+
+Aligns the text (or content inside the nav) to the right side of the container.
+max-height: 100px;:
+
+This limits the maximum height of the nav element to 100px. If the content inside the nav exceeds this height, it will be clipped (hidden), and no scrolling will occur.
+overflow: hidden;:
+
+This hides any content that overflows beyond the nav's max-height. Since max-height is set to 100px, if the content inside the nav exceeds this height, it won't be visible.
+transition: max-height 0.5s;:
+
+This adds a smooth transition effect when the max-height changes. The transition will take 0.5 seconds to complete, so any changes in height (such as expanding or collapsing the nav) will be animated.
+
+
+**************************************************************
+ <script>
+        var navBar = document.getElementById("navBar");
+
+        function togglebtn(){
+            navBar.classList.toggle("hidemenu");
+        }
+    </script>
+
+    <nav id="navBar">
+            <img src="images/logo.png" alt="" class="logo" >
+            <ul class="nav-links">
+                <li><a href="#" class="active">Popular Places</a></li>
+                <li><a href="#">Travel Outside</a></li>
+                <li><a href="#">Online Packages</a></li>
+            </ul>
+            <a href="#" class="register-btn">Register Now</a>
+            <i class="fas fa-bars" onclick="togglebtn()"></i>
+        </nav>
+
+
+         .hidemenu{
+        max-height: 300px;
+    }
+
+
+      nav {
+        position: fixed;
+        top:0;
+        z-index: 100;
+        display: inline-block;
+        width: 100%;
+        padding: 100px 7% 0;
+        background: #000;
+        text-align: right;
+        max-height: 100px;
+        overflow: hidden;
+        transition: max-height 0.5s;
+    }
+
+    var navBar = document.getElementById("navBar");:
+
+This line grabs the HTML element with the ID navBar and stores it in the navBar variable. In your case, this element is likely a <nav> element that holds the navigation bar.
+This allows you to manipulate the nav element later in the script.
+function togglebtn() {...}:
+
+This is a JavaScript function named togglebtn. It will be triggered when a certain event occurs, like clicking a button (in your case, likely the hamburger icon).
+The purpose of this function is to toggle a class on the navBar element.
+navBar.classList.toggle("hidemenu");:
+
+The classList.toggle() method checks if the specified class ("hidemenu") is currently applied to the element.
+If the class is not applied, it adds the class.
+If the class is already applied, it removes the class.
+In your case, the "hidemenu" class is used to change the state of the nav element (likely toggling the visibility or expanding/collapsing the menu).
+
+*************************************************************************************
