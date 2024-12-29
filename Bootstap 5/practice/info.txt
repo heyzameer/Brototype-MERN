@@ -1,0 +1,65 @@
+Available breakpoints 
+Bootstrap includes six default breakpoints, sometimes referred to as grid tiers, for building responsively. These breakpoints can be customized if you’re using our source Sass files.
+
+Breakpoint	Class infix	Dimensions
+Extra small	None	<576px
+Small	sm	≥576px
+Medium	md	≥768px
+Large	lg	≥992px
+Extra large	xl	≥1200px
+Extra extra large	xxl	≥1400px
+
+
+
+
+
+
+
+Extra small small  Medium
+<576px      ≥576px  ≥768px
+
+
+Here’s the table formatted properly:
+
+| **Class**            | **Extra Small (<576px)** | **Small (≥576px)** | **Medium (≥768px)** | **Large (≥992px)** | **X-Large (≥1200px)** | **XX-Large (≥1400px)** |
+|-----------------------|--------------------------|---------------------|---------------------|---------------------|-----------------------|------------------------|
+| `.container`         | 100%                     | 540px              | 720px              | 960px              | 1140px                | 1320px                |
+| `.container-sm`      | 100%                     | 540px              | 720px              | 960px              | 1140px                | 1320px                |
+| `.container-md`      | 100%                     | 100%               | 720px              | 960px              | 1140px                | 1320px                |
+| `.container-lg`      | 100%                     | 100%               | 100%               | 960px              | 1140px                | 1320px                |
+| `.container-xl`      | 100%                     | 100%               | 100%               | 100%               | 1140px                | 1320px                |
+| `.container-xxl`     | 100%                     | 100%               | 100%               | 100%               | 100%                  | 1320px                |
+| `.container-fluid`   | 100%                     | 100%               | 100%               | 100%               | 100%                  | 100%                  |
+
+This table helps to understand how container classes in **Bootstrap 5** behave at various breakpoints.
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- large screenn 4 col small scre2 col mobile 1 col -->
+        <div class="container">
+             <div class="row"> <!-- row has flex and paddig 12px ad -12 margiog on LAndR -->
+                <!-- col has 12 px padding by defualt so use another div take adv of that padding annd donnt giv thois div bg -->
+                <div class="col-lg-3 col-sm-6 col-12" >
+                    <!-- that another div -->
+                    <div style="background-color: rgb(93, 80, 65);">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla eveniet necessitatibus expedita.
+                        Nostrum, mollitia consectetur. Ipsam, quaerat quo labore, animi soluta reprehenderit
+                        necessitatibus voluptate, explicabo fuga mollitia ducimus unde corrupti.
+                    </div>
+                </div>
+
+
+
+
+
+auto layout colums
