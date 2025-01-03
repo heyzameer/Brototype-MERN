@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+</head>
+
+<body>
+
+
+
+
+    <!--Enquiry Modal -->
+    <div class="modal fade" id="enModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Enquire Now</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="bannerForm p-3 shadow-lg">
+                        <h3>Book Your Free Class Now!</h3>
+                        <p>2 days of free demo classes without
+                            paying in advance!</p>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <div class="input-group ">
+                                <span class="input-group-text" id="basic-addon1">+91</span>
+                                <input type="text" class="form-control" placeholder="Phone">
+                            </div>
+
+                        </div>
+                        <div class="mt-3">
+                            <button>Register Now</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--Bookdemo Modal -->
+    <div class="modal fade" id="bookDemo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Book Demo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="bannerForm p-3 shadow-lg">
+                        <h3>Book Your Free Class Now!</h3>
+                        <p>2 days of free demo classes without
+                            paying in advance!</p>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control">
+                        </div> -->
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <div class="input-group ">
+                                <span class="input-group-text" id="basic-addon1">+91</span>
+                                <input type="text" class="form-control" placeholder="Phone">
+                            </div>
+
+                        </div>
+                        <div class="mt-3">
+                            <button>Register Now</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- navbar -->
+    <header class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg">
+
+
+                        <a class="navbar-brand" href="home.html">
+                            <img src="images/logo.svg" alt="">
+                        </a>
+
+                        <!-- nav for desktop and mobile -->
+                        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav">
+                            <span class="navbar-toggler-icon"></span>
+                        </button> -->
+
+                        <!-- mobile off canvas -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#mobileMenu">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <!-- id="navbarNav"  id removed to disconect to acheve off canvas -->
+                        <div class="collapse navbar-collapse justify-content-end" >
+
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">Course</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </nav>
+
+                    <!-- off canvas menu -->
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                          <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                            <img src="images/logo.svg" alt="">
+                          </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">Course</a>
+                                </li>
+                            </ul>
+                        </div>
+                      </div>
+
+                      
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+    <!-- position-sticky removed for navbar -->
+    <header class="container-fluid bg-white py-2 shadow-lg  top-0">
+        <div class="container">
+            <div class="row align-items-center ">
+
+                <figure class="col-lg-6 col-12 text-lg-start text-center pb-0">
+                    <img src="images/logo.svg" alt="">
+                </figure>
+
+                <div class="col-lg-6">
+                    <div class="btn-outer d-flex gap-3 justify-content-end">
+                        <button class="btn whatsaapbtn"> <i class="fa-brands fa-whatsapp"></i> Chat With Us</button>
+                        <div class="btn call"><i class="fa-solid fa-phone"></i> Call Us</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <section class="container-fluid py-lg-5 py-sm-4 py-3">
+
+
+
+        <div class="container">
+            <div class="row justify-content-between gy-4 align-items-center">
+
+
+                <div class="col-12 col-lg-6">
+                    <div class="bannerContent">
+                        <h1>Career Opportunities<br> in<span> Digital Marketing</span> </h1>
+                        <p>Digital marketing course so good,you only pay-after-placement</p>
+                        <ul class="m-0 p-0">
+                            <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                Marketing</li>
+                            <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                            <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                        </ul>
+                        <div class="bannerContentBtn d-flex gap-3">
+                            <button data-bs-toggle="modal" data-bs-target="#bookDemo">Book 2 Days Demo</button>
+                            <button data-bs-toggle="modal" data-bs-target="#enModal"><i
+                                    class="fa-solid fa-download"></i> Download Curriculum</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-12 col-lg-6">
+                    <form action="" class="bannerForm shadow-lg">
+                        <h3>Book Your Free Class Now!</h3>
+                        <p>2 days of free demo classes without
+                            paying in advance!</p>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <div class="input-group ">
+                                <span class="input-group-text" id="basic-addon1">+91</span>
+                                <input type="text" class="form-control" placeholder="Phone">
+                            </div>
+
+                        </div>
+                        <div class="mt-3">
+                            <button>Register Now</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container shadow-lg mt-5 counterSection">
+
+            <div class="row row-cols-lg-5 row-cols-md-2 row-cols-2  p-4">
+                <div class="col">
+                    <h2>1000+</h2>
+                    <p>Students Trained</p>
+                </div>
+                <div class="col">
+                    <h2>₹4.5 LPA</h2>
+                    <p>Students Trained</p>
+                </div>
+                <div class="col">
+                    <h2>320+</h2>
+                    <p>Recruiting Partners</p>
+                </div>
+                <div class="col">
+                    <h2>10:00 am</h2>
+                    <p>Program Timings</p>
+                </div>
+                <div class="col">
+                    <h2>11th May</h2>
+                    <p>Next Batch Starts </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="container-fluid highlights-section py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2>Key Highlights of the Course</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur. Imperdiet tellus ut ornare pharetra leo vestibulum at
+                        orci.</p>
+                </div>
+            </div>
+
+            <div class="row gy-3">
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                        <img src="images/h1.png">
+                        <div>
+                            <h4>Assignments & <br /> Modules tests</h4>
+                            <p>Test your knowledge</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                        <img src="images/h2.png">
+                        <div>
+                            <h4>Industry-recognized Certification</h4>
+                            <p>Stand out to your professional</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                        <img src="images/h3.png">
+                        <div>
+                            <h4>Live classes & </br> recorded lectures</h4>
+                            <p>Best of both worlds of learning</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                        <img src="images/h4.png">
+                        <div>
+                            <h4>Downloadable <br /> Content</h4>
+                            <p>With lifetime access</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                        <img src="images/h5.png">
+                        <div>
+                            <h4>6 Industry level <br>projects</h4>
+                            <p>Get practical skills</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                        <img src="images/h6.png">
+                        <div>
+                            <h4>4 Live Doubt clearing Session</h4>
+                            <p>Gain a clear understanding</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+</html>
