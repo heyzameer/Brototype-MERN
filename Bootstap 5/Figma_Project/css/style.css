@@ -148,3 +148,25 @@ font-weight: 700;
     margin-right: 15px;
     color: #0ACEFE;
 }
+
+
+
+
+
+
+
+
+
+
+
+.tabItemsContents ul{
+    list-style: none;
+
+}
+
+.tabMySystem .nav-pills .nav-link.active, .nav-pills .show>.nav-links{
+    background-color: #F2F4F7;
+    color:#0A2134 ;
+    border-radius: 0px;
+    border-bottom: 2px solid blue;
+}

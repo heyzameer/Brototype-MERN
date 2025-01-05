@@ -119,14 +119,8 @@
                             <span class="navbar-toggler-icon"></span>
                         </button> -->
 
-                        <!-- mobile off canvas -->
-                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#mobileMenu">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
                         <!-- id="navbarNav"  id removed to disconect to acheve off canvas -->
-                        <div class="collapse navbar-collapse justify-content-end" >
+                        <!-- <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 
                             <ul class="navbar-nav">
                                 <li class="nav-item">
@@ -139,12 +133,15 @@
                                     <a href="" class="nav-link">Course</a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
 
+                        <!-- mobile off canvas -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#mobileMenu">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
 
-                    </nav>
-
-                    <!-- off canvas menu -->
+                          <!-- off canvas menu -->
                     <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="offcanvasExampleLabel">
                         <div class="offcanvas-header">
                           <h5 class="offcanvas-title" id="offcanvasExampleLabel">
@@ -152,7 +149,7 @@
                           </h5>
                           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
-                        <div class="offcanvas-body">
+                        <div class="offcanvas-body justify-content-end">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
                                     <a href="" class="nav-link">Home</a>
@@ -167,14 +164,21 @@
                         </div>
                       </div>
 
-                      
+
+                        
+
+
+                    </nav>
+
+                  
+
                 </div>
             </div>
         </div>
     </header>
 
 
-
+   
 
     <!-- position-sticky removed for navbar -->
     <header class="container-fluid bg-white py-2 shadow-lg  top-0">
@@ -187,7 +191,10 @@
 
                 <div class="col-lg-6">
                     <div class="btn-outer d-flex gap-3 justify-content-end">
-                        <button class="btn whatsaapbtn"> <i class="fa-brands fa-whatsapp"></i> Chat With Us</button>
+                        <!-- added tooltip or popover -->
+                        <button class="btn whatsaapbtn"data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="This top tooltip is themed via CSS variables."> <i class="fa-brands fa-whatsapp"></i> Chat With Us</button>
                         <div class="btn call"><i class="fa-solid fa-phone"></i> Call Us</div>
                     </div>
 
@@ -196,6 +203,41 @@
             </div>
         </div>
     </header>
+
+     <!-- carousel -->
+      <div class="container p-0 ">
+        <div class="carousel slide  mt-3" data-bs-ride="carousel" id="slider1">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#slider1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#slider1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#slider1" data-bs-slide-to="2" aria-label="Slide 3"></button> 
+              </div>
+    
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/banner1.jpg" class="img-fluid ">
+                </div>
+                <div class="carousel-item ">
+                    <img src="images/banner2.jpg" class="img-fluid">
+                </div>
+                <div class="carousel-item ">
+                    <img src="images/banner3.jpg" class="img-fluid">
+                </div>
+              </div>
+
+
+              <button class="carousel-control-prev" type="button" data-bs-target="#slider1" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#slider1" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+        </div>
+
+      </div>
+
 
     <section class="container-fluid py-lg-5 py-sm-4 py-3">
 
@@ -216,17 +258,13 @@
                             <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
                         </ul>
                         <div class="bannerContentBtn d-flex gap-3">
-                            <button data-bs-toggle="modal" data-bs-target="#bookDemo">Book 2 Days Demo</button>
+                            <button data-bs-toggle="modal" data-bs-target="#bookDemo"
+                            >Book 2 Days Demo</button>
                             <button data-bs-toggle="modal" data-bs-target="#enModal"><i
                                     class="fa-solid fa-download"></i> Download Curriculum</button>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
 
                 <div class="col-12 col-lg-6">
                     <form action="" class="bannerForm shadow-lg">
@@ -258,7 +296,8 @@
             </div>
         </div>
 
-        <div class="container shadow-lg mt-5 counterSection">
+        <div class="container shadow-lg mt-5 count
+        rSection">
 
             <div class="row row-cols-lg-5 row-cols-md-2 row-cols-2  p-4">
                 <div class="col">
@@ -355,10 +394,218 @@
             </div>
         </div>
     </section>
+    
+
+    <section class="container-fluid py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold">Curriculum of </br>
+                        Our Digital Marketing</h2>
+                        <p class="text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae quisquam </p>
+                </div>
+            </div>
+
+            <div class="row tabMySystem">
+                <div class="col-12">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#introduction" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Introduction</button>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#case-studies" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Case Studies</button>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#google-adSense" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Google AdSense</button>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#seo-mastery" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">SEO Mastery</button>
+                          </li>
+                      </ul>
+
+                      <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="introduction" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                            <div class="shadow-lg p-4 row tabItemsContents">
+                                <div class="col-12">
+                                    <h3>introduction</h3>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="m-0 p-0">
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                            Marketing</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="m-0 p-0">
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                            Marketing</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade" id="case-studies" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                            <div class="shadow-lg p-4 row tabItemsContents">
+                                <div class="col-12">
+                                    <h3>case-studies</h3>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <ul class="m-0 p-0">
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                            Marketing</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="m-0 p-0">
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                            Marketing</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="google-adSense" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+                            <div class="shadow-lg p-4 row tabItemsContents">
+                                <div class="col-12">
+                                    <h3>google-adSense</h3>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <ul class="m-0 p-0">
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                            Marketing</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="m-0 p-0">
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                            Marketing</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="seo-mastery" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">
+                            <div class="shadow-lg p-4 row tabItemsContents">
+                                <div class="col-12">
+                                    <h3>Seo Mastery</h3>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <ul class="m-0 p-0">
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                            Marketing</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="m-0 p-0">
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Specialization: Performance
+                                            Marketing</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                                        <li class="mb-3"> <i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                      </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- accordian -->
+     <section class="container-fluid py-5 bg-secondary-subtle">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-center fw-bold">Digital Marketing Course <br> FAQs</h2>
+                    <p class="text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae quisquam </p>
+                
+                    <div class="accordion" id="accordianExample">
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" >
+                                 1 What is Web Development?
+                                </button>
+                              </h2>
+
+                              <div id="faq1" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                              </div>   
+
+                        </div>
+                        <div class="accordion-item mb-3">
+                           <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" >
+                                  2 What is Web Development?
+                                </button>
+                              </h2>
+
+                              <div id="faq2" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                              </div>   
+                        </div>
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" >
+                                  3 What is Web Development?
+                                </button>
+                              </h2>
+
+                              <div id="faq3" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                              </div>   
+                        </div>
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" >
+                                  4 What is Web Development?
+                                </button>
+                              </h2>
+
+                              <div id="faq4" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                              </div>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 
 </html>
