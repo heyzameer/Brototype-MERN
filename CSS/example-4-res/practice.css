@@ -41,7 +41,7 @@ body {
   }
   article {
     font-size: large;
-    background-color: #ffffff;
+    background-color: #e9d4d4;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -169,7 +169,10 @@ body {
       height: auto;
       grid-column: 1; /* Full width */
         grid-row: 3; /* Third row */
-        min-height: 900px;
+        /* min-height: 900px; */
+        display: flow-root;
+        /* overflow-y: hidden; */
+        overflow-y:scroll;
         
     }
     

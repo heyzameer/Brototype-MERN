@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS-Only Accordion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .accordion {
+      width: 100%;
+      max-width: 500px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .accordion-title {
+      display: block;
+      padding: 15px 20px;
+      cursor: pointer;
+      background-color: #f9f9f9;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .accordion-title:hover {
+      background-color: #e0e0e0;
+    }
+
+    input[type="checkbox"] {
+      display: none; /* Hide the checkbox */
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    input[type="checkbox"]:checked + .accordion-title + .accordion-content {
+      max-height: 200px; /* Adjust as needed */
+      padding: 15px 20px;
+    }
+
+    .arrow {
+      float: right;
+      transition: transform 0.3s ease;
+    }
+
+    input[type="checkbox"]:checked + .accordion-title .arrow {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="accordion">
+    <!-- Item 1 -->
+    <div class="accordion-item">
+      <input type="checkbox" id="accordion-1">
+      <label class="accordion-title" for="accordion-1">
+        Section 1
+        <span class="arrow">▼</span>
+      </label>
+      <div class="accordion-content">
+        <p>This is the content for section 1. You can place text, links, or any HTML content here.</p>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="accordion-item">
+      <input type="checkbox" id="accordion-2">
+      <label class="accordion-title" for="accordion-2">
+        Section 2
+        <span class="arrow">▼</span>
+      </label>
+      <div class="accordion-content">
+        <p>This is the content for section 2. You can customize the content as per your needs.</p>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="accordion-item">
+      <input type="checkbox" id="accordion-3">
+      <label class="accordion-title" for="accordion-3">
+        Section 3
+        <span class="arrow">▼</span>
+      </label>
+      <div class="accordion-content">
+        <p>This is the content for section 3. CSS-only accordions are simple and effective!</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
