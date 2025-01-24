@@ -114,6 +114,15 @@ This rule applies to all `<li>` elements that are direct children of a `<ul>` el
     <li>Item 2</li>
 </ul>
 ```
+\
+Difference between Adjacent Sibling and Child Selector:
+Adjacent Sibling Selector (+):
+Targets: The element immediately following the specified element on the same level in the DOM.
+Example Use Case: To style the first paragraph right after a heading.
+Child Selector (>):
+Targets: Only the direct children of the specified element.
+Example Use Case: To style list items directly inside a <ul>.
+
 
 ### 8. **Adjacent Sibling Selector (`+`)**
 - **Definition**: Selects an element that is directly adjacent to another specified element.

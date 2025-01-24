@@ -47,6 +47,62 @@ CSS (Cascading Style Sheets) is the language used to style HTML content, providi
      - `element1 + element2`: Adjacent sibling, selects `element2` immediately after `element1`.
      - `element1 ~ element2`: General sibling, selects all siblings after `element1`.
 
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selectors Example</title>
+    <style>
+        /* Group selector: Apply the same style to multiple elements */
+        h1, h2 {
+            color: blue;
+        }
+
+        /* Descendant selector: Select all <span> within <div> egardless of how deeply nested they are. */
+        div span {
+            color: green;
+            font-weight: bold;
+        }
+
+        /* Child selector: Select direct children of <ul> */
+        ul > li {
+            color: red;
+        }
+
+        /* Adjacent sibling: Select the <p> immediately after <h3> */
+        h3 + p {
+            color: orange;
+        }
+
+        /* General sibling: Select all <p> siblings after <h4> */
+        h4 ~ p {
+            color: purple;
+        }
+    </style>
+</head>
+<body>
+    <!-- Group selector -->
+    <h1>Group Selector Example</h1>
+    <h2>This is another heading</h2>
+
+    <!-- Descendant selector -->
+    <div>
+        <span>This is a span inside a div</span>
+        <p>This paragraph inside a div is not selected</p>
+    </div>
+
+    <!-- Child selector -->
+    <ul>
+        <li>Direct child of ul</li>
+        <li>Another direct child</li>
+    </ul>
+    <ol>
+        <li>This is not selected (it's in an <ol>)</li>
+    </ol>
+
+
+
    - **Pseudo-Classes**:
      - `:hover`: Styles an element on hover.
      - `:first-child`: Selects the first child of a parent.

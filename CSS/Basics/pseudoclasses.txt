@@ -1,5 +1,8 @@
 Here’s an overview of **pseudo-classes** in CSS with examples and explanations:
 
+Pseudo-classes in CSS are used to define the special states of an element. They allow you to style an element based on its state or position, without needing to add extra classes or IDs in the HTML. Pseudo-classes are preceded by a colon (:).
+
+
 ### 1. **`:hover`**
 - **Description**: Applies styles to an element when the user hovers over it with a mouse or pointing device.
 - **Use Case**: Often used to change the appearance of links or buttons on hover.
