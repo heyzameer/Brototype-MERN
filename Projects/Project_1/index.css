@@ -323,9 +323,28 @@ body {
 
 
 
+/* 
+.pricing-icons1{
 
+    display: flex;
+    justify-content: space-between;
+}
+.pricing-icons1 img{
+    width: 100%;
+    padding: 30px;
+}
 
+.pricing-icon1{
+    position: relative;
+}
 
+.pricing-icon1 span{
+    position: absolute;
+    top: 30%;
+    left: 80%;
+  
+     text-align: center;
+} */
 
 
 
