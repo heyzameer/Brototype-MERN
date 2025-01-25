@@ -51,6 +51,9 @@ Meta tags are snippets of text or code that provide metadata (data about data) f
      - `UTF-8` is the most common and widely recommended encoding.
      - Ensures special characters like emojis and symbols display correctly.
 
+What is UTF-8?
+UTF-8 (Unicode Transformation Format - 8-bit) is a character encoding standard that represents text in computers and other devices. It is capable of encoding all 1,112,064 valid character code points in Unicode using one to four 8-bit bytes. UTF-8 is the most commonly used character encoding on the web today because it supports a wide range of characters from various languages and symbols.
+
 ---
 
 #### 4. **Meta Viewport**
@@ -166,7 +169,7 @@ Meta tags play a pivotal role in web development and online visibility. While so
     |--------------------------|------------------------------------------|------------------------------------------|
     | **Definition**           | A block-level container used to group elements for layout and styling purposes. | An inline container used to group small chunks of text or elements within a line. |
     | **Display Type**         | Block-level element (occupies the full width of its parent). | Inline element (does not start on a new line, takes up only as much width as needed). |
-    | **Use Case**             | Used for grouping larger sections of content (e.g., forms, articles, containers). | Used for grouping small pieces of text or inline elements (e.g., highlighting words). |
+    | **Use Case**             | Used for grouping larger sections of  content (e.g., forms, articles, containers). | Used for grouping small pieces of text or inline elements (e.g., highlighting words). |
     | **CSS Application**      | Commonly styled for layout purposes (e.g., `width`, `height`, `margin`, `padding`). | Typically styled for text or inline-specific adjustments (e.g., `color`, `font-style`). |
     | **HTML Example**         | ```html                                <div class="container">   <h1>Title</h1>   <p>Paragraph content.</p> </div> ``` | ```html                                <p>This is a <span class="highlight">highlighted</span> word.</p> ``` |
     | **Behavior in Layout**   | Starts on a new line and stacks vertically. | Respects existing inline flow and does not break onto a new line. |
@@ -641,7 +644,74 @@ You can use both together for advanced layouts:
 
 
 
+### What is `inline-block` in CSS?
 
+The `inline-block` value of the `display` property combines features of both `inline` and `block` elements:
+
+1. Like `inline`:
+   - Elements are laid out in a single line (do not start on a new line).
+   - Allows other elements to sit beside it horizontally.
+
+2. Like `block`:
+   - Respects the `width`, `height`, `margin`, `padding`, and `border` properties.
+
+### Key Characteristics of `inline-block`:
+- Elements appear on the same line (if space permits).
+- Supports box model properties (width, height, padding, margin, and border).
+- Allows stacking elements horizontally while controlling their individual sizes.
+
+### Example of `inline-block` Usage
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inline-Block Example</title>
+  <style>
+    .inline-block-box {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      padding: 10px;
+      border: 2px solid #333;
+      background-color: lightblue;
+      text-align: center;
+      vertical-align: top;
+    }
+  </style>
+</head>
+<body>
+  <div class="inline-block-box">Box 1</div>
+  <div class="inline-block-box">Box 2</div>
+  <div class="inline-block-box">Box 3</div>
+</body>
+</html>
+```
+
+### Output:
+- **All three boxes appear on the same line** if the viewport is wide enough.
+- Each box has padding, a border, and its width and height respected.
+
+### When to Use `inline-block`?
+- When you need elements to appear side by side while still controlling their box model properties.
+- Examples:
+  - Navigation menus.
+  - Side-by-side buttons.
+  - Layouts with individual block-like elements aligned horizontally. 
+
+### Difference Between `inline`, `block`, and `inline-block`
+
+| Feature                | `inline`                 | `block`               | `inline-block`         |
+|------------------------|--------------------------|-----------------------|------------------------|
+| Line Break             | No                      | Yes                   | No                    |
+| Width/Height Support   | No                      | Yes                   | Yes                   |
+| Padding/Margin (Top/Bottom) | Partially supported | Fully supported       | Fully supported       |
+| Appearance             | Same line as others     | Starts a new line     | Same line as others   |
+
+`inline-block` provides the flexibility to style elements like blocks while still displaying them inline.
 
 
 
@@ -1262,7 +1332,10 @@ HTML5 provides several attributes for form elements that allow you to **validate
 HTML5 form attributes allow you to ensure that form inputs meet certain criteria (like being non-empty, matching a pattern, or falling within a range) without needing JavaScript. These attributes enhance form usability and improve user experience by providing immediate feedback before form submission.
 
 
-
+Validation
+Definition: Validation ensures that the data input by the user is correct, complete, and in the expected format before processing it further.
+Authentication
+Definition: Authentication verifies the identity of a user, ensuring they are who they claim to be.
 
 
 
@@ -1305,7 +1378,76 @@ HTML5 introduced many new features and improvements that enhance the web develop
    - `<audio>`: Embeds sound content like music or podcasts.
    - `<video>`: Embeds video content with support for multiple formats like MP4, WebM, and Ogg.
    - New media attributes like `autoplay`, `controls`, `loop`, `muted`, and `poster` for customizing media behavior.
+   ### **HTML `<audio>` and `<video>` Tags**
 
+    The `<audio>` and `<video>` tags in HTML5 are used to embed audio and video content directly in a webpage. They provide built-in controls and support for multiple file formats.
+    
+    ---
+    
+    ### **1. `<audio>` Tag**
+    The `<audio>` tag is used to embed audio files.
+    
+    #### **Attributes**:
+    1. `controls`: Displays playback controls like play, pause, and volume.
+    2. `autoplay`: Plays the audio automatically when the page loads.
+    3. `loop`: Loops the audio playback continuously.
+    4. `muted`: Mutes the audio by default.
+    5. `preload`: Specifies how the browser should load the audio file.
+       - `none`: No preload.
+       - `metadata`: Only metadata is preloaded.
+       - `auto`: Entire audio is preloaded.
+    
+    #### **Example**:
+    ```html
+    <audio controls>
+      <source src="audio-file.mp3" type="audio/mpeg">
+      <source src="audio-file.ogg" type="audio/ogg">
+      Your browser does not support the audio element.
+    </audio>
+    ```
+    
+    ---
+    
+    ### **2. `<video>` Tag**
+    The `<video>` tag is used to embed video files.
+    
+    #### **Attributes**:
+    1. `controls`: Displays playback controls like play, pause, and volume.
+    2. `autoplay`: Plays the video automatically when the page loads.
+    3. `loop`: Loops the video playback continuously.
+    4. `muted`: Mutes the video by default.
+    5. `poster`: Specifies an image to show while the video is downloading or until the user hits play.
+    6. `width` and `height`: Sets the dimensions of the video.
+    7. `preload`: Specifies how the browser should load the video file (similar to `<audio>`).
+    
+    #### **Example**:
+    ```html
+    <video width="640" height="360" controls poster="poster-image.jpg">
+      <source src="video-file.mp4" type="video/mp4">
+      <source src="video-file.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+    ```
+    
+    ---
+    
+    ### **Key Points**
+    1. **Fallback Content**: The text inside the tags (e.g., "Your browser does not support...") is displayed if the browser doesn't support the `<audio>` or `<video>` elements.
+    2. **Supported Formats**:
+       - **Audio**: MP3, OGG, WAV.
+       - **Video**: MP4 (H.264), WebM, Ogg.
+    3. **Browser Compatibility**: Modern browsers support these tags, but you should include multiple formats for better compatibility.
+    
+    ---
+    
+    ### **Comparison Between `<audio>` and `<video>`**
+    | Feature             | `<audio>`                             | `<video>`                            |
+    |---------------------|----------------------------------------|---------------------------------------|
+    | Purpose             | Embeds audio content.                 | Embeds video content.                |
+    | Attributes          | `controls`, `autoplay`, `loop`, etc.  | Same as `<audio>` with `poster`.     |
+    | Media Support       | MP3, OGG, WAV.                        | MP4, WebM, Ogg.                      |
+    
+    By using these tags, you can easily add rich media content to your website without relying on external plugins.
 ### 5. **Canvas Element**
    The `<canvas>` element allows for drawing graphics and creating animations directly in the browser using JavaScript. It’s often used for games, dynamic graphics, or interactive visualizations.
 
@@ -1376,6 +1518,16 @@ HTML5 introduced many new features and improvements that enhance the web develop
    **Example**:
    ```html
    <div data-user-id="12345">User Info</div>
+   <div id="user" data-name="John Doe" data-age="30"></div>
+
+<script>
+  const user = document.getElementById('user');
+  const name = user.dataset.name; // Access 'data-name'
+  const age = user.dataset.age;   // Access 'data-age'
+
+  console.log(`Name: ${name}, Age: ${age}`);
+</script>
+
    ```
 
 ### 14. **SVG Support**
@@ -2280,7 +2432,16 @@ Both lists can contain any number of list items (`<li>`), and you can nest lists
 
 
 
-
+  <dl>
+    <dt>HTML</dt>
+    <dd>HyperText Markup Language, used to create the structure of web pages.</dd>
+    
+    <dt>CSS</dt>
+    <dd>Cascading Style Sheets, used for styling the appearance of web pages.</dd>
+    
+    <dt>JavaScript</dt>
+    <dd>A programming language that adds interactivity to websites.</dd>
+</dl>
 
 
 
@@ -2692,3 +2853,27 @@ The `<picture>` element in HTML5 is used to provide multiple image sources for d
       - The **`<select>`** element creates the dropdown menu, and each **`<option>`** represents a selectable item in the list.
       - You can use attributes like `disabled`, `selected`, and `multiple` to control the behavior of the dropdown list.
       - It is widely used for forms to allow users to select from predefined options.
+
+      <!-- Checkbox -->
+      <label for="subscribe">Subscribe to newsletter:</label>
+      <input type="checkbox" id="subscribe" name="subscribe" value="yes"><br><br>
+
+
+      <label>: Provides a clickable label for the checkbox.
+        The for attribute links the label to the id of the checkbox.
+        <input type="checkbox">: Renders a checkbox input.
+        id: Unique identifier for the checkbox.
+        name: Groups related checkboxes (if multiple exist).
+        value: The value sent to the server if the checkbox is checked.
+
+      <!-- Radio Buttons -->
+      <p>Choose your preferred payment method:</p>
+      <label for="creditCard">Credit Card</label>
+      <input type="radio" id="creditCard" name="paymentMethod" value="creditCard">
+      <label for="paypal">PayPal</label>
+      <input type="radio" id="paypal" name="paymentMethod" value="paypal"><br><br>
+
+      Grouping: The name attribute groups the radio buttons, ensuring only one can be selected at a time.
+Both radio buttons (creditCard and paypal) share the same name="paymentMethod".
+Labels: Each <label> links to its respective <input> using the for attribute.
+value: Specifies the data sent to the server when a radio button is selected.

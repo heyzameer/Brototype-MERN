@@ -1,0 +1,561 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
+    /* 16px default size */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    /* Default font */
+    line-height: 1.6;
+    /* Better readability */
+    background-color: #f8f9fa;
+    /* Light background */
+    color: #424242;
+    /* Text color */
+    margin: 0;
+}
+
+
+
+
+
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 0 2px 0 rgb(92, 92, 91);
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    background-color: white;
+
+}
+
+.navbar .logo img {
+    height: auto;
+    max-width: 100%;
+}
+
+.inside-nav a {
+    text-decoration: none;
+    color: #424242;
+    margin-left: 15px;
+}
+
+
+.inside-nav a:hover {
+    color: #007bff;
+}
+
+.navbar .inside-nav .fa-bars {
+    color: 424242;
+    font-size: 24px;
+}
+
+
+
+
+
+
+
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 70px;
+    margin-bottom: 40px;
+
+}
+
+/* Image styles */
+#landing-img img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Heading styles */
+.heading {
+    font-size: 50px;
+    font-weight: 500;
+    color: #4e4b4b;
+    margin: 13px 0;
+}
+
+/* Paragraph styles */
+.subheading {
+    font-size: 23px;
+    font-weight: 200;
+    margin: 13px 0;
+}
+
+/* Button styles */
+.cta-button {
+    padding: 8px 20px;
+    background-color: #387ed1;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 3.5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.main-section {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 30px;
+}
+
+/* Grid layout for content */
+.content-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 70px;
+}
+
+/* Left Section */
+.left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main-heading {
+    color: rgb(56, 55, 55);
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+.sub-heading {
+    color: rgb(56, 55, 55);
+    font-size: 30px;
+    font-weight: 490;
+    margin: 5px 0;
+}
+
+.paragraph {
+    color: rgb(56, 55, 55);
+    font-size: 16px;
+    font-weight: 400;
+    margin: 5px 0;
+}
+
+.highlight {
+    color: #387ed1
+}
+
+/* Right Section */
+.right-section {
+    text-align: center;
+}
+
+.ecosystem-image {
+    width: 100%;
+    max-width: 600px;
+    padding-top: 70px;
+    margin-bottom: 15px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.cta-link {
+    text-decoration: none;
+    color: #387ed1;
+    font-weight: 500;
+}
+
+.cta-link::after {
+    content: '\f061';
+    /* Unicode for Font Awesome right arrow */
+    font-family: 'Font Awesome 5 Free';
+    /* Make sure to use FontAwesome */
+    font-weight: 900;
+    /* Ensure the icon is visible */
+    margin-left: 8px;
+    /* Add spacing between text and icon */
+}
+
+.cta-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Press logos section */
+.press-logos {
+    text-align: center;
+    margin: 70px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.price-section {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 30px;
+}
+
+.pricing-container {
+    display: flex;
+    justify-content: center;
+}
+
+.pricing-text {
+    flex: 1;
+}
+
+.pricing-text h2 {
+    color: rgb(56, 55, 55);
+    font-size: 30px;
+    font-weight: 490;
+    margin-bottom: 10px;
+}
+
+.pricing-text p {
+    color: rgb(56, 55, 55);
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.see-pricing-link {
+    text-decoration: none;
+    color: #387ed1;
+    font-weight: 500;
+}
+
+.see-pricing-link:hover {
+    text-decoration: underline;
+}
+
+.see-pricing-link::after {
+    content: '\f061';
+    /* Unicode for Font Awesome right arrow */
+    font-family: 'Font Awesome 5 Free';
+    /* Make sure to use FontAwesome */
+    font-weight: 900;
+    /* Ensure the icon is visible */
+    margin-left: 8px;
+    /* Add spacing between text and icon */
+}
+
+.icon-img {
+    width: 85px;
+}
+
+
+.pricing-icons {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+
+.pricing-icon {
+    display: flex;
+    gap: 1px;
+
+}
+
+.icon-img {
+    width: 150px;
+
+}
+
+.icon-text {
+    text-decoration: none;
+    font-size: x-small;
+    color: rgb(56, 55, 55);
+    margin-top: 50px;
+    margin-left: -30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.education-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    margin: 80px 30px 40px 30px;
+}
+
+.education-image img {
+    width: 300px; /* Adjust as per your requirement */
+    height: auto;
+}
+
+.education-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.heading {
+    color: rgb(56, 55, 55);
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.description {
+    color: rgb(56, 55, 55);
+    font-size: 16px;
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+.link {
+    color: #387ed1;
+    text-decoration: none;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.link::after{
+    content: '\f061';
+    /* Unicode for Font Awesome right arrow */
+    font-family: 'Font Awesome 5 Free';
+    /* Make sure to use FontAwesome */
+    font-weight: 900;
+    /* Ensure the icon is visible */
+    margin-left: 8px;
+    /* Add spacing between text and icon */
+}
+
+
+
+
+
+
+
+
+.account-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.account-header h1 {
+    font-size: 50px;
+    font-weight: 500;
+    color: #4e4b4b;
+    margin: 13px 0;
+}
+
+.account-description p {
+    font-size: 23px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
+    text-align: center;
+    margin: 13px 0;
+}
+
+.account-button button {
+    padding: 8px 20px;
+    background-color: #387ed1;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 3.5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.account-button button:hover {
+    background-color: #2a6bbf; /* Hover effect */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer {
+    color: #706f6f;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    background-color: #f4f4f4;
+    border-top: 1px solid #ddd;
+}
+
+.footer-column {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.footer-column h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px;
+}
+
+.footer-column ul li a {
+    color:#424242;
+    text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+    text-decoration: underline;
+}
+
+.footer-logo {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+
+.footer-bottom {
+    background-color: #f4f4f4;
+    padding: 20px 30px;
+    font-size: 12px;
+    line-height: 1.6;
+   
+}
+
+.footer-bottom span, .footer-bottom p {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer-bottom a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.footer-links .footer-link {
+    margin-right: 15px;
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.footer-links .footer-link:hover {
+    text-decoration: underline;
+}
