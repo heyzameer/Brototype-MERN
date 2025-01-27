@@ -6,6 +6,8 @@ body {
 .card-container{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 100vh;
     gap: 15px;
     padding: 20px;
 }
@@ -13,7 +15,10 @@ body {
 .card{
     background-color: aquamarine;
     color: black;
-    padding: 20px;
+    padding: 20px 20px;
+    display: flex; /* Enables flexbox inside each item */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
     text-align: center;
     border-radius: 6px;
 
@@ -22,11 +27,13 @@ body {
 @media (max-width:768px){
     .card-container{
         grid-template-columns: repeat(2,1fr);
+        grid-template-rows: repeat(2, 1fr);
     }
 }
 
 @media (max-width:480px){
     .card-container{
         grid-template-columns: repeat(1,1fr);
+        grid-template-rows: repeat(1,1fr);
     }
 }

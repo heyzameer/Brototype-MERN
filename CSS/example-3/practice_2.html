@@ -1,0 +1,55 @@
+<body>
+    <div class="card-container">
+        <div class="card">1</div>
+        <div class="card">2</div>
+        <div class="card">3</div>
+        <div class="card">4</div>
+        <div class="card">5</div>
+        <div class="card">6</div>
+        <div class="card">7</div>
+        <div class="card">8</div>
+        <div class="card">9</div>
+    </div>
+</body>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 100vh;
+    gap: 15px;
+    padding: 20px;
+}
+
+.card {
+    background-color: aquamarine;
+    color: black;
+    display: flex; /* Enables flexbox inside each item */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    /* text-align: center; */
+    border-radius: 6px;
+    aspect-ratio: 1; /* Ensures the aspect ratio of each card is 1:1 (square) */
+    box-sizing: border-box; /* Ensures padding is included in item size */
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+        grid-template-rows: repeat(2, 1fr); /* Two rows */
+    }
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: repeat(1, 1fr); /* One column on very small screens */
+        grid-template-rows: repeat(1, 1fr); /* One row */
+    }
+}
+</style>
