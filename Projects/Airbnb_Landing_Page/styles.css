@@ -142,15 +142,11 @@
 
 
 .exclusives div img {
-    
-    transition: transform 0.5s ease-in-out; /* Applied to both hover and non-hover states */
+    transition: transform 0.5s ease-in-out;
 }
-
-.exclusives div:hover {
-    transition: transform 0.5s ease-in-out; 
-    transform: scale(1.05); /* Only change the transformation here */
+.exclusives div:hover img {
+    transform: scale(1.05);
 }
-
 
 
 
