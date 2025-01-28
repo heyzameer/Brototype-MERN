@@ -32,5 +32,31 @@
         </div>
     </div>
 </body>
+<script>
+    const emailInput = document.getElementById('email');
+const emailLabel = emailInput.previousElementSibling; // Get the label element
+    const passwordInput = document.getElementById('password');
+const passwordLabel = passwordInput.previousElementSibling; // Get the label element
+
+emailInput.addEventListener('focus', () => {
+    emailLabel.style.color = '#007bff';    // Change label color when focused
+    emailLabel.style.fontWeight = 'bold';  // Make label bold
+});
+
+emailInput.addEventListener('blur', () => {
+    emailLabel.style.color = '';          // Reset label color when input loses focus
+    emailLabel.style.fontWeight = '';     // Reset font weight
+});
+
+passwordInput.addEventListener('focus', () => {
+    passwordLabel.style.color = '#007bff';    // Change label color when focused
+    passwordLabel.style.fontWeight = 'bold';  // Make label bold
+});
+
+passwordInput.addEventListener('blur', () => {
+    passwordLabel.style.color = '';          // Reset label color when input loses focus
+    passwordLabel.style.fontWeight = '';     // Reset font weight
+});
+</script>
 
 </html>
