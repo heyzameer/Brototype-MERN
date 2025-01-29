@@ -1,0 +1,281 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+main {
+    padding: 0 7%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+
+    padding: 15px 40px;
+    border-bottom: 1px solid rgba(144, 140, 140, 0.418);
+}
+
+.logo img {
+    height: 50px;
+    /* Adjust as per navbar height */
+    width: auto;
+    /* Maintains aspect ratio */
+    display: block;
+
+
+}
+
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+}
+
+.nav-end {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-center a,
+.nav-end a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 1rem;
+    position: relative;
+}
+
+.nav-center a:first-child::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(0, 0, 0);
+}
+
+
+.exclusives {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 30px;
+    margin: 20px;
+}
+
+.exclusives_2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 30px;
+    margin: 20px;
+}
+
+.exclusives div img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.exclusives_2 div img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.exclusives div {
+    position: relative;
+}
+
+.exclusives_2 div {
+    position: relative;
+}
+
+.item {
+    position: relative;
+
+}
+
+.item_2 {
+    position: relative;
+
+}
+
+.item img {
+    width: 100%;
+    border-radius: 10px;
+
+}
+
+.item_2 img {
+    width: 100%;
+    border-radius: 10px;
+
+}
+
+.exclusives div .info {
+    position: absolute;
+    bottom: 10px;
+    /* Position the info at the bottom of the image */
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    /* Semi-transparent background */
+    color: white;
+    border-radius: 5px;
+}
+
+.exclusives_2 div .info {
+    position: absolute;
+    bottom: 10px;
+    /* Position the info at the bottom of the image */
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    /* Semi-transparent background */
+    color: white;
+    border-radius: 5px;
+}
+
+.price {
+    font-size: 14px;
+}
+
+.price_2 {
+    font-size: 9px;
+}
+
+.buy-btn {
+    padding: 6px 9px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.buy-btn_2 {
+    padding: 4px 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.buy-btn:hover {
+    background-color: #0056b3;
+}
+
+.exclusives div img {
+    transition: transform 0.5s ease-in-out;
+}
+
+.exclusives_2 div img {
+    transition: transform 0.5s ease-in-out;
+}
+
+.exclusives div:hover img {
+    transform: scale(1.05);
+}
+
+.exclusives_2 div:hover img {
+    transform: scale(1.05);
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Creates three equal columns */
+    gap: 20px;
+    /* Adds space between the columns */
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+.footer-column {
+    padding: 10px;
+}
+
+.footer-column h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px;
+}
+
+.footer-column ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+    text-decoration: underline;
+}
+
+
+
+.cta {
+    margin: 80px 0;
+    background-image: linear-gradient(to right, #3f2321, transparent), url("https://tse1.mm.bing.net/th?id=OIP.PwzUTSenh-BxeeSnvtvH8AHaE7&pid=Api&P=0&h=180");
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    padding: 5%;
+    color: #fff;
+}
+
+.cta h3 {
+    font-size: 4vw;
+    line-height: 5.3vw;
+    font-weight: 500;
+}
+
+.cta-p {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.cta-btn {
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+
+h1 {
+
+    /* text-align: center; */
+    margin: 30px 0 20px 20px;
+    font-size: 2.2vw;
+    font-weight: 500;
+    color: #363636;
+
+}
