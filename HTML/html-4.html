@@ -149,26 +149,40 @@ Code Example:
 </video>
 
    - `<source>`: Defines multiple media resources for `<audio>` or `<video>`.
-   - `<track>`: Adds text tracks, like captions, to `<video>` or `<audio>`.
 
 ### 10. **Embedded Content Tags**
-   - `<iframe>`: Embeds another HTML page within the current page.
-   <h1>Iframe with srcdoc Example</h1>
-    <iframe src="https://www.kodnest.com/" 
-            height="300px" 
-            width="500px" 
-            frameborder="0" 
-            scrolling="yes">
-    </iframe>
+   - <!DOCTYPE html>
+   <head>
+       <title>Iframe Example</title>
+   </head>
+   <body>
+       <h1>Iframe with srcdoc Example</h1>
+       <iframe src="https://www.kodnest.com/" 
+               height="300px" 
+               width="500px" 
+               frameborder="0" 
+               scrolling="yes">
+       </iframe>
+   </body>
+   </html>
 
     ***************
-    <!-- <h1>Iframe with srcdoc Example</h1>
-    <iframe srcdoc=' <a href="https://www.kodnest.com/" target="iframe1">
-            Click here to open Kodnest website </a>'
-        height="300" 
-        width="500"
-        name="iframe1">
-    </iframe> -->
+    <!DOCTYPE html>
+    <head>
+        <title>Iframe Example with srcdoc</title>
+    </head>
+    <body>
+        <h1>Iframe with srcdoc Example</h1>
+        <iframe srcdoc='
+            <a href="https://www.kodnest.com/" target="iframe1">
+                Click here to open Kodnest website
+            </a>'
+            height="300" 
+            width="500"
+            name="iframe1">
+        </iframe>
+    </body>
+    </html>
 
 
    - `<embed>`: Embeds external content, such as a plugin.

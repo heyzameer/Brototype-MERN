@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Example</title>
+  <style>
+    /* Card Container */
+    .card {
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden; /* Ensures content stays inside the card */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 20px auto; /* Centering the card */
+    }
+
+    /* Image Styling */
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover; /* Ensures the image covers the area without distortion */
+    }
+
+    /* Card Body */
+    .card-body {
+        display: flex;
+      padding: 10px;
+      background-color: #f5f5f5; /* Light background for the card text */
+      text-align: center;
+    }
+
+    /* Button Styling */
+    .card-btn {
+     margin: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Button Hover Effect */
+    .card-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="https://tse1.mm.bing.net/th?id=OIP.HxV79tFMPfBAIo0BBF-sOgHaEy&pid=Api" alt="Image" class="card-img">
+    <div class="card-body">
+      <p class="card-text">This is some text inside the card. You can describe your content here.</p>
+      <button class="card-btn">Click Me</button>
+    </div>
+  </div>
+
+</body>
+</html>
