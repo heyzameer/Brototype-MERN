@@ -131,5 +131,117 @@
 
 //      "Call stack maintains the order of execution of execution contexts"
 
+
+
+
+
+
+
+
+// 0. Call Stack
+// 1. Execution Context Stack
+// 2. Program Stack
+// 3. Control Stack
+// 4. Runtime Stack
+// 5. Machine Stack
 // ---
 
+
+
+
+
+
+
+
+//^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^&%^%^%^%^%^%^%^%^%^%^%^%^%^
+
+
+
+// Hoisting
+
+console.log(a); //undefined
+console.log(getname); // function
+getname(); // hello zameer
+var a = 7;
+
+
+function getname(){
+    console.log("helle zameer")
+}
+
+
+console.log(a); // 7
+console.log(getname); // function
+
+
+
+
+
+
+
+// JavaScript Hoisting and Execution Context**  
+
+// 1. **Variable Initialization Before Execution**  
+//    - Before JavaScript executes the code, **all variables are initialized to `undefined`** during the **Memory Creation Phase**.  
+
+// 2. **Arrow Functions vs. Regular Functions**  
+//    - **Arrow functions are treated as variables**, so they are **initialized as `undefined`** just like other variables.  
+//    - **Function declarations**, however, are fully **hoisted**, meaning they can be called **before** their declaration.  
+
+// 3. **Hoisting in JavaScript**  
+//    - **Hoisting** is a mechanism where JavaScript moves all **variable and function declarations** to the **top of their scope** before execution.  
+//    - This allows functions to be called **before they are defined** in the code.  
+//    - Example:  
+//      ```js
+//      console.log(hoistedVar); // undefined
+//      var hoistedVar = "I am hoisted";
+//      ```
+//      ```js
+//      greet(); // ✅ Works because function declarations are hoisted
+
+//      function greet() {
+//        console.log("Hello!");
+//      }
+//      ```
+
+// 4. **Execution Context Structure**  
+//    - Whenever JavaScript runs a program, it creates a **Global Execution Context (GEC)**, which consists of:  
+//      - **Memory Creation Phase** – Allocates memory for variables and functions.  
+//      - **Code Execution Phase** – Executes the script **line by line**.  
+
+// 5. **Variable Hoisting Behavior**  
+//    - **Variable declarations** (`var`) are **hoisted but initialized as `undefined`**.  
+//    - Example:  
+//      ```js
+//      console.log(name); // undefined
+//      var name = "Zameer";
+//      ```
+
+// 6. **Function Hoisting Behavior**  
+//    - **Function declarations** are **fully hoisted**, meaning they can be invoked before their definition.  
+//    - Example:  
+//      ```js
+//      sayHello(); // ✅ Works
+
+//      function sayHello() {
+//        console.log("Hello, world!");
+//      }
+//      ```
+//    - However, **function expressions and arrow functions** behave like variables and **do not get hoisted** in the same way:  
+//      ```js
+//      console.log(sayHi); // undefined
+//      var sayHi = function () {
+//        console.log("Hi");
+//      };
+
+//      console.log(sayBye); // ❌ ReferenceError
+//      let sayBye = () => console.log("Bye");
+//      ```
+
+// ---
+
+// ### **Key Takeaways**  
+// ✅ **Variable declarations (`var`) are hoisted but set to `undefined`**.  
+// ✅ **Function declarations are fully hoisted and can be called before they appear in the code**.  
+// ✅ **Arrow functions and function expressions behave like variables, so they are hoisted but remain `undefined`**.  
+// ✅ **JavaScript execution follows a structured process using the Execution Context and Call Stack**.
