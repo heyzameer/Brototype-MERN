@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+*{
+ margin: 0;
+ padding:0;
+ box-sizing: border-box;   
+}
+        body{
+            font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+        }
+
+        .loginconatiner{
+            background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+        }
+        h1{
+            text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+        }
+
+        .form-group {
+    margin-bottom: 15px;
+}
+        label{
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+
+.forgot-password a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="loginconatiner">
+        <h1>Login</h1>
+        <form action="">
+            <div class="form-group">
+                <label for="email">Email:</label>
+            <input type="email" placeholder="Enter Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+            <input type="password" placeholder="Enter Password">
+            </div>
+            <button type="submit">submit</button>
+        </form>
+        <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+        </div>
+    </div>
+</body>
+</html>

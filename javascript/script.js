@@ -159,19 +159,19 @@
 
 // Hoisting
 
-console.log(a); //undefined
-console.log(getname); // function
-getname(); // hello zameer
-var a = 7;
+// console.log(a); //undefined
+// console.log(getname); // function
+// getname(); // hello zameer
+// var a = 7;
 
 
-function getname(){
-    console.log("helle zameer")
-}
+// function getname(){
+//     console.log("helle zameer")
+// }
 
 
-console.log(a); // 7
-console.log(getname); // function
+// console.log(a); // 7
+// console.log(getname); // function
 
 
 
@@ -229,10 +229,12 @@ console.log(getname); // function
 //      ```
 //    - However, **function expressions and arrow functions** behave like variables and **do not get hoisted** in the same way:  
 //      ```js
-//      console.log(sayHi); // undefined
-//      var sayHi = function () {
-//        console.log("Hi");
-//      };
+
+    sayHi(); // not a function
+     console.log(sayHi); // undefined
+     var sayHi = function () {
+       console.log("Hi");
+     };
 
 //      console.log(sayBye); // ❌ ReferenceError
 //      let sayBye = () => console.log("Bye");
