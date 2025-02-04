@@ -7,3 +7,20 @@
 
 
 
+@media only screen and (max-width: 768px) {
+
+    .btn-outer {
+        position: fixed; /* Fixes the button container to the bottom of the screen */
+        bottom: 0px; /* Aligns the container at the bottom */
+        width: 100%; /* Ensures the container takes up the full width */
+        background-color: white; /* Sets a white background */
+        padding: 5px 0px; /* Adds vertical padding */
+        left: 0%; /* Aligns it to the left edge of the screen */
+        justify-content: center !important; /* Centers the content inside the container */
+    }
+
+    .whatsaapbtn, .call {
+        padding: 7px 15px; /* Adjusts padding for the buttons */
+        font-size: 14px; /* Reduces the font size of the button text */
+    }
+}
