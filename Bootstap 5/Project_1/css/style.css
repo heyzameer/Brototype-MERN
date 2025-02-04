@@ -5,23 +5,127 @@
 
 /* btn btn-outline-success */
 /* or this one can implemented */
-.whatsaapbtn{
-    border: 1px solid #27AE60;
-    padding: 10px 18px;
-    color: #27AE60;
-    font-size: 16px;
-}
-.whatsaapbtn:hover{
-    border: 1px solid #27AE60;
+
+.whatsaapbtn {
+    border: 1px solid #27AE60; /* Adds a green border */
+    padding: 10px 18px; /* Adds padding inside the button */
+    color: #27AE60; /* Sets text color to green */
+    font-size: 16px; /* Adjusts the font size */
 }
 
-.whatsaapbtn i{
-    color: #27AE60;
+.whatsaapbtn:hover {
+    border: 1px solid #27AE60; /* Keeps the green border on hover */
 }
 
-.call{
-    padding: 10px 18px;
-    color: white;
-    background:linear-gradient(to right,#0ACEFE,#2699FB)
+.whatsaapbtn i {
+    color: #27AE60; /* Sets the icon color to green */
 }
 
+.call {
+    padding: 10px 18px; /* Adds padding inside the button */
+    color: white; /* Sets text color to white */
+    background: linear-gradient(to right, #0ACEFE, #2699FB); /* Adds a gradient background */
+}
+
+
+
+/* banner left section */
+
+.bannerContent h1 {
+    font-size: 52px; /* Large font size for the heading */
+    font-weight: 700; /* Makes the heading bold */
+}
+
+.bannerContent P {
+    font-size: 22px; /* Adjusts font size for the paragraph */
+}
+
+.bannerContent h1 span {
+    color: #2699FB; /* Blue color for the span inside h1 */
+    background: url("../images/Vector\ 63.png") no-repeat bottom; /* Adds a background image at the bottom of the span */
+}
+
+.bannerContent ul {
+    list-style: none; /* Removes bullet points from the list */
+}
+
+.bannerContent ul li {
+    font-size: 22px; /* Adjusts font size for list items */
+}
+
+.bannerContent ul li i {
+    color: #2699FB; /* Sets icon color to blue */
+}
+
+.bannerContentBtn button {
+    width: 50%; /* Makes the button take up half the width */
+    padding: 10px 0px; /* Adds vertical padding inside the button */
+    border-radius: 5px; /* Rounds the button corners */
+}
+
+.bannerContentBtn button:first-child {
+    color: white; /* Sets text color to white */
+    background: linear-gradient(to right, #0ACEFE, #2699FB); /* Adds a gradient background */
+}
+
+
+
+
+/* Banner right section */
+
+.bannerForm {
+    padding: 40px; /* Adds padding around the form */
+    border-radius: 10px; /* Rounds the corners of the form */
+}
+
+.bannerForm {
+    font-size: 18px; /* Adjusts the font size of the form text */
+    font-weight: 700; /* Makes the form text bold */
+}
+
+.bannerForm button {
+    width: 100%; /* Makes the button take up the full width of the form */
+    padding: 10px 0px; /* Adds vertical padding inside the button */
+    background: linear-gradient(to right, #0ACEFE, #2699FB); /* Adds a gradient background */
+    border: none; /* Removes the border from the button */
+    color: white; /* Sets text color to white */
+}
+
+
+
+
+.counterSection h2{
+    font-size: 30px;
+    font-weight: 700;
+    color: #2699FB;
+}
+
+
+
+
+
+
+
+
+.highlights-section{
+    background-color: #F7FAFF;
+}
+
+.highlights-section h2{
+    color: #0A2134;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.highlights-section p{
+    font-size: 15px;
+}
+
+.highlight-Item h4{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.highlight-Item p{
+    font-size: 15px;
+}

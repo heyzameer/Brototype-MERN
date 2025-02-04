@@ -17,10 +17,61 @@
         padding: 5px 0px; /* Adds vertical padding */
         left: 0%; /* Aligns it to the left edge of the screen */
         justify-content: center !important; /* Centers the content inside the container */
+        z-index: 9999;
     }
 
     .whatsaapbtn, .call {
         padding: 7px 15px; /* Adjusts padding for the buttons */
         font-size: 14px; /* Reduces the font size of the button text */
     }
+
+    .bannerContent h1{
+        font-size: 28px  !important;
+        font-weight: 700  !important;
+        text-align: center;
+        line-height: 35px;
+    }
+
+    /* .bannerContent br{
+        display: none;
+    } */
+
+    .input-group {
+        z-index: 0; /* Lower z-index for input group */
+    }
+    
+    .input-group .form-control {
+        z-index: 0; /* Ensure the input field also has a lower z-index */
+    }
+
+    .bannerContent p,.bannerContent ul li{
+        font-size: 16px;
+    }
+
+    .bannerContentBtn {
+    flex-direction: column;
+
+    }
+    .bannerContentBtn button{
+        width: 100%;
+    }
+
+    .bannerForm{
+        padding: 20px;
+    }
+
+    .highlights-section h2{
+        
+        font-size: 28px;
+        
+    }
+
+    .counterSection h2{
+        font-size: 25px;
+        font-weight: 600;
+        color: #2699FB;
+    }
+
+
+
 }

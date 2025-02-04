@@ -18,25 +18,238 @@
 <body>
 
 
-    <header class="container-fluid py-2 shadow-lg position-sticky top-0">
-        <!-- Header container with padding and shadow -->
-        <div class="container">
-            <div class="row align-items-center">
-                <figure class="col-lg-6 col-12  text-lg-start text-center pb-0">
-                    <!-- Logo -->
-                    <img src="images/logo.svg" alt="">
-                </figure>
-                <div class="col-lg-6">
-                    <div class="btn-outer d-flex gap-3 justify-content-end">
-                        <!-- Action buttons -->
-                        <button class="btn whatsaapbtn"> <i class="fa-brands fa-whatsapp"></i>Chat With Us</button>
-                        <button class="btn call"> <i class="fa-solid fa-phone"></i>Call Us</button>
+<!-- Header Section -->
+<header class="container-fluid py-2 shadow-lg position-sticky top-0 z-index-1000 bg-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Logo -->
+            <figure class="col-lg-6 col-12 text-lg-start text-center pb-0">
+                <img src="images/logo.svg" alt="">
+            </figure>
+            <!-- Action Buttons: WhatsApp and Call -->
+            <div class="col-lg-6">
+                <div class="btn-outer d-flex gap-3 justify-content-end">
+                    <button class="btn whatsaapbtn"><i class="fa-brands fa-whatsapp"></i> Chat With Us</button>
+                    <button class="btn call"><i class="fa-solid fa-phone"></i> Call Us</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Banner Section -->
+<section class="container-fluid py-lg-5 py-sm-4 py-3">
+    <div class="container">
+        <div class="row justify-content-between gy-4 align-items-center">
+
+            <!-- Banner Content: Course Details -->
+            <div class="col-12 col-lg-6">
+                <div class="bannerContent">
+                    <h1>Career Opportunities<br> in <span>Digital Marketing</span></h1>
+                    <p>Digital marketing course so good, you only pay after placement</p>
+                    <ul class="m-0 p-0">
+                        <li class="mb-3"><i class="fa-solid fa-circle-check"></i> Specialization: Performance Marketing</li>
+                        <li class="mb-3"><i class="fa-solid fa-circle-check"></i> Min salary of Rs 4.5 LPA</li>
+                        <li class="mb-3"><i class="fa-solid fa-circle-check"></i> 50 seats only</li>
+                    </ul>
+                    <!-- Call-to-Action Buttons -->
+                    <div class="bannerContentBtn d-flex gap-3">
+                        <button data-bs-toggle="modal" data-bs-target="#enModal" >Book 2 Days Demo</button>
+                        <button><i class="fa-solid fa-download"></i> Download Curriculum</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="col-12 col-lg-5">
+                <form action="" class="bannerForm shadow-lg" novalidate>
+                    <h3>Book Your Free Class Now!</h3>
+                    <p>2 days of free demo classes without paying in advance!</p>
+
+                    <!-- Name Input -->
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" required placeholder="Enter your name">
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" required placeholder="Enter your email">
+                    </div>
+
+                    <!-- Phone Input (Indian Number Validation) -->
+                    <div class="mb-3">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-control" pattern="^[6-9]\d{9}$" maxlength="10" required 
+                               placeholder="Enter your phone number">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Register Now</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="container shadow-lg mt-5 counterSection">
+        <div class="row row-cols-lg-5 row-cols-md-2 row-cols-2 p-4">
+            <div class="col">
+                <h2>1000+</h2>
+                <p>Students Trained</p>
+            </div>
+            <div class="col">
+                <h2>₹4.5 LPA</h2>
+                <p>Average Salary</p>
+            </div>
+            <div class="col">
+                <h2>320+</h2>
+                <p>Recruiting Partners</p>
+            </div>
+            <div class="col">
+                <h2>10:00 am</h2>
+                <p>Program Timings</p>
+            </div>
+            <div class="col">
+                <h2>11th May</h2>
+                <p>Next Batch Starts</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--Enquiry Modal -->
+<div class="modal fade" id="enModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enquire Now</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" class="bannerForm p-2" novalidate>
+                <h3>Book Your Free Class Now!</h3>
+                <p>2 days of free demo classes without paying in advance!</p>
+
+                <!-- Name Input -->
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" required placeholder="Enter your name">
+                </div>
+
+                <!-- Email Input -->
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" required placeholder="Enter your email">
+                </div>
+
+                <!-- Phone Input (Indian Number Validation) -->
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-control" pattern="^[6-9]\d{9}$" maxlength="10" required 
+                           placeholder="Enter your phone number">
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- Highlights Section: Displays key benefits of the course -->
+<section class="container-fluid highlights-section py-5">
+    <div class="container">
+        <!-- Section Header with Title and Description -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2>Key Highlights of the Course</h2>
+                <p>Lorem ipsum dolor sit amet consectetur. Imperdiet tellus ut ornare pharetra leo vestibulum at
+                    orci.</p>
+            </div>
+        </div>
+
+        <!-- Highlights List: Showcases different course benefits -->
+        <div class="row gy-3 ">
+            <!-- Highlight Item: Assignments & Module Tests -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/h1.png">
+                    <div>
+                        <h4>Assignments & <br /> Modules tests</h4>
+                        <p>Test your knowledge</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlight Item: Industry-recognized Certification -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/h2.png">
+                    <div>
+                        <h4>Industry-recognized Certification</h4>
+                        <p>Stand out to your professional</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlight Item: Live Classes & Recorded Lectures -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/h3.png">
+                    <div>
+                        <h4>Live classes & </br> recorded lectures</h4>
+                        <p>Best of both worlds of learning</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlight Item: Downloadable Content -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/h4.png">
+                    <div>
+                        <h4>Downloadable <br /> Content</h4>
+                        <p>With lifetime access</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlight Item: 6 Industry Level Projects -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/h5.png">
+                    <div>
+                        <h4>6 Industry level <br>projects</h4>
+                        <p>Get practical skills</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlight Item: 4 Live Doubt Clearing Sessions -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/h6.png">
+                    <div>
+                        <h4>4 Live Doubt Clearing Sessions</h4>
+                        <p>Gain a clear understanding</p>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
-    
+    </div>
+</section>
+
+
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

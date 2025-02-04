@@ -1321,3 +1321,49 @@ You can combine `top`, `right`, `bottom`, and `left` with positioning classes to
 You can also use **position offsets** to control the exact positioning.
 
 ---
+
+
+
+
+
+
+
+This is a **Bootstrap modal** implementation:  
+
+- The **button** (`btn-primary`) triggers the modal using `data-bs-toggle="modal"` and `data-bs-target="#exampleModal"`.  
+- The **modal** (`div.modal`) appears when triggered, containing:  
+  - **Header** (`modal-header`) with a title and close button.  
+  - **Body** (`modal-body`) for content.  
+  - **Footer** (`modal-footer`) with "Close" and "Save changes" buttons.  
+- The modal is dismissed using `data-bs-dismiss="modal"`.  
+
+This allows users to display pop-up content dynamically. 🚀
+
+
+
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
