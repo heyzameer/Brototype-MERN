@@ -1,0 +1,27 @@
+*{
+    font-family: "Inter", serif;
+}
+
+
+/* btn btn-outline-success */
+/* or this one can implemented */
+.whatsaapbtn{
+    border: 1px solid #27AE60;
+    padding: 10px 18px;
+    color: #27AE60;
+    font-size: 16px;
+}
+.whatsaapbtn:hover{
+    border: 1px solid #27AE60;
+}
+
+.whatsaapbtn i{
+    color: #27AE60;
+}
+
+.call{
+    padding: 10px 18px;
+    color: white;
+    background:linear-gradient(to right,#0ACEFE,#2699FB)
+}
+
