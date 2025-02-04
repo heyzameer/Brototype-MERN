@@ -156,3 +156,14 @@
     border-radius: 0px;
     border-bottom: 2px solid blue;
 }
+
+
+.companies-section{
+    background-color: #F7FAFF;
+}
+
+.companies-section h3{
+    font-size: 30px;
+    font-weight: 800;
+
+}

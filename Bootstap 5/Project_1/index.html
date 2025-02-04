@@ -19,7 +19,7 @@
 
 
 <!-- Header Section -->
-<header class="container-fluid py-2 shadow-lg position-sticky top-0 z-index-1000 bg-white">
+<header class="container-fluid py-1 shadow-lg position-sticky top-0 z-index-1000 bg-white">
     <div class="container">
         <div class="row align-items-center">
             <!-- Logo -->
@@ -29,8 +29,8 @@
             <!-- Action Buttons: WhatsApp and Call -->
             <div class="col-lg-6">
                 <div class="btn-outer d-flex gap-3 justify-content-end">
-                    <button class="btn whatsaapbtn"><i class="fa-brands fa-whatsapp"></i> Chat With Us</button>
-                    <button class="btn call"><i class="fa-solid fa-phone"></i> Call Us</button>
+                    <button class="btn whatsaapbtn" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Chat With Us"><i class="fa-brands fa-whatsapp"></i> Chat With Us</button>
+                    <button class="btn call" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Call Us"><i class="fa-solid fa-phone"></i> Call Us</button>
                 </div>
             </div>
         </div>
@@ -54,11 +54,14 @@
                     </ul>
                     <!-- Call-to-Action Buttons -->
                     <div class="bannerContentBtn d-flex gap-3">
-                        <button data-bs-toggle="modal" data-bs-target="#enModal" >Book 2 Days Demo</button>
-                        <button><i class="fa-solid fa-download"></i> Download Curriculum</button>
+                        <button data-bs-toggle="modal" data-bs-target="#enModal" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Book demo here">Book 2 Days Demo</button>
+                        <button><i class="fa-solid fa-download" ></i> Download Curriculum</button>
                     </div>
                 </div>
             </div>
+
+
+            
 
             <!-- Registration Form -->
             <div class="col-12 col-lg-5">
@@ -251,6 +254,8 @@
 
 
 
+
+
 <!-- Tabbings -->
 <section class="container-fluid py-5">
     <div class="container">
@@ -374,8 +379,55 @@
 </section>
 
 
+<!-- Top Career Option -->
+<section class="container-fluid highlights-section py-5">
+    <div class="container">
+        <!-- Section Header with Title and Description -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2>Top career options in <br> Digital Marketing</h2>
+                <p>Digital marketing is a dynamic and ever-evolving field.</p>
+            </div>
+        </div>
 
+        <!-- Highlights List: Showcases different course benefits -->
+        <div class="row gy-3 ">
+            <!-- Highlight Item: Assignments & Module Tests -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/Edit-Square.png">
+                    <div>
+                        <h4>Content Marketer</h4>
+                        <p>Engagement, Community, Strategy, Content</p>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Highlight Item: Industry-recognized Certification -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/3-User.png">
+                    <div>
+                        <h4>SEO Specialist</h4>
+                        <p>Rankings, Traffic, Keywords, Optimization</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlight Item: Live Classes & Recorded Lectures -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="bg-white p-3 d-flex align-items-start gap-3 highlight-Item">
+                    <img src="images/Activity.png">
+                    <div>
+                        <h4>Social Media Manager</h4>
+                        <p>Storytelling, Audience, Strategy, Creation</p>
+                    </div>
+                </div>
+            </div>    
+            
+        </div>
+    </div>
+</section>
 
 <!-- accordian -->
 <section class="container-fluid py-5 accordian-section">
@@ -452,8 +504,134 @@
 </section>
 
 
+<!-- Hiring Section -->
+<section class="container-fluid companies-section ">
+
+    <div class="container companies-section" >
+        <div class="row">
+            <div class="col-12 text-center m-3 " >
+                <h3>Top Companies Hiring Digital Marketing in India</h3>
+            </div>
+           <div>
+            <img src="images/companies.png" alt="companies" class="img-fluid p-5 ">
+           </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Are You ready cta -->
+ <section class="container-fluid">
+    <div class="container text-center mb-5 rounded"  style ="background-color :#2699FB; height: 200px; padding: 80px 20px;">
+        <div> 
+            <h2 class="pb-3">Are You Ready to Start Your Digital Marketing Journey?</h2>
+            <button class="btn btn-primary">Get Started</button>
+        </div>
+    </div>
+ </section>
+
+
+
+<!-- Footer section -->
+
+<footer class="text-light" style="background-color: #0A2540;">
+    <div class="container">
+        <!-- First Row: Logo + Basic Info -->
+        <div class="row py-4">
+            <div class="col-md-3 text-center mb-4 mb-md-0">
+                <img src="images/logo_black 2.png" alt="Company Logo" class="img-fluid w-50 mb-3">
+                <p>Elevate Your Learning Journey with Cutting-Edge Education Technology.</p>
+            </div>
+            <div class="col-md-3">
+                <h5 >Company</h5>
+                <ul class="list-unstyled">
+                    <li>About Us</li>
+                    <li>Contact</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 >Our Programs</h5>
+                <ul class="list-unstyled">
+                    <li>Digital Marketing</li>
+                    <li>Web Development</li>
+                    <li>Professional Courses</li>
+                    <li>Free Courses</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 >Support</h5>
+                <ul class="list-unstyled">
+                    <li>FAQ</li>
+                    <li>Help Center</li>
+                    <li>Contact Support</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Course Details Section -->
+        <div class="row py-4">
+            <div class="col-md-3">
+                <h6>Digital Marketing Courses</h6>
+                <ul class="list-unstyled">
+                    <li>SEO Course</li>
+                    <li>Social Media Marketing</li>
+                    <li>Content Writing</li>
+                    <li>Google Ads</li>
+                    <li>Performance Marketing</li>
+                </ul>
+            </div>
+            
+            <div class="col-md-3">
+                <h6>Web Development Courses</h6>
+                <ul class="list-unstyled">
+                    <li>Full Stack Development</li>
+                    <li>MERN Stack</li>
+                    <li>ReactJS</li>
+                    <li>NodeJS</li>
+                    <li>Front-End Development</li>
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <h6>Professional Courses</h6>
+                <ul class="list-unstyled">
+                    <li>Cyber Security</li>
+                    <li>Android Development</li>
+                    <li>Power BI</li>
+                    <li>Tableau</li>
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <h6>Free Courses</h6>
+                <ul class="list-unstyled">
+                    <li>Blogging</li>
+                    <li>Video Editing</li>
+                    <li>Email Marketing</li>
+                    <li>Affiliate Marketing</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+
+        
+
+        <!-- Copyright Section -->
+        <div class="text-center py-3">
+            <small>© Copyright 2025, All Rights Reserved By WsCube Tech</small>
+        </div>
+    </div>
+</footer>
+
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
 </html>
