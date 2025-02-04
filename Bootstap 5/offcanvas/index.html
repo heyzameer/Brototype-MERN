@@ -20,16 +20,19 @@
     <header class="container-fluid">
         <div class="container">
             <div class="col-12">
-             <nav class="navbar navbar-expand-lg">
-                    <a href="" class="navbar-brand">
-                        <img src="images/logo.svg" alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+            
+                  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    Button with data-bs-target
+                  </button>
+                  
+                  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header">
+                      <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+                      <img src="images/logo.svg" alt="">
 
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
                         <ul class="navbar-nav ">
                             <li class="nav-item">
                                 <a class="nav-link " href="#">Home</a>
@@ -46,11 +49,9 @@
                         </ul>
 
                     </div>
-            </div>
+                  </div>
 
-
-            </nav>
-        </div>
+            
         </div>
     </header>
 
