@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Helloo</h1>
+
+
+    <div id="bulb">
+    </div>
+    <button id="button">On</button>
+    
+
+
+
+     <p id="scrollStatus">Scroll down...</p>
+
+     <script>
+       window.addEventListener("scroll", function() {
+         document.getElementById("scrollStatus").innerText = "You are scrolling!";
+       });
+     </script>
+
+
+
+
+
+<select id="colorSelect">
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+  </select>
+  <p id="selectedColor">Selected Color: None</p>
+  
+  <script>
+    document.getElementById("colorSelect").addEventListener("change", function() {
+      document.getElementById("selectedColor").innerText = "Selected Color: " + this.value;
+    });
+  </script>
+  
+     
+    
+     <script src="script.js"></script>
+</body>
+</html>
+
+
+
+

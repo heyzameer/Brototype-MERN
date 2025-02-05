@@ -199,7 +199,7 @@
 //      ```js
 //      greet(); // ✅ Works because function declarations are hoisted
 
-//      function greet() {
+//      function greet {
 //        console.log("Hello!");
 //      }
 //      ```
@@ -247,3 +247,17 @@
 // ✅ **Function declarations are fully hoisted and can be called before they appear in the code**.  
 // ✅ **Arrow functions and function expressions behave like variables, so they are hoisted but remain `undefined`**.  
 // ✅ **JavaScript execution follows a structured process using the Execution Context and Call Stack**.
+
+
+
+
+
+
+
+
+
+
+
+//^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^&%^%^%^%^%^%^%^%^%^%^%^%^%^
+
+
