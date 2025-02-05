@@ -9,6 +9,10 @@
 
 @media only screen and (max-width: 768px) {
 
+
+   
+
+
     .btn-outer {
         position: fixed; /* Fixes the button container to the bottom of the screen */
         bottom: 0px; /* Aligns the container at the bottom */
@@ -70,6 +74,21 @@
         font-size: 25px;
         font-weight: 600;
         color: #2699FB;
+    }
+
+
+
+
+
+
+
+    header {
+        padding: px 0; /* Reduce padding to decrease height */
+    }
+
+    header img {
+        width: 90px; /* Adjust logo size */
+        height: auto; /* Maintain aspect ratio */
     }
 
 
