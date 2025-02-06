@@ -330,7 +330,7 @@ outer();
 
 // ### **Example 2: Understanding Scope Chain**
 // ```javascript
-let x = "Global";
+// let x = "Global";
 
 function first() {
     let y = "First";
@@ -399,7 +399,7 @@ first();
 // ### **❌ Example: Accessing `let` or `const` before declaration**
 // ```javascript
 console.log(x);  // ❌ ReferenceError: Cannot access 'x' before initialization
-let x = 10;
+// let x = 10;
 console.log(x);  // ✅ 10
 // ```
 // ### **How Does This Happen?**
@@ -519,8 +519,8 @@ console.log(num);  // ✅ 10
 
 
 
-let c = 15;
-let c = 25;  // ❌ SyntaxError: Identifier 'c' has already been declared
+// let c = 15;
+// let c = 25;  // ❌ SyntaxError: Identifier 'c' has already been declared
 
 
 // 3️⃣ `const` (Constant in JavaScript)**
