@@ -385,8 +385,11 @@ Both `setTimeout` and `setInterval` are used to execute functions after a certai
 ```html
 <p id="clock"></p>
 <script>
+  let count = 0; // Initialize count
+
   setInterval(() => {
-    document.getElementById("clock").innerText = new Date().toLocaleTimeString();
+    document.getElementById("clock").innerText = `${count}`;
+    count++; // Increment count
   }, 1000); // Updates every second
 </script>
 ```

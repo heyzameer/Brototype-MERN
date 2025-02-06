@@ -691,7 +691,94 @@ console.log(numbers[4]);  // Output: 50
 // - **Explanation**: After the object `person` is created, a new method `sayHello` is added, which uses the `name` property and returns a greeting.
 
 // ---
+// To **iterate over an object** in JavaScript, you can use different methods depending on your needs. Here are the common ways:
 
+// ---
+
+// ## **1. Using `for...in` loop** (Best for objects)
+// The `for...in` loop iterates over all **enumerable properties** of an object.
+
+// ```javascript
+// const person = { name: "Zameer", age: 24, city: "Delhi" };
+
+// for (let key in person) {
+//     console.log(key, ":", person[key]);
+// }
+// ```
+// ### **Output:**
+// ```
+// name : Zameer
+// age : 24
+// city : Delhi
+// ```
+
+// ---
+
+// ## **2. Using `Object.keys()`** (Returns an array of keys)
+// You can get all keys and iterate using `forEach()` or a loop.
+
+// ```javascript
+// const person = { name: "Zameer", age: 24, city: "Delhi" };
+
+// Object.keys(person).forEach(key => {
+//     console.log(key, ":", person[key]);
+// });
+// ```
+
+// **Same output as above.** ✅
+
+// ---
+
+// ## **3. Using `Object.values()`** (Returns an array of values)
+// If you need **only values**, use `Object.values()`.
+
+// ```javascript
+// const person = { name: "Zameer", age: 24, city: "Delhi" };
+
+// Object.values(person).forEach(value => {
+//     console.log(value);
+// });
+// ```
+// ### **Output:**
+// ```
+// Zameer
+// 24
+// Delhi
+// ```
+
+// ---
+
+// ## **4. Using `Object.entries()`** (Best for key-value pairs)
+// This method returns **an array of key-value pairs**, which can be iterated using `forEach()` or a loop.
+
+// ```javascript
+// const person = { name: "Zameer", age: 24, city: "Delhi" };
+
+// Object.entries(person).forEach(([key, value]) => {
+//     console.log(`${key}: ${value}`);
+// });
+// ```
+// ### **Output:**
+// ```
+// name: Zameer
+// age: 24
+// city: Delhi
+// ```
+
+// ---
+
+
+
+
+// ### **Which Method to Use?**
+// | Method | Use Case |
+// |--------|---------|
+// | `for...in` | Simple iteration over object properties |
+// | `Object.keys()` | Get an array of keys |
+// | `Object.values()` | Get an array of values |
+// | `Object.entries()` | Get both keys and values (best for key-value iteration) |
+
+// Let me know if you need more details! 🚀
 
 
 
@@ -1279,7 +1366,7 @@ console.log(numbers[4]);  // Output: 50
 
 
 
-// ### **JavaScript ES6 Features**
+// ### **JavaScript tures**
 
 // ECMAScript 6 (ES6), also known as **ECMAScript 2015**, introduced a variety of new features that make JavaScript development more efficient, clean, and powerful. Below are some key ES6 features with examples:
 
@@ -2073,3 +2160,217 @@ console.log(numbers[4]);  // Output: 50
 // - Both functions are asynchronous, meaning the code execution will continue while the timer is counting down.
 
 // Let me know if you need more details or examples!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ## **IIFE (Immediately Invoked Function Expression)**  
+// An **IIFE** is a JavaScript function that runs **immediately** after being defined. It helps in creating **private scope** and avoiding global variable pollution.
+
+// ### **Syntax of IIFE**
+// ```javascript
+// (function () {
+//     console.log("This function runs immediately!");
+// })();
+// ```
+// ### **Output**
+// ```
+// This function runs immediately!
+// ```
+
+// ### **IIFE with Parameters**
+// ```javascript
+// (function (name) {
+//     console.log(`Hello, ${name}!`);
+// })("Zameer");
+// ```
+// ### **Output**
+// ```
+// Hello, Zameer!
+// ```
+
+// ### **Why Use IIFE?**
+// 1. **Avoids polluting the global scope.**  
+// 2. **Executes code immediately.**  
+// 3. **Helps in encapsulating private variables.**  
+
+// ---
+
+// ## **Currying in JavaScript**
+// **Currying** is a technique where a function is transformed into a series of functions, each taking a **single** argument.
+
+// ### **Example of Normal Function**
+// ```javascript
+// function add(a, b) {
+//     return a + b;
+// }
+// console.log(add(5, 3)); // 8
+// ```
+
+// ### **Curried Version**
+// ```javascript
+// function addCurried(a) {
+//     return function (b) {
+//         return a + b;
+//     };
+// }
+
+// const addFive = addCurried(5); // Stores `5` in the first function
+// console.log(addFive(3)); // 8
+// console.log(addCurried(2)(4)); // 6
+// ```
+
+// ---
+
+// ### **Modern Currying using Arrow Functions**
+// ```javascript
+// const add = a => b => a + b;
+
+// console.log(add(5)(3)); // 8
+// ```
+
+// ### **Why Use Currying?**
+// 1. **Improves reusability** – We can create specific versions of functions (e.g., `addFive`).  
+// 2. **Enhances readability** – Functions take one parameter at a time.  
+// 3. **Useful in functional programming** – Used in libraries like **Lodash** and **Ramda**.  
+
+// ---
+
+// ### **Key Differences**
+// | Feature | IIFE | Currying |
+// |---------|------|---------|
+// | Execution | Runs immediately | Executes in steps |
+// | Purpose | Encapsulates variables | Transforms a function |
+// | Syntax | `(function() { ... })();` | `fn(a)(b)...` |
+// | Usage | Private scope, avoiding global pollution | Functional programming, partial application |
+
+// ---
+
+// Would you like a real-world example of currying or IIFE? 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+// ### **Hoisting in IIFE (Immediately Invoked Function Expression)**
+
+// #### **Does Hoisting Affect IIFE?**
+// Yes, **hoisting** works the same way inside an IIFE as it does in regular functions. However, **IIFE itself is not hoisted because it is an expression, not a function declaration.**
+
+// ---
+
+// ### **1️⃣ Variable Hoisting in IIFE**
+// Inside an IIFE, `var` variables are hoisted **but** initialized to `undefined`, while `let` and `const` are hoisted **but not initialized** (resulting in a `ReferenceError` if accessed before declaration).
+
+// #### **Example 1: Hoisting `var` Inside IIFE**
+// ```javascript
+// (function () {
+//     console.log(a); // ✅ undefined (hoisted but not initialized)
+//     var a = 10;
+//     console.log(a); // 10
+// })();
+// ```
+// ✅ **Explanation**:  
+// - `var a` is hoisted to the top of the IIFE, but its **value is not assigned** until execution reaches `a = 10`.  
+// - So, `console.log(a)` before assignment gives `undefined`.
+
+// ---
+
+// #### **Example 2: Hoisting `let` and `const` Inside IIFE**
+// ```javascript
+// (function () {
+//     console.log(b); // ❌ ReferenceError: Cannot access 'b' before initialization
+//     let b = 20;
+//     console.log(b);
+// })();
+// ```
+// ✅ **Explanation**:  
+// - `let` and `const` are hoisted **but not initialized**.  
+// - Accessing them before their declaration causes a `ReferenceError`.
+
+// ---
+
+// ### **2️⃣ Function Hoisting in IIFE**
+// - **Function declarations** are hoisted inside an IIFE.
+// - **Function expressions** are **not hoisted**.
+
+// #### **Example 3: Hoisting a Function Declaration**
+// ```javascript
+// (function () {
+//     console.log(sayHello()); // ✅ "Hello!"
+    
+//     function sayHello() {
+//         return "Hello!";
+//     }
+// })();
+// ```
+// ✅ **Explanation**:  
+// - The `sayHello` function is hoisted, so calling it **before its definition** works.
+
+// ---
+
+// #### **Example 4: Hoisting a Function Expression (Error)**
+// ```javascript
+// (function () {
+//     console.log(sayHello()); // ❌ TypeError: sayHello is not a function
+
+//     var sayHello = function () {
+//         return "Hello!";
+//     };
+// })();
+// ```
+// ✅ **Explanation**:  
+// - `sayHello` is declared using `var`, so it is hoisted **but remains undefined** until the function is assigned.  
+// - Calling `sayHello()` before assignment gives a **TypeError**.
+
+// ---
+
+// ### **3️⃣ Is the IIFE Itself Hoisted?**
+// 🚫 **No!** Unlike function declarations, an **IIFE is not hoisted** because it is a function **expression**.
+
+// #### **Example 5: IIFE Hoisting Test**
+// ```javascript
+// console.log(x); // ❌ ReferenceError: x is not defined
+
+// foo(); // ❌ ReferenceError: foo is not defined
+
+// (function foo() {
+//     var x = 10;
+//     console.log("Inside IIFE");
+// })();
+// ```
+// ✅ **Explanation**:  
+// - The IIFE is **not hoisted** because it's an **expression**.  
+// - `foo` is **not accessible outside** the IIFE.
+
+// ---
+
+// ### **Key Takeaways**
+// 1. **IIFE itself is not hoisted** (it’s an expression, not a declaration).
+// 2. Inside IIFE:
+//    - `var` variables are hoisted but initialized to `undefined`.
+//    - `let` and `const` are hoisted but **not initialized** (cause `ReferenceError` if accessed early).
+//    - Function declarations are hoisted and can be called before definition.
+//    - Function expressions are **not hoisted** (cause `TypeError` if called before assignment).
+
+// Would you like a deeper example on a specific case? 🚀
