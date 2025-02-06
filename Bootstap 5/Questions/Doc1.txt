@@ -394,6 +394,15 @@ Here’s a list of **50 Bootstrap interview questions** ranging from beginner to
 15. **How do you create a card in Bootstrap?**
     - **Answer**: A card is a flexible and extensible content container with various options. You use the `card` class along with other modifiers like `card-header`, `card-body`, and `card-footer` to structure the content.
 
+    <div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
 16. **What is the use of the `.container` class in Bootstrap?**
     - **Answer**: The `.container` class is used to create a fixed-width container that is responsive. It is the base for creating layout sections and aligning content.
 
