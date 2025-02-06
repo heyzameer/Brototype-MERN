@@ -136,6 +136,8 @@
 
 
 
+                    
+
 
 
 // 0. Call Stack
@@ -230,11 +232,11 @@
 //    - However, **function expressions and arrow functions** behave like variables and **do not get hoisted** in the same way:  
 //      ```js
 
-    sayHi(); // not a function
-     console.log(sayHi); // undefined
-     var sayHi = function () {
-       console.log("Hi");
-     };
+    // sayHi(); // not a function
+    //  console.log(sayHi); // undefined
+    //  var sayHi = function () {
+    //    console.log("Hi");
+    //  };
 
 //      console.log(sayBye); // ❌ ReferenceError
 //      let sayBye = () => console.log("Bye");
@@ -261,3 +263,292 @@
 //^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^&%^%^%^%^%^%^%^%^%^%^%^%^%^
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Here’s a **detailed explanation** of **Lexical Environment** and **Scope Chain** in JavaScript with examples.  
+
+// ---
+
+// ## **Lexical Environment in JavaScript**
+// A **Lexical Environment** is a data structure that holds **variable and function declarations** during execution.
+
+// 🔹 **When is it created?**  
+// A new **Lexical Environment** is created every time:
+// 1. **A function is called**  
+// 2. **A block `{}` is executed** (if using `let` or `const`)  
+// 3. **The script starts running (Global Lexical Environment)**  
+
+// 🔹 **Components of a Lexical Environment:**  
+// Each **Lexical Environment** consists of two parts:
+// 1. **Environment Record** → Stores local variables, function declarations, and block-scoped variables.
+// 2. **Outer Environment Reference** → A reference to the parent lexical environment (where the function was defined).
+
+// ### **Example 1: Understanding Lexical Environment**
+// ```javascript
+function outer() {
+    let a = 10;
+
+    function inner() {
+        let b = 20;
+        console.log(a);  // Accessing variable from outer()
+    }
+
+    inner();
+}
+
+outer();
+// ```
+// 🔹 When `outer()` is called, a **Lexical Environment** for `outer()` is created.  
+// 🔹 Inside `outer()`, when `inner()` is called, a **new Lexical Environment** for `inner()` is created.  
+// 🔹 Since `inner()` tries to access `a`, but `a` is not inside `inner()`’s **Lexical Environment**, JavaScript looks in `outer()`’s **Lexical Environment**.  
+
+// ---
+
+// ## **Scope Chain in JavaScript**
+// The **Scope Chain** is a mechanism used to **resolve variable references** in JavaScript.  
+// If a variable is **not found in the current Lexical Environment**, JavaScript looks up the **Scope Chain** to find it.
+
+// 🔹 **Scope Chain follows these steps:**
+// 1. **Check current Lexical Environment** for the variable.
+// 2. If not found, **move to the parent Lexical Environment**.
+// 3. Continue until reaching the **Global Lexical Environment**.
+// 4. If still not found, **ReferenceError** occurs.
+
+// ### **Example 2: Understanding Scope Chain**
+// ```javascript
+let x = "Global";
+
+function first() {
+    let y = "First";
+
+    function second() {
+        let z = "Second";
+        console.log(x);  // Found in Global Scope
+        console.log(y);  // Found in first()'s Scope
+        console.log(z);  // Found in second()'s Scope
+    }
+
+    second();
+}
+
+first();
+// ```
+// 🔹 When `second()` tries to access `x`, JavaScript **searches in its own Lexical Environment first**, but `x` is not there.  
+// 🔹 JavaScript then moves **up the Scope Chain** to `first()`'s environment, but `x` is also not there.  
+// 🔹 Finally, it reaches the **Global Scope**, finds `x = "Global"`, and logs it.
+
+// ---
+
+// ## **Key Takeaways**
+// ✅ **Lexical Environment** stores **variables** and **functions** at each execution context.  
+// ✅ **Scope Chain** is a **hierarchy of Lexical Environments** that JavaScript follows to resolve variables.  
+// ✅ If a variable is **not found in the Scope Chain**, JavaScript throws a **ReferenceError**.  
+
+// Would you like a deeper explanation on **closures** next? 🚀\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ## **What is TDZ (Temporal Dead Zone) in JavaScript?**
+// The **Temporal Dead Zone (TDZ)** is the period between when a **variable is declared** and when it is **initialized with a value**.  
+
+// During this period, **accessing the variable will result in a `ReferenceError`**.  
+
+// ---
+
+// ## **Why Does `ReferenceError` Occur in TDZ?**
+// When JavaScript **hoists** variables declared with `let` and `const`, it reserves memory for them but **does not assign them a value immediately**.  
+// - The variable **exists in the scope**, but it's in an **uninitialized state** (TDZ).
+// - If you try to access it **before initialization**, JavaScript throws a **ReferenceError**.
+
+// ---
+
+// ## **Example of TDZ in JavaScript**
+// ### **❌ Example: Accessing `let` or `const` before declaration**
+// ```javascript
+console.log(x);  // ❌ ReferenceError: Cannot access 'x' before initialization
+let x = 10;
+console.log(x);  // ✅ 10
+// ```
+// ### **How Does This Happen?**
+// 1. JavaScript **hoists** `x`, but does not initialize it.
+// 2. `x` remains in the **Temporal Dead Zone** (TDZ) until the `let x = 10;` line.
+// 3. **Accessing `x` before initialization throws a `ReferenceError`**.
+
+// ---
+
+// ## **TDZ with `const`**
+// ```javascript
+console.log(y);  // ❌ ReferenceError: Cannot access 'y' before initialization
+const y = 20;
+console.log(y);  // ✅ 20
+
+// 🔹 `const` behaves the same way as `let` in terms of TDZ.  
+// 🔹 However, `const` **must be initialized at the time of declaration**, whereas `let` can be declared without an initial value.
+
+// ---
+
+// ## **TDZ Does Not Apply to `var`**
+// ```javascript
+console.log(a);  // ✅ undefined (NO ReferenceError)
+var a = 5;
+console.log(a);  // ✅ 5
+// ```
+// 🔹 `var` is also **hoisted**, but unlike `let` and `const`, it is automatically **initialized with `undefined`**.  
+// 🔹 This is why accessing `var` **before declaration does not throw a `ReferenceError`**, but gives `undefined`.
+
+// ---
+
+// ## **Example: TD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ## **Differences Between `var`, `let`, and `const` in JavaScript**
+
+// | Feature         | `var` | `let` | `const` |
+// |---------------|------|------|------|
+// | **Introduced In** | ES5 (Old JavaScript) | ES6 (Modern JavaScript) | ES6 (Modern JavaScript) |
+// | **Hoisting** | ✅ Hoisted with `undefined` | ✅ Hoisted but in **TDZ** | ✅ Hoisted but in **TDZ** |
+// | **Scope** | Function-scoped | Block-scoped | Block-scoped |
+// | **Redeclaration** | ✅ Allowed | ❌ Not allowed | ❌ Not allowed |
+// | **Reassignment** | ✅ Allowed | ✅ Allowed | ❌ Not allowed |
+// | **Default Initialization** | `undefined` | ❌ No default value (TDZ) | ❌ No default value (TDZ) |
+
+// ---
+
+// ### **1️⃣ `var` (Old JavaScript)**
+// - **Hoisted**: Declared at the top and initialized with `undefined`.  
+// - **Function-scoped**: Available inside the function where it's declared.  
+// - **Can be redeclared and reassigned**.  
+
+// #### **Example: `var` Hoisting**
+// ```javascript
+console.log(x);  // ✅ undefined (hoisted)
+var x = 10;
+console.log(x);  // ✅ 10
+
+// **Why?**  
+// - `var x` is **hoisted**, but only the declaration (`x = undefined`).  
+// - The **assignment (`x = 10`) happens later**.  
+
+// #### **Example: Function Scope**
+// ```javascript
+function test() {
+    var y = "Hello";
+}
+console.log(y);  // ❌ ReferenceError: y is not defined (function scope)
+
+// ```
+
+// #### **Example: Redeclaration**
+// ```javascript
+var a = 5;
+var a = 10;  // ✅ Allowed
+console.log(a);  // ✅ 10
+
+
+// ---
+
+// ### **2️⃣ `let` (Modern JavaScript)**
+// - **Hoisted but in TDZ**: Cannot be accessed before declaration.  
+// - **Block-scoped**: Limited to `{}` blocks (if, loops, functions).  
+// - **Cannot be redeclared but can be reassigned**.  
+
+// #### **Example: TDZ (ReferenceError)**
+// ```javascript
+// console.log(b);  // ❌ ReferenceError: Cannot access 'b' before initialization
+// let b = 20;
+// ```
+
+// #### **Example: Block Scope**
+// ```javascript
+if (true) {
+    let name = "Alice";
+}
+console.log(name);  // ❌ ReferenceError (only inside the block)
+
+
+// #### **Example: Reassignment (✅ Allowed)**
+// // javascript
+let num = 5;
+num = 10;  // ✅ Allowed
+console.log(num);  // ✅ 10
+
+
+
+let c = 15;
+let c = 25;  // ❌ SyntaxError: Identifier 'c' has already been declared
+
+
+// 3️⃣ `const` (Constant in JavaScript)**
+// - **Hoisted but in TDZ**: Cannot be accessed before declaration.  
+// - **Block-scoped**: Limited to `{}` blocks.  
+// - **Cannot be redeclared or reassigned**.  
+
+// #### **Example: No Reassignment**
+// ```javascript
+// const pi = 3.14;
+// pi = 3.15;  // ❌ TypeError: Assignment to constant variable
+// ```
+
+// #### **Example: Objects/Arrays Can Be Modified**
+// Even though `const` variables **cannot be reassigned**, their **properties can be changed**.
+// ```javascript
+const obj = { name: "John" };
+obj.name = "Doe";  // ✅ Allowed
+console.log(obj.name);  // ✅ "Doe"
+
+obj = {};  // ❌ TypeError: Assignment to constant variable
+// ```
+
+// ---
+
+// ## **Summary**
+// 1. **Use `let`** instead of `var` to avoid scope issues.  
+// 2. **Use `const`** when the value **should not change**.  
+// 3. **Avoid `var`** because of **hoisting issues and function scope**.  
+
+// Would you like a deeper explanation of **hoisting** or **TDZ**? 🚀
