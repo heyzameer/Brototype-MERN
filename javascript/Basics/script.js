@@ -1261,3 +1261,815 @@ console.log(numbers[4]);  // Output: 50
 // - **Local Storage** enables persistent data storage in the user's browser.
 
 // This covers the fundamental concepts needed for understanding modern JavaScript execution and asynchronous behavior. Would you like more examples or further clarification on any of these topics?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### **JavaScript ES6 Features**
+
+// ECMAScript 6 (ES6), also known as **ECMAScript 2015**, introduced a variety of new features that make JavaScript development more efficient, clean, and powerful. Below are some key ES6 features with examples:
+
+// ---
+
+// ### **1. Let and Const**
+// `let` and `const` are block-scoped variable declarations, unlike `var` which is function-scoped.
+
+// - **`let`**: Allows variable re-assignment within the block.
+// - **`const`**: Declares constants that cannot be reassigned.
+
+// ```javascript
+// let age = 25;
+// age = 26; // Allowed
+
+// const name = "John";
+// // name = "Doe"; // Error: Assignment to constant variable
+// ```
+
+// ---
+
+// ### **2. Arrow Functions**
+// Arrow functions provide a more concise way to write functions. They also lexically bind `this`, which can solve issues with traditional function expressions.
+
+// ```javascript
+// // Traditional function
+// function greet(name) {
+//   return "Hello, " + name;
+// }
+
+// // Arrow function
+// const greet = (name) => `Hello, ${name}`;
+// console.log(greet("John")); // Output: Hello, John
+// ```
+
+// ---
+
+// ### **3. Template Literals**
+// Template literals make string interpolation easy by using backticks (\`\`) instead of quotes. You can embed expressions within `${}`.
+
+// ```javascript
+// let name = "Alice";
+// let greeting = `Hello, ${name}!`;
+// console.log(greeting); // Output: Hello, Alice!
+// ```
+
+// ---
+
+// ### **4. Destructuring Assignment**
+// Destructuring allows you to unpack values from arrays or properties from objects into distinct variables.
+
+// - **Array Destructuring:**
+// ```javascript
+// let arr = [1, 2, 3];
+// let [a, b] = arr;
+// console.log(a, b); // Output: 1 2
+// ```
+
+// - **Object Destructuring:**
+// ```javascript
+// let person = { name: "John", age: 30 };
+// let { name, age } = person;
+// console.log(name, age); // Output: John 30
+// ```
+
+// ---
+
+// ### **5. Default Parameters**
+// ES6 allows you to set default values for function parameters.
+
+// ```javascript
+// function greet(name = "Guest") {
+//   console.log(`Hello, ${name}`);
+// }
+
+// greet(); // Output: Hello, Guest
+// greet("Alice"); // Output: Hello, Alice
+// ```
+
+// ---
+
+// ### **6. Rest and Spread Operators**
+// - **Rest Operator (`...`)**: Collects all remaining arguments into an array.
+// - **Spread Operator (`...`)**: Expands an array or object into individual elements.
+
+// - **Rest:**
+// ```javascript
+// function sum(...numbers) {
+//   return numbers.reduce((a, b) => a + b, 0);
+// }
+// console.log(sum(1, 2, 3)); // Output: 6
+// ```
+
+// - **Spread:**
+// ```javascript
+// let arr1 = [1, 2, 3];
+// let arr2 = [...arr1, 4, 5];
+// console.log(arr2); // Output: [1, 2, 3, 4, 5]
+// ```
+
+// ---
+
+// ### **7. Classes**
+// ES6 introduced `class` syntax, a more structured way to create objects and handle inheritance.
+
+// ```javascript
+// class Person {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+
+//   greet() {
+//     console.log(`Hello, ${this.name}`);
+//   }
+// }
+
+// const person1 = new Person("Alice", 30);
+// person1.greet(); // Output: Hello, Alice
+// ```
+
+// ---
+
+// ### **8. Modules**
+// ES6 allows you to import and export code between different JavaScript files, promoting better modularization.
+
+// - **Export:**
+// ```javascript
+// // myModule.js
+// export const name = "John";
+// export function greet() {
+//   console.log("Hello");
+// }
+// ```
+
+// - **Import:**
+// ```javascript
+// // main.js
+// import { name, greet } from './myModule.js';
+// console.log(name); // Output: John
+// greet(); // Output: Hello
+// ```
+
+// ---
+
+// ### **9. Promises**
+// A `Promise` is an object representing the eventual completion (or failure) of an asynchronous operation. It can be in one of three states: pending, resolved, or rejected.
+
+// ```javascript
+// let promise = new Promise((resolve, reject) => {
+//   let success = true;
+//   if(success) {
+//     resolve("Operation was successful");
+//   } else {
+//     reject("Something went wrong");
+//   }
+// });
+
+// promise.then(result => console.log(result))  // Output: Operation was successful
+//   .catch(error => console.log(error));      // Output (if failure): Something went wrong
+// ```
+
+// ---
+
+// ### **10. Set and Map**
+// - **Set**: A collection of unique values.
+// ```javascript
+// let mySet = new Set();
+// mySet.add(1);
+// mySet.add(2);
+// mySet.add(2); // Will not add a duplicate
+// console.log(mySet); // Output: Set { 1, 2 }
+// ```
+
+// - **Map**: A collection of key-value pairs, where keys can be of any data type.
+// ```javascript
+// let myMap = new Map();
+// myMap.set("name", "Alice");
+// myMap.set("age", 30);
+// console.log(myMap.get("name")); // Output: Alice
+// ```
+
+// ---
+
+// ### **11. Generators**
+// Generators are functions that can be paused and resumed, allowing you to work with asynchronous code more easily.
+
+// ```javascript
+// function* generateNumbers() {
+//   yield 1;
+//   yield 2;
+//   yield 3;
+// }
+
+// const generator = generateNumbers();
+// console.log(generator.next().value); // Output: 1
+// console.log(generator.next().value); // Output: 2
+// console.log(generator.next().value); // Output: 3
+// ```
+
+// ---
+
+// ### **12. Symbol**
+// A `Symbol` is a unique and immutable data type often used for object property keys to avoid name collisions.
+
+// ```javascript
+// const uniqueSymbol = Symbol("description");
+// let obj = {
+//   [uniqueSymbol]: "value"
+// };
+// console.log(obj[uniqueSymbol]); // Output: value
+// ```
+
+// ---
+
+// ### **13. New Data Structures**
+// ES6 also introduced new data structures:
+// - **WeakMap** and **WeakSet** for handling memory more efficiently with objects.
+// - **Typed Arrays** for handling binary data (e.g., `Uint8Array`, `Float64Array`).
+
+// ---
+
+// ### **14. String Enhancements**
+// - **String methods** like `startsWith()`, `endsWith()`, and `includes()` were introduced to simplify string operations.
+
+// ```javascript
+// let str = "Hello, world!";
+// console.log(str.startsWith("Hello")); // Output: true
+// console.log(str.endsWith("world!")); // Output: true
+// console.log(str.includes("world")); // Output: true
+// ```
+
+// ---
+
+// ### **Conclusion**
+// ES6 brought many significant improvements to JavaScript, simplifying complex tasks and providing developers with better tools for writing efficient, readable, and maintainable code. By understanding and utilizing these features, you can write more modern, streamlined JavaScript.
+
+// Let me know if you'd like more detailed examples on any of these features!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### **Rest and Spread Operators in JavaScript**
+
+// The **Rest** and **Spread** operators in JavaScript are both denoted by the same syntax: `...`. They have different purposes depending on the context in which they're used.
+
+// ---
+
+// ### **1. Rest Operator (`...`)**
+
+// The **Rest** operator is used to collect all remaining arguments or elements into a single array. It is used in function parameters or destructuring.
+
+// #### **Rest in Function Parameters**
+// It allows you to pass a variable number of arguments to a function.
+
+// **Example:**
+// ```javascript
+// function sum(...numbers) {
+//   return numbers.reduce((total, num) => total + num, 0);
+// }
+
+// console.log(sum(1, 2, 3)); // Output: 6
+// console.log(sum(10, 20, 30, 40)); // Output: 100
+// ```
+
+// In the example above:
+// - `numbers` is an array that contains all the arguments passed to the function `sum()`.
+// - The `reduce()` method adds all the numbers together to return the sum.
+
+// #### **Rest in Destructuring**
+// You can use the **Rest** operator in destructuring to collect the remaining properties or elements of an object or array.
+
+// **Array Destructuring Example:**
+// ```javascript
+// let arr = [1, 2, 3, 4, 5];
+// let [first, second, ...rest] = arr;
+// console.log(first);  // Output: 1
+// console.log(second); // Output: 2
+// console.log(rest);   // Output: [3, 4, 5]
+// ```
+
+// **Object Destructuring Example:**
+// ```javascript
+// let person = { name: "John", age: 30, city: "New York" };
+// let { name, ...details } = person;
+// console.log(name);    // Output: John
+// console.log(details); // Output: { age: 30, city: "New York" }
+// ```
+
+// In the examples above:
+// - In array destructuring, `...rest` collects all remaining values after `first` and `second`.
+// - In object destructuring, `...details` collects the rest of the properties of the `person` object.
+
+// ---
+
+// ### **2. Spread Operator (`...`)**
+
+// The **Spread** operator is used to expand or unpack elements from an array or object into individual elements or properties.
+
+// #### **Spread in Arrays**
+
+// The **Spread** operator can be used to copy or combine arrays by spreading the individual elements of one array into another.
+
+// **Example:**
+// ```javascript
+// let arr1 = [1, 2, 3];
+// let arr2 = [...arr1, 4, 5];
+// console.log(arr2); // Output: [1, 2, 3, 4, 5]
+// ```
+
+// In this example, the elements of `arr1` are spread into `arr2`, and then the additional elements `4` and `5` are added to `arr2`.
+
+// #### **Spread in Objects**
+
+// The **Spread** operator can also be used to copy properties from one object to another or combine multiple objects into one.
+
+// **Example:**
+// ```javascript
+// let person = { name: "John", age: 30 };
+// let address = { city: "New York", country: "USA" };
+// let fullDetails = { ...person, ...address };
+// console.log(fullDetails); 
+// // Output: { name: "John", age: 30, city: "New York", country: "USA" }
+// ```
+
+// In this example:
+// - The properties of the `person` object are spread into `fullDetails`, followed by the properties of the `address` object.
+
+// #### **Combining Arrays/Objects Using Spread**
+
+// You can also combine multiple arrays or objects using the **Spread** operator.
+
+// **Example (Combining Arrays):**
+// ```javascript
+// let arr1 = [1, 2];
+// let arr2 = [3, 4];
+// let combinedArr = [...arr1, ...arr2];
+// console.log(combinedArr); // Output: [1, 2, 3, 4]
+// ```
+
+// **Example (Combining Objects):**
+// ```javascript
+// let obj1 = { name: "John", age: 30 };
+// let obj2 = { city: "New York", country: "USA" };
+// let combinedObj = { ...obj1, ...obj2 };
+// console.log(combinedObj);
+// // Output: { name: "John", age: 30, city: "New York", country: "USA" }
+// ```
+
+// ---
+
+// ### **Key Differences Between Rest and Spread**
+
+// | Feature       | Rest Operator (`...`)                             | Spread Operator (`...`)                          |
+// |---------------|--------------------------------------------------|-------------------------------------------------|
+// | **Use Case**  | Collects remaining elements into an array (in functions or destructuring). | Expands an array or object into individual elements or properties. |
+// | **Position**  | Used in function parameters or destructuring assignments. | Used in function calls, array literals, or object literals. |
+// | **Example**   | `function sum(...numbers) {...}` (rest in function) | `let newArr = [...arr1, 4, 5]` (spread in array) |
+
+// ---
+
+// ### **Conclusion**
+
+// - **Rest (`...`)** is used when you need to gather remaining arguments or properties into a single array or object.
+// - **Spread (`...`)** is used when you need to expand an array or object into individual elements or properties.
+
+// Both of these operators enhance the readability and flexibility of your code. Let me know if you'd like more examples!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### **Classes and Objects in JavaScript**
+
+// In JavaScript, **classes** are templates or blueprints used to create objects. A **class** defines properties and methods that an object created from that class will have. **Objects** are instances of a class, created using the class's constructor.
+
+// ---
+
+// ### **1. Classes in JavaScript**
+
+// A **class** is a type of function that allows you to create objects with shared properties and methods. It is introduced in ES6 and simplifies the process of creating objects with similar behavior.
+
+// #### **Class Definition**
+
+// A class is defined using the `class` keyword followed by the class name, constructor, and methods.
+
+// **Basic Syntax:**
+// ```javascript
+// class ClassName {
+//   // Constructor to initialize the object
+//   constructor(param1, param2) {
+//     this.property1 = param1;
+//     this.property2 = param2;
+//   }
+
+//   // Method of the class
+//   method() {
+//     console.log(`Hello, my name is ${this.property1}`);
+//   }
+// }
+// ```
+
+// - `constructor()` is a special method for initializing objects. It runs when you create an instance of the class.
+// - `this` refers to the current object created from the class.
+
+// #### **Example:**
+// ```javascript
+// class Person {
+//   // Constructor method
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+
+//   // Method to introduce the person
+//   introduce() {
+//     console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
+//   }
+// }
+
+// let john = new Person("John", 30);  // Creating an object of class Person
+// john.introduce();  // Output: Hi, I'm John and I'm 30 years old.
+// ```
+
+// In the above example:
+// - The `Person` class has two properties: `name` and `age`.
+// - It also has a method `introduce()` which prints a message to the console.
+
+// ---
+
+// ### **2. Objects in JavaScript**
+
+// An **object** is an instance of a class. It is a collection of key-value pairs, where each key is a string (property name) and the value can be any type of data.
+
+// #### **Creating Objects**
+
+// You can create objects in several ways:
+// 1. **Using Object Literal Syntax:**
+//    ```javascript
+//    let person = {
+//      name: "Alice",
+//      age: 25,
+//      greet: function() {
+//        console.log(`Hello, my name is ${this.name}`);
+//      }
+//    };
+//    person.greet();  // Output: Hello, my name is Alice
+//    ```
+
+// 2. **Using a Constructor Function:**
+//    ```javascript
+//    function Person(name, age) {
+//      this.name = name;
+//      this.age = age;
+//    }
+
+//    let alice = new Person("Alice", 25);
+//    console.log(alice.name);  // Output: Alice
+//    ```
+
+// 3. **Using the `new` keyword with a class:**
+//    ```javascript
+//    class Animal {
+//      constructor(name) {
+//        this.name = name;
+//      }
+
+//      speak() {
+//        console.log(`${this.name} makes a noise.`);
+//      }
+//    }
+
+//    let dog = new Animal("Dog");
+//    dog.speak();  // Output: Dog makes a noise.
+//    ```
+
+// ---
+
+// ### **3. Working with Classes and Objects**
+
+// Classes provide a blueprint for creating objects with shared properties and methods, but each object created from a class can have its own unique property values.
+
+// #### **Example with More Methods and Properties:**
+
+// ```javascript
+// class Car {
+//   constructor(make, model, year) {
+//     this.make = make;
+//     this.model = model;
+//     this.year = year;
+//   }
+
+//   getCarInfo() {
+//     return `${this.year} ${this.make} ${this.model}`;
+//   }
+
+//   startEngine() {
+//     console.log("The engine has started.");
+//   }
+// }
+
+// let myCar = new Car("Toyota", "Camry", 2020);
+// console.log(myCar.getCarInfo());  // Output: 2020 Toyota Camry
+// myCar.startEngine();  // Output: The engine has started.
+// ```
+
+// In this example:
+// - `Car` is a class with a constructor that initializes `make`, `model`, and `year`.
+// - The method `getCarInfo()` returns information about the car.
+// - The method `startEngine()` simulates starting the engine.
+
+// #### **Inheritance in Classes (Subclassing)**
+
+// One of the powerful features of classes is **inheritance**, which allows a class to inherit properties and methods from another class.
+
+// **Example:**
+// ```javascript
+// class Animal {
+//   constructor(name) {
+//     this.name = name;
+//   }
+
+//   speak() {
+//     console.log(`${this.name} makes a sound.`);
+//   }
+// }
+
+// class Dog extends Animal {
+//   constructor(name, breed) {
+//     super(name);  // Call the parent class's constructor
+//     this.breed = breed;
+//   }
+
+//   speak() {
+//     console.log(`${this.name} barks.`);
+//   }
+// }
+
+// let dog = new Dog("Buddy", "Golden Retriever");
+// dog.speak();  // Output: Buddy barks.
+// ```
+
+// - The `Dog` class **inherits** from the `Animal` class.
+// - The `super(name)` calls the `Animal` class's constructor to initialize the `name` property.
+// - The `Dog` class overrides the `speak()` method to make the dog bark.
+
+// ---
+
+// ### **4. Key Concepts**
+
+// - **Constructor**: A special method that is called when creating an object. It is used to initialize properties.
+// - **Method**: A function that is associated with an object or class.
+// - **`this` keyword**: Refers to the current instance of the class.
+// - **Inheritance**: Allows one class to inherit properties and methods from another class.
+
+// ---
+
+// ### **Conclusion**
+
+// - **Classes** provide a way to define templates for creating objects with shared properties and methods.
+// - **Objects** are instances of classes, each with its own set of data.
+// - JavaScript allows for inheritance in classes, enabling the creation of more specific types of objects from general templates.
+
+// Let me know if you'd like more detailed explanations or examples!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### **`typeof` Operator in JavaScript**
+
+// The `typeof` operator is used to determine the data type of a variable or expression. It returns a string indicating the type of the operand.
+
+// ### **Syntax:**
+// ```javascript
+// typeof operand;
+// ```
+
+// - `operand` can be any variable, object, or expression whose data type you want to check.
+
+// ### **Common Results:**
+
+// - `typeof "Hello"` → `"string"`
+// - `typeof 42` → `"number"`
+// - `typeof true` → `"boolean"`
+// - `typeof undefined` → `"undefined"`
+// - `typeof {}` → `"object"`
+// - `typeof []` → `"object"` (Arrays are a special type of object)
+// - `typeof null` → `"object"` (This is a known quirk in JavaScript)
+// - `typeof function() {}` → `"function"`
+// - `typeof Symbol()` → `"symbol"`
+// - `typeof BigInt(123456789012345678901234567890)` → `"bigint"`
+
+// ### **Example:**
+// ```javascript
+// let name = "John";
+// console.log(typeof name);  // Output: "string"
+
+// let age = 25;
+// console.log(typeof age);  // Output: "number"
+
+// let isActive = true;
+// console.log(typeof isActive);  // Output: "boolean"
+
+// let person = { name: "John", age: 25 };
+// console.log(typeof person);  // Output: "object"
+
+// let numbers = [1, 2, 3];
+// console.log(typeof numbers);  // Output: "object"
+
+// let greet = function() { return "Hello"; };
+// console.log(typeof greet);  // Output: "function"
+// ```
+
+// ### **Special Case:**
+// - `typeof null` returns `"object"`, which is a historical bug in JavaScript.
+
+// ### **Conclusion:**
+// - `typeof` is a quick way to check the type of a value, but it has limitations, especially when dealing with arrays and `null` (both return `"object"`).
+
+// Let me know if you need further clarification!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### **`setInterval` and `setTimeout` in JavaScript**
+
+// Both `setInterval` and `setTimeout` are methods in JavaScript that allow you to delay the execution of a function or execute it repeatedly, but they work in slightly different ways.
+
+// ---
+
+// ### **1. `setTimeout()`**
+
+// The `setTimeout()` function is used to execute a function or piece of code after a specified delay (in milliseconds). It runs the function once after the delay.
+
+// #### **Syntax:**
+// ```javascript
+// setTimeout(function, delay, param1, param2, ...);
+// ```
+
+// - `function`: The function that you want to run after the delay.
+// - `delay`: The time (in milliseconds) to wait before running the function.
+// - `param1, param2, ...` (optional): Arguments that will be passed to the function when executed.
+
+// #### **Example:**
+
+// ```javascript
+// function sayHello() {
+//   console.log("Hello, World!");
+// }
+
+// // Execute sayHello after 2 seconds (2000 milliseconds)
+// setTimeout(sayHello, 2000);
+
+// // Or using an anonymous function:
+// setTimeout(function() {
+//   console.log("This will also print after 2 seconds");
+// }, 2000);
+// ```
+
+// **Output (after 2 seconds):**
+// ```
+// Hello, World!
+// This will also print after 2 seconds
+// ```
+
+// #### **Important Notes:**
+// - The function is executed **only once** after the specified delay.
+// - If you want to cancel the `setTimeout`, you can use the `clearTimeout()` function.
+
+// **Canceling Example:**
+// ```javascript
+// let timer = setTimeout(sayHello, 2000);
+// clearTimeout(timer);  // This will prevent "sayHello" from being called
+// ```
+
+// ---
+
+// ### **2. `setInterval()`**
+
+// The `setInterval()` function is used to execute a function or piece of code repeatedly at specified intervals, in milliseconds.
+
+// #### **Syntax:**
+// ```javascript
+// setInterval(function, interval, param1, param2, ...);
+// ```
+
+// - `function`: The function that you want to run repeatedly.
+// - `interval`: The time (in milliseconds) between each function call.
+// - `param1, param2, ...` (optional): Arguments that will be passed to the function on each execution.
+
+// #### **Example:**
+
+// ```javascript
+// function greet() {
+//   console.log("Hello, again!");
+// }
+
+// // Execute greet every 2 seconds (2000 milliseconds)
+// setInterval(greet, 2000);
+
+// // Or using an anonymous function:
+// setInterval(function() {
+//   console.log("This prints every 3 seconds");
+// }, 3000);
+// ```
+
+// **Output (every 2 seconds for greet and 3 seconds for the anonymous function):**
+// ```
+// Hello, again!  (prints every 2 seconds)
+// This prints every 3 seconds  (prints every 3 seconds)
+// ```
+
+// #### **Important Notes:**
+// - The function is executed **repeatedly** at the given interval.
+// - If you want to stop the `setInterval`, you can use the `clearInterval()` function.
+
+// **Canceling Example:**
+// ```javascript
+// let interval = setInterval(greet, 2000);
+// clearInterval(interval);  // This will stop the repeated calls
+// ```
+
+// ---
+
+// ### **Key Differences:**
+// | **Feature**           | **`setTimeout`**                             | **`setInterval`**                               |
+// |-----------------------|---------------------------------------------|------------------------------------------------|
+// | **Purpose**           | Executes once after a delay.                | Executes repeatedly at the specified interval. |
+// | **Usage**             | Useful for one-time delayed actions.        | Useful for actions that need to be repeated.   |
+// | **Stopping**          | Use `clearTimeout()` to cancel it.          | Use `clearInterval()` to cancel it.            |
+
+// ---
+
+// ### **Conclusion:**
+// - Use `setTimeout` when you want to run a function once after a delay.
+// - Use `setInterval` when you want to run a function repeatedly at regular intervals.
+// - Both functions are asynchronous, meaning the code execution will continue while the timer is counting down.
+
+// Let me know if you need more details or examples!
