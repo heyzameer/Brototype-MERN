@@ -523,7 +523,7 @@ console.log(numbers[4]);  // Output: 50
 
 // ---
 
-// ### **2️⃣ Non-Mutating (Does Not Modify Original Array)**
+// ### **2️⃣ Non-ing (Does Not Modify Original Array)**
 // These methods **return a new array** instead of modifying the existing one.
 
 // #### **slice() - Extracts elements without modifying the original array**
