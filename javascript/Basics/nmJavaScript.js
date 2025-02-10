@@ -299,20 +299,20 @@
 // 1. **Environment Record** → Stores local variables, function declarations, and block-scoped variables.
 // 2. **Outer Environment Reference** → A reference to the parent lexical environment (where the function was defined).
 
-// ### **Example 1: Understanding Lexical Environment**
-// ```javascript
-function outer() {
-    let a = 10;
+// // ### **Example 1: Understanding Lexical Environment**
+// // ```javascript
+// function outer() {
+//     let a = 10;
 
-    function inner() {
-        let b = 20;
-        console.log(a);  // Accessing variable from outer()
-    }
+//     function inner() {
+//         let b = 20;
+//         console.log(a);  // Accessing variable from outer()
+//     }
 
-    inner();
-}
+//     inner();
+// }
 
-outer();
+// outer();
 // ```
 // 🔹 When `outer()` is called, a **Lexical Environment** for `outer()` is created.  
 // 🔹 Inside `outer()`, when `inner()` is called, a **new Lexical Environment** for `inner()` is created.  
@@ -334,20 +334,20 @@ outer();
 // ```javascript
 // let x = "Global";
 
-function first() {
-    let y = "First";
+// function first() {
+//     let y = "First";
 
-    function second() {
-        let z = "Second";
-        console.log(x);  // Found in Global Scope
-        console.log(y);  // Found in first()'s Scope
-        console.log(z);  // Found in second()'s Scope
-    }
+//     function second() {
+//         let z = "Second";
+//         console.log(x);  // Found in Global Scope
+//         console.log(y);  // Found in first()'s Scope
+//         console.log(z);  // Found in second()'s Scope
+//     }
 
-    second();
-}
+//     second();
+// }
 
-first();
+// first();
 // ```
 // 🔹 When `second()` tries to access `x`, JavaScript **searches in its own Lexical Environment first**, but `x` is not there.  
 // 🔹 JavaScript then moves **up the Scope Chain** to `first()`'s environment, but `x` is also not there.  
@@ -400,9 +400,9 @@ first();
 // ## **Example of TDZ in JavaScript**
 // ### **❌ Example: Accessing `let` or `const` before declaration**
 // ```javascript
-console.log(x);  // ❌ ReferenceError: Cannot access 'x' before initialization
+// console.log(x);  // ❌ ReferenceError: Cannot access 'x' before initialization
 // let x = 10;
-console.log(x);  // ✅ 10
+// consol/.log(x);  // ✅ 10
 // ```
 // ### **How Does This Happen?**
 // 1. JavaScript **hoists** `x`, but does not initialize it.
@@ -413,9 +413,9 @@ console.log(x);  // ✅ 10
 
 // ## **TDZ with `const`**
 // ```javascript
-console.log(y);  // ❌ ReferenceError: Cannot access 'y' before initialization
-const y = 20;
-console.log(y);  // ✅ 20
+// console.log(y);  // ❌ ReferenceError: Cannot access 'y' before initialization
+// const y = 20;
+// console.log(y);  // ✅ 20
 
 // 🔹 `const` behaves the same way as `let` in terms of TDZ.  
 // 🔹 However, `const` **must be initialized at the time of declaration**, whereas `let` can be declared without an initial value.
@@ -424,9 +424,9 @@ console.log(y);  // ✅ 20
 
 // ## **TDZ Does Not Apply to `var`**
 // ```javascript
-console.log(a);  // ✅ undefined (NO ReferenceError)
-var a = 5;
-console.log(a);  // ✅ 5
+// console.log(a);  // ✅ undefined (NO ReferenceError)
+// var a = 5;
+// console.log(a);  // ✅ 5
 // ```
 // 🔹 `var` is also **hoisted**, but unlike `let` and `const`, it is automatically **initialized with `undefined`**.  
 // 🔹 This is why accessing `var` **before declaration does not throw a `ReferenceError`**, but gives `undefined`.
@@ -468,9 +468,9 @@ console.log(a);  // ✅ 5
 
 // #### **Example: `var` Hoisting**
 // ```javascript
-console.log(x);  // ✅ undefined (hoisted)
-var x = 10;
-console.log(x);  // ✅ 10
+// console.log(x);  // ✅ undefined (hoisted)
+// var x = 10;
+// console.log(x);  // ✅ 10
 
 // **Why?**  
 // - `var x` is **hoisted**, but only the declaration (`x = undefined`).  
@@ -478,18 +478,18 @@ console.log(x);  // ✅ 10
 
 // #### **Example: Function Scope**
 // ```javascript
-function test() {
-    var y = "Hello";
-}
-console.log(y);  // ❌ ReferenceError: y is not defined (function scope)
+// function test() {
+//     var y = "Hello";
+// }
+// console.log(y);  // ❌ ReferenceError: y is not defined (function scope)
 
 // ```
 
 // #### **Example: Redeclaration**
 // ```javascript
-var a = 5;
-var a = 10;  // ✅ Allowed
-console.log(a);  // ✅ 10
+// var a = 5;
+// var a = 10;  // ✅ Allowed
+// console.log(a);  // ✅ 10
 
 
 // ---
@@ -507,17 +507,17 @@ console.log(a);  // ✅ 10
 
 // #### **Example: Block Scope**
 // ```javascript
-if (true) {
-    let name = "Alice";
-}
-console.log(name);  // ❌ ReferenceError (only inside the block)
+// if (true) {
+//     let name = "Alice";
+// }
+// console.log(name);  // ❌ ReferenceError (only inside the block)
 
 
-// #### **Example: Reassignment (✅ Allowed)**
-// // javascript
-let num = 5;
-num = 10;  // ✅ Allowed
-console.log(num);  // ✅ 10
+// // #### **Example: Reassignment (✅ Allowed)**
+// // // javascript
+// let num = 5;
+// num = 10;  // ✅ Allowed
+// console.log(num);  // ✅ 10
 
 
 
@@ -539,11 +539,11 @@ console.log(num);  // ✅ 10
 // #### **Example: Objects/Arrays Can Be Modified**
 // Even though `const` variables **cannot be reassigned**, their **properties can be changed**.
 // ```javascript
-const obj = { name: "John" };
-obj.name = "Doe";  // ✅ Allowed
-console.log(obj.name);  // ✅ "Doe"
+// const obj = { name: "John" };
+// obj.name = "Doe";  // ✅ Allowed
+// console.log(obj.name);  // ✅ "Doe"
 
-obj = {};  // ❌ TypeError: Assignment to constant variable
+// obj = {};  // ❌ TypeError: Assignment to constant variable
 // ```
 
 // ---
@@ -1214,22 +1214,25 @@ obj = {};  // ❌ TypeError: Assignment to constant variable
 // ### Example with Detailed Explanation
 
 // ```js
-// let globalVar = "I'm global";
+let globalVar = "I'm global";
 
-// function outer() {
-//     let outerVar = "I'm in outer";
+function outer() {
+    let outerVar = "I'm in outer";
 
-//     function inner() {
-//         let innerVar = "I'm in inner";
-//         console.log(globalVar); // Accesses the global lexical environment
-//         console.log(outerVar);  // Accesses the outer lexical environment
-//         console.log(innerVar);  // Accesses its own lexical environment
-//     }
+    function inner() {
+        let innerVar = "I'm in inner";
+        console.log(globalVar); // Accesses the global lexical environment
+        console.log(outerVar);  // Accesses the outer lexical environment
+        console.log(innerVar);  // Accesses its own lexical environment
+    }
 
-//     inner();
-// }
+    inner();
+}
 
-// outer();
+outer();
+
+console.log(globalVar); // Accesses the global lexical environment
+
 // ```
 
 // #### Execution Contexts in Action:
