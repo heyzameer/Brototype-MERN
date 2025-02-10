@@ -154,3 +154,10 @@ console.log(add(3, 4));  // Output: 7
 
 // counter using closure
 
+function attachEventListner(){
+    let count = 0;
+    document.getElementById("clickme").addEventListener("click",function xyz(){
+        console.log("btn clicked",++count);
+    })
+}
+attachEventListner();
