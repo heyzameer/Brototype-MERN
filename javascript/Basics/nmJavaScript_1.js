@@ -986,3 +986,14 @@ console.log(multiplyByTwo(10)); // Output: 20
 // 📌 **Handling User Input** (Button clicks, keypresses)  
 
 // This **non-blocking nature** makes JavaScript **efficient and responsive**, especially in web applications! 🚀
+
+
+
+
+
+
+
+
+
+
+
