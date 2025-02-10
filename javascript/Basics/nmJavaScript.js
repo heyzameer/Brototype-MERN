@@ -1165,3 +1165,100 @@ obj = {};  // ❌ TypeError: Assignment to constant variable
 // - The **scope chain** ensures that a function can access variables from its own scope, its parent scope, and the global scope, in that order.
 
 // Let me know if you'd like further clarification or examples! 😊
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### Is Lexical Environment the Same as Execution Context?
+
+// No, **lexical environment** and **execution context** are related but not the same. Here’s a clear distinction:
+
+// #### 1. **Execution Context**
+// An **execution context** is a container that holds information about the current execution of code. It is created whenever JavaScript starts executing code (such as when a function is invoked or when the global code runs).
+
+// There are **three types of execution contexts**:
+// - **Global Execution Context (GEC)**: The default context for code running outside of any function. It's the environment where the code runs at the global level.
+// - **Function Execution Context (FEC)**: Created whenever a function is called. Each function has its own execution context.
+// - **Eval Execution Context**: Created when code is executed using the `eval()` function, although it's generally not recommended to use.
+
+// **An execution context** includes:
+// - **Lexical Environment**: It’s a key part of the execution context. It keeps track of variables and functions that are accessible.
+// - **Variable Object (VO)**: Contains all the variables and functions declared in that context (for a function execution context, it stores function parameters, variables, and inner functions).
+// - **Scope Chain**: A list of all the lexical environments that are accessible from that execution context, helping to resolve variables when referenced.
+
+// #### 2. **Lexical Environment**
+// A **lexical environment** is essentially a **data structure** that consists of:
+// - **Environment Record**: It stores the variables, functions, and parameters that are available in the current scope.
+// - **Reference to the outer lexical environment**: If the current function or block is inside another function, the reference to the parent’s lexical environment is stored here. This allows for the creation of the **scope chain**.
+
+// In simpler terms, the **lexical environment** is like a memory store that holds all the variables and functions in the current scope and the reference to the parent’s environment. The term **lexical** refers to the fact that the scope (and thus the environment) is determined at the time the code is written (lexically), not when it’s executed.
+
+// #### Relationship Between Execution Context and Lexical Environment
+// - The **execution context** is a broader concept that contains the **lexical environment**.
+// - The **lexical environment** exists within an execution context, and it helps to manage **variable resolution**.
+
+// When a function is invoked, a **new execution context** is created, and inside that context, a **new lexical environment** is also created for that function.
+
+// ### Example with Detailed Explanation
+
+// ```js
+// let globalVar = "I'm global";
+
+// function outer() {
+//     let outerVar = "I'm in outer";
+
+//     function inner() {
+//         let innerVar = "I'm in inner";
+//         console.log(globalVar); // Accesses the global lexical environment
+//         console.log(outerVar);  // Accesses the outer lexical environment
+//         console.log(innerVar);  // Accesses its own lexical environment
+//     }
+
+//     inner();
+// }
+
+// outer();
+// ```
+
+// #### Execution Contexts in Action:
+// 1. **Global Execution Context (GEC)**: 
+//    - When the code is first loaded, the **Global Execution Context** is created.
+//    - The global execution context has a **global lexical environment** that contains the `globalVar`.
+
+// 2. **Execution Context of `outer()`**: 
+//    - When `outer()` is called, a new **function execution context** is created for it.
+//    - This function’s **lexical environment** contains `outerVar`, and it also has a reference to the **global lexical environment** (so it can access `globalVar`).
+
+// 3. **Execution Context of `inner()`**:
+//    - Inside `outer()`, when `inner()` is called, another **function execution context** is created.
+//    - The **lexical environment** of `inner()` contains `innerVar`, and it has references to the **lexical environments of `outer()` and the global context**.
+
+// This is how the **scope chain** works, enabling **variable look-up** in the order of the environments in the execution context hierarchy.
+
+// #### Summary:
+// - **Execution Context**: This is a broader concept that represents the environment where the code is executed and consists of multiple components (like lexical environment, variable object, and scope chain).
+// - **Lexical Environment**: A data structure that stores the variables and functions of a particular scope. It is a key component of the execution context.
+
+// In short, **lexical environment** is a part of the **execution context**, but they are not the same thing.
+
+
+
+
+
+
+
+
+
+
