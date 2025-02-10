@@ -645,4 +645,4 @@ console.log(multiplyByTwo(10)); // Output: 20
 
 
 
-// closure data hiding script1
+// closure data hiding script-1
