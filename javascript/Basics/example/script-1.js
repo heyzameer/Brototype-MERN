@@ -61,48 +61,48 @@
 
 
 
-let globalVar = "I'm global";
+// let globalVar = "I'm global";
 
-function outer() {
-    let outerVar = "I'm in outer";
+// function outer() {
+//     let outerVar = "I'm in outer";
 
-    function inner() {
-        let innerVar = "I'm in inner";
-        console.log(globalVar); // Accesses the global lexical environment
-        console.log(outerVar);  // Accesses the outer lexical environment
-        console.log(innerVar);  // Accesses its own lexical environment
-    }
+//     function inner() {
+//         let innerVar = "I'm in inner";
+//         console.log(globalVar); // Accesses the global lexical environment
+//         console.log(outerVar);  // Accesses the outer lexical environment
+//         console.log(innerVar);  // Accesses its own lexical environment
+//     }
 
-    inner();
-}
+//     inner();
+// }
 
-outer();
+// outer();
 
-console.log(globalVar); // Accesses the global lexical environment
-
-
+// console.log(globalVar); // Accesses the global lexical environment
 
 
 
 
 
 
-// // Function that accepts another function as an argument
-function greet(name, callback) {
-    console.log("Hello " + name);
-    callback();  // Invokes the callback function
-}
 
-// Function passed as a callback
-function sayGoodbye() {
-    console.log("Goodbye!");
-}
 
-greet("Alice", sayGoodbye);  
-// Output:
-// Hello Alice
-// // Goodbye!
-// ```
+// // // Function that accepts another function as an argument
+// function greet(name, callback) {
+//     console.log("Hello " + name);
+//     callback();  // Invokes the callback function
+// }
+
+// // Function passed as a callback
+// function sayGoodbye() {
+//     console.log("Goodbye!");
+// }
+
+// greet("Alice", sayGoodbye);  
+// // Output:
+// // Hello Alice
+// // // Goodbye!
+// // ```
 
 
 
@@ -147,3 +147,10 @@ const add = function(a, b) {
 };
 
 console.log(add(3, 4));  // Output: 7
+
+
+
+
+
+// counter using closure
+
