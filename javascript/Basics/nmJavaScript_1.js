@@ -997,3 +997,264 @@ console.log(multiplyByTwo(10)); // Output: 20
 
 
 
+
+
+
+
+
+
+
+
+// ### **🚀 Understanding `setTimeout` and the Callback Queue in JavaScript**  
+
+// JavaScript is **single-threaded** and follows an **event-driven** model. The `setTimeout` function does not execute immediately but follows the **event loop mechanism**.  
+
+// ---
+
+// ### **🔹 How `setTimeout` Works?**
+// When `setTimeout` is called:
+// 1️⃣ The **timer starts** in the **Web API** environment.  
+// 2️⃣ After the specified delay, the **callback function moves to the Callback Queue**.  
+// 3️⃣ **Event Loop checks** if the Call Stack is empty.  
+// 4️⃣ If the **Call Stack is empty**, the function is pushed from the **Callback Queue to the Call Stack** and executed.  
+
+// ⏳ Even if `setTimeout` is set to `0ms`, it **does not execute immediately** because it must wait for the call stack to be empty.  
+
+// ---
+
+// ### **📌 Example: `setTimeout` with 0ms Delay**
+// ```javascript
+// console.log("Start");
+
+// setTimeout(() => {
+//     console.log("Inside setTimeout");
+// }, 0);
+
+// console.log("End");
+// ```
+// #### **📝 Output:**
+// ```
+// Start
+// End
+// Inside setTimeout
+// ```
+// 💡 Even though `setTimeout` is **0ms**, it runs **after "End"** because it is stored in the **Callback Queue** and executes only when the **Call Stack is empty**.
+
+// ---
+
+// ### **⚡ Key Takeaways**
+// ✅ `setTimeout` stores the callback in the **Callback Queue**, not in the Call Stack.  
+// ✅ The callback function executes **only after the Call Stack is empty**.  
+// ✅ `setTimeout(0)` still waits for the **Call Stack to be cleared** before execution.  
+// ✅ If the Call Stack is busy, execution **may be delayed** beyond the timeout value.  
+
+// This behavior is crucial when dealing with **asynchronous operations** in JavaScript! 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+// HigherOrder Function
+
+// const radius = [3,6,2,1];
+
+// const area = function (radius) {
+//     return Math.PI* radius *radius;
+// }
+// const circumferrence = function (radius) {
+//     return 2 * Math.PI *radius;
+// }
+// const diameter = function (radius) {
+//     return 2 * radius;
+// }
+
+
+// const calculate = function(arr,logic){
+//     const result=[];
+
+//     for (let i = 0; i < arr.length; i++) {
+//        result.push(logic(arr[i])); 
+//     }
+//     return result;
+// }
+
+// console.log(calculate(radius,area));
+// console.log(calculate(radius,circumferrence));
+// console.log(calculate(radius,diameter));
+
+
+// console.log("using map")
+
+// console.log(radius.map(area));
+
+// Array.prototype.calculate = function(logic){
+//     const result=[];
+
+//     for (let i = 0; i < this.length; i++) {
+//        result.push(logic(this[i])); 
+//     }
+//     return result;
+// }
+// console.log("our implemetation of map")
+// console.log(radius.calculate(area));
+
+
+
+
+
+
+
+// Let's dive deeper into each of these concepts with detailed explanations:
+
+// ### 1. **Follow DRY (Don't Repeat Yourself) Principle**:
+//    The **DRY principle** is a fundamental concept in software development that encourages the avoidance of repetition in code. The goal of DRY is to reduce redundancy by abstracting repeated logic into reusable functions, classes, or modules. By following DRY, the code becomes more maintainable, readable, and less error-prone.
+
+//    **In-Depth Explanation**: 
+//    - Repeated code can lead to difficulties in maintaining the application. If you need to make a change in one place, you might forget to change it everywhere else, leading to bugs.
+//    - By reusing code, we minimize the chance of making these errors, and we also make the code easier to refactor, debug, and extend.
+
+//    **Example**:
+//    ```javascript
+//    // Without DRY
+//    const circleArea1 = 5 * 5 * Math.PI;
+//    const circleArea2 = 10 * 10 * Math.PI;
+
+//    // With DRY (Reused function)
+//    function calculateCircleArea(radius) {
+//        return Math.PI * radius * radius;
+//    }
+
+//    const circleArea1 = calculateCircleArea(5);
+//    const circleArea2 = calculateCircleArea(10);
+//    ```
+
+//    **Explanation**: In the first version, we repeat the logic for calculating the area of a circle, which can lead to issues in larger projects. By abstracting the logic into a reusable function, we ensure that the calculation is centralized and reusable.
+
+// ---
+
+// ### 2. **Use Function to Stop Writing Repeating Lines of Code**:
+//    The concept here is directly linked to the DRY principle. Using **functions** helps encapsulate reusable logic and avoid the need for duplicating the same logic across multiple parts of your codebase. Functions allow you to abstract complexity and provide clean, modular code.
+
+//    **In-Depth Explanation**: 
+//    - A function is essentially a container for a block of code that performs a specific task. You can define this block once and call it whenever needed.
+//    - Functions help improve the readability of your code by breaking it into manageable and meaningful pieces.
+//    - Functions also enable easy unit testing and debugging since they can be isolated.
+
+//    **Example**:
+//    ```javascript
+//    // Without a function
+//    const area1 = 5 * 5 * Math.PI;
+//    const area2 = 10 * 10 * Math.PI;
+
+//    // With a function
+//    function calculateCircleArea(radius) {
+//        return Math.PI * radius * radius;
+//    }
+
+//    const area1 = calculateCircleArea(5);
+//    const area2 = calculateCircleArea(10);
+//    ```
+
+//    **Explanation**: Instead of rewriting the logic for calculating the area every time, we define a single function and reuse it for different inputs.
+
+// ---
+
+// ### 3. **Function that Takes Another Function as Argument (Higher-Order Functions)**:
+//    A **higher-order function** is a function that either:
+//    - Takes one or more functions as arguments, or
+//    - Returns a function.
+
+//    **In-Depth Explanation**:
+//    - This is one of the key features of functional programming, where functions can be treated as first-class citizens (i.e., they can be passed as arguments, returned, and assigned to variables).
+//    - Higher-order functions allow for more flexible and reusable code because they can be customized with different behaviors passed as arguments.
+//    - Common examples of higher-order functions in JavaScript are array methods like `map()`, `filter()`, `reduce()`, etc., which take callback functions as arguments.
+
+//    **Example**:
+//    ```javascript
+//    // Higher-Order Function
+//    function executeCallback(callback, name) {
+//        callback(name); // Call the callback function
+//    }
+
+//    // Callback Function
+//    function greet(name) {
+//        console.log("Hello, " + name);
+//    }
+
+//    executeCallback(greet, "Alice"); // Outputs: "Hello, Alice"
+//    ```
+
+//    **Explanation**: `executeCallback` is a higher-order function because it accepts a function (`greet`) as an argument and executes it. This allows you to pass different functions to `executeCallback`, making it reusable.
+
+// ---
+
+// ### 4. **Functions as First-Class Citizens**:
+//    Functions being **first-class citizens** means that they can be:
+//    - Assigned to variables.
+//    - Passed as arguments to other functions.
+//    - Returned from other functions.
+//    - Stored in data structures like arrays, objects, etc.
+
+//    **In-Depth Explanation**:
+//    - First-class functions are a core principle of JavaScript, allowing you to treat functions just like any other variable. This enables higher-order functions, as well as the ability to create dynamic and flexible code.
+//    - You can pass a function as an argument to another function, which allows for greater abstraction and decoupling in your code.
+//    - Functions can be returned from other functions, which leads to powerful techniques such as closures and currying.
+
+//    **Example**:
+//    ```javascript
+//    // Function assigned to a variable
+//    const multiply = function(a, b) {
+//        return a * b;
+//    };
+
+//    // Function passed as an argument
+//    function calculate(operation, a, b) {
+//        return operation(a, b);
+//    }
+
+//    console.log(calculate(multiply, 3, 4)); // Outputs: 12
+
+//    // Function returned from another function
+//    function createAdder(x) {
+//        return function(y) {
+//            return x + y;
+//        };
+//    }
+
+//    const addFive = createAdder(5);
+//    console.log(addFive(10)); // Outputs: 15
+//    ```
+
+//    **Explanation**: Functions can be treated as variables that hold logic, passed as arguments to other functions, and returned to create more dynamic behavior. In the `createAdder` function, we return a new function that has access to the variable `x` (a closure), enabling the creation of personalized functions like `addFive`.
+
+// ---
+
+// ### 5. **Using Array Methods with Functions**:
+//    Many built-in methods in JavaScript are higher-order functions, particularly on arrays, allowing you to manipulate and transform data in concise and functional ways.
+
+//    **In-Depth Explanation**:
+//    - JavaScript array methods like `map`, `filter`, and `reduce` are powerful tools for working with collections of data in a functional programming style. These methods take callback functions as arguments and allow you to perform operations on each element of the array.
+//    - These array methods abstract away common looping operations, making the code cleaner and more expressive.
+
+//    **Example**:
+//    ```javascript
+//    const numbers = [1, 2, 3, 4];
+
+//    // Using map (Higher-order function)
+//    const squares = numbers.map(function(number) {
+//        return number * number;
+//    });
+
+//    console.log(squares); // Outputs: [1, 4, 9, 16]
+//    ```
+
+//    **Explanation**: The `map` method is a higher-order function that takes a function as an argument. The function is applied to each element in the array, and the results are returned as a new array. This avoids the need for manually iterating over the array and modifying its elements.
+
