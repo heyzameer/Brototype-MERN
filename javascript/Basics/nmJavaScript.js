@@ -190,6 +190,8 @@
 //    - **Arrow functions are treated as variables**, so they are **initialized as `undefined`** just like other variables.  
 //    - **Function declarations**, however, are fully **hoisted**, meaning they can be called **before** their declaration.  
 
+
+
 // 3. **Hoisting in JavaScript**  
 //    - **Hoisting** is a mechanism where JavaScript moves all **variable and function declarations** to the **top of their scope** before execution.  
 //    - This allows functions to be called **before they are defined** in the code.  
