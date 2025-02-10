@@ -79,3 +79,71 @@ function outer() {
 outer();
 
 console.log(globalVar); // Accesses the global lexical environment
+
+
+
+
+
+
+
+
+// // Function that accepts another function as an argument
+function greet(name, callback) {
+    console.log("Hello " + name);
+    callback();  // Invokes the callback function
+}
+
+// Function passed as a callback
+function sayGoodbye() {
+    console.log("Goodbye!");
+}
+
+greet("Alice", sayGoodbye);  
+// Output:
+// Hello Alice
+// // Goodbye!
+// ```
+
+
+
+
+
+
+
+
+// // Function that returns another function
+function multiplier(factor) {
+    return function(number) {
+        return number * factor;
+    }
+}
+
+// Creating a new function that multiplies by 2
+const multiplyByTwo = multiplier(2);
+
+console.log(multiplyByTwo(5));  // Output: 10
+console.log(multiplyByTwo(10)); // Output: 20
+// ```
+
+
+
+
+
+
+
+
+
+
+// ### 3. **Be assigned to variables**
+
+// Functions can be assigned to variables, and then invoked using those variables.
+
+// **Example:**
+
+// ```javascript
+// Assigning a function to a variable
+const add = function(a, b) {
+    return a + b;
+};
+
+console.log(add(3, 4));  // Output: 7
