@@ -55,3 +55,31 @@ const names = user.reduce((acc, cur) => {
 }, {}); // Initialize accumulator as an empty object
 
 console.log("fnames", names);
+
+
+
+
+
+
+
+
+const currentDate = new Date(); // Get the current date and time
+const hours = currentDate.getHours(); // Get the current hour (0-23)
+
+let greeting;
+
+switch (true) {
+  case (hours >= 5 && hours < 12):
+    greeting = "Good Morning!";
+    break;
+  case (hours >= 12 && hours < 17):
+    greeting = "Good Afternoon!";
+    break;
+  case (hours >= 17 && hours < 21):
+    greeting = "Good Evening!";
+    break;
+  default:
+    greeting = "Good Night!";
+}
+
+console.log(greeting); // Output depends on the current time
