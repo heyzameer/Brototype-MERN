@@ -329,3 +329,37 @@ console.log(arr);  // Output: [1, 2, 3, 4, 5]
 // }
 
 // console.log(reverseArrayUsingTwoPointer([1,2,3,4,5,6]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const array2D = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
+// Using nested loops
+for (let i = 0; i < array2D.length; i++) {
+    let row = '';
+    for (let j = 0; j < array2D[i].length; j++) {
+        row += array2D[i][j] + ' '; // Add each element of the row to a string
+    }
+    console.log(row); // Print the row after adding all elements
+}

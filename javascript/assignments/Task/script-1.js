@@ -793,81 +793,1062 @@
 
 
 
-const prompt = require('prompt-sync')();
+// const prompt = require('prompt-sync')();
 
-// Class that contains functions for each mathematical operation
-class Calculator {
-    addition(a, b) {
-        return a + b;
-    }
+// // Class that contains functions for each mathematical operation
+// class Calculator {
+//     addition(a, b) {
+//         return a + b;
+//     }
 
-    subtraction(a, b) {
-        return a - b;
-    }
+//     subtraction(a, b) {
+//         return a - b;
+//     }
 
-    multiplication(a, b) {
-        return a * b;
-    }
+//     multiplication(a, b) {
+//         return a * b;
+//     }
 
-    division(a, b) {
-        if (b === 0) {
-            console.log("Error! Division by zero.");
-            return null;
-        }
-        return a / b;
-    }
+//     division(a, b) {
+//         if (b === 0) {
+//             console.log("Error! Division by zero.");
+//             return null;
+//         }
+//         return a / b;
+//     }
+// }
+
+// // Main function
+// function main() {
+//     const calculator = new Calculator(); // Create an instance of the Calculator class
+
+//     // Display menu options
+//     console.log("Select an operation:");
+//     console.log("1. Addition");
+//     console.log("2. Subtraction");
+//     console.log("3. Multiplication");
+//     console.log("4. Division");
+//     console.log("5. Exit");
+
+//     // Get the user's choice
+//     const choice = parseInt(prompt("Enter your choice (1-5): "), 10);
+
+//     if (choice >= 1 && choice <= 4) {
+//         // Get the numbers for the operation
+//         const num1 = parseFloat(prompt("Enter first number: "));
+//         const num2 = parseFloat(prompt("Enter second number: "));
+
+//         // Perform the appropriate operation based on user's choice
+//         let result;
+//         switch (choice) {
+//             case 1:
+//                 result = calculator.addition(num1, num2);
+//                 console.log(`Result of Addition: ${result}`);
+//                 break;
+//             case 2:
+//                 result = calculator.subtraction(num1, num2);
+//                 console.log(`Result of Subtraction: ${result}`);
+//                 break;
+//             case 3:
+//                 result = calculator.multiplication(num1, num2);
+//                 console.log(`Result of Multiplication: ${result}`);
+//                 break;
+//             case 4:
+//                 result = calculator.division(num1, num2);
+//                 if (result !== null) {
+//                     console.log(`Result of Division: ${result}`);
+//                 }
+//                 break;
+//             default:
+//                 console.log("Invalid choice");
+//         }
+//     } else if (choice === 5) {
+//         console.log("Exiting program...");
+//     } else {
+//         console.log("Invalid choice! Please select a valid operation.");
+//     }
+// }
+
+// // Call the main function
+// main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 18. Grades are computed using a weighted average. Suppose that the written test counts 70%,  lab exams 20% and assignments 10%.
+// If Arun has a score of
+// Written test = 81
+// Lab exams = 68
+// Assignments = 92
+// Arun’s overall grade = (81x70)/100 + (68x20)/100 + (92x10)/100 = 79.5
+//  Write a program to find the grade of a student during his academic year. 
+// Program should accept the scores for written test, lab exams and assignments
+// Output the grade of a student (using weighted average)
+// Eg:
+// Enter the marks scored by the students
+// Written test = 55
+// Lab exams = 73
+// Assignments = 87
+// Grade of the student is 61.8 
+
+
+
+
+
+// const prompt = require('prompt-sync')();
+
+// function calculateGrade(writtenTest, labExams, assignments) {
+//     // Calculate the weighted average using the given percentages
+//     const grade = (writtenTest * 70 / 100) + (labExams * 20 / 100) + (assignments * 10 / 100);
+//     return grade;
+// }
+
+// function main() {
+//     // Accepting the scores from the user
+//     const writtenTest = parseFloat(prompt("Enter the score for Written test: "));
+//     const labExams = parseFloat(prompt("Enter the score for Lab exams: "));
+//     const assignments = parseFloat(prompt("Enter the score for Assignments: "));
+
+//     // Calculate and display the grade
+//     const grade = calculateGrade(writtenTest, labExams, assignments);
+//     console.log(`Grade of the student is: ${grade.toFixed(1)}`);
+// }
+
+// // Call the main function to run the program
+// main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 9. Income tax is calculated as per the following table 
+// Annual Income
+// Tax percentage
+// Up to 2.5 Lakhs 
+// No Tax
+// Above 2.5 Lakhs to 5 Lakhs
+// 5%
+// Above 5 Lakhs to 10 Lakhs
+// 20%
+// Above 10 Lakhs to 50 Lakhs
+// 30%
+
+// Write a program to find out the income tax amount of a person.
+// Program should accept annual income of a person
+// Output the amount of tax he has to pay
+
+// Eg 1:
+// Enter the annual income
+// 495000
+// Income tax amount = 24750.00
+
+// Eg 2:
+// Enter the annual income
+// 500000
+// Income tax amount = 25000.00
+
+
+
+
+
+// const prompt = require('prompt-sync')();
+
+// function calculateTax(income) {
+//     let tax = 0;
+
+//     // Tax calculation based on income slabs
+//     if (income <= 250000) {
+//         tax = 0;
+//     } else if (income <= 500000) {
+//         tax = (income - 250000) * 0.05;
+//     } else if (income <= 1000000) {
+//         tax = (income - 500000) * 0.20 + (250000 * 0.05);
+//     } else if (income <= 5000000) {
+//         tax = (income - 1000000) * 0.30 + (500000 * 0.20) + (250000 * 0.05);
+//     }
+
+//     return tax;
+// }
+
+// function main() {
+//     // Accepting the annual income from the user
+//     const income = parseFloat(prompt("Enter the annual income: "));
+
+//     // Calculating the income tax
+//     const taxAmount = calculateTax(income);
+    
+//     // Displaying the income tax amount
+//     console.log(`Income tax amount = ${taxAmount.toFixed(2)}`);
+// }
+
+// // Call the main function to run the program
+// main();
+
+
+
+
+
+
+
+// 20. Write a program to print the following pattern using for loop
+// 1
+// 2	3
+// 4	5	6
+// 7	8	9	10
+
+// let count1 = 1;
+// for (let i = 1; i < 5; i++) {
+//     let row = '';
+//     for (let j = 1; j <= i; j++) {
+//         row += count1++ + ' ';  // Append the current count and a space to the row string
+//     }
+//     console.log(row); // Print the row
+//     }
+
+
+
+
+
+// let count = 1; // Initialize count to 1, this will be used to print numbers
+
+// for (let i = 1; i <5; i++) { // Outer loop controls the number of rows (5 rows in total)
+//     for (let j = 1; j <= i; j++) { // Inner loop controls the number of numbers to print in each row
+//         process.stdout.write(count++ + ' ') ; // Print the number and increment count
+//     }
+//     console.log(); // After printing all numbers for the current row, print a new line
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 21. Write a program to multiply the adjacent values of an array and store it in an another array
+// Program should accept an array
+// Multiply the adjacent values
+// Store the result into another array
+// Eg:
+// Enter the array limit
+// 5
+// Enter the values of array
+// 1	2	3	4	5
+// Output
+// 2	6	12	20
+
+
+
+
+// // Function to multiply adjacent values of an array
+// function multiplyAdjacentValues(arr) {
+//     let result = [];
+    
+//     // Loop through the array and multiply adjacent values
+//     for (let i = 0; i < arr.length - 1; i++) {
+//         result.push(arr[i] * arr[i + 1]);
+//     }
+    
+//     return result;
+// }
+
+// // Main function
+// function main() {
+//     const prompt = require('prompt-sync')();
+    
+//     // Accept array limit
+//     const limit = parseInt(prompt("Enter the array limit: "), 10);
+    
+//     // Accept values for the array
+//     let array = [];
+//     console.log("Enter the values of the array:");
+//     for (let i = 0; i < limit; i++) {
+//         array.push(parseInt(prompt(), 10));
+//     }
+    
+//     // Call the function to multiply adjacent values
+//     const result = multiplyAdjacentValues(array);
+    
+//     // Output the result
+//     console.log("Output:");
+//     console.log(result.join(" "));
+// }
+
+// // Call the main function
+// main();
+
+
+
+
+
+
+
+//   22. Write a program to add the values of two 2D arrays
+// Program should contains 3 functions including the main function
+// main()
+// Call function getArray()
+// Call function addArray()
+// Call function displayArray()
+// 		getArray()
+// Get values to the array
+// 		getArray()
+// Add array 1 and array 2
+// 		displayArray()
+// Display the array values
+
+// Eg:
+// Enter the size of array
+// 2
+// Enter the values of array 1
+// 1	2
+// 3	4
+// Enter the values of array 2
+// 5	6
+// 7	8
+// Output:
+// Sum of array 1 and array 2:
+// 6	8
+// 10	12
+
+
+
+
+
+
+
+
+
+// Function to get values for the 2D array
+// function getArray(rows, cols, matrixNum) {
+//     const prompt = require('prompt-sync')();
+//     let matrix = [];
+    
+//     console.log(`Enter the values of array ${matrixNum}:`);
+//     for (let i = 0; i < rows; i++) {
+//         matrix[i] = [];
+//         for (let j = 0; j < cols; j++) {
+//             matrix[i][j] = parseInt(prompt(`Enter value for row ${i + 1}, column ${j + 1}: `), 10);
+//         }
+//     }
+//     return matrix;
+// }
+
+// // Function to add two 2D arrays
+// function addArray(matrix1, matrix2, rows, cols) {
+//     let result = [];
+//     for (let i = 0; i < rows; i++) {
+//         result[i] = [];
+//         for (let j = 0; j < cols; j++) {
+//             result[i][j] = matrix1[i][j] + matrix2[i][j]; // Adding corresponding elements
+//         }
+//     }
+//     return result;
+// }
+
+// // Function to display the array
+// function displayArray(matrix) {
+//     matrix.forEach(row => {
+//         console.log(row.join("\t"));
+//     });
+// }
+
+// // Main function
+// function main() {
+//     const prompt = require('prompt-sync')();
+    
+//     // Accept the size of the array
+//     const size = parseInt(prompt("Enter the size of array: "), 10);
+    
+//     // Get the two arrays
+//     const matrix1 = getArray(size, size, 1);
+//     const matrix2 = getArray(size, size, 2);
+    
+//     // Add the two arrays
+//     const sumArray = addArray(matrix1, matrix2, size, size);
+    
+//     // Display the sum of the two arrays
+//     console.log("Sum of array 1 and array 2:");
+//     displayArray(sumArray);
+// }
+
+// // Call the main function
+// main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 23. Write an object oriented program to store and display the values of a 2D array
+// Program should contains 3 functions including the main function
+// main()
+// Declare an array
+// Call function getArray()
+// Call function displayArray()
+// 		getArray()
+// Get values to the array
+// 		displayArray()
+// Display the array values
+// Eg:
+// Enter the size of array
+// 3
+// Enter the array values
+// 1	2	3
+// 4	5	6
+// 7	8	9
+// Array elements are:
+// 1	2	3
+// 4	5	6
+// 7	8	9
+
+
+
+
+
+
+// class Array2D {
+//     constructor(size) {
+//         this.size = size;
+//         this.array = [];
+//     }
+
+//     // Function to get values for the array
+//     getArray() {
+//         const prompt = require('prompt-sync')();
+//         console.log("Enter the array values:");
+        
+//         for (let i = 0; i < this.size; i++) {
+//             this.array[i] = [];
+//             for (let j = 0; j < this.size; j++) {
+//                 this.array[i][j] = parseInt(prompt(`Enter value for row ${i + 1}, column ${j + 1}: `), 10);
+//             }
+//         }
+//     }
+
+//     // Function to display the array values
+//     displayArray() {
+//         console.log("Array elements are:");
+//         this.array.forEach(row => {
+//             console.log(row.join(' '));
+//         });
+//     }
+// }
+
+// // Main function to execute the program
+// function main() {
+//     const prompt = require('prompt-sync')();
+    
+//     // Accept the size of the array
+//     const size = parseInt(prompt("Enter the size of array: "), 10);
+
+//     // Create an object of Array2D class
+//     const array2D = new Array2D(size);
+    
+//     // Call functions to get values and display the array
+//     array2D.getArray();
+//     array2D.displayArray();
+// }
+
+// // Call the main function
+// main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 24. Write a menu driven program to calculate the area of a given object.
+// Program should contain two classes
+// Class 1: MyClass
+// Class 2: Area
+// Class MyClass should inherit class Area and should contain the following functions
+// main()
+// circle()
+// square()
+// rectangle()
+// triangle()
+// Class Area should contain the following functions to calculate the area of different objects
+// circle()
+// square()
+// rectangle()
+// triangle()
+// Class MyClass extends Area{
+// public static void main(string args[]){
+// }
+// circle() {
+// }
+// square() {
+// }
+// rectangle() {
+// }
+// triangle() {
+// }
+// }
+// Class Area{
+// circle(){
+// }
+// square(){
+// }
+// rectangle() {
+// }
+// triangle() {
+// }
+// }
+
+// Eg 1:
+// Enter your choice
+// Circle
+// Square
+// Rectangle
+// Triangle
+// 2
+// Enter the length
+// 2
+// Output
+// Area of the square is: 4 
+
+// Eg 2:
+// Enter your choice
+// Circle
+// Square
+// Rectangle
+// Triangle
+// 1
+// Enter the radius
+// 3
+// Output
+// Area of the circle is: 28.26
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Class Area containing methods for calculating area of different shapes
+// class Area {
+//     // Method to calculate the area of a circle
+//     circle(radius) {
+//         const area = Math.PI * radius * radius;
+//         console.log(`Area of the circle is: ${area}`);
+//     }
+
+//     // Method to calculate the area of a square
+//     square(side) {
+//         const area = side * side;
+//         console.log(`Area of the square is: ${area}`);
+//     }
+
+//     // Method to calculate the area of a rectangle
+//     rectangle(length, width) {
+//         const area = length * width;
+//         console.log(`Area of the rectangle is: ${area}`);
+//     }
+
+//     // Method to calculate the area of a triangle
+//     triangle(base, height) {
+//         const area = 0.5 * base * height;
+//         console.log(`Area of the triangle is: ${area}`);
+//     }
+// }
+
+// // Class MyClass inherits from Area
+// class MyClass extends Area {
+//     // Main function to drive the program
+//     static main() {
+//         const prompt = require('prompt-sync')(); // For user input
+        
+//         // Create an object of MyClass
+//         const myClass = new MyClass();
+
+//         // Display menu options
+//         console.log("Enter your choice:");
+//         console.log("1. Circle");
+//         console.log("2. Square");
+//         console.log("3. Rectangle");
+//         console.log("4. Triangle");
+
+//         // Get user input for the choice
+//         const choice = parseInt(prompt());
+
+//         // Handle the choice and calculate the area based on the user's input
+//         switch (choice) {
+//             case 1: // Circle
+//                 const radius = parseFloat(prompt("Enter the radius: "));
+//                 myClass.circle(radius);
+//                 break;
+//             case 2: // Square
+//                 const side = parseFloat(prompt("Enter the side length: "));
+//                 myClass.square(side);
+//                 break;
+//             case 3: // Rectangle
+//                 const length = parseFloat(prompt("Enter the length: "));
+//                 const width = parseFloat(prompt("Enter the width: "));
+//                 myClass.rectangle(length, width);
+//                 break;
+//             case 4: // Triangle
+//                 const base = parseFloat(prompt("Enter the base: "));
+//                 const height = parseFloat(prompt("Enter the height: "));
+//                 myClass.triangle(base, height);
+//                 break;
+//             default:
+//                 console.log("Invalid choice");
+//         }
+//     }
+// }
+
+// // Call the main function
+// MyClass.main();
+
+
+
+
+
+
+
+
+
+
+
+
+// 25. Write a Javascript program to display the status (I.e. display book name, author name & reading status) of books. You are given an object library in the code's template. It contains a list of books with the above mentioned properties.Your task is to display the following:
+// If the book is unread:
+// You still need to read '<book_name>' by <author_name>.
+// If the book is read:
+// Already read '<book_name>' by <author_name>.
+// var library = [ 
+//     {
+//         title: 'Bill Gates',
+//         author: 'The Road Ahead',
+//         readingStatus: true
+//     },
+//     {
+//         title: 'Steve Jobs',
+//         author: 'Walter Isaacson',
+//         readingStatus: true
+//     },
+//     {
+//         title: 'Mockingjay: The Final Book of The Hunger Games',
+//         author: 'Suzanne Collins',
+//         readingStatus: false
+//     }
+// ];
+
+
+
+
+
+
+
+
+// var library = [ 
+//     {
+//         title: 'Bill Gates',
+//         author: 'The Road Ahead',
+//         readingStatus: true
+//     },
+//     {
+//         title: 'Steve Jobs',
+//         author: 'Walter Isaacson',
+//         readingStatus: true
+//     },
+//     {
+//         title: 'Mockingjay: The Final Book of The Hunger Games',
+//         author: 'Suzanne Collins',
+//         readingStatus: false
+//     }
+// ];
+
+// // Function to display the book status
+// function displayBookStatus(library) {
+//     for (let i = 0; i < library.length; i++) {
+//         let book = library[i];
+        
+//         if (book.readingStatus) {
+//             console.log(`Already read '${book.title}' by ${book.author}.`);
+//         } else {
+//             console.log(`You still need to read '${book.title}' by ${book.author}.`);
+//         }
+//     }
+// }
+
+// // Call the function
+// displayBookStatus(library);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 26. Given a variable named my_string, try reversing the string using  my_string.split().reverse().join() and then print the reversed string to the console. If the try clause has an error, print the error message to the console. Finally, print the typeof of the my_string variable to the console.
+
+
+// You can change the input value to test
+let my_string = "1234"; // You can also test with a number like Number(1234)
+// let my_string = Number(1234);
+
+try {
+    // Try to reverse the string
+    let reversed_string = my_string.split('').reverse().join('');
+    console.log(`Reversed string is : ${reversed_string}`);
+} catch (err) {
+    // Catch any error if it occurs
+    console.log(`Error : ${err.message}`);
+} finally {
+    // Always print the type of my_string
+    console.log(`Type of my_string is : ${typeof my_string}`);
 }
+// The program you've worked on helps us understand the following key concepts:
 
-// Main function
-function main() {
-    const calculator = new Calculator(); // Create an instance of the Calculator class
+// ### 1. **Reversing a String in JavaScript**:
+//    - **`split()`**: This method splits a string into an array of characters. For example, `"1234".split('')` gives the array `['1', '2', '3', '4']`.
+//    - **`reverse()`**: This method reverses the array in place. So, `['1', '2', '3', '4'].reverse()` will become `['4', '3', '2', '1']`.
+//    - **`join()`**: This method joins the elements of the array back into a string. Using `['4', '3', '2', '1'].join('')`, we get the string `"4321"`.
 
-    // Display menu options
-    console.log("Select an operation:");
-    console.log("1. Addition");
-    console.log("2. Subtraction");
-    console.log("3. Multiplication");
-    console.log("4. Division");
-    console.log("5. Exit");
+//    The output varies based on whether the variable you are trying to reverse is a string or not.
 
-    // Get the user's choice
-    const choice = parseInt(prompt("Enter your choice (1-5): "), 10);
+// ### 2. **Understanding `typeof`**:
+//    - **`typeof`**: This operator is used to check the data type of a variable. In the case of `my_string = "1234"`, the type will be `"string"`, but if the variable is a number like `my_string = 1234`, the type will be `"number"`.
+//    - **Why does the type matter?**: The method `.split()` only works on strings. If `my_string` is a number (like `Number(1234)`), you will encounter an error because numbers don't have the `.split()` method. This is why it's important to check the type before performing operations.
 
-    if (choice >= 1 && choice <= 4) {
-        // Get the numbers for the operation
-        const num1 = parseFloat(prompt("Enter first number: "));
-        const num2 = parseFloat(prompt("Enter second number: "));
+// ### 3. **Error Handling (`try-catch`)**:
+//    - **`try` block**: The code inside the `try` block is executed. If any part of it fails, the error is thrown.
+//    - **`catch` block**: If an error occurs in the `try` block, the program jumps to the `catch` block and runs it. In this case, the error message is printed.
+//    - **Why the error happens**: In this program, if you try to use `.split()` on a variable that isn't a string (like a number), JavaScript will throw an error. This is why the `catch` block is there to handle it gracefully.
 
-        // Perform the appropriate operation based on user's choice
-        let result;
-        switch (choice) {
-            case 1:
-                result = calculator.addition(num1, num2);
-                console.log(`Result of Addition: ${result}`);
-                break;
-            case 2:
-                result = calculator.subtraction(num1, num2);
-                console.log(`Result of Subtraction: ${result}`);
-                break;
-            case 3:
-                result = calculator.multiplication(num1, num2);
-                console.log(`Result of Multiplication: ${result}`);
-                break;
-            case 4:
-                result = calculator.division(num1, num2);
-                if (result !== null) {
-                    console.log(`Result of Division: ${result}`);
-                }
-                break;
-            default:
-                console.log("Invalid choice");
-        }
-    } else if (choice === 5) {
-        console.log("Exiting program...");
-    } else {
-        console.log("Invalid choice! Please select a valid operation.");
-    }
-}
+// ### 4. **Handling Errors Gracefully**:
+//    - Without error handling, your program could crash if something unexpected happens. For example, calling `.split()` on a number (which is not possible) would cause the program to stop executing, but with the `catch` block, you can display an error message and continue running the program.
 
-// Call the main function
-main();
+// ### Summary of Why Output Varies:
+// - **If `my_string` is a string**: The `.split()`, `.reverse()`, and `.join()` methods work perfectly, and the string gets reversed.
+// - **If `my_string` is a number**: Since numbers don’t have the `.split()` method, the error `my_string.split is not a function` is thrown, and the error message is displayed in the `catch` block.
+  
+// The program demonstrates how JavaScript works with strings, how to handle errors, and how to use the `typeof` operator to inspect data types. This is crucial when writing robust, error-resistant code.
+
+// #### Example Breakdown:
+// - **Sample Input 0 (string)**: 
+//    - The code executes the string reversal successfully and prints the reversed string `"4321"`.
+//    - The `typeof` checks that `my_string` is of type `"string"`.
+  
+// - **Sample Input 1 (number)**: 
+//    - The `.split()` method doesn’t exist for numbers, so an error is caught in the `catch` block.
+//    - The `typeof` checks that `my_string` is of type `"number"`.
+
+// ### Key Takeaways:
+// - Use **`.split()`**, **`.reverse()`**, and **`.join()`** for strings, but not for other data types like numbers.
+// - **Error handling** with `try-catch` allows your program to manage unexpected issues (like attempting to use string-specific methods on a non-string variable) and continue running smoothly.
+// - **`typeof`** is important for checking the type of a variable to avoid such errors and ensure the methods you're calling are valid for the type of data you have.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 27. Given a variable named my_height, you must throw errors under the following conditions:
+// notANumberError- When my_heightis NaN
+// HugeHeightError – When my_heightis greater than
+// TinyHeight Error - When my_heightis less than
+//           Eg: 
+//              a) Sample Input 0
+//                        seven
+//              Sample Output 0
+//                        notANumberError
+//              b) Sample Input 1
+//                         77
+//              Sample Output 1
+//                         hugeHeightError
+//              c) Sample Input 2
+//                         0
+//              Sample Output 2
+//                         tinyHeightError
+//              d) Sample Input 3
+
+//                         8
+              
+//               Sample Output 3
+              
+//                         8
+
+
+
+
+
+// function checkHeight(my_height) {
+//     try {
+//         // Check if it's a number
+//         if (isNaN(my_height)) {
+//             throw new Error("notANumberError");
+//         }
+
+//         // Check if the height is too large
+//         if (my_height > 72) {
+//             throw new Error("HugeHeightError");
+//         }
+
+//         // Check if the height is too small
+//         if (my_height < 1) {
+//             throw new Error("TinyHeightError");
+//         }
+
+//         // If no error, print the height
+//         console.log(my_height);
+
+//     } catch (err) {
+//         // Catch and display the error message
+//         console.log(err.message);
+//     }
+// }
+
+// // Sample Inputs
+// checkHeight("seven");  // notANumberError
+// checkHeight(77);       // HugeHeightError
+// checkHeight(0);        // TinyHeightError
+// checkHeight(8);        // 8
+// To handle errors based on the value of `my_height`, you can use `throw` in JavaScript to create custom errors. Here's a solution based on the conditions you provided:
+
+// ### Approach:
+// 1. **Check if the height is a valid number**: You can use `isNaN()` to check if `my_height` is not a number.
+// 2. **Throw custom errors**: Based on the conditions, we will throw:
+//    - `notANumberError` if `my_height` is not a number.
+//    - `HugeHeightError` if `my_height` is greater than a specific threshold (e.g., 72).
+//    - `TinyHeightError` if `my_height` is less than a specific threshold (e.g., 1).
+// 3. If none of the above conditions are met, the program should just print the value of `my_height`.
+
+
+// // Sample Inputs
+// checkHeight("seven");  // notANumberError
+// checkHeight(77);       // HugeHeightError
+// checkHeight(0);        // TinyHeightError
+// checkHeight(8);        // 8
+// ```
+
+// ### Explanation:
+// 1. **`isNaN(my_height)`**: Checks if `my_height` is `NaN` (Not-a-Number). If true, the `notANumberError` is thrown.
+// 2. **`my_height > 72`**: If `my_height` is greater than 72, it throws a `HugeHeightError`.
+// 3. **`my_height < 1`**: If `my_height` is less than 1, it throws a `TinyHeightError`.
+// 4. If none of these conditions are met, it simply logs the value of `my_height`.
+
+// ### Sample Output:
+// - For `"seven"` (non-numeric input), the output will be:
+//   ```
+//   notANumberError
+//   ```
+// - For `77` (greater than 72), the output will be:
+//   ```
+//   HugeHeightError
+//   ```
+// - For `0` (less than 1), the output will be:
+//   ```
+//   TinyHeightError
+//   ```
+// - For `8` (valid height), the output will be:
+//   ```
+//   8
+//   ``` 
+
+// ### Key Takeaways:
+// - **Throwing errors** in JavaScript can help us handle invalid input or conditions gracefully.
+// - **`isNaN()`** checks if the value is not a number.
+// - You can use **custom error messages** for better handling and debugging.
+
+
+
+
+
+
+// 28. Create a constructor function that satisfies the following conditions:
+// The name of the constructor function should be Car.
+// It should take three parameters: name, mileage and max_speed.
+// Store these parameter values in their respective thiskeywords: this.name, this.mileage and this.max_speed.
+
+
+
+
+// function Car(name, mileage, max_speed) {
+//     // Assign the parameters to the respective properties using `this`
+//     this.name = name;
+//     this.mileage = mileage;
+//     this.max_speed = max_speed;
+// }
+
+// // Example of creating a new Car object
+// let car1 = new Car("Toyota", 15, 180);
+// let car2 = new Car("Honda", 18, 160);
+
+// // Accessing the properties of the objects
+// console.log(car1.name);        // Output: Toyota
+// console.log(car1.mileage);     // Output: 15
+// console.log(car1.max_speed);   // Output: 180
+
+// console.log(car2.name);        // Output: Honda
+// console.log(car2.mileage);     // Output: 18
+// console.log(car2.max_speed);   // Output: 160
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 29.  Write a myFilter function that takes 2 parameters: myArray and callback. Here, myArray is an array of numbers and callback is a function that takes the elements of myArray as its parameter and returns a boolean true if the sum of the number is even or   false if the sum of the number  is odd.
+
+// The myFilter function should return the sum of the array.
+
+// Sample Input
+//         12345
+// Sample Output
+//         15
+
+
+
+
+// Define the myFilter function
+// function myFilter(myArray, callback) {
+//     let sum = 0;  // Variable to hold the sum of the array elements
+    
+//     // Loop through the array and apply the callback function
+//     for (let i = 0; i < myArray.length; i++) {
+//         if (callback(myArray[i])) {
+//             sum += myArray[i];  // Add the element to sum if the callback returns true
+//         }
+//     }
+    
+//     return sum;  // Return the final sum
+// }
+
+// // Callback function that checks if the number is even
+// function isEven(num) {
+//     return num % 2 === 0;
+// }
+
+// // Sample input
+// let myArray = [1, 2, 3, 4, 5];
+
+// // Call myFilter function with the array and callback
+// let result = myFilter(myArray, isEven);
+
+// // Output the result
+// console.log(result);  // Output: 6 (since 2 and 4 are even)
