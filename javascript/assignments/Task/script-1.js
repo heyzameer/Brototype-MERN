@@ -529,6 +529,15 @@
 
 // // Normalize the input string to lowercase for case-insensitive comparison
 // let normalizedString = inputString.toLowerCase();
+// if(checkPalindromeUsingLoop(normalizedString)) {
+//     console.log("Entered string is a palindrome");
+// }
+// else {
+//     console.log("Entered string is not a palindrome");
+// }
+
+// // Normalize the input string to lowercase for case-insensitive comparison
+// let normalizedString = inputString.toLowerCase();
 
 // // Call the palindrome check function
 // if (checkPalindromeUsingLoop(normalizedString)) {
@@ -547,32 +556,318 @@
 // Reverse a array
 
 
-// Method 1: Using built-in methods
-function reverseArray(arr) {
-    return arr.slice().reverse();
-}
-console.log(reverseArray([1,2,3,4,5,6]))
-// Method 2: Using a simple loop
-function reverseArrayUsingLoop(arr) {
-    let reversedArr = [];
-    for (let i = arr.length - 1; i >= 0; i--) {
-        reversedArr.push(arr[i]);
-    }
-    return reversedArr;
-}
+// // Method 1: Using built-in methods
+// function reverseArray(arr) {
+//     return arr.slice().reverse();
+// }
+// console.log(reverseArray([1,2,3,4,5,6]))
+// // Method 2: Using a simple loop
+// function reverseArrayUsingLoop(arr) {
+//     let reversedArr = [];
+//     for (let i = arr.length - 1; i >= 0; i--) {
+//         reversedArr.push(arr[i]);
+//     }
+//     return reversedArr;
+// }
 
-// Using two pointer and while loop
+// // Using two pointer and while loop
 
-function reverseArrayUsingTwoPointer(arr) {
-    let start = 0;
-    let end = arr.length - 1;
-    while (start < end) {
-        let temp = arr[start];
-        arr[start++] = arr[end];
-        arr[end--] = temp;
+// function reverseArrayUsingTwoPointer(arr) {
+//     let start = 0;
+//     let end = arr.length - 1;
+//     while (start < end) {
+//         let temp = arr[start];
+//         arr[start++] = arr[end];
+//         arr[end--] = temp;
      
+//     }
+//     return arr;
+// }
+
+// console.log(reverseArrayUsingTwoPointer([1,2,3,4,5,6]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 14. Write a program to add to two dimensional arrays
+// Program should accept two 2D arrays and display its sum
+// const prompt = require('prompt-sync')(); // Import prompt-sync for taking input
+
+// // Function to take input for a square matrix using nested loops
+// function inputMatrix(size, matrixNum) {
+//     let matrix = [];
+//     console.log(`Enter the values of Array ${matrixNum}:`);
+//     for (let i = 0; i < size; i++) {
+//         matrix[i] = []; // Initialize row
+//         for (let j = 0; j < size; j++) {
+//             matrix[i][j] = parseInt(prompt(`Enter value for row ${i + 1}, column ${j + 1}: `), 10);
+//         }
+//     }
+//     return matrix;
+// }
+
+// // Function to add two matrices
+// function addMatrices(matrix1, matrix2, size) {
+//     let result = [];
+//     for (let i = 0; i < size; i++) {
+//         result[i]= [];
+//         for (let j = 0; j < size; j++) {
+//             result[i][j]=(matrix1[i][j] + matrix2[i][j]); // Add corresponding elements
+//         }
+//     }
+//     return result;
+// }
+
+// // Take input for matrix size
+// const size = parseInt(prompt("Enter the size of arrays: "), 10);
+
+// // Input two matrices
+// const matrix1 = inputMatrix(size, 1);
+// const matrix2 = inputMatrix(size, 2);
+
+// // Display the input matrices
+
+// console.log("Matrix 1:" , matrix1);
+// console.log("Matrix 2:" , matrix2);
+
+
+// // Perform matrix addition
+// const sumMatrix = addMatrices(matrix1, matrix2, size);
+
+// // Display the result
+// console.log("Sum of 2 arrays is:");
+
+// sumMatrix.forEach(row => console.log(row.join(" "))); // Print each row space-separated
+
+
+
+
+
+
+
+//15. Write a program to accept an array and display it on the console using functions
+// Program should contain 3 functions including main() function
+// main()
+// Declare an array
+// Call function getArray()
+// Call function displayArray()
+// 		getArray()
+// Get values to the array
+// 		displayArray()
+// Display the array values
+
+
+
+
+
+
+
+
+
+// const prompt = require('prompt-sync')();
+
+// // Function to get values for the array
+// function getArray(size) {
+//     let arr = [];
+//     console.log(`Enter ${size} elements:`);
+//     for (let i = 0; i < size; i++) {
+//         arr[i] = parseInt(prompt(`Element ${i + 1}: `), 10);
+//     }
+//     return arr;
+// }
+
+// // Function to display the array values
+// function displayArray(arr) {
+//     console.log("Array elements are: ", arr.join(" "));
+// }
+
+// // Main function
+// function main() {
+//     const size = parseInt(prompt("Enter the size of the array: "), 10);
+
+//     // Call function to get array values
+//     let array = getArray(size);
+
+//     // Call function to display array values
+//     displayArray(array);
+// }
+
+// // Execute the main function
+// main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 16. Write a program to check whether a given number is prime or not
+// Program should accept an input from the user and display whether the number is prime or not
+// Eg: Output: Enter a number
+// Input: 7
+// Output: Entered number is a Prime number
+
+
+// const prompt = require('prompt-sync')();
+
+// // Function to check whether a number is prime or not
+// function isPrime(number) {
+//     if (number <= 1) {
+//         return false; // Numbers less than or equal to 1 are not prime
+//     }
+//     if (number === 2) {
+//         return true; // 2 is the only even prime number
+//     }
+//     if (number % 2 === 0) {
+//         return false; // Even numbers other than 2 are not prime
+//     }
+
+//     // Check if the number is divisible by any number between 2 and sqrt(number)
+//     for (let i = 3; i <= Math.sqrt(number); i++) {
+//         if (number % i === 0) {
+//             return false; // Number is divisible by i, so it's not prime
+//         }
+//     }
+//     return true; // Number is prime
+// }
+
+// // Main function
+// function main() {
+//     const number = parseInt(prompt("Enter a number: "), 10);
+
+//     // Check if the entered number is prime
+//     if (isPrime(number)) {
+//         console.log("Entered number is a Prime number");
+//     } else {
+//         console.log("Entered number is not a Prime number");
+//     }
+// }
+
+// // Execute the main function
+// main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 17. Write a menu driven program to do the basic mathematical operations such as    addition, subtraction, multiplication and division (hint: use if else ladder or switch)
+// Program should have 4 functions named addition(), subtraction(), multiplication() and division()
+// Should create a class object and call the appropriate function as user prefers in the main function
+
+
+
+
+const prompt = require('prompt-sync')();
+
+// Class that contains functions for each mathematical operation
+class Calculator {
+    addition(a, b) {
+        return a + b;
     }
-    return arr;
+
+    subtraction(a, b) {
+        return a - b;
+    }
+
+    multiplication(a, b) {
+        return a * b;
+    }
+
+    division(a, b) {
+        if (b === 0) {
+            console.log("Error! Division by zero.");
+            return null;
+        }
+        return a / b;
+    }
 }
 
-console.log(reverseArrayUsingTwoPointer([1,2,3,4,5,6]))
+// Main function
+function main() {
+    const calculator = new Calculator(); // Create an instance of the Calculator class
+
+    // Display menu options
+    console.log("Select an operation:");
+    console.log("1. Addition");
+    console.log("2. Subtraction");
+    console.log("3. Multiplication");
+    console.log("4. Division");
+    console.log("5. Exit");
+
+    // Get the user's choice
+    const choice = parseInt(prompt("Enter your choice (1-5): "), 10);
+
+    if (choice >= 1 && choice <= 4) {
+        // Get the numbers for the operation
+        const num1 = parseFloat(prompt("Enter first number: "));
+        const num2 = parseFloat(prompt("Enter second number: "));
+
+        // Perform the appropriate operation based on user's choice
+        let result;
+        switch (choice) {
+            case 1:
+                result = calculator.addition(num1, num2);
+                console.log(`Result of Addition: ${result}`);
+                break;
+            case 2:
+                result = calculator.subtraction(num1, num2);
+                console.log(`Result of Subtraction: ${result}`);
+                break;
+            case 3:
+                result = calculator.multiplication(num1, num2);
+                console.log(`Result of Multiplication: ${result}`);
+                break;
+            case 4:
+                result = calculator.division(num1, num2);
+                if (result !== null) {
+                    console.log(`Result of Division: ${result}`);
+                }
+                break;
+            default:
+                console.log("Invalid choice");
+        }
+    } else if (choice === 5) {
+        console.log("Exiting program...");
+    } else {
+        console.log("Invalid choice! Please select a valid operation.");
+    }
+}
+
+// Call the main function
+main();
