@@ -22,10 +22,11 @@ const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 });
+let age;
+readline.question("Enter your age: ", (ag) => {
+    age = ag;
+    console.log(age)
 
-readline.question("Enter your age: ", (age) => {
-    console.log(`Your age is ${age}`);
-    readline.close();
 });
 
 // 4. Using process.argv (Command Line Arguments in Node.js)

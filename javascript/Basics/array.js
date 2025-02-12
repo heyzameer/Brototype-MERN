@@ -284,3 +284,48 @@ console.log(arr);  // Output: [1, 2, 3, 4, 5]
 // let sum = numbers.reduce((acc, curr) => acc + curr, 0);
 // console.log(sum);  // Output: 10
 // ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Method 1: Using built-in methods
+// function reverseArray(arr) {
+//     return arr.slice().reverse();
+// }
+// console.log(reverseArray([1,2,3,4,5,6]))
+// // Method 2: Using a simple loop
+// function reverseArrayUsingLoop(arr) {
+//     let reversedArr = [];
+//     for (let i = arr.length - 1; i >= 0; i--) {
+//         reversedArr.push(arr[i]);
+//     }
+//     return reversedArr;
+// }
+
+// // Using two pointer and while loop
+
+// function reverseArrayUsingTwoPointer(arr) {
+//     let start = 0;
+//     let end = arr.length - 1;
+//     while (start < end) {
+//         let temp = arr[start];
+//         arr[start++] = arr[end];
+//         arr[end--] = temp;
+     
+//     }
+//     return arr;
+// }
+
+// console.log(reverseArrayUsingTwoPointer([1,2,3,4,5,6]))
