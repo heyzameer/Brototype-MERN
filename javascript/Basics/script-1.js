@@ -2390,3 +2390,54 @@ console.log(numbers[4]);  // Output: 50
 
 
 
+// This format is called **Template Literals** (or **Template Strings**) in JavaScript.  
+
+// ---
+
+// ### **What are Template Literals?**
+// Template literals are **string literals** that allow **embedded expressions** inside backticks (`` ` ` ``).  
+
+// ```javascript
+// const name = "Zameer";
+// console.log(`Hello, ${name}!`); // Output: Hello, Zameer!
+// ```
+
+// ---
+
+// ### **Why Use Template Literals?**
+// 1. **String Interpolation** (Insert variables inside strings)
+//    ```javascript
+//    const SI = 2750;
+//    console.log(`Simple Interest: ${SI}`); 
+//    // Output: Simple Interest: 2750
+//    ```
+   
+// 2. **Multi-line Strings** (Without `\n` or `+`)
+//    ```javascript
+//    console.log(`This is 
+//    a multi-line 
+//    string.`);
+//    ```
+
+// 3. **Expression Evaluation** (Can do calculations inside `${}`)
+//    ```javascript
+//    const a = 10, b = 5;
+//    console.log(`Sum: ${a + b}`); // Output: Sum: 15
+//    ```
+
+// ---
+
+// ### **Difference from Regular Strings**
+// | Feature | Template Literals | Regular Strings (`"" / ''`) |
+// |---------|------------------|----------------|
+// | Variable Interpolation | ✅ Yes (`${}`) | ❌ No (`"Simple Interest: " + SI`) |
+// | Multi-line Support | ✅ Yes | ❌ No (Needs `\n`) |
+// | Expression Evaluation | ✅ Yes (`${2+3}` → `5`) | ❌ No |
+
+// ---
+
+// ### **Conclusion**
+// ✔ **Backticks (`` ` ` ``) allow embedding variables and expressions easily.**  
+// ✔ **More readable and efficient compared to string concatenation.**  
+
+// Would you like an example with functions? 🚀

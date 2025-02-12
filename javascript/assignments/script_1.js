@@ -1,8 +1,8 @@
 // Taking input in JavaScript
 
 // 1. Using prompt() (Only works in browsers)
-const name = prompt("Enter your name:");
-console.log("Hello, " + name);
+// const name = prompt("Enter your name:");
+// console.log("Hello, " + name);
 
 // 2. Using HTML Input and Event Listener
 // (Uncomment and run in an HTML file)
