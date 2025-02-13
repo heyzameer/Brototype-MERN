@@ -87,3 +87,96 @@ const person = {
 
 // ### Accessing and Modifying:
 // You can access properties using **dot notation** (`person.name`) or **bracket notation** (`person["age"]`). Properties can be modified, added, or deleted easily.
+
+
+
+
+
+
+
+
+
+
+// ### **Checking if an Object is Empty**
+
+// To check if an object is empty in JavaScript (i.e., has no properties), you can use the `Object.keys()` method, which returns an array of an object's own enumerable property names. If the length of the array is `0`, the object is considered empty.
+
+// ### **Example: Check if an Object is Empty**
+
+// ```javascript
+// const obj = {};
+
+// if (Object.keys(obj).length === 0) {
+//   console.log("Object is empty");
+// } else {
+//   console.log("Object is not empty");
+// }
+// ```
+
+// - `Object.keys(obj)` returns an array of property names of the object.
+// - If the array length is `0`, it means the object has no properties.
+
+// ### **Checking if an Array is Empty**
+
+// To check if an array is empty, you can simply check the length of the array. An empty array will have a length of `0`.
+
+// ### **Example: Check if an Array is Empty**
+
+// ```javascript
+// const arr = [];
+
+// if (arr.length === 0) {
+//   console.log("Array is empty");
+// } else {
+//   console.log("Array is not empty");
+// }
+// ```
+
+// - `arr.length` will be `0` if the array is empty.
+
+// ### **General Function for Checking Empty Object or Array**
+
+// You can combine these checks into a utility function for reusability:
+
+// ```javascript
+// function isEmpty(value) {
+//   if (Array.isArray(value)) {
+//     // Check if array is empty
+//     return value.length === 0;
+//   } else if (typeof value === 'object' && value !== null) {
+//     // Check if object is empty
+//     return Object.keys(value).length === 0;
+//   }
+//   return false;
+// }
+
+// console.log(isEmpty({}));        // true (empty object)
+// console.log(isEmpty([]));        // true (empty array)
+// console.log(isEmpty({a: 1}));   // false (object with properties)
+// console.log(isEmpty([1, 2]));   // false (array with elements)
+// ```
+
+// This function checks whether the input is an array or an object and returns `true` if it is empty, and `false` otherwise.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1975,6 +1975,15 @@
 
 // ---
 
+
+// Summary of Drawbacks:
+// Memory Leaks: Closures can unintentionally hold onto memory.
+// Unintentional Modifications: Closures can cause unexpected side effects due to shared references.
+// Difficulty in Debugging: Complex closures can be difficult to trace and debug.
+// Performance Issues: Excessive use of closures can cause performance bottlenecks, especially in loops.
+
+
+
 // ### 5. **Maintaining State in the Asynchronous World**
 
 // Closures are extremely useful for maintaining state in asynchronous environments, like `setTimeout`, event handlers, or promises. Closures allow asynchronous callbacks to access variables from their lexical scope even after the function execution has completed.
