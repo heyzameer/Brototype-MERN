@@ -1,5 +1,5 @@
 // 1. Accept a char input from the user and display it on the console.
-
+const prompt = require('prompt-sync')();
 
 // const char = prompt("Enter a character: ").charAt(0); // Takes the first character
 // console.log(`You entered: ${char}`);
@@ -34,12 +34,12 @@
 // 4. Write a program to check whether a student has passed or failed in a subject after he    or she enters their mark (pass mark for a subject is 50 out of 100).
 // Program should accept an input from the user and output a message as “Passed” or “Failed”
 
-// const marks = parseInt(prompt("Enter your marks"));
+// const marks = parseInt(prompt("Enter your marks: "),10);
 // if (marks >= 50) {
 //     console.log("Passed");
-//     } else {
-//         console.log("Failed");
-//     }
+// } else {
+//  console.log("Failed");
+// }
 
 
 
@@ -70,8 +70,6 @@
 // 6. Using the ‘switch case’ write a program to accept an input number from the user and output the day as follows. (1- Sunday, 2- Monday, 3- Tuesday, 4- Wednesday, 5- Thursday, 6- Friday, 7- Saturday)
 
 // const dayNumber = parseInt(prompt("Enter a number (1-7): "), 10); // Convert input to an integer
-
-
 // // Check the input and display the corresponding day
 // switch (dayNumber) {
 //     case 1:
@@ -188,8 +186,8 @@
 //     if (i % 2 !== 0) {
 //         sum += i;
 //     }
-//     }
-//     console.log(`Sum of odd numbers = ${sum}`);
+//  }
+// console.log(`Sum of odd numbers = ${sum}`);
 
 
 
@@ -252,6 +250,7 @@
 // for (let i = 0; i < n; i++) {
 //     [arr1[i], arr2[i]] = [arr2[i], arr1[i]];
 // }
+
 // console.log("Array 1: ", arr1);
 // console.log("Array 2: ", arr2);
 
@@ -273,7 +272,7 @@
 //  arr2.length = 0; // Clear Array 2
 //  arr2.push(...temp); // Fill Array 2 with Array 1's original values
 
-// Displaying the arrays after swapping
+// // Displaying the arrays after swapping
 //  console.log('Arrays after swapping:');
 //  console.log('Array1: sdfg', arr1.join(', '));
 //  console.log('Array2:', arr2.join(', '));
@@ -333,7 +332,7 @@
 // Importing the prompt-sync library to take input synchronously
 // const prompt = require('prompt-sync')();
 
-// // Accept size of arrays
+// Accept size of arrays
 // const n = parseInt(prompt("Enter size of arrays: "), 10);
 
 // // Initialize an empty array
@@ -384,7 +383,7 @@
 // // Import the prompt-sync library for synchronous user input
 // const prompt = require('prompt-sync')();
 
-// // Accept the size of the array
+// Accept the size of the array
 // const size = parseInt(prompt("Enter the size of the array: "), 10);
 
 // // Initialize an empty array to store the values
@@ -579,7 +578,7 @@
 //         let temp = arr[start];
 //         arr[start++] = arr[end];
 //         arr[end--] = temp;
-     
+
 //     }
 //     return arr;
 // }
@@ -604,7 +603,7 @@
 // Program should accept two 2D arrays and display its sum
 // const prompt = require('prompt-sync')(); // Import prompt-sync for taking input
 
-// // Function to take input for a square matrix using nested loops
+// Function to take input for a square matrix using nested loops
 // function inputMatrix(size, matrixNum) {
 //     let matrix = [];
 //     console.log(`Enter the values of Array ${matrixNum}:`);
@@ -677,7 +676,7 @@
 
 // const prompt = require('prompt-sync')();
 
-// // Function to get values for the array
+// Function to get values for the array
 // function getArray(size) {
 //     let arr = [];
 //     console.log(`Enter ${size} elements:`);
@@ -795,7 +794,7 @@
 
 // const prompt = require('prompt-sync')();
 
-// // Class that contains functions for each mathematical operation
+// Class that contains functions for each mathematical operation
 // class Calculator {
 //     addition(a, b) {
 //         return a + b;
@@ -982,7 +981,7 @@
 
 
 
-// const prompt = require('prompt-sync')();
+// // const prompt = require('prompt-sync')();
 
 // function calculateTax(income) {
 //     let tax = 0;
@@ -1007,7 +1006,7 @@
 
 //     // Calculating the income tax
 //     const taxAmount = calculateTax(income);
-    
+
 //     // Displaying the income tax amount
 //     console.log(`Income tax amount = ${taxAmount.toFixed(2)}`);
 // }
@@ -1084,32 +1083,32 @@
 // // Function to multiply adjacent values of an array
 // function multiplyAdjacentValues(arr) {
 //     let result = [];
-    
+
 //     // Loop through the array and multiply adjacent values
 //     for (let i = 0; i < arr.length - 1; i++) {
 //         result.push(arr[i] * arr[i + 1]);
 //     }
-    
+
 //     return result;
 // }
 
 // // Main function
 // function main() {
 //     const prompt = require('prompt-sync')();
-    
+
 //     // Accept array limit
 //     const limit = parseInt(prompt("Enter the array limit: "), 10);
-    
+
 //     // Accept values for the array
 //     let array = [];
 //     console.log("Enter the values of the array:");
 //     for (let i = 0; i < limit; i++) {
 //         array.push(parseInt(prompt(), 10));
 //     }
-    
+
 //     // Call the function to multiply adjacent values
 //     const result = multiplyAdjacentValues(array);
-    
+
 //     // Output the result
 //     console.log("Output:");
 //     console.log(result.join(" "));
@@ -1159,11 +1158,11 @@
 
 
 
-// Function to get values for the 2D array
+// // Function to get values for the 2D array
 // function getArray(rows, cols, matrixNum) {
 //     const prompt = require('prompt-sync')();
 //     let matrix = [];
-    
+
 //     console.log(`Enter the values of array ${matrixNum}:`);
 //     for (let i = 0; i < rows; i++) {
 //         matrix[i] = [];
@@ -1196,17 +1195,17 @@
 // // Main function
 // function main() {
 //     const prompt = require('prompt-sync')();
-    
+
 //     // Accept the size of the array
 //     const size = parseInt(prompt("Enter the size of array: "), 10);
-    
+
 //     // Get the two arrays
 //     const matrix1 = getArray(size, size, 1);
 //     const matrix2 = getArray(size, size, 2);
-    
+
 //     // Add the two arrays
 //     const sumArray = addArray(matrix1, matrix2, size, size);
-    
+
 //     // Display the sum of the two arrays
 //     console.log("Sum of array 1 and array 2:");
 //     displayArray(sumArray);
@@ -1276,7 +1275,7 @@
 //     getArray() {
 //         const prompt = require('prompt-sync')();
 //         console.log("Enter the array values:");
-        
+
 //         for (let i = 0; i < this.size; i++) {
 //             this.array[i] = [];
 //             for (let j = 0; j < this.size; j++) {
@@ -1297,13 +1296,13 @@
 // // Main function to execute the program
 // function main() {
 //     const prompt = require('prompt-sync')();
-    
+
 //     // Accept the size of the array
 //     const size = parseInt(prompt("Enter the size of array: "), 10);
 
 //     // Create an object of Array2D class
 //     const array2D = new Array2D(size);
-    
+
 //     // Call functions to get values and display the array
 //     array2D.getArray();
 //     array2D.displayArray();
@@ -1407,7 +1406,7 @@
 
 
 
-// // Class Area containing methods for calculating area of different shapes
+// Class Area containing methods for calculating area of different shapes
 // class Area {
 //     // Method to calculate the area of a circle
 //     circle(radius) {
@@ -1439,7 +1438,7 @@
 //     // Main function to drive the program
 //     static main() {
 //         const prompt = require('prompt-sync')(); // For user input
-        
+
 //         // Create an object of MyClass
 //         const myClass = new MyClass();
 
@@ -1545,7 +1544,7 @@
 // function displayBookStatus(library) {
 //     for (let i = 0; i < library.length; i++) {
 //         let book = library[i];
-        
+
 //         if (book.readingStatus) {
 //             console.log(`Already read '${book.title}' by ${book.author}.`);
 //         } else {
@@ -1581,20 +1580,23 @@
 
 
 // You can change the input value to test
-let my_string = "1234"; // You can also test with a number like Number(1234)
-// let my_string = Number(1234);
+// let my_string = "1234"; 
+// // let my_string = Number(1234);
 
-try {
-    // Try to reverse the string
-    let reversed_string = my_string.split('').reverse().join('');
-    console.log(`Reversed string is : ${reversed_string}`);
-} catch (err) {
-    // Catch any error if it occurs
-    console.log(`Error : ${err.message}`);
-} finally {
-    // Always print the type of my_string
-    console.log(`Type of my_string is : ${typeof my_string}`);
-}
+// try {
+//     // Try to reverse the string
+//     let reversed_string = my_string.split('').reverse().join('');
+//     console.log(`Reversed string is : ${reversed_string}`);
+// } catch (err) {
+//     // Catch any error if it occurs
+//     console.log(`Error : ${err.message}`);
+// } finally {
+//     // Always print the type of my_string
+//     console.log(`Type of my_string is : ${typeof my_string}`);
+// }
+
+
+
 // The program you've worked on helps us understand the following key concepts:
 
 // ### 1. **Reversing a String in JavaScript**:
@@ -1619,14 +1621,14 @@ try {
 // ### Summary of Why Output Varies:
 // - **If `my_string` is a string**: The `.split()`, `.reverse()`, and `.join()` methods work perfectly, and the string gets reversed.
 // - **If `my_string` is a number**: Since numbers don’t have the `.split()` method, the error `my_string.split is not a function` is thrown, and the error message is displayed in the `catch` block.
-  
+
 // The program demonstrates how JavaScript works with strings, how to handle errors, and how to use the `typeof` operator to inspect data types. This is crucial when writing robust, error-resistant code.
 
 // #### Example Breakdown:
 // - **Sample Input 0 (string)**: 
 //    - The code executes the string reversal successfully and prints the reversed string `"4321"`.
 //    - The `typeof` checks that `my_string` is of type `"string"`.
-  
+
 // - **Sample Input 1 (number)**: 
 //    - The `.split()` method doesn’t exist for numbers, so an error is caught in the `catch` block.
 //    - The `typeof` checks that `my_string` is of type `"number"`.
@@ -1678,9 +1680,9 @@ try {
 //              d) Sample Input 3
 
 //                         8
-              
+
 //               Sample Output 3
-              
+
 //                         8
 
 
@@ -1825,17 +1827,17 @@ try {
 
 
 
-// Define the myFilter function
+// // Define the myFilter function
 // function myFilter(myArray, callback) {
 //     let sum = 0;  // Variable to hold the sum of the array elements
-    
+
 //     // Loop through the array and apply the callback function
 //     for (let i = 0; i < myArray.length; i++) {
 //         if (callback(myArray[i])) {
 //             sum += myArray[i];  // Add the element to sum if the callback returns true
 //         }
 //     }
-    
+
 //     return sum;  // Return the final sum
 // }
 
@@ -1852,3 +1854,45 @@ try {
 
 // // Output the result
 // console.log(result);  // Output: 6 (since 2 and 4 are even)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function myFilter(myArray = [], callback) {
+    let result;
+    for (let i = 0; i < myArray.length; i++) {
+        result = callback(myArray[i]);
+    }
+    console.log(result);
+}
+var sum = 0;
+function find(arrayValue) {
+    sum += arrayValue;
+    if (sum % 2 == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+let size = parseInt(prompt("Enter size of  Array : "));
+let array = [];
+for (let i = 0; i < size; i++) {
+    array[i] = parseInt(prompt("Enter values [" + i + "] : "));
+}
+myFilter(array, find);
