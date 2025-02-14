@@ -78,6 +78,36 @@
 // arr.splice(2, 2, "a", "b"); // Removes 3 and 4, and adds "a" and "b"
 // console.log(arr); // [1, 2, "a", "b", 5]
 
+
+// Syntax: array.splice(start, deleteCount, item1, item2, ...);
+
+// 1. Removing elements
+let arr1 = [10, 20, 30, 40, 50];
+arr1.splice(2, 2); // Removes 2 elements from index 2cx
+console.log(arr1); // Output: [10, 20, 50]
+
+// 2. Adding elements
+let arr2 = [10, 20, 30];
+arr2.splice(1, 0, 15, 18); // Adds 15 and 18 at index 1
+console.log(arr2); // Output: [10, 15, 18, 20, 30]
+
+// 3. Replacing elements
+let arr3 = [10, 20, 30, 40, 50];
+arr3.splice(2, 2, 99, 100); // Replaces 30 and 40 with 99 and 100
+console.log(arr3); // Output: [10, 20, 99, 100, 50]
+
+// 4. Removing all elements from a specific index
+let arr4 = [1, 2, 3, 4, 5];
+arr4.splice(2); // Removes all elements from index 2 onward
+console.log(arr4); // Output: [1, 2]
+
+// 5. Using splice() to copy an array (shallow copy)
+let arr5 = [5, 10, 15, 20, 25];
+let copiedArr = arr5.splice(); // This modifies the original array (removes all elements)
+console.log(arr5); // Output: []
+console.log(copiedArr); // Output: [5, 10, 15, 20, 25]
+
+
 // // h. **`forEach()`** - Executes a provided function once for each array element.
 
 // let arr = [1, 2, 3];
@@ -93,9 +123,10 @@
 
 // // j. **`filter()`** - Creates a new array with all elements that pass the test implemented by the provided function.
 
-// let numbers = [1, 2, 3, 4, 5];
-// let evenNumbers = numbers.filter(num => num % 2 === 0); // [2, 4]
-// console.log(evenNumbers);
+let numbers = [1, 2, 3, 4, 5];
+let evenNumbers = numbers.filter(num => { return (num % 2 === 0)}); // [2, 4]
+console.log("evennumbers");
+console.log(evenNumbers);
 
 // // k. **`reduce()`** - Applies a function to reduce an array to a single value.
 
@@ -128,9 +159,9 @@
 
 // // p. **`sort()`** - Sorts the elements of an array in place according to the Unicode order of the elements.
 
-// let numbers = [4, 2, 3, 1];
-// numbers.sort(); // [1, 2, 3, 4]
-// console.log(numbers);
+let numbers1 = [4, 2, 3, 1];
+numbers1.sort((a,b)=>b-a); // [1, 2, 3, 4]
+console.log(numbers1);
 
 
 // // 4. **Multidimensional Arrays**
@@ -150,6 +181,84 @@
 // let arr = [10, 20, 30];
 // let [a, b, c] = arr;
 // console.log(a, b, c); // 10 20 30
+
+
+// ### **Array Destructuring in JavaScript**  
+// Array destructuring allows you to extract values from an array and assign them to variables in a concise way.
+
+// ---
+
+// ### **1. Basic Array Destructuring**
+// ```javascript
+// let numbers = [10, 20, 30];
+
+// let [a, b, c] = numbers;
+
+// console.log(a); // Output: 10
+// console.log(b); // Output: 20
+// console.log(c); // Output: 30
+// ```
+// ---
+
+// ### **2. Skipping Elements**
+// ```javascript
+// let numbers = [1, 2, 3, 4, 5];
+
+// let [first, , third] = numbers; // Skipping the second element
+
+// console.log(first); // Output: 1
+// console.log(third); // Output: 3
+// ```
+// ---
+
+// ### **3. Using Rest Operator (`...`)**
+// ```javascript
+// let numbers = [10, 20, 30, 40, 50];
+
+// let [first, second, ...rest] = numbers;
+
+// console.log(first);  // Output: 10
+// console.log(second); // Output: 20
+// console.log(rest);   // Output: [30, 40, 50]  (remaining elements in an array)
+// ```
+// ---
+
+// ### **4. Swapping Variables**
+// ```javascript
+// let x = 5, y = 10;
+
+// [x, y] = [y, x]; // Swaps values without a temporary variable
+
+// console.log(x); // Output: 10
+// console.log(y); // Output: 5
+// ```
+// ---
+
+// ### **5. Default Values**
+// ```javascript
+// let numbers = [100];
+
+// let [a, b = 50] = numbers; // If `b` is undefined, it takes the default value of 50
+
+// console.log(a); // Output: 100
+// console.log(b); // Output: 50
+// ```
+// ---
+
+// ### **6. Nested Array Destructuring**
+// ```javascript
+// let nestedArray = [1, [2, 3], 4];
+
+// let [a, [b, c], d] = nestedArray;
+
+// console.log(a); // Output: 1
+// console.log(b); // Output: 2
+// console.log(c); // Output: 3
+// console.log(d); // Output: 4
+// ```
+// ---
+
+// Array destructuring is useful for cleaner and more readable code. Let me know if you need more examples! 🚀
 
 
 // // 6. **Array Iteration**
@@ -363,3 +472,40 @@ for (let i = 0; i < array2D.length; i++) {
     }
     console.log(row); // Print the row after adding all elements
 }
+
+
+
+
+
+
+const prompt = require('prompt-sync')();
+let rows = 2, cols = 2;
+let array1 = [];
+
+// Using nested loops to take input
+for (let i = 0; i < rows; i++) {
+    array1[i] = []; // Initialize row
+    for (let j = 0; j < cols; j++) {
+        array1[i][j] = parseInt(prompt(`Enter value for arr[${i}][${j}]`));
+    }
+}
+
+console.log(array1);
+
+
+
+
+const readline = require("readline-sync");
+
+// let rows = 2, cols = 2;
+let array2 = [];
+
+// Taking input
+for (let i = 0; i < rows; i++) {
+    array2[i] = [];
+    for (let j = 0; j < cols; j++) {
+        array2[i][j] = parseInt(readline.question(`Enter value for arr[${i}][${j}]: `));
+    }
+}
+
+console.log(array2);
