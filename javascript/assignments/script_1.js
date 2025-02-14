@@ -31,3 +31,22 @@ readline.question("Enter your age: ", (ag) => {
 
 // 4. Using process.argv (Command Line Arguments in Node.js)
 console.log("Command line arguments:", process.argv.slice(2));
+
+
+
+
+
+const readline = require("readline-sync");
+
+// let rows = 2, cols = 2;
+let array2 = [];
+
+// Taking input
+for (let i = 0; i < rows; i++) {
+    array2[i] = [];
+    for (let j = 0; j < cols; j++) {
+        array2[i][j] = parseInt(readline.question(`Enter value for arr[${i}][${j}]: `));
+    }
+}
+
+console.log(array2);

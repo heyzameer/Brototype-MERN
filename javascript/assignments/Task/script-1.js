@@ -416,6 +416,20 @@ const prompt = require('prompt-sync')();
 
 
 
+// for (let i = num1.length - 1; i >= 0;  i--) {
+//     for (let j = 0; j < i; j++) {
+//         if (num1[j] > num1[j + 1]) {
+//             let temp = num1[j];
+//             num1[j] = num1[j + 1];
+//             num1[j + 1] = temp;
+//         }
+// }
+// }
+// console.log(num1.join(" "));
+
+
+
+
 
 
 
@@ -1580,23 +1594,21 @@ const prompt = require('prompt-sync')();
 
 
 // You can change the input value to test
-// let my_string = "1234"; 
-// // let my_string = Number(1234);
+let my_string = 1234; 
+// let my_string = Number(1234);
 
-// try {
-//     // Try to reverse the string
-//     let reversed_string = my_string.split('').reverse().join('');
-//     console.log(`Reversed string is : ${reversed_string}`);
-// } catch (err) {
-//     // Catch any error if it occurs
-//     console.log(`Error : ${err.message}`);
-// } finally {
-//     // Always print the type of my_string
-//     console.log(`Type of my_string is : ${typeof my_string}`);
-// }
+try {
+    // Try to reverse the string
+    let reversed_string = my_string.split('').reverse().join('');
+    console.log(`Reversed string is : ${reversed_string}`);
+} catch (err) {
+    // Catch any error if it occurs
 
-
-
+    console.log(`Error : ${err.message}`);
+} finally {
+    // Always print the type of my_string
+    console.log(`Type of my_string is : ${typeof my_string}`);
+}
 // The program you've worked on helps us understand the following key concepts:
 
 // ### 1. **Reversing a String in JavaScript**:

@@ -12,27 +12,26 @@
 
 // ### Example:
 
-// ```javascript
-// // Constructor Function
-// function Person(name, age) {
-//   this.name = name;  // Instance property
-//   this.age = age;    // Instance property
+// Constructor Function
+function Person(name, age) {
+  this.name = name;  // Instance property
+  this.age = age;    // Instance property
   
-//   // Method on instance
-//   this.greet = function() {
-//     console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
-//   };
-// }
+  // Method on instance
+  this.greet = function() {
+    console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+  };
+}
 
-// // Creating an instance using 'new'
-// const person1 = new Person("Alice", 30);
-// const person2 = new Person("Bob", 25);
+// Creating an instance using 'new'
+const person1 = new Person("Alice", 30);
+const person2 = new Person("Bob", 25);
 
-// // Accessing properties and methods
-// console.log(person1.name);  // Output: Alice
-// console.log(person2.age);   // Output: 25
-// person1.greet();  // Output: Hello, my name is Alice and I am 30 years old.
-// ```
+// Accessing properties and methods
+console.log(person1.name);  // Output: Alice
+console.log(person2.age);   // Output: 25
+person1.greet();  // Output: Hello, my name is Alice and I am 30 years old.
+
 
 // ### Explanation:
 // 1. **`Person` is a constructor function** that defines properties (`name` and `age`) and a method (`greet`) for the objects it creates.
