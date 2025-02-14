@@ -1,36 +1,148 @@
-// // // Here are the solutions for each of your requirements:
-
-// // // ### 1. **Print Numbers from 1 to 10 with a Gap of 1:**
-// // // ```javascript
-// // // for (let i = 1; i <= 10; i++) {
-// // //   console.log(i);
-// // // }
-// // // ```
-// // // This will print the numbers from 1 to 10, one per line.
-
+// Print Numbers from 1 to 10 with a 1-second Gap
+// for (let i = 1; i <= 10; i++) {
+//     setTimeout(() => console.log(i), i * 1000);
+//   }
+  
 // // // ---
 
-// // // ### 2. **Find Numbers Divisible by 8 Between 100 and 1:**
-// // // ```javascript
-// // // for (let i = 100; i >= 1; i--) {
-// // //   if (i % 8 === 0) {
-// // //     console.log(i);
-// // //   }
-// // // }
-// // // ```
-// // // This will print all the numbers between 100 and 1 that are divisible by 8.
+//  ### 2. **Find Numbers Divisible by 8 Between 100 and 1:**
 
-// // // ---
+// for (let i = 100; i >= 1; i--) {
+//  if (i % 8 === 0) {
+//    console.log(i);
+//  }
+// }
 
-// // // ### 3. **Remove Duplicates from an Array:**
-// // // ```javascript
-// // // const array = [1, 2, 2, 3, 4, 4, 5];
-// // // const uniqueArray = [...new Set(array)];
-// // // console.log(uniqueArray);
-// // // ```
-// // // This removes duplicates from the array by converting it to a `Set` and then back to an array.
 
-// // // ---
+
+
+// Here are different ways to remove duplicates from an array in JavaScript:
+
+// ### ✅ **1. Using `Set` (Fastest & Easiest)**
+// This method is the simplest and fastest way to remove duplicates from an array.
+function removeDuplicates(arr) {
+  return [...new Set(arr)];
+}
+
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); 
+// Output: [1, 2, 3, 4, 5]
+
+// **🔍 How it works?**  
+// - `Set` only stores **unique values**, so duplicates are automatically removed.
+// - Spreading (`...`) it back into an array gives a duplicate-free array.
+
+
+// ---
+
+
+// ### ✅ **2. Using `filter()`**
+// This method removes duplicates by checking the first occurrence index of each element.
+function removeDuplicates(arr) {
+  return arr.filter((item, index) => arr.indexOf(item) === index);
+}
+
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); 
+// Output: [1, 2, 3, 4, 5]
+
+// **🔍 How it works?**  
+// - `indexOf(item)` returns the **first occurrence** index of an element.
+// - If `indexOf(item) === index`, it means this is the first time it's appearing in the array, so it's kept.
+
+
+// ---
+
+
+// ### ✅ **3. Using `reduce()`**
+// This method accumulates unique elements in a new array while iterating.
+function removeDuplicates(arr) {
+  return arr.reduce((acc, item) => {
+    if (!acc.includes(item)) acc.push(item);
+    return acc;
+  }, []);
+}
+
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5]));
+// Output: [1, 2, 3, 4, 5]
+
+// **🔍 How it works?**  
+// - `reduce()` iterates over the array and keeps only unique elements in `acc`.
+// - `acc.includes(item)` ensures duplicates are not added again.
+
+
+// ---
+
+
+// ### ✅ **4. Using `forEach()` and an Object (Efficient for Large Data)**
+// This method stores unique elements in an object, making it more efficient for large datasets.
+function removeDuplicates(arr) {
+  let unique = {};
+  arr.forEach(item => unique[item] = true);
+  return Object.keys(unique).map(Number);
+}
+
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); 
+// Output: [1, 2, 3, 4, 5]
+
+// **🔍 How it works?**  
+// - Uses an **object** (`unique[item] = true`) since object keys are **unique**.
+// - Extracts **keys** as an array and converts them to numbers.
+
+
+// ---
+
+
+// ### 💡 **Which One Should You Use?**
+// | Method               | Performance | Best Use Case                          |
+// |----------------------|------------|----------------------------------------|
+// | `Set`               | ✅ Fastest  | Simple & efficient                    |
+// | `filter()`          | ⚡ Fast     | When using functional programming     |
+// | `reduce()`          | ⏳ Slower   | When you need custom logic            |
+// | `forEach()` + Object | ⚡ Fast     | Large datasets (avoids `indexOf()` overhead) |
+
+// For most cases, **use `Set` (`new Set(arr)`)** since it's the cleanest and fastest.
+
+console.log("Which method do you prefer? 🚀");
+
+
+
+
+
+
+
+// frequency
+function countFrequency(arr) {
+    return arr.reduce((acc, item) => {
+      acc[item] = (acc[item] || 0) + 1;
+      return acc;
+    }, {});
+  }
+  
+  const data = ["apple", "banana", "apple", "orange", "banana", "apple"];
+  console.log(countFrequency(data));
+  // Output: { apple: 3, banana: 2, orange: 1 }
+  
+
+
+  function countFrequency(arr) {
+    let frequency = {};
+    arr.forEach(item => {
+      frequency[item] = (frequency[item] || 0) + 1;
+    });
+    return frequency;
+  }
+  
+  const data1 = [1, 2, 2, 3, 4, 4, 4, 5];
+  console.log(countFrequency(data1));
+  // Output: { '1': 1, '2': 2, '3': 1, '4': 3, '5': 1 }
+  
+
+
+
+          
+
+
+
+
 
 // // // ### 4. **Remove the Last Property from an Object:**
 // // // ```javascript
@@ -275,7 +387,64 @@
 //   return allDigits.filter(digit => !arr.includes(digit));
 // }
 
+
+
 // console.log(findMissingDigits([0, 1, 2, 4, 5, 6]));  // [3, 7, 8, 9]
+
+// function findMissingDigits(arr, range) {
+//     const missing = Array.from({ length: range }, (_, i) => i + 1)  // Create the full range array
+//       .reduce((acc, num) => {
+//         if (!arr.includes(num)) {
+//           acc.push(num);
+//         }
+//         return acc;
+//       }, []);
+  
+//     return missing;
+//   }
+  
+//   // Example
+//   const arr = [1, 2, 4, 5, 7, 8, 10];
+//   const range = 10;
+//   console.log(findMissingDigits(arr, range));  // Output: [3, 6, 9]
+  
+
+
+
+
+// function findMissingDigits(arr, range) {
+//     const missing = [];
+    
+//     // Loop through the range from 1 to 'range'
+//     for (let i = 1; i <= range; i++) {
+//       // If the number is not found in the array, add it to the missing array
+//       let isFound = false;
+//       for (let j = 0; j < arr.length; j++) {
+//         if (arr[j] === i) {
+//           isFound = true;
+//           break; // Exit the inner loop if the number is found
+//         }
+//       }
+  
+//       // If the number wasn't found, it's missing
+//       if (!isFound) {
+//         missing.push(i);
+//       }
+//     }
+  
+//     return missing;
+//   }
+  
+//   // Example usage
+//   const arr = [1, 2, 4, 5, 7, 8, 10];
+//   const range = 10;
+//   console.log(findMissingDigits(arr, range));  // Output: [3, 6, 9]
+  
+
+
+
+
+
 // ```
 
 // ### 3. **Make first letter of string uppercase:**
@@ -283,11 +452,11 @@
 // You can achieve this by using `charAt()` to access the first character, then `toUpperCase()` to capitalize it, and `slice()` to concatenate the rest of the string.
 
 // ```javascript
-// function capitalizeFirstLetter(str) {
-//   return str.charAt(0).toUpperCase() + str.slice(1);
-// }
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
-// console.log(capitalizeFirstLetter('hello'));  // "Hello"
+console.log(capitalizeFirstLetter('hello'));  // "Hello"
 // ```
 
 // ### 4. **Stopping an interval timer:**

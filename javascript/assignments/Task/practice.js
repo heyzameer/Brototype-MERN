@@ -207,25 +207,53 @@ const prompt = require("prompt-sync")();
 
 
 
-function myFilter(myArray = [], callback) {
-    let result;
-    for (let i = 0; i < myArray.length; i++) {
-        result = callback(myArray[i]);
-    }
-    console.log(result);
-}
-var sum = 0;
-function find(arrayValue) {
-    sum += arrayValue;
-    if (sum % 2 == 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
-let size = parseInt(prompt("Enter size of  Array : "));
-let array = [];
-for (let i = 0; i < size; i++) {
-    array[i] = parseInt(prompt("Enter values [" + i + "] : "));
-}
-myFilter(array, find);
+// function myFilter(myArray = [], callback) {
+    
+//     let filteredArray = [];
+//     for (let i = 0; i < myArray.length; i++) {
+//         if (callback(myArray[i])) {
+//             filteredArray.push(myArray[i]);
+//         }
+//     }
+//     return filteredArray;
+// }
+
+// function find(arrayValue) {
+//    if(arrayValue % 2 === 0) {
+//        return true;
+//    } else {
+//        return false;
+//    }
+// }
+
+
+// let size = parseInt(prompt("Enter size of  Array : "));
+// let array = [];
+// for (let i = 0; i < size; i++) {
+//     array[i] = parseInt(prompt("Enter values [" + i + "] : "));
+// }
+
+// let filteredResult = myFilter(array, find);
+// console.log(filteredResult);
+
+
+
+
+// function removeDup(arr) {
+//     return arr.reduce((acc, curr) => {
+//         if (!acc.includes(curr)) {
+//             acc.push(curr);
+//         }
+//         return acc;
+//     }, []);
+// }
+
+// console.log(removeDup([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3]));
+
+
+// function removeDup(arr) {
+//     return arr.filter((value, index) => {
+//         return arr.indexOf(value) === index;
+//     });
+// }
+// console.log(removeDup([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3]));
