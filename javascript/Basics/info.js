@@ -12,8 +12,240 @@
 
 // ---
 
-// ### **2. Destructuring**
-// Destructuring is a shorthand syntax in JavaScript used to unpack values from arrays or properties from objects into distinct variables.
+// ### 🔥 **What is Prototype in JavaScript?**  
+
+// In JavaScript, **Prototype** is a built-in mechanism that allows objects to inherit properties and methods from another object. Every JavaScript function and object has a special property called `prototype`, which acts as a blueprint for inheritance.
+
+// ---
+
+// ## ✅ **1. Understanding Prototype**
+// Every JavaScript object has an internal link to another object, called its **prototype**. This prototype object contains shared methods and properties.
+
+// ### **Example: Checking the Prototype**
+// ```javascript
+// function Person(name) {
+//   this.name = name;
+// }
+
+// console.log(Person.prototype); 
+// // Output: Person {} (An empty prototype object)
+// ```
+// ---
+
+// ## ✅ **2. Adding Methods Using Prototype**
+// Instead of adding methods inside the constructor (which creates a new copy for each object), we can add them to the prototype.
+
+// ### **Example: Using Prototype for Methods**
+// ```javascript
+// function Person(name) {
+//   this.name = name;
+// }
+
+// // Adding a method to the prototype
+// Person.prototype.greet = function() {
+//   return `Hello, my name is ${this.name}`;
+// };
+
+// const person1 = new Person("Zameer");
+// const person2 = new Person("Ahamed");
+
+// console.log(person1.greet()); // Output: Hello, my name is Zameer
+// console.log(person2.greet()); // Output: Hello, my name is Ahamed
+// ```
+// ✔️ Both `person1` and `person2` share the same `greet()` method from `Person.prototype`, instead of having separate copies.
+
+// ---
+
+// ## ✅ **3. Prototype Chain**
+// When you access a property or method of an object, JavaScript searches for it in the object.  
+// If it **doesn't find it**, JavaScript looks at the **prototype** of that object, then at the prototype's prototype, and so on. This is called the **Prototype Chain**.
+
+// ### **Example: Prototype Chain in Action**
+// ```javascript
+// console.log(person1.toString()); 
+// // Even though we didn't define toString(), it exists in Object.prototype.
+// ```
+// **Prototype Chain Visualization:**
+// ```
+// person1 ---> Person.prototype ---> Object.prototype ---> null
+// ```
+// If `greet()` is not found on `person1`, JavaScript checks `Person.prototype`.  
+// If still not found, it moves to `Object.prototype`.
+
+// ---
+
+// ## ✅ **4. Prototype vs `__proto__`**
+// - `prototype` is a property of **constructor functions**.
+// - `__proto__` is a reference to an object's prototype.
+
+// ### **Example: Accessing an Object’s Prototype**
+// ```javascript
+// console.log(person1.__proto__ === Person.prototype); // Output: true
+// ```
+// ✔️ `person1`'s `__proto__` points to `Person.prototype`.
+
+// ---
+
+// ## ✅ **5. Overriding Prototype Methods**
+// If an object has its own method with the same name as a prototype method, the object's method takes priority.
+
+// ### **Example: Overriding a Prototype Method**
+// ```javascript
+// Person.prototype.greet = function() {
+//   return "This is overridden!";
+// };
+
+// console.log(person1.greet()); // Output: This is overridden!
+// ```
+// ✔️ The prototype method is **overwritten**.
+
+// ---
+
+// ## ✅ **6. Prototype with `class` (ES6)**
+// JavaScript `class` syntax internally uses prototypes.
+
+// ### **Example: `class` and Prototype**
+// ```javascript
+// class Animal {
+//   speak() {
+//     return "Animal speaks!";
+//   }
+// }
+
+// const dog = new Animal();
+// console.log(dog.speak()); // Output: Animal speaks!
+// console.log(Object.getPrototypeOf(dog) === Animal.prototype); // true
+// ```
+// ✔️ Even with `class`, the method `speak()` is stored in `Animal.prototype`.
+
+// ---
+
+// ## ✅ **Conclusion**
+// - **Prototype** is an object from which other objects inherit properties/methods.
+// - Objects follow a **prototype chain** to access properties/methods.
+// - Methods should be added to `prototype` for **memory efficiency**.
+// - `class` syntax still uses prototype under the hood.
+
+// Would you like a deeper dive into a specific part? 🚀
+
+
+
+
+
+
+// ### 🔥 **What is Prototype Inheritance in JavaScript?**  
+
+// **Prototype Inheritance** allows JavaScript objects to inherit properties and methods from another object. Every JavaScript object has an internal link to another object called its **prototype**. This enables **method and property sharing** between objects.
+
+// ---
+
+// ### ✅ **Example: Prototype Inheritance in Action**
+// ```javascript
+// // Parent Constructor Function
+// function Person(name, age) {
+//   this.name = name;
+//   this.age = age;
+// }
+
+// // Adding a method to the prototype
+// Person.prototype.greet = function() {
+//   return `Hello, my name is ${this.name}`;
+// };
+
+// // Child Constructor Function
+// function Student(name, age, grade) {
+//   Person.call(this, name, age); // Inherit properties from Person
+//   this.grade = grade;
+// }
+
+// // Inheriting from Person prototype
+// Student.prototype = Object.create(Person.prototype);
+// Student.prototype.constructor = Student;
+
+// // Adding a method to Student prototype
+// Student.prototype.study = function() {
+//   return `${this.name} is studying.`;
+// };
+
+// // Creating an instance of Student
+// const student1 = new Student("Zameer", 24, "A");
+
+// console.log(student1.greet()); // Output: Hello, my name is Zameer
+// console.log(student1.study()); // Output: Zameer is studying
+// console.log(student1 instanceof Student); // Output: true
+// console.log(student1 instanceof Person);  // Output: true
+// ```
+
+// ---
+
+// ### **🔍 How Does Prototype Inheritance Work?**
+// 1. **Person** is a constructor function with properties (`name`, `age`).
+// 2. **greet()** is added to `Person.prototype`, so all instances share it.
+// 3. **Student** is a constructor that uses `Person.call(this, name, age);` to inherit properties.
+// 4. **Object.create(Person.prototype)** makes `Student.prototype` inherit from `Person.prototype`.
+// 5. **student1** gets both `greet()` from `Person` and `study()` from `Student`.
+
+// ---
+
+// ### 🔥 **Prototype Chain**
+// Every JavaScript object has a prototype, which is another object. This forms a **prototype chain**:
+// ```
+// student1 ---> Student.prototype ---> Person.prototype ---> Object.prototype ---> null
+// ```
+// If a property/method isn’t found in `student1`, JavaScript looks up the chain until it finds it or reaches `null`.
+
+// ---
+
+// ### ✅ **Using `class` for Inheritance (ES6)**
+// With modern JavaScript, you can use `class` instead of prototype chaining:
+// ```javascript
+// class Person {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+//   greet() {
+//     return `Hello, my name is ${this.name}`;
+//   }
+// }
+
+// class Student extends Person {
+//   constructor(name, age, grade) {
+//     super(name, age); // Call parent constructor
+//     this.grade = grade;
+//   }
+//   study() {
+//     return `${this.name} is studying.`;
+//   }
+// }
+
+// const student2 = new Student("Zameer", 24, "A");
+
+// console.log(student2.greet()); // Output: Hello, my name is Zameer
+// console.log(student2.study()); // Output: Zameer is studying
+// ```
+// ✔️ This is **cleaner and easier** than manually setting prototypes!
+
+// ---
+
+// ### **Conclusion**
+// ✅ **Prototype Inheritance** allows JavaScript objects to inherit properties/methods from other objects via the **prototype chain**.  
+// ✅ **Older JS** used `Object.create()`, `call()`, and `prototype` to set up inheritance.  
+// ✅ **Modern JS** uses `class` and `extends` for cleaner syntax.
+
+// Would you like more examples or explanations? 🚀
+
+
+
+
+
+
+
+
+
+
+// // ### **2. Destructuring**
+// // Destructuring is a shorthand syntax in JavaScript used to unpack values from arrays or properties from objects into distinct variables.
 
 // #### **Array Destructuring**:
 // ```javascript
@@ -1323,3 +1555,99 @@
 // ```
 
 // In this case, the string `"10"` is converted to the number `10`, and then the addition (`10 + 10`) occurs, resulting in `20`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### 🔥 **Is JavaScript Compiled or Interpreted?**  
+
+// JavaScript is **both** a **compiled** and **interpreted** language. It follows a **Just-In-Time (JIT) Compilation** model, where the code is **compiled to bytecode at runtime** and then executed.
+
+// ---
+
+// ## ✅ **1. JavaScript as an Interpreted Language**
+// Traditionally, JavaScript was considered an **interpreted** language because:
+// - The **JavaScript Engine** reads the code **line by line** and executes it immediately.
+// - No separate compilation step like in C or Java.
+
+// ### **Example (Interpreted Behavior)**
+// ```javascript
+// console.log("Hello");
+// console.log(undefinedVariable); // Runtime error (not during compilation)
+// ```
+// ✔️ Even if there’s an error in line 2, line 1 **still executes** because JS runs **line-by-line**.
+
+// ---
+
+// ## ✅ **2. JavaScript as a Compiled Language**
+// Modern JavaScript engines (V8, SpiderMonkey, JavaScriptCore) use **Just-In-Time (JIT) Compilation**:
+// - **Before execution**, the JS engine compiles the code into **bytecode**.
+// - The bytecode is then **optimized** and executed **faster** than pure interpretation.
+
+// ### **Compilation Process (Simplified)**
+// 1. **Parsing** → JS code is converted into an **Abstract Syntax Tree (AST)**.
+// 2. **Compilation** → The AST is compiled into **bytecode**.
+// 3. **Optimization** → The engine applies optimizations for performance.
+// 4. **Execution** → The optimized bytecode is executed.
+
+// ✔️ This makes JavaScript much **faster** than a purely interpreted language.
+
+// ---
+
+// ## ✅ **3. How JIT (Just-In-Time) Compilation Works**
+// JIT combines **compilation and interpretation** for efficiency:
+// - **First Run:** JS code is **interpreted** (fast startup).
+// - **Repeated Runs:** Frequently used code gets **compiled** and optimized for speed.
+
+// ### **Example: JIT Optimization**
+// ```javascript
+// function add(a, b) {
+//   return a + b;
+// }
+
+// console.log(add(2, 3)); // First time: interpreted
+// console.log(add(5, 6)); // Repeated calls: compiled & optimized
+// ```
+// ✔️ The JS engine **compiles and optimizes** `add()` after multiple calls.
+
+// ---
+
+// ## ✅ **4. Comparing JS with Other Languages**
+// | Language       | Type           | Example |
+// |---------------|---------------|---------|
+// | C, C++       | Compiled       | Needs compilation (`gcc file.c`) |
+// | Python       | Interpreted    | Runs line-by-line (`python file.py`) |
+// | Java         | Compiled + JIT | Compiled to bytecode (`javac file.java`) |
+// | JavaScript   | Interpreted + JIT | Runs in browsers (`node file.js`) |
+
+// ---
+
+// ## ✅ **Conclusion: JS is a Hybrid**
+// - **Old JavaScript** (before modern engines) was **interpreted**.
+// - **Modern JavaScript** uses **JIT compilation**, making it faster.
+// - It **starts execution quickly** (interpreted) and **optimizes code over time** (compiled).
+
+// Would you like an example of how different engines (V8, SpiderMonkey) handle this? 🚀

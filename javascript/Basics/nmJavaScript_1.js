@@ -7,7 +7,7 @@
 // ```javascript
 // function xyz() {
 //     console.log("Function Statement");
-// }
+// }                                                                                                                                                                                                                                                                                                                    
 
 // xyz();  // Function Statement
 // ```
@@ -650,7 +650,24 @@ console.log(multiplyByTwo(10)); // Output: 20
 
 
 
-
+// ✅ Use Cases
+// Data Hiding & Encapsulation → Private variables
+// Function Factories → Multiple instances with unique state
+// Async State Retention → Callbacks, setTimeout/setInterval
+// Memoization → Caching function results
+// Event Handlers → Remembering UI state
+// Currying & Partial Application → Function customization
+// 🔻 Drawbacks
+// Memory consumption → Retains references longer than needed
+// Harder to debug → Unexpected retained states
+// Performance overhead → Excessive closures can slow down execution
+// Memory leaks → Holding references to large objects
+// Variable scope issues → Unintended behavior in loops
+// 🔹 When to Use Closures?
+// ✅ When you need to retain state in a function.
+// ✅ When you want data hiding and encapsulation.
+// ✅ When you need function customization (e.g., currying).
+// ✅ When you optimize performance using memoization.
 
 
 
@@ -1061,7 +1078,11 @@ console.log(multiplyByTwo(10)); // Output: 20
 
 
 
+// A Higher-Order Function (HOF) is a function that either:
+// 1️⃣ Takes one or more functions as arguments (Callback Functions)
+// 2️⃣ Returns a function as its output
 
+// This makes JavaScript more modular, reusable, and functional in programming.
 // HigherOrder Function
 
 // const radius = [3,6,2,1];
@@ -1351,7 +1372,7 @@ console.log(multiplyByTwo(10)); // Output: 20
 //    const numbers = [3, 5, 2, 8, 1];
 //    const max = numbers.reduce((acc, curr) => {
 //        return curr > acc ? curr : acc;
-//    }, numbers[0]);
+//    }, 0);
 //    console.log(max); // Outputs: 8
 //    ```
 

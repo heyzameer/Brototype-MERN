@@ -803,6 +803,16 @@ console.log(numbers[4]);  // Output: 50
 
 // console.log(person.greet()); // Output: Hello, Alice!
 // ```
+// const person = {
+//     name: 'John',
+//     age: 30,
+//     greet: () => {
+//       console.log(`Hello, my name is ${this.name}`);  // 'this' doesn't refer to the 'person' object
+//     }
+//   };
+   
+//   person.greet();  // Output: Hello, my name is undefined
+  
 
 // - **Explanation**: In the `greet()` method, `this.name` accesses the `name` property of the `person` object.
 

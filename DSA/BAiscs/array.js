@@ -209,13 +209,13 @@ function countFrequency(arr) {
 // // You can use `filter()` to create an array of the elements that match the specified value, then get the length of the resulting array.
 
 // // ```javascript
-// // const arr = [1, 2, 3, 4, 1, 5, 1];
-// // const valueToCount = 1;
+// const arr = [1, 2, 3, 4, 1, 5, 1];
+// const valueToCount = 1;
 
-// // const count = arr.filter(item => item === valueToCount).length;
+// const count = arr.filter(item => item === valueToCount).length;
 
-// // console.log(count); // Output: 3
-// // ```
+// console.log("hee"+count); // Output: 3
+// // // ```
 
 // // ### **3. Using a `for` Loop**
 

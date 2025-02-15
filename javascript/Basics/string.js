@@ -136,3 +136,113 @@ console.log(comparisonResult); // Output: false
 // Template Literals: Template literals allow embedding expressions inside strings using ${} for easier string formatting.
 // Escape Characters: Special characters in strings can be escaped using a backslash (\) for quotes, newlines, etc.
 // String Padding: Use .padStart() and .padEnd() for padding strings with specified characters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### **Template Literals in JavaScript**  
+
+// Template literals (introduced in ES6) provide a **better way to handle strings** by allowing multi-line strings, embedded expressions, and string interpolation using **backticks** (`` ` ``) instead of single (`'`) or double (`"`) quotes.  
+
+// ---
+
+// ## **1. Basic Syntax**
+// ```javascript
+// const name = "Zameer";
+// const greeting = `Hello, ${name}!`;
+
+// console.log(greeting); // Hello, Zameer!
+// ```
+// 💡 **Key Features:**  
+// ✅ Uses **backticks** (`` ` ``) instead of quotes.  
+// ✅ Supports **string interpolation** using **`${}`**.  
+
+// ---
+
+// ## **2. Multi-line Strings**
+// With template literals, you can write multi-line strings **without using `\n` or concatenation**.  
+// ```javascript
+// const multiLine = `This is line one.
+// This is line two.
+// This is line three.`;
+
+// console.log(multiLine);
+// ```
+// **Output:**  
+// ```
+// This is line one.
+// This is line two.
+// This is line three.
+// ```
+// 🚀 **No need for `+` or `\n`!**
+
+// ---
+
+// ## **3. Expression Interpolation**
+// You can embed **expressions, calculations, and function calls** inside `${}`.
+// ```javascript
+// const a = 5, b = 10;
+// console.log(`Sum: ${a + b}`); // Sum: 15
+// console.log(`Double: ${a * 2}`); // Double: 10
+// ```
+
+// ---
+
+// ## **4. Function Calls Inside Template Literals**
+// ```javascript
+// const getGreeting = (name) => `Hello, ${name}!`;
+// console.log(`${getGreeting("Alice")}`); // Hello, Alice!
+// ```
+
+// ---
+
+// ## **5. Using Template Literals in HTML (Example)**
+// ```javascript
+// const title = "JavaScript Basics";
+// const content = "Learn about ES6+ features.";
+// const html = `
+//   <div>
+//     <h1>${title}</h1>
+//     <p>${content}</p>
+//   </div>
+// `;
+// console.log(html);
+// ```
+// 🚀 **Great for dynamically creating HTML in JavaScript!**
+
+// ---
+
+// ## **6. Tagged Template Literals**
+// Tagged templates allow custom processing of template literals.
+// ```javascript
+// function tag(strings, name) {
+//   return `${strings[0]} 👋 ${name}!`;
+// }
+
+// const result = tag`Hello, ${"Zameer"}`;
+// console.log(result); // Hello, 👋 Zameer!
+// ```
+// 📌 **Useful for custom formatting and security (like escaping HTML).**
+
+// ---
+
+// ### **Conclusion**
+// ✅ **Easier string handling** (multi-line support).  
+// ✅ **Powerful interpolation** (embed variables & expressions).  
+// ✅ **Great for HTML templates** (avoids messy concatenation).  
+// ✅ **Tagged templates** allow advanced customization.  
+
+// Would you like an advanced example? 🚀

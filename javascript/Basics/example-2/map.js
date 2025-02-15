@@ -28,17 +28,18 @@ console.log(doubledShort); // [2, 4, 6, 8, 10]
 //     return x * 3;
 // }
 
-// function binary(x){
-//     return x.toString(2);
-// }
+function binary(x){
+    return x.toString(2);
+}
 
 // const output = arr.map(double)
 // const output2 = arr.map(triple)
-// const output3 = arr.map(binary)
+let arr = [1,2,3,4,5]
+const output3 = arr.map(binary)
 
 // console.log(output);
 // console.log(output2);
-// console.log(output3);
+console.log(output3);
 
 
 

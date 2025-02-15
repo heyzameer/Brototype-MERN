@@ -60,6 +60,9 @@
 //    ```
 
 // ---
+// - **Rest Operator (`...`)**: Collects all remaining arguments into an array.
+// - **Spread Operator (`...`)**: Expands an array or object into individual elements.
+
 
 // ### **2. Rest Operator (`...`)**
 
@@ -71,10 +74,11 @@
 //    - The rest operator allows you to pass a variable number of arguments to a function and collect them into an array.
 
 //    ```javascript
-//    const sum = (...args) => {
-//      return args.reduce((acc, curr) => acc + curr, 0);
-//    };
-//    console.log(sum(1, 2, 3, 4));  // Output: 10
+   const sum = (...args) => {
+    //  return args.reduce((acc, curr) => acc + curr, 0);
+    // console.log(args);
+   };
+   console.log(sum(1, 2, 3, 4));  // Output: 10
 //    ```
 
 //    - In this case, `args` will be an array containing all passed arguments: `[1, 2, 3, 4]`.
@@ -134,3 +138,171 @@
 // - **Rest Operator** (`...`) is used to collect elements into an array, such as gathering arguments in a function or capturing remaining properties in an object.
 
 // Both operators use the same syntax (`...`), but their functionality depends on their context, either expanding or collecting values.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ### **Destructuring in JavaScript**
+
+// Destructuring is a feature in JavaScript that allows you to **extract values from arrays or properties from objects** and assign them to variables in a concise way. It simplifies code and makes it more readable.
+
+// ---
+
+// ## **1. Array Destructuring**
+// Array destructuring allows you to extract values from an array and assign them to variables.
+
+// ### **Example: Basic Array Destructuring**
+// ```javascript
+// const numbers = [10, 20, 30];
+
+// // Traditional way
+// const first = numbers[0];
+// const second = numbers[1];
+
+// // Using destructuring
+// const [a, b, c] = numbers;
+
+// console.log(a); // 10
+// console.log(b); // 20
+// console.log(c); // 30
+// ```
+
+// ### **Skipping Elements**
+// You can skip elements using empty commas:
+// ```javascript
+// const nums = [100, 200, 300, 400];
+// const [, second, , fourth] = nums;
+
+// console.log(second); // 200
+// console.log(fourth); // 400
+// ```
+
+// ### **Using Rest Operator `...`**
+// ```javascript
+// const colors = ["red", "blue", "green", "yellow"];
+// const [firstColor, ...remainingColors] = colors;
+
+// console.log(firstColor);       // "red"
+// console.log(remainingColors);  // ["blue", "green", "yellow"]
+// ```
+
+// ---
+
+// ## **2. Object Destructuring**
+// Object destructuring allows you to extract properties from an object and assign them to variables.
+
+// ### **Example: Basic Object Destructuring**
+// ```javascript
+// const person = { name: "Alice", age: 25, city: "New York" };
+
+// // Traditional way
+// const name = person.name;
+// const age = person.age;
+
+// // Using destructuring
+// const { name: personName, age: personAge, city } = person;
+
+// console.log(personName); // Alice
+// console.log(personAge);  // 25
+// console.log(city);       // New York
+// ```
+
+// ### **Default Values**
+// If a property does not exist, you can set a default value:
+// ```javascript
+// const user = { username: "Zameer" };
+// const { username, role = "guest" } = user;
+
+// console.log(username); // "Zameer"
+// console.log(role);     // "guest"
+// ```
+
+// ### **Nested Object Destructuring**
+// ```javascript
+// const employee = {
+//   id: 101,
+//   details: {
+//     firstName: "John",
+//     lastName: "Doe",
+//     position: "Developer",
+//   },
+// };
+
+// // Extracting nested properties
+// const {
+//   details: { firstName, position },
+// } = employee;
+
+// console.log(firstName); // "John"
+// console.log(position);  // "Developer"
+// ```
+
+// ---
+
+// ## **3. Function Parameter Destructuring**
+// You can use destructuring directly in function parameters.
+
+// ### **Example: Function Argument Destructuring**
+// ```javascript
+// const userInfo = { username: "Alex", age: 30 };
+
+// function displayUser({ username, age }) {
+//   console.log(`User: ${username}, Age: ${age}`);
+// }
+
+// displayUser(userInfo);
+// // Output: User: Alex, Age: 30
+// ```
+
+// ---
+
+// ## **4. Swapping Variables using Destructuring**
+// ```javascript
+// let x = 5, y = 10;
+// [x, y] = [y, x]; 
+
+// console.log(x); // 10
+// console.log(y); // 5
+// ```
+
+// ---
+
+// ## **5. Destructuring with Default Function Parameters**
+// ```javascript
+// function greet({ name = "Guest", country = "Unknown" } = {}) {
+//   console.log(`Hello ${name} from ${country}`);
+// }
+
+// greet({ name: "Mike", country: "USA" }); // Hello Mike from USA
+// greet(); // Hello Guest from Unknown
+// ```
+
+// ---
+
+// ## **Conclusion**
+// - Destructuring makes code more readable and reduces repetition.
+// - Works with both **arrays** (by position) and **objects** (by key).
+// - Supports **default values, nested destructuring, and function parameters**.
+
+// Would you like more examples or explanations? 🚀
