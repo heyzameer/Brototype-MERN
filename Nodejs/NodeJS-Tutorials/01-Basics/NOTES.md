@@ -17,6 +17,7 @@ Maintened by: Node.js Foundation and . Openjs Foundation.
 
 - **Growth**: Node.js has gained significant popularity due to its performance, scalability, and the ability to use JavaScript for both client-side and server-side development.
 
+- **Acquisition by Joyent**: Initially developed at Joyent, a company that specializes in cloud computing.
 
 
 ### Key Features:
@@ -30,6 +31,5 @@ Maintened by: Node.js Foundation and . Openjs Foundation.
 4. **Cross-Platform**: Node.js can run on multiple platforms, including Windows, macOS, and Linux
 
 5. **Asynchronour ios or non-blocking io**: Node.js uses asynchronous I/O operations, which means that it can handle multiple requests without blocking the main thread. This makes it highly efficient for I/O-bound applications.
-
 
 6. **JavaScript Everywhere**: Since Node.js uses JavaScript, developers can use the same language for both client-side and server-side development, which simplifies the learning curve and improves productivity.
