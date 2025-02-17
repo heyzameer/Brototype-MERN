@@ -177,11 +177,6 @@ console.log(math.subtract(5, 2)); // Output: 3
 
 
 
-
-
-
-
-
 ## Grouping Modules in JavaScript: Enhanced Code Organization
 
 This document explains the concept of grouping modules in JavaScript, a valuable technique for improving code organization, managing dependencies, and simplifying import statements, especially in large projects.
@@ -216,3 +211,13 @@ The most common and effective way to group modules is by using an `index.js` fil
 **Example:**
 
 [📜 View Code](./examples/example2/)
+
+
+
+
+
+# Importing JSON files
+
+**Example:**
+[📜 View Code](./examples/example3/)
+
