@@ -173,7 +173,7 @@ console.log(math.subtract(5, 2)); // Output: 3
 
 ## Example 
 
- [📜 View Code](./examples/module-example.js)
+ [📜 View Code](./examples/cjsandmjs/)
 
 
 
