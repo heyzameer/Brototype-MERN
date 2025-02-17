@@ -169,19 +169,20 @@ var math = require('./math');
 
 console.log(math.add(2, 3)); // Output: 5
 console.log(math.subtract(5, 2)); // Output: 3
+```
+
+## Example
+
+/ [📜 View Code](./examples/module-example.js)
 
 
 
-[📜 View Code](./examples/module-example.js)
 
 
 
 
 
-
-
-
-# Grouping Modules in JavaScript: Enhanced Code Organization
+## Grouping Modules in JavaScript: Enhanced Code Organization
 
 This document explains the concept of grouping modules in JavaScript, a valuable technique for improving code organization, managing dependencies, and simplifying import statements, especially in large projects.
 
@@ -214,3 +215,4 @@ The most common and effective way to group modules is by using an `index.js` fil
 
 **Example:**
 
+[📜 View Code](./examples/example2/)
