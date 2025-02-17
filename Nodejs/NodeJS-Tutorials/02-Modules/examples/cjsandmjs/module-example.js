@@ -28,3 +28,31 @@ console.log(math.multiply(1, 2));
 console.log(math.divide(1, 2));
 
 console.log("Goodbye from the module-example.js");
+
+
+
+
+// ES6 way of importing modules
+
+// import { add, subtract } from './module.js';
+//
+// console.log(add(1, 2));
+// console.log(subtract(1, 2));
+//
+// import * as math from './module.js';
+//
+// console.log(math.add(1, 2));
+// console.log(math.subtract(1, 2));
+//
+// import math from './module.js';
+//
+// console.log(math.add(1, 2));
+// console.log(math.subtract(1, 2));
+//
+
+// import { add as addTwoNumbers, subtract as subtractTwoNumbers } from './module.js';
+//
+// console.log(addTwoNumbers(1, 2));
+// console.log(subtractTwoNumbers(1, 2));
+//
+
