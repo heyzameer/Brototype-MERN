@@ -272,10 +272,8 @@ setImmediate
 
 ---
 
-[📜 View Code](./examples/examples2/eventloop.js)
+## Execution Breakdown [📜 View Code](./examples/examples2/eventloop.js)
 
-
-## Execution Breakdown
 
 ### 1. **Synchronous Execution (Main Thread)**
 1. The variable `a` is assigned a value of `100`.
@@ -417,7 +415,7 @@ This execution order illustrates how **microtasks** (`process.nextTick` and `Pro
 
 
 
-# Execution Breakdown[📜 View Code](./examples/examples2/eventloop2.js)
+# Execution Breakdown [📜 View Code](./examples/examples2/eventloop2.js)
 
 
 ```javascript
