@@ -4,9 +4,9 @@ const https = require('https');
 let a = 20;
 let b = 30;
 
-// https.get('https://dummyjson.com/products/1', (res) => {
-//    console.log("Fetched data from the URL");
-// });
+https.get('https://dummyjson.com/products/1', (res) => {
+   console.log("Fetched data from the URL");
+});
 
 setTimeout(() => {
     console.log('Timeout executed');
@@ -29,11 +29,11 @@ function multiply(a, b) {
 console.log("Multiplication Result:", multiply(a, b));
 
 // Synchronous file read (Fixed)
-try {
-    const fileData = fs.readFileSync('./file.txt', 'utf8');
-    console.log("File data from readFileSync:", fileData);
-} catch (err) {
-    console.error("Error reading file with readFileSync:", err);
-}
+// try {
+//     const fileData = fs.readFileSync('./file.txt', 'utf8');
+//     console.log("File data from readFileSync:", fileData);
+// } catch (err) {
+//     console.error("Error reading file with readFileSync:", err);
+// }
 
 console.log("End of the script");
