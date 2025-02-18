@@ -87,3 +87,81 @@ console.log('Continuing execution...');
 * **Libuv Github**
 [📜 View Code](https://github.com/nodejs/node/tree/main/deps/uv)
 
+
+
+
+
+
+
+# V8 Engine Architecture
+
+## 1. Parsing
+Before executing JavaScript code, V8 processes it through **parsing**, which consists of two stages:
+
+### **1.1 Lexical Analysis (Tokenization)**
+- The JavaScript source code is **broken down into tokens** (keywords, operators, literals, etc.).
+- Each token is identified by its type and value.
+- Example:
+  ```js
+  let sum = 5 + 10;
+  ```
+  - Tokens: `let`, `sum`, `=`, `5`, `+`, `10`, `;`
+
+### **1.2 Syntax Analysis (Parsing)**
+- The tokens are converted into an **Abstract Syntax Tree (AST)**.
+- AST is a hierarchical representation of the code structure.
+- Example: Use **AST Explorer** ([ast-explorer.net](https://astexplorer.net/)) to visualize an AST.
+
+## 2. Interpretation & Compilation
+After parsing, the JavaScript code needs to be executed. V8 employs **Ignition (interpreter)** and **TurboFan (compiler)** for Just-In-Time (JIT) compilation.
+
+### **2.1 Ignition (Interpreter)**
+- Converts the **AST into bytecode**.
+- Executes JavaScript **line by line**, making it **faster for initial execution**.
+- Example:
+  ```js
+  function sum(a, b) {
+      return a + b;
+  }
+  ```
+  - Ignition translates this into bytecode instructions.
+
+🔗 [Ignition Interpreter Source Code](https://github.com/nodejs/node/tree/main/deps/v8/src/interpreter)
+
+### **2.2 TurboFan (JIT Compiler)**
+- If code is **executed repeatedly** (hot code), it gets **optimized** into highly efficient machine code.
+- Optimizations include:
+  - **Inline caching** (reducing function call overhead)
+  - **Copy elision** (removing unnecessary object copies)
+  
+🔗 [TurboFan Compiler Source Code](https://github.com/nodejs/node/tree/main/deps/v8/src/compiler)
+
+## 3. Execution Flow
+1. **JavaScript code** → **Tokenized** → **AST**
+2. AST → **Ignition Interpreter** → **Bytecode Execution**
+3. **Frequent functions (hot code)** → **TurboFan JIT Optimization** → **Machine code**
+4. **Deoptimization occurs** if assumptions about the code change (e.g., changing number types).
+
+## 4. Garbage Collection (GC)
+V8 uses a **garbage collector** to free unused memory, preventing memory leaks.
+
+### **Garbage Collectors in V8**
+1. **Orinoco** - Concurrent garbage collection.
+2. **Oilpan** - Handles DOM-related memory management.
+3. **Scavenger** - Performs quick memory cleanup.
+
+### **Mark-and-Sweep Algorithm**
+- **Mark Phase:** Identifies objects that are still in use.
+- **Sweep Phase:** Removes unused objects, freeing memory.
+
+## 5. Difference Between Interpreter & Compiler
+| Feature           | Interpreter (Ignition) | Compiler (TurboFan) |
+|------------------|---------------------|------------------|
+| Execution       | Line by line         | Translates to machine code |
+| Speed (initial) | Faster               | Slower          |
+| Speed (later)   | Slower               | Faster (Optimized) |
+| Optimization    | No                    | Yes (JIT Compilation) |
+
+## 6. Additional Resources
+- [V8 Blog: Ignition & TurboFan](https://v8.dev/blog/launching-ignition-and-turbofan)
+
