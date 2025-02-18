@@ -165,3 +165,159 @@ V8 uses a **garbage collector** to free unused memory, preventing memory leaks.
 ## 6. Additional Resources
 - [V8 Blog: Ignition & TurboFan](https://v8.dev/blog/launching-ignition-and-turbofan)
 
+
+
+
+
+
+
+
+
+
+# libuv & Event Loop
+
+## Overview
+
+- `libuv` is a library handling **asynchronous I/O** in Node.js.
+- The **Event Loop** continuously checks the **call stack** and **callback queue**, executing tasks at the right time.
+
+## Major Phases of the Event Loop
+
+1. **Timers Phase** – Executes `setTimeout()` and `setInterval()`.
+2. **Poll Phase** – Handles I/O callbacks (e.g., `fs`, `crypto`, `http` requests).
+3. **Check Phase** – Executes `setImmediate()` callbacks.
+4. **Close Phase** – Handles socket closing & cleanup (`onclose` events).
+
+## Priority Loop (Microtask Queue)
+
+Before moving to a new phase, Node.js processes:
+
+- `process.nextTick(callback);`
+- `Promise.resolve(callback);`
+
+## Execution Order Example
+
+```js
+setTimeout(() => console.log("setTimeout"), 0);
+setImmediate(() => console.log("setImmediate"));
+process.nextTick(() => console.log("nextTick"));
+Promise.resolve().then(() => console.log("Promise resolved"));
+```
+
+### Expected Output:
+
+```
+nextTick
+Promise resolved
+setTimeout OR setImmediate (order depends on execution)
+```
+
+## Thread Pool in libuv
+
+- **Handles heavy computations** in a separate pool of threads.
+- Used for operations like:
+  - `fs.readFile("file.txt", callback)`
+  - `crypto.pbkdf2()`, `https.get()`
+
+---
+
+
+# Understanding the Node.js Event Loop with Example Code
+
+
+## Introduction
+This document explains how the Node.js event loop processes different asynchronous operations using a given example. We will analyze the execution order of various functions in the event loop and understand how timers, I/O operations, and immediate callbacks are scheduled.
+
+---
+
+## Code Explanation
+```javascript
+const fs = require("fs"); // Importing the fs module for file reading
+
+const a = 100; // Declare a constant variable
+
+// setImmediate callback (executes in the Check phase of the Event Loop)
+setImmediate(() => console.log("setImmediate"));
+
+// Asynchronous file read operation (executes in the Poll phase of the Event Loop)
+fs.readFile("./file.txt", "utf8", () => {
+    console.log("File Reading CB"); // Callback for file reading
+});
+
+// setTimeout with 0ms delay (executes in the Timer phase of the Event Loop)
+setTimeout(() => console.log("Timer expired"), 0);
+
+// Function declaration
+function printA() {
+    console.log("a=", a);
+}
+
+// Function call
+printA();
+
+// Final synchronous log statement
+console.log("Last line of the file.");
+```
+
+---
+
+## Expected Output
+```plaintext
+a= 100
+Last line of the file.
+Timer expired
+File Reading CB
+setImmediate
+```
+
+---
+
+[📜 View Code](./examples/examples2/eventloop.js))
+
+
+## Execution Breakdown
+
+### 1. **Synchronous Execution (Main Thread)**
+1. The variable `a` is assigned a value of `100`.
+2. The `printA()` function is called, which prints `a= 100`.
+3. The `console.log("Last line of the file.")` executes.
+
+At this point, all synchronous code is completed before entering the event loop.
+
+### 2. **Event Loop Processing (Asynchronous Execution)**
+Once the main script execution is completed, the event loop takes over and processes the asynchronous operations in different phases.
+
+#### **Timer Phase (setTimeout) 🕒**
+- `setTimeout()` with `0ms` delay is placed in the **Timer Phase**.
+- Although it has `0ms` delay, it will execute only after the synchronous code is completed and the event loop reaches the timer phase.
+
+#### **Poll Phase (I/O Operations) 📂**
+- The `fs.readFile()` function is asynchronous and enters the **Poll Phase**.
+- Once the file is read, the callback function (`console.log("File Reading CB")`) is queued for execution in the event loop.
+
+#### **Check Phase (setImmediate) ⚡**
+- `setImmediate()` executes in the **Check Phase** after the Poll phase is completed.
+
+---
+
+## Execution Order in the Event Loop
+1. The synchronous code executes first:
+   - `printA()` → prints `a= 100`
+   - `console.log("Last line of the file.")`
+2. The event loop starts processing asynchronous tasks:
+   - `setTimeout()` (Timer Phase) → `console.log("Timer expired")`
+   - `fs.readFile()` completes (Poll Phase) → `console.log("File Reading CB")`
+   - `setImmediate()` executes in the Check Phase → `console.log("setImmediate")`
+
+Since the Poll phase is before the Check phase, if there are no other long-running I/O operations, `fs.readFile()` executes before `setImmediate()`.
+
+---
+
+## Key Takeaways
+1. **Synchronous Code Executes First**: Before entering the event loop, all synchronous code runs completely.
+2. **Timers Execute in the Timer Phase**: `setTimeout(callback, 0)` executes in the Timer phase and does not run immediately.
+3. **I/O Operations Use the Poll Phase**: Asynchronous file reading (`fs.readFile()`) executes in the Poll phase.
+4. **setImmediate() Runs in the Check Phase**: `setImmediate()` always runs after the Poll phase.
+5. **Order of Execution in Event Loop**: The phases execute in the following order: Timer → Poll → Check → Close.
+
+---
