@@ -114,7 +114,6 @@ Open your web browser and go to http://localhost:3000. You should see "Hello fro
 
 **2. common-js.md**
 
-```md
 # CommonJS
 
 ## Definition
