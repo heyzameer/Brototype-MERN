@@ -184,7 +184,7 @@ V8 uses a **garbage collector** to free unused memory, preventing memory leaks.
 ## Major Phases of the Event Loop
 
 1. **Timers Phase** – Executes `setTimeout()` and `setInterval()`.
-2. **Poll Phase** – Handles I/O callbacks (e.g., `fs`, `crypto`, `http` requests).
+2. **Poll Phase** – Handles I/O callbacks (e.g., `fs`, `crypto`, `http` requests). (event loop waits here when everything is empty)
 3. **Check Phase** – Executes `setImmediate()` callbacks.
 4. **Close Phase** – Handles socket closing & cleanup (`onclose` events).
 
@@ -324,7 +324,8 @@ Since the Poll phase is before the Check phase, if there are no other long-runni
 
 
 
-# Execution Breakdown of the Node.js Event Loop
+
+# Execution Breakdown[📜 View Code](./examples/examples2/eventloop2.js)
 
 ## Code Overview
 The given Node.js script demonstrates how various asynchronous operations are scheduled in the event loop and executed in different phases.
@@ -413,3 +414,50 @@ This execution order illustrates how **microtasks** (`process.nextTick` and `Pro
 - **Timers (`setTimeout`) run in the Timer phase** after microtasks.
 - **I/O operations (`fs.readFile`) are handled in the Poll phase**.
 - **`setImmediate()` executes in the Check phase**, after Poll callbacks are processed.
+
+
+
+# Execution Breakdown[📜 View Code](./examples/examples2/eventloop2.js)
+
+
+```javascript
+setImmediate(() => console.log("setImmediate"));
+setTimeout(() => console.log("Timer expired"), 0);
+Promise.resolve().then(() => console.log("Promise"));
+const fs = require('fs'); // Import the 'fs' module
+fs.readFile("./file.txt", "utf8", () => {
+  setTimeout(() => console.log("2nd timer"), 0);
+  process.nextTick(() => console.log("2nd nextTick"));
+  setImmediate(() => console.log("2nd setImmediate"));
+  console.log("File Reading CB");
+});
+
+process.nextTick(() => console.log("nextTick"));
+console.log("Last line of the file.");
+```
+
+
+### Important Observations
+
+- **`process.nextTick()`** runs before any other asynchronous callbacks, including promises and set timers.
+- **`Promise`** uses the **microtask queue**, which is processed after the current stack but before any timers (`setTimeout`, `setImmediate`).
+- **`setTimeout()`** with a 0ms delay is placed in the **task queue** and runs after the current script and microtasks.
+- **`setImmediate()`** runs in the next iteration of the event loop, typically after all timers *if not in the IO Cycle*  However, when inside the IO Cycle, `setImmediate()` runs before the next Timer queue. The relative ordering depends on when the scheduler is invoked and the IO poller.
+
+- Inside the **`fs.readFile` callback**, the order is guaranteed to be:
+  1. `console.log("File Reading CB");`
+  2. `process.nextTick(() => console.log("2nd nextTick"));`
+  3. `setImmediate(() => console.log("2nd setImmediate"));`
+  4. `setTimeout(() => console.log("2nd timer"), 0);`
+
+### Event Loop Phases
+
+- **Timers**: The phase where `setTimeout` and `setInterval` callbacks are executed.
+- **I/O callbacks**: Handles callbacks from I/O events (like `fs.readFile`). The file read is initiated here.
+- **Idle, prepare**: Internal phase, not directly visible.
+- **Poll**: Where the event loop retrieves new I/O events. For example, when the `fs.readFile` operation completes, the file contents are ready. The **poll** phase checks for these events, and when it detects the completed file read, it triggers the `fs.readFile` callback function.
+- **Check**: Where `setImmediate` callbacks are executed. Specifically, If `setImmediate` is called during the 'poll' phase (such as inside the fs.readFile callback), it executes after the poll phase is over, but before any setTimeout callbacks (with delay 0).
+- **Close callbacks**: Handles the closing of resources.
+
+### Important notes about `file.txt`
+The fs.readFile function expects that a file `file.txt` exists at the same directory of the script. If it does not exist the program would throw an exception. You should consider this scenario in your program. Also, note that the contents and size of the `file.txt` file could change the amount of time taken to read the file which would shift the execution flow of the program and the order of the file read.
