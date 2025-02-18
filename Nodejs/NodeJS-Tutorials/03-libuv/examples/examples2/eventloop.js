@@ -6,8 +6,9 @@ const a = 100; // Declare a constant variable
 setImmediate(() => console.log("setImmediate"));
 
 // Asynchronous file read operation (executes in the Poll phase of the Event Loop)
-fs.readFile("./file.txt", "utf8", () => {
+fs.readFile('./file.txt', "utf8", (err,data) => {
     console.log("File Reading CB"); // Callback for file reading
+    console.log(data);
 });
 
 // setTimeout with 0ms delay (executes in the Timer phase of the Event Loop)

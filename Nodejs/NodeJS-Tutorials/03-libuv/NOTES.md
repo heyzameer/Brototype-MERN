@@ -272,7 +272,7 @@ setImmediate
 
 ---
 
-[📜 View Code](./examples/examples2/eventloop.js))
+[📜 View Code](./examples/examples2/eventloop.js)
 
 
 ## Execution Breakdown
@@ -321,3 +321,95 @@ Since the Poll phase is before the Check phase, if there are no other long-runni
 5. **Order of Execution in Event Loop**: The phases execute in the following order: Timer → Poll → Check → Close.
 
 ---
+
+
+
+# Execution Breakdown of the Node.js Event Loop
+
+## Code Overview
+The given Node.js script demonstrates how various asynchronous operations are scheduled in the event loop and executed in different phases.
+
+```javascript
+const fs = require('fs');
+const a = 100;
+
+setImmediate(() => console.log("setImmediate"));
+Promise.resolve("Resovled!!").then(console.log);
+fs.readFile('./file.txt', 'utf8', (err, data) => {
+    if (err) {
+        console.error("Error reading file:", err);
+        return;
+    }
+    console.log("File data from readFile:", data);
+});
+setTimeout(() => console.log("Timer expired"), 0);
+process.nextTick(() => console.log("process.nextTick"));
+
+function printA() {
+  console.log("a=", a);
+}
+
+printA();
+console.log("Last line of the file.");
+```
+
+---
+
+## Execution Flow Breakdown
+### 1. **Synchronous Execution (Main Thread)**
+The script starts executing line by line in the **main thread**:
+- `printA()` is called → **Logs `a= 100`**.
+- `console.log("Last line of the file.")` executes → **Logs `Last line of the file.`**.
+
+### 2. **Microtask Queue (Higher Priority than Event Loop)**
+- `process.nextTick()` executes before the event loop proceeds → **Logs `process.nextTick`**.
+- `Promise.resolve().then()` executes immediately after nextTick → **Logs `Promise`**.
+
+### 3. **Timer Phase** (Handles `setTimeout` with `0ms` delay)
+- The callback in `setTimeout()` executes → **Logs `Timer expired`**.
+
+### 4. **Poll Phase** (Handles I/O operations like `fs.readFile`)
+- `fs.readFile()` completes asynchronously and its callback executes → **Logs `File data from readFile: ...`** (if the file exists).
+
+### 5. **Check Phase** (Handles `setImmediate` callbacks)
+- The `setImmediate()` callback executes → **Logs `setImmediate`**.
+
+---
+
+## Final Output Order
+```
+a= 100
+Last line of the file.
+process.nextTick
+Resolved!!
+Timer expired
+setImmediate
+File data from readFile: ...  (if file exists)
+```
+
+---
+
+## Event Loop Execution Order
+1. **Main Thread Execution**
+   - Executes synchronous code first.
+   - Logs `a= 100` and `Last line of the file.`.
+2. **Microtask Queue** (Highest Priority)
+   - `process.nextTick()` executes → Logs `process.nextTick`.
+   - `Promise` executes → Logs `Promise`.
+3. **Timer Phase**
+   - `setTimeout(..., 0)` executes → Logs `Timer expired`.
+4. **Poll Phase**
+   - `fs.readFile()` callback executes (if the file exists) → Logs `File data from readFile: ...`.
+5. **Check Phase**
+   - `setImmediate()` executes → Logs `setImmediate`.
+
+This execution order illustrates how **microtasks** (`process.nextTick` and `Promise`) execute before the event loop continues, and how asynchronous operations (`setTimeout`, `fs.readFile`, and `setImmediate`) follow the event loop's defined phases.
+
+---
+
+## Key Takeaways
+- **Synchronous code runs first** before any asynchronous operations.
+- **`process.nextTick()` and Promises execute before the event loop phases begin**.
+- **Timers (`setTimeout`) run in the Timer phase** after microtasks.
+- **I/O operations (`fs.readFile`) are handled in the Poll phase**.
+- **`setImmediate()` executes in the Check phase**, after Poll callbacks are processed.
