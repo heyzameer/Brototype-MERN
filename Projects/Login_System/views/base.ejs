@@ -17,14 +17,20 @@
 
 
 
-<% if (typeof logout !== "undefined" && logout) { %>
-    <script>
-        alert("<%= logout %>");
-    </script>
-<% } %>
+
 
 <div class="center-div">
     <h2>Login</h2>
+    <% if(locals.logout){ %>
+        <div class="alert alert-success text-center" id="alert-box">
+            <%= logout %>
+        </div>
+    <% } %>
+    <% if(locals.logout_err){ %>
+        <div class="alert alert-success text-center" id="alert-box">
+            <%= logout_err %>
+        </div>
+    <% } %>
     <form action="/login" method="POST">
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
@@ -32,7 +38,22 @@
     </form>
     <span>Don't have an account? <a href="#">Sign up</a></span>
 </div>
+<script>
+   history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    history.go(1);
+};
 
+// Hide alert after a few seconds
+document.addEventListener("DOMContentLoaded", function () {
+    const alertBox = document.querySelector(".alert-success"); // Adjust selector if needed
+    if (alertBox) {
+        setTimeout(() => {
+            alertBox.style.display = "none"; // Hide the alert after 3 seconds
+        }, 1500);
+    }
+});
+</script>
 
 
 
