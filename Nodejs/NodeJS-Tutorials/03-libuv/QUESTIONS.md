@@ -1,6 +1,3 @@
-
-1. browser-js-vs-nodejs.md
-
 # Browser JavaScript vs. Node.js
 
 ## Definition
