@@ -15,13 +15,18 @@
     });
 </script>
 
-
+<% if (typeof logout_err !== "undefined" && logout_err) { %>
+    <script>
+        alert("<%= logout_err %>");
+    </script>
+<% } %>
 
 <% if (typeof logout !== "undefined" && logout) { %>
     <script>
         alert("<%= logout %>");
     </script>
 <% } %>
+
 
 <div class="text-center center-div" id="login">
     <div class="container w-25 border py-5">
