@@ -1,17 +1,3 @@
-Okay, I will generate .md files for each of the following topics:
-
-Node.js Architecture in Detail
-
-Node.js Core Modules
-
-Child Process (Node.js)
-
-Environment Variables (Node.js)
-
-Here are the contents for each .md file:
-
-1. nodejs-architecture.md
-
 # Node.js Architecture in Detail
 
 ## Definition
@@ -113,11 +99,7 @@ if (cluster.isMaster) {
   // In this case, it is an HTTP server
   require('./app'); // Your app is defined here
 }
-content_copy
-download
-Use code with caution.
-Md
-Use Cases
+````
 
 Real-time Applications: Building chat servers, online games, and streaming services.
 
@@ -168,7 +150,7 @@ Here are some of the most commonly used Node.js core modules:
 
 
 
-
+```js
 const fs = require('fs');
 
 fs.readFile('myfile.txt', 'utf8', (err, data) => {
@@ -178,13 +160,8 @@ fs.readFile('myfile.txt', 'utf8', (err, data) => {
   }
   console.log(data);
 });
-content_copy
-download
-Use code with caution.
-
-http:
-
-Purpose: Provides an API for creating HTTP servers and clients, allowing you to build web applications, APIs, and other network services.
+````
+http: Purpose: Provides an API for creating HTTP servers and clients, allowing you to build web applications, APIs, and other network services.
 
 Key Features:
 
@@ -197,7 +174,7 @@ Support for HTTP headers and methods.
 Streaming data.
 
 Example:
-
+```js
 const http = require('http');
 
 const server = http.createServer((req, res) => {
@@ -208,10 +185,7 @@ const server = http.createServer((req, res) => {
 server.listen(3000, () => {
   console.log('Server running on port 3000');
 });
-content_copy
-download
-Use code with caution.
-JavaScript
+```
 
 https:
 
@@ -226,7 +200,7 @@ TLS/SSL encryption.
 Certificate management.
 
 Example:
-
+```js
 const https = require('https');
 const fs = require('fs');
 
@@ -243,10 +217,8 @@ const server = https.createServer(options, (req, res) => {
 server.listen(3000, () => {
   console.log('HTTPS server running on port 3000');
 });
-content_copy
-download
-Use code with caution.
-JavaScript
+```
+
 
 path:
 
@@ -261,17 +233,15 @@ Path normalization.
 Path parsing.
 
 Example:
-
+```js
 const path = require('path');
 
 const filePath = '/users/john/documents/myfile.txt';
 const dirname = path.dirname(filePath);  // '/users/john/documents'
 const basename = path.basename(filePath); // 'myfile.txt'
 const extname = path.extname(filePath);   // '.txt'
-content_copy
-download
-Use code with caution.
-JavaScript
+
+```
 
 url:
 
