@@ -5,7 +5,7 @@ Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allow
 
 Node.js is an open-source and cross-platform JavaScript runtime environment. It is a popular tool for almost any kind of project! Node.js runs the V8 JavaScript engine, Google Chrome’s core, outside the browser. This allows Node.js to be very performant. A Node.js app runs in a single process, without creating a new thread for every request.
 
-Maintened by: Node.js Foundation + Nodejs oundation == Openjs Foundation.
+Maintened by: Openjs Foundation.
 
 
 ### History:
