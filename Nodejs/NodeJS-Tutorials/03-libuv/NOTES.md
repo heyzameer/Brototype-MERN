@@ -802,3 +802,76 @@ Yes, please expand on the topics with more advanced examples, focusing on practi
     *   If possible, provide a single, comprehensive example that combines event emitters, streams, and buffers in a realistic scenario (e.g., a simplified file upload and processing service). This would be *extremely* helpful.
 
 Essentially, I'm looking for a deeper dive into each topic, moving beyond the basic definitions and examples, and showing how these concepts are used in real-world Node.js applications. Code comments explaining the *why* behind design choices would also be very beneficial.
+
+
+
+
+
+
+
+# Event Listener in Node.js
+
+## What is an Event Listener?
+An **event listener** is a function that waits for a specific event to occur and executes a callback function in response. It allows you to handle asynchronous actions efficiently.
+
+In **Node.js**, event listeners are commonly used with the **EventEmitter** module.
+
+---
+
+## How Event Listeners Work
+1. **Define a listener** using `.on()` or `.addListener()`.
+2. **Emit an event** using `.emit()`, which triggers the associated listener function.
+3. **The listener function executes** when the event occurs.
+
+---
+
+## Example: Event Listener in Node.js
+```javascript
+const EventEmitter = require('events');
+
+// Create an instance of EventEmitter
+const eventEmitter = new EventEmitter();
+
+// Register an event listener
+eventEmitter.on('sayHello', () => {
+    console.log('Hello, world!');
+});
+
+// Emit the event
+eventEmitter.emit('sayHello'); // Output: Hello, world!
+```
+
+---
+
+## Key Methods of Event Listeners
+| Method | Description |
+|--------|-------------|
+| `on(event, listener)` | Registers an event listener. |
+| `addListener(event, listener)` | Alias for `on()`, adds an event listener. |
+| `once(event, listener)` | Registers a one-time event listener. |
+| `removeListener(event, listener)` | Removes a specific listener. |
+| `removeAllListeners(event)` | Removes all listeners for a specific event. |
+
+---
+
+## Example: Using `once()` for a One-Time Event
+```javascript
+eventEmitter.once('greet', () => {
+    console.log('This will run only once.');
+});
+
+eventEmitter.emit('greet'); // Output: This will run only once.
+eventEmitter.emit('greet'); // No output, as the event is removed after first call.
+```
+
+---
+
+## Real-World Applications of Event Listeners
+- Handling HTTP request events.
+- Managing user interactions in front-end applications (click, hover, etc.).
+- Logging and monitoring system activities.
+- Managing file system operations (reading, writing files).
+
+---
+
+Would you like a more detailed explanation with advanced use cases? 🚀

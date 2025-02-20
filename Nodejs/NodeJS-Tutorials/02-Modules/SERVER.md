@@ -48,11 +48,11 @@ const server = http.createServer((req, res) => {
 });
 
 // Start the server on port 3000
-server.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+server.listen(7000, () => {
+    console.log('Server running on http://localhost:7000');
 });
 ```
-- The **server listens on port 3000** for incoming HTTP requests.  
+- The **server listens on port 7000** for incoming HTTP requests.  
 - When a request is received, it responds with `"Hello, World!"`.  
 
 ---
