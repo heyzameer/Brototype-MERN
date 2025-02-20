@@ -829,6 +829,13 @@ server.listen(PORT, () => {
 
 *   **Core Concept:** Streams are a fundamental concept in Node.js for handling data in a memory-efficient way.  Instead of loading an entire file or dataset into memory at once, streams allow you to process data *chunk by chunk*. This is essential for handling large files or network data.
 
+A stream is a sequence of data that is being moved from one point to another over time. Streams can be used to read data from a file, write data to a file, or even to handle network data.
+
+A stream is a sequence of data that is being moved from one point to another over time
+Ex: a stream of data over the internet being moved from one computer to another
+Ex: a stream of data being transferred from one file to another within the same computer
+Process streams of data in chunks as they arrive instead of waiting for the entire data to be available before processing
+
 ### a. Types of Streams
 
 1.  **Writable Streams:**  Streams to which you can *write* data.
@@ -970,15 +977,31 @@ writeStream.on('finish', () => {
 
 *   **Backpressure:**  `pipe()` automatically handles *backpressure*.  If the writable stream is slower than the readable stream, the readable stream will be paused until the writable stream can catch up.  This prevents the application from running out of memory.
 
+
 ### e. Buffers
 
 *   **Definition:**  Buffers are used to represent binary data in Node.js.  Since JavaScript doesn't have native support for binary data, the `Buffer` class provides a way to work with raw bytes.
 
+Area where people wait is nothing but the buffer
+Node.js cannot control the pace at which data arrives in the stream
+It can only decide when is the right time to send the data for processing
+If there is data already processed or too little data to process, Node puts the arriving data in a buffer
+
+Ex: streaming a video online
+If your internet connection is fast enough, the speed of the stream will be fast enough to instantly fill up the buffer and send it out for processing
+That will repeat till the stream is finished
+If your connection is slow, after processing the first chunk of data that arrived, the video player will display a loading spinner which indicates it is waiting for more data to arrive
 *   **Creating Buffers:**
 
     ```javascript
     // From a string
+  const buffer = new Buffer.from("Vishwas");
+  console.log(buffer.toString()); // "Vishwas"
+  console.log(buffer); // <Buffer 56 69 73 68 77 61 73>
+  console.log(buffer.toJSON());// { type: 'Buffer', data: [ 86, 105, 115, 104, 119, 97, 115 ] }
+
     const buf1 = Buffer.from('hello', 'utf8');
+  
 
     // From an array of bytes
     const buf2 = Buffer.from([0x68, 0x65, 0x6c, 0x6c, 0x6f]); // 'hello' in ASCII

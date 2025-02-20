@@ -26,28 +26,3 @@ fs.writeFile('./output2.txt',content,(err)=>{
 
 
 
-const { promisify } = require('util');
-const readFileAsync = promisify(fs.readFile);
-
-
-async function readFile() {
-    try {
-        let data = await readFileAsync('./file.txt', 'utf-8');
-        console.log('📄 *File content:', data);
-    } catch (error) {
-        console.error('❌ Error:', error.message);
-    }
-}
-
-readFile();
-const fsp = require('fs').promises;
-async function readFile2() {
-    try {
-        let data = await fsp.readFile('./file.txt', 'utf-8');
-        console.log('📄 **File content:', data);
-    } catch (error) {
-        console.error('❌ Error:', error.message);
-    }
-}
-
-readFile2();
