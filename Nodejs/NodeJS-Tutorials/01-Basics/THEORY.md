@@ -532,6 +532,14 @@ This document expands on key Node.js concepts, focusing on modules, NPM, the eve
 
 ## 15. `package-lock.json` vs. `package.json`
 
+  package.json
+  What?
+  package.json is npm's configuration file
+  It is a json file that typically lives in the root directory of your package and holds various metadata relevant to the package
+  Why?
+  package.json is the central place to configure and describe how to interact with and run your package
+
+
 *   **`package.json`:**
     *   **Purpose:**  Describes your project and its dependencies at a *high level*.
     *   **Dependency Versions:**  Uses *semantic versioning* (semver) to specify allowed version ranges for dependencies (e.g., `^4.17.1` means any version from 4.17.1 up to, but not including, 5.0.0).
@@ -1339,7 +1347,7 @@ The cron schedule is defined using a string with five (or sometimes six) fields,
 
 
 
-```markdown
+```
 # Node.js: Clustering, Multithreading, Child Processes, and Thread Pool
 
 This document covers advanced Node.js concurrency concepts: clustering, worker threads, child processes, and the thread pool. These techniques are essential for building high-performance, scalable applications that can take advantage of multi-core CPUs.

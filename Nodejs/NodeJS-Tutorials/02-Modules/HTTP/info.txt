@@ -1,0 +1,95 @@
+HTTP
+Hypertext Transfer Protocol
+A protocol that defines a format for clients and servers to speak to each other
+The client sends an HTTP request and the server responds with an HTTP response
+
+
+
+HTTP and Node
+We can create a web server using Node.js
+Node.js has access to operating system functionality like networking
+Node has an event loop to run tasks asynchronously and is perfect for creating web servers that can simultaneously handle large volumes of requests
+The node server we create should still respect the HTTP format
+The HTTP module allows creation of web servers that can transfer data over HTTP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+When working with JSON in JavaScript (especially in Node.js or web development), you'll frequently use these **JSON methods** and **string methods** to manipulate data efficiently.  
+
+---
+
+### **1️⃣ JSON Methods (`JSON` Object)**
+These methods are used to **convert** between JavaScript objects and JSON strings.
+
+| Method | Description | Example |
+|--------|-------------|---------|
+| `JSON.stringify(obj)` | Converts a JavaScript object to a JSON string. | `JSON.stringify({name: "Batman"})` → `'{"name":"Batman"}'` |
+| `JSON.parse(jsonString)` | Converts a JSON string back to a JavaScript object. | `JSON.parse('{"name":"Batman"}')` → `{name: "Batman"}` |
+| `JSON.stringify(obj, replacer, space)` | Converts object to a JSON string with formatting. | `JSON.stringify(obj, null, 2)` (Pretty Print) |
+| `JSON.parse(jsonString, reviver)` | Parses JSON and transforms values using `reviver`. | `JSON.parse('{"date":"2025-01-01"}', (key, value) => key === "date" ? new Date(value) : value)` |
+
+---
+
+### **2️⃣ String Methods (Useful for JSON)**
+Since JSON data is stored as **strings**, these methods help manipulate them.
+
+| Method | Description | Example |
+|--------|-------------|---------|
+| `.toString()` | Converts a value to a string. | `123..toString()` → `'123'` |
+| `.replace()` | Replaces part of a string (useful for fixing JSON). | `jsonString.replace('\\', '')` |
+| `.includes()` | Checks if a string contains a substring. | `'{"name":"Batman"}'.includes("Batman")` → `true` |
+| `.split()` | Splits a string into an array. | `'{"name":"Batman"}'.split(":")` |
+| `.trim()` | Removes whitespace from a string. | `'   Batman  '.trim()` → `'Batman'` |
+| `.substring(start, end)` | Extracts a part of a string. | `'{"name":"Batman"}'.substring(2,6)` → `"name"` |
+
+---
+
+### **Example Usage**
+#### **1️⃣ Converting Object to JSON**
+```js
+const hero = { name: "Batman", city: "Gotham" };
+const jsonString = JSON.stringify(hero); 
+console.log(jsonString);  // '{"name":"Batman","city":"Gotham"}'
+```
+
+#### **2️⃣ Converting JSON to Object**
+```js
+const jsonData = '{"name":"Bruce Wayne","alias":"Batman"}';
+const heroObj = JSON.parse(jsonData);
+console.log(heroObj.alias); // Batman
+```
+
+#### **3️⃣ Pretty Print JSON**
+```js
+const formattedJSON = JSON.stringify(hero, null, 2);
+console.log(formattedJSON);
+/*
+{
+  "name": "Batman",
+  "city": "Gotham"
+}
+*/
+```
+
+#### **4️⃣ Fixing JSON Format Issues**
+```js
+const badJSON = "{name:'Batman',city:'Gotham'}"; 
+// Fix: Use double quotes
+const fixedJSON = badJSON.replace(/'/g, '"'); 
+console.log(JSON.parse(fixedJSON)); // { name: 'Batman', city: 'Gotham' }
+```
+
+These methods make handling JSON much easier. Let me know if you need more! 🚀
