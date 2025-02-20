@@ -1,0 +1,4 @@
+data read from file.txt Hello from the file.txt
+Date created Thu Feb 20 2025 12:01:15 GMT+0530 (India Standard Time)
+data read from file.txt Hello from the file.txt
+Date created Thu Feb 20 2025 12:01:21 GMT+0530 (India Standard Time)
