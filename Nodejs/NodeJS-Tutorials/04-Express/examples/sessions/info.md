@@ -1,5 +1,3 @@
-Let's dive into interview questions centered around sessions in web development, covering concepts, implementation in Node.js/Express.js, different session management methods, and user authentication.
-
 **1. What is a session in web development?**
 
 *   **Answer:** A session is a way to store information about a user across multiple HTTP requests.  Since HTTP is a stateless protocol (each request is independent), sessions provide a mechanism to maintain state and recognize a user as they navigate through a website or application.  A session typically represents a single user's interaction with the application during a specific period.
@@ -303,3 +301,96 @@ Let's dive into interview questions centered around sessions in web development,
         *   **Cons:**
             *   Difficult to revoke JWTs (you need to implement a token blacklist or use short expiration times).
             *   JWTs can become large if you store a lot of data in them (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sure! Here's a **simple explanation** of the difference between **RESTful** and **normal APIs**:  
+
+### **Normal API** (Not RESTful)  
+- Uses **random URLs** and **verbs** in the URL.  
+- Example:  
+  ```plaintext
+  GET /getUserData  
+  POST /createNewUser  
+  DELETE /removeUser?id=5  
+  ```
+- Not structured properly, **not following a standard**.  
+
+---
+
+### **RESTful API**  
+- Uses **clean URLs** (just nouns, no verbs).  
+- Uses **proper HTTP methods** (GET, POST, DELETE, etc.).  
+- Example:  
+  ```plaintext
+  GET /users      → Get all users  
+  GET /users/5    → Get user with ID 5  
+  POST /users     → Create a new user  
+  DELETE /users/5 → Delete user with ID 5  
+  ```
+- **Follows rules** and is **well-organized**.  
+
+📌 **Think of RESTful APIs as following proper grammar, while normal APIs just throw words together!** 😃
+
+
+Yes, there are differences between **RESTful API methods** and **normal GET, POST, DELETE, PATCH requests**. The main distinction lies in **how they are used and structured** in a RESTful architecture. Let's break it down:  
+
+---
+
+## **1. Normal GET, POST, DELETE, PATCH**
+These HTTP methods are simply **request types** used for communication between a client and a server. They **do not** necessarily follow REST principles and can be used in non-RESTful architectures.
+
+For example, a normal `POST` request could be used for:  
+- Submitting a login form (`POST /login`)  
+- Sending raw data to an endpoint (`POST /upload`)  
+
+These requests may not always follow a structured pattern, and their behavior depends on **server-side implementation**.
+
+---
+
+## **2. RESTful GET, POST, DELETE, PATCH**
+A **RESTful API** follows **REST (Representational State Transfer) principles**, ensuring a **structured and predictable API design**.  
+- It treats **resources** (data entities) as URLs.  
+- HTTP methods are used to perform CRUD (Create, Read, Update, Delete) operations on resources.  
+
+### **RESTful API Example**
+| HTTP Method | Action (CRUD) | RESTful Example URL | Description |
+|------------|--------------|----------------------|-------------|
+| **GET** | Read | `/users` | Fetch all users |
+| **GET** | Read | `/users/1` | Fetch user with ID `1` |
+| **POST** | Create | `/users` | Create a new user |
+| **PUT** | Update (Full) | `/users/1` | Replace user with ID `1` |
+| **PATCH** | Update (Partial) | `/users/1` | Modify user `1` (e.g., update email) |
+| **DELETE** | Delete | `/users/1` | Delete user `1` |
+
+### **Key Differences**
+| Feature | Normal HTTP Requests | RESTful API Requests |
+|---------|----------------------|----------------------|
+| **Structure** | No strict structure | Follows REST principles |
+| **Resources** | Not necessarily resource-based | Operates on resources (nouns like `/users`) |
+| **Stateless** | Can be stateful | Must be **stateless** (server does not store session) |
+| **Methods Usage** | May misuse methods (e.g., `POST` for fetching data) | Uses HTTP methods properly (`GET` for fetching, `POST` for creating) |
+| **URL Design** | Often action-based (`/getUsers`) | Resource-based (`/users`) |
+
+---
+
+## **Key Takeaways**
+1. **All RESTful API calls use HTTP methods**, but not all HTTP methods are used in a RESTful way.
+2. RESTful APIs **focus on structured resource management** (nouns, not actions).
+3. **A normal API** might use `POST /getUsers`, whereas a **RESTful API** would use `GET /users`.
+
+Let me know if you need more clarity! 🚀

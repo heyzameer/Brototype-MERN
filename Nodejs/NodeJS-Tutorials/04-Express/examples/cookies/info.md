@@ -1,4 +1,3 @@
-Okay, let's dive into interview questions about HTTP cookies, focusing on their use in web development (particularly relevant to Node.js and Express.js). I'll cover concepts, usage, security, and common scenarios.
 
 **1. What is an HTTP cookie?**
 
@@ -228,3 +227,49 @@ Okay, let's dive into interview questions about HTTP cookies, focusing on their 
     *   **Total Cookie Limit:** There's also a limit on the total number of cookies a browser will store across all domains.
 
 These questions provide a comprehensive overview of cookies, covering their basic functionality, security considerations, and usage in Express.js and RESTful APIs. They should prepare you well for interview questions on this topic. Be sure to practice using cookies in your own projects to reinforce your understanding.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### **Difference Between Session and Cookies** (Simple Explanation)  
+
+| Feature  | **Session** | **Cookies** |
+|----------|-----------|------------|
+| **Definition** | Stores user data on the **server** | Stores user data on the **browser (client)** |
+| **Storage Location** | Server-side | Client-side (browser) |
+| **Size Limit** | Large (depends on server) | Small (4KB max) |
+| **Security** | More secure (data is on the server) | Less secure (can be stolen or modified) |
+| **Lifespan** | Expires when the user logs out or session times out | Can have a set expiry time (e.g., days, weeks) |
+| **Example Use** | User login session (tracks logged-in users) | Remembering user preferences, themes, or login info |
+
+### **Example:**
+1. **Cookies Example**:  
+   - When you check **"Remember Me"** on a login form, your browser stores a **cookie** with your login details.  
+2. **Session Example**:  
+   - When you **log in to a website**, the server creates a **session** and tracks your activity **until you log out**.  
+
+📌 **Think of cookies as a "sticky note" on your browser, while a session is like a "temporary locker" on the server.** 🚀
