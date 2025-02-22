@@ -1,0 +1,15 @@
+<%- include('header') -%>
+<%- include('navbar') -%>
+
+    <div class="container">
+        <h1>Items List</h1>
+        <ul>
+            <% items.forEach(item => { %>
+                <li>
+                    <strong><%= item.name %>:</strong> <%= item.description %>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</body>
+</html>
