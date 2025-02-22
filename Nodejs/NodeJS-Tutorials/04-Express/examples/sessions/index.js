@@ -1,23 +1,24 @@
 const express = require('express');
 const session = require('express-session');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser'); // Still needed for session cookies
 
 const app = express();
 
 // --- Middleware ---
 
-app.use(express.json()); // Parse JSON request bodies
-app.use(cookieParser('mysecret')); // Secret for signed cookies (use a strong secret in production)
+app.use(express.json()); // Parse JSON request bodies (if you need it)
+app.use(express.urlencoded({ extended: true })); // Parse form data
+app.use(cookieParser('mysecret')); // Secret for session cookies
 
-// Session middleware (configure for simplicity)
+// Session middleware
 app.use(session({
-    secret: 'mySessionSecret', // Secret for session (use a strong secret in production)
+    secret: 'mySessionSecret', // Use a strong, random secret in production
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 60, // Session lasts for 1 hour
+        maxAge: 1000 * 60 * 60, // Session lasts for 1 hour (adjust as needed)
         secure: false, // Set to true if using HTTPS
-        httpOnly: true, // Makes the cookie inaccessible to client-side JavaScript (good for security)
+        httpOnly: true, // Important for security
     }
 }));
 
@@ -30,9 +31,10 @@ const validUser = {
 
 // --- Routes ---
 
-// Login Form (for demonstration; in a real app, you'd have an HTML form)
+// Login Form (and Display Logged-In Status)
 app.get('/', (req, res) => {
-  if (req.session.loggedIn) {
+    if (req.session.loggedIn) {
+        console.log(req.session.id);
         res.send(`
             <h1>Welcome, ${req.session.username}!</h1>
             <p>You are logged in.</p>
@@ -40,83 +42,48 @@ app.get('/', (req, res) => {
         `);
     } else {
         res.send(`
-        <h1>Login</h1>
-          <form action="/login" method="post">
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username"><br>
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password"><br><br>
-            <input type="submit" value="Login">
-          </form> 
-            <a href="/set-remember-me">Set Remember Me (Cookie)</a>
+            <h1>Login</h1>
+            <form action="/login" method="post">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username"><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"><br><br>
+                <input type="submit" value="Login">
+            </form>
         `);
     }
 });
 
-// Login endpoint (handles the login form submission)
+// Login Endpoint
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
     if (username === validUser.username && password === validUser.password) {
-        // Successful login
-
-        // Store user information in the session
+        // Successful login: Set session data
         req.session.loggedIn = true;
         req.session.username = username;
-
-        // Optionally, set a "remember me" cookie (if the user chooses)
-        // This is separate from the session.
-        if (req.body.rememberMe) {
-            //Set a long-lasting, signed cookie.
-            res.cookie('rememberMe', username, {
-                maxAge: 1000 * 60 * 60 * 24 * 7, // Remember for 7 days
-                signed: true,
-                httpOnly: true
-            });
-        }
-
-        res.redirect('/'); // Redirect to the home page (or a dashboard, etc.)
+        res.redirect('/'); // Redirect to the home page
     } else {
         res.send('Invalid username or password.');
     }
 });
 
-// Logout endpoint
+// Logout Endpoint
 app.get('/logout', (req, res) => {
     // Destroy the session
+    console.log('Logging out...');
+    console.log(req.session); // Debug: Check session data before logout
+    console.log(req.session.id); // Debug: Check session data before logout
+
     req.session.destroy(err => {
         if (err) {
             console.error('Error destroying session:', err);
             res.status(500).send('Logout failed.');
         } else {
-            // Clear the "remember me" cookie (if it exists)
-            res.clearCookie('rememberMe');
             res.redirect('/'); // Redirect to the home page
         }
     });
 });
-
-// Check "Remember Me" Cookie (on page load, before session check)
-app.use((req, res, next) => {
-    if (!req.session.loggedIn && req.signedCookies.rememberMe) {
-        // If the session is not active, but a "remember me" cookie exists...
-        const rememberedUsername = req.signedCookies.rememberMe;
-
-        // In a real application, you would verify this username against your database
-        // to ensure it's still valid (e.g., the user hasn't been deleted).
-
-        if (rememberedUsername === validUser.username) {
-            // Restore the session
-            req.session.loggedIn = true;
-            req.session.username = rememberedUsername;
-             console.log("Logged in from remember me cookie")
-        }
-        // If the username isn't valid, you *could* clear the cookie here
-        //  res.clearCookie('rememberMe');
-    }
-    next(); // Continue to the next middleware/route handler
-});
-
 
 // --- Start Server ---
 
@@ -137,27 +104,29 @@ app.listen(PORT, () => {
 
 
 
-// Test:
-
-// Open your browser and go to http://localhost:3000.
-
-// Enter "testuser" and "testpassword" into the form and click the "login" button.
-
-// You should be redirected to the home page, showing "Welcome, testuser!".
-
-// Close the browser completely (all windows/tabs). This will end the browser session, but the server-side session might still be active (depending on the maxAge).
-
-// Open the browser again and go to http://localhost:3000. You should see the login form again (because the browser session is new, and we haven't implemented "remember me" yet).
-
-// Now go to the home page, enter your credentials, and click "login."
-
-// Close one tab, but keep the browser open. Open a new tab and go to http://localhost:3000. You should still be logged in (because the session cookie persists across tabs within the same browser instance).
-
-// Go to http://localhost:3000/logout. You should be redirected to the login page.
-
-// Close all browser windows/tabs. Go back to http://localhost:3000. You should see the login page.
-
-// To test the "Remember Me" cookie, login, and then restart the node process.
 
 
 
+// **How it Works (Simplified):**
+
+// 1.  **User visits `/`:**
+//     *   If they have an active session (meaning they've logged in before and the session hasn't expired), they see a welcome message.
+//     *   If they don't have an active session, they see the login form.
+
+// 2.  **User logs in (`/login`):**
+//     *   The server checks the username/password.
+//     *   If correct, the server sets `req.session.loggedIn = true` and `req.session.username` to store the user's login status and username in the session.  `express-session` automatically handles creating a unique session ID and storing it in a cookie in the user's browser.
+//     *   The user is redirected back to `/`.
+
+// 3.  **User visits other pages (or revisits `/`):**
+//     *   The browser sends the session cookie (containing the session ID) with each request.
+//     *   `express-session` middleware uses this session ID to retrieve the corresponding session data (including `loggedIn` and `username`) from the server's storage (by default, in-memory storage, but you can configure it to use databases, etc.).
+//     *   The server knows the user is logged in because `req.session.loggedIn` is `true`.
+
+// 4.  **User logs out (`/logout`):**
+//     *   The server destroys the session using `req.session.destroy()`. This removes the session data from the server's storage.  The session cookie in the user's browser becomes invalid.
+//     *   The user is redirected back to `/`, where they will see the login form again.
+
+// 5. **User closes the browser**: The session data on the server will eventually expire based on the configured session `maxAge`. The session *cookie* is typically a "session cookie" (without an explicit `maxAge` or `expires` property), meaning the *browser* will delete it when the browser is closed.  This means that when the user reopens their browser, they will need to log in again (unless the server's session timeout hasn't yet expired).
+
+// This example provides the most fundamental use of sessions for user authentication.  It's clean, concise, and demonstrates the core concepts without the added complexity of "remember me" functionality.
