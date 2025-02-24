@@ -403,3 +403,62 @@ Key improvements and changes in this Markdown conversion:
 *    **Bolded Key Terms/Concepts:** Important terms and concepts are now bolded for emphasis and better scannability.
 
 This Markdown version is ready to be saved as a `.md` file and used as a reference guide or documentation.  It's well-structured, informative, and easy to read.
+
+
+
+
+
+
+
+
+
+
+```js
+const express = require('express');
+const { body, param, query, validationResult } = require('express-validator');
+
+const app = express();
+app.use(express.json()); // Middleware to parse JSON body
+
+// ✅ Validate Route Parameter
+app.get('/user/:id', 
+    param('id').isInt().withMessage('ID must be an integer'),
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        res.send(`User ID is ${req.params.id}`);
+    }
+);
+
+// ✅ Validate Query Parameter
+app.get('/search', 
+    query('q').isLength({ min: 3 }).withMessage('Search query must be at least 3 characters long'),
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        res.send(`Search results for: ${req.query.q}`);
+    }
+);
+
+// ✅ Validate Request Body
+app.post('/register', 
+    body('email').isEmail().withMessage('Invalid email'),
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+    body('age').optional().isInt({ min: 18 }).withMessage('Age must be at least 18'),
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        res.send('User registered successfully');
+    }
+);
+
+// Start the server
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});

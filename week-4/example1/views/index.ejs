@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express EJS Example</title>
+</head>
+<body>
+    <h1>Express Server with EJS</h1>
+
+    <h2>Cookies</h2>
+    <pre><%= JSON.stringify(cookies, null, 2) %></pre>
+
+    <h2>Session ID</h2>
+    <p><%= sessionId ? sessionId : "No session ID set" %></p>
+
+    <a href="/set-session-cookie">Set Session & Cookie</a>
+</body>
+</html>
+
+
+<!-- npm install express ejs cookie-parser express-session fs -->
