@@ -3,33 +3,38 @@ const router = express.Router();
 const session = require("express-session");
 const nocache = require("nocache");
 
-// Disable browser caching to prevent accessing protected routes after logout
 router.use(nocache());
+router.use((req, res, next) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
+  next();
+});
+
 
 // Configure session middleware
 router.use(
   session({
-    secret: "secret", // Secret key for session encryption
-    resave: false, // Prevents saving session if not modified
-    saveUninitialized: true, // Creates a session for new users
+    secret: "secret", 
+    resave: false,
+    saveUninitialized: true, 
   })
 );
+
 
 // Middleware to check if user is authenticated
 const isAuthenticated = (req, res, next) => {
   if (req.session.isAuth) {
-    return next(); // If authenticated, proceed to the next middleware/route
+    return next(); 
   } else {
-    return res.redirect("/"); // Redirect to login page if not authenticated
+    return res.redirect("/"); 
   }
 };
 
-// Regular expression to validate email format
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-// Password validation regex (currently commented out for flexibility)
-// const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
-// Hardcoded user credentials (Ideally, should be stored securely in a database)
+// Hardcoded user credentials
 const credential = [
   { email: "admin@gmail.com", password: "Admin@123" },
   { email: "zameer@gmail.com", password: "Zameer@123" },
@@ -39,7 +44,7 @@ const credential = [
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
 
-  // Validate email format
+  // Validate email format and password 
   if (!emailRegex.test(email)) {
     return res.render("base", {
       title: "Login",
@@ -47,8 +52,6 @@ router.post("/login", (req, res) => {
     });
   }
 
-  // Uncomment below to enforce password validation rules
-  /*
   if (!passwordRegex.test(password)) {
     return res.render("base", {
       title: "Express",
@@ -56,7 +59,7 @@ router.post("/login", (req, res) => {
         "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit",
     });
   }
-  */
+  
 
   // Check if provided credentials match any user
   const user = credential.find(
@@ -64,12 +67,10 @@ router.post("/login", (req, res) => {
   );
 
   if (user) {
-    // Store user session details upon successful login
     req.session.user = user.email;
     req.session.isAuth = true;
-    return res.redirect("/dashboard"); // Redirect to dashboard after login
+    return res.redirect("/dashboard"); 
   } else {
-    // Invalid credentials, show error message
     return res.render("base", {
       title: "Login",
       logout_err: "Invalid username or password",
@@ -77,7 +78,7 @@ router.post("/login", (req, res) => {
   }
 });
 
-// Protected route: Dashboard (Accessible only if authenticated)
+
 router.get("/dashboard", isAuthenticated, (req, res) => {
   res.render("dashboard", { user: req.session.user, logout: "" });
 });
@@ -103,10 +104,14 @@ router.get("/login", (req, res) => {
 // Route to handle user logout
 router.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    // Clear session and show logout success message
-    return res.render("base", { title: "Login", logout: "Logout successfully" });
+    res.locals.title = 'Login';
+    res.locals.logout = 'Logout successfully';
+    res.redirect("/");
+  // return res.render("base", { title: "Login", logout: "Logout successfully" });
   });
 });
 
-// Export router to be used in main server file
+
+
+
 module.exports = router;

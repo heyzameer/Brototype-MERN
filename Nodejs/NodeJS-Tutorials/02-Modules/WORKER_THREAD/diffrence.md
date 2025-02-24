@@ -50,6 +50,68 @@ Both `cluster` and `worker_threads` modules in Node.js help in improving perform
 | **Performance Cost** | Higher (more memory usage, context switching) | Lower (lighter threads, less overhead) |
 
 ---
+ o. Status Codes
+
+*   **1xx (Informational):**  The request was received, and the server is continuing the process.
+    *   `100 Continue`:  The server has received the request headers and the client should proceed to send the request body.
+
+*   **2xx (Successful):**  The request was successfully received, understood, and accepted.
+    *   `200 OK`:  The standard success response.
+    *   `201 Created`:  The request has been fulfilled, and a new resource has been created.
+    *   `204 No Content`:  The server successfully processed the request, but there is no content to return.
+
+*   **3xx (Redirection):**  Further action needs to be taken by the client to complete the request.
+    *   `301 Moved Permanently`:  The requested resource has been permanently moved to a new URL.
+    *   `302 Found` (or `307 Temporary Redirect`):  The requested resource is temporarily located at a different URL.
+    *   `304 Not Modified`:  The client's cached version of the resource is still valid, so the server doesn't send the full response.
+
+*   **4xx (Client Error):**  The request contains bad syntax or cannot be fulfilled.
+    *   `400 Bad Request`:  The server cannot understand the request due to invalid syntax.
+    *   `401 Unauthorized`:  Authentication is required, and the client has not provided valid credentials.
+    *   `403 Forbidden`:  The client does not have permission to access the resource.
+    *   `404 Not Found`:  The requested resource could not be found on the server.
+    *   `405 Method Not Allowed`:  The HTTP method used is not supported for the requested resource.
+
+*   **5xx (Server Error):**  The server failed to fulfill a valid request.
+    *   `500 Internal Server Error`:  A generic error message for server-side errors.
+    *   `502 Bad Gateway`:  The server, while acting as a gateway or proxy, received an invalid response from the upstream server.
+    *   `503 Service Unavailable`:  The server is currently unavailable (e.g., due to overload or maintenance).
+    *   `504 Gateway Timeout`: The server did not receive timely response.
+
+
+
+## **🆚 Side-by-Side Comparison**  
+| Feature            | Cluster (`cluster`) | Worker Threads (`worker_threads`) | Child Process (`child_process`) |
+|--------------------|--------------------|----------------------------------|--------------------------------|
+| **Type**         | Multi-process (separate Node.js instances) | Multi-threading (inside the same process) | Multi-process (separate Node.js processes) |
+| **Memory Sharing** | ❌ No (Each worker has its own memory) | ✅ Yes (Can use `SharedArrayBuffer`) | ❌ No (Each process has its own memory) |
+| **Best For** | Handling many HTTP requests (web servers) | CPU-intensive tasks (e.g., computations, image processing) | Running external scripts, executing shell commands |
+| **Communication** | **IPC (Inter-Process Communication)** (Slower) | **Message passing** and **shared memory** (Faster) | **IPC or standard I/O (stdin, stdout, stderr)** |
+| **Scaling** | Uses multiple CPU cores efficiently | Efficient within a single core | Can launch independent processes as needed |
+| **Performance Cost** | Higher (more memory usage, context switching) | Lower (lighter threads, less overhead) | Higher (each process has its own overhead) |
+
+---
+
+
+
+
+
+## **🚀 Key Differences Between Cluster and Child Process**
+| Feature            | **Cluster (`cluster`)** | **Child Process (`child_process`)** |
+|--------------------|------------------------|--------------------------------------|
+| **Purpose**        | Designed for scaling Node.js applications across multiple CPU cores | Used to create independent processes to run external scripts or commands |
+| **Process Type**   | Multiple worker processes managed by the master process | Separate, standalone processes spawned by the parent process |
+| **Memory Sharing** | ❌ No (Each worker runs in its own memory space) | ❌ No (Each child has its own memory) |
+| **Communication**  | Uses **Inter-Process Communication (IPC)** between master and workers | Uses **IPC, stdin/stdout, or message passing** |
+| **Use Case**       | Load balancing web servers (e.g., Express apps) | Running scripts, executing shell commands, or isolated tasks |
+| **Built-in Load Balancing** | ✅ Yes (Automatically distributes incoming connections across workers) | ❌ No (Manual task management) |
+| **Example Scenario** | Scaling an HTTP server using multiple cores | Running a Python script, compressing files, or executing system commands |
+
+---
+
+
+
+
 
 ## **🛠️ Example of Each Approach**
 
