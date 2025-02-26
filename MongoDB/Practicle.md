@@ -357,7 +357,7 @@ db.getCollection("user-data").find();  // Required since "user-data" has a hyphe
 
 
 
-
+```js
 {
   title: "I want to start my own business. What I need to do first?",
   postId: NumberInt(3015),
@@ -372,15 +372,669 @@ db.getCollection("user-data").find();  // Required since "user-data" has a hyphe
     nickname: "bob1995"
   }
 }
+```
 
-// Accesing inside array
-db.getCollection("posts").find({tags: "programming"});
+1. **Accessing an element inside an array:**  
+   ```js
+   db.getCollection("posts").find({tags: "programming"});
+   ```
+   ✅ **Correct:** This works because MongoDB automatically searches for `"programming"` within the `tags` array. If `"programming"` exists as an element in the `tags` array, it will return the matching document.
 
-// accessing nested object
-db.getCollection("posts").find({"author.name": "Emily Watson"});
+2. **Accessing a nested object field:**  
+   ```js
+   db.getCollection("posts").find({"author.name": "Emily Watson"});
+   ```
+   ✅ **Correct:** This correctly searches for documents where `author.name` is `"Emily Watson"`. MongoDB supports dot notation for nested fields.
 
-//accesing fields
-db.getCollection("posts").findOne({comments:0});
+3. **Accessing fields (`comments` field with value `0`):**  
+   ```js
+   db.getCollection("posts").findOne({comments: 0});
+   ```
+   ✅ **Correct:** This returns the first document where `comments` is exactly `0`.
 
-//accesing fields
-db.getCollection("posts").findOne({postId:3015});
+4. **Accessing fields (`postId` field with value `3015`):**  
+   ```js
+   db.getCollection("posts").findOne({postId: 3015});
+   ```
+   ⚠️ **Potential issue:**  
+   - If `postId` is stored as `NumberInt(3015)`, your query is fine.  
+   - If `postId` is stored as a regular number (`3015`), it will still work because MongoDB handles type conversion.  
+   - If `postId` is stored as `NumberLong(3015)`, you may need to explicitly use `NumberLong(3015)`.  
+
+To be precise, you can check the type using:  
+```js
+db.getCollection("posts").findOne({postId: {$type: "int"}});
+```
+
+
+
+
+
+
+**READ**
+
+
+
+### 1️⃣ **Find posts with comments greater than 0**
+```js
+db.posts.find({comments:{$gt:0}});
+```
+✅ **Correct:** This retrieves all posts where `comments` is greater than `0`.
+
+---
+
+### 2️⃣ **Find posts with comments less than 5**
+```js
+db.posts.find({comments:{$lt:5}});
+```
+✅ **Correct:** This retrieves all posts where `comments` is less than `5`.
+
+---
+
+### 3️⃣ **Find posts with comments between 1 and 4 (exclusive of 0 and 5)**
+```js
+db.posts.find({ 
+  $and:[
+    {comments:{$lt:5}},
+    {comments:{$gt:0}}
+  ]
+});
+```
+✅ **Correct:** But `$and` is redundant in this case. You can simplify the query:
+```js
+db.posts.find({comments: {$gt: 0, $lt: 5}});
+```
+MongoDB automatically applies an implicit `$and` when multiple conditions are provided for the same field.
+
+---
+
+### 4️⃣ **Find posts where either `shared` is `true` OR `tags` contain `"programming"`**
+```js
+db.posts.find({ 
+  $or:[
+    {shared: true},
+    {tags: "programming"}
+  ]
+});
+```
+✅ **Correct:** This retrieves documents where:
+- `shared` is `true`, **OR**
+- The `tags` array contains `"programming"`.
+
+---
+
+### 5️⃣ **Find posts where `tags` contain either `"programming"` or `"coding"`**
+```js
+db.posts.find({ 
+  tags: {$in:["programming","coding"]}
+});
+```
+✅ **Correct:**  
+- `$in` matches documents where `tags` contains at least one of the specified values (`"programming"` or `"coding"`).
+- Works well for checking multiple possible values in an array.
+
+
+
+---
+
+### 1️⃣ **Limit results to 2 documents**
+```js
+db.posts.find({}).limit(2);
+```
+✅ **Correct:** This fetches only **2 documents** from the collection.
+
+---
+
+### 2️⃣ **Skip the first 2 documents**
+```js
+db.posts.find({}).skip(2);
+```
+✅ **Correct:** This skips the first **2 documents** and returns the rest.
+
+---
+
+### 3️⃣ **Sort posts by `comments` in descending order (highest first)**
+```js
+db.posts.find({}).sort({comments: -1});
+```
+✅ **Correct:** This sorts the posts in **descending order** by `comments` (highest → lowest).
+
+---
+
+### 4️⃣ **Sort posts by `comments` in ascending order (lowest first)**
+```js
+db.posts.find({}).sort({comments: 1});
+```
+✅ **Correct:** This sorts the posts in **ascending order** by `comments` (lowest → highest).
+
+---
+
+### 5️⃣ **Sort posts by `title` in descending order (Z → A)**
+```js
+db.posts.find({}).sort({title: -1});
+```
+✅ **Correct:** Sorts the posts alphabetically **Z → A**.
+
+---
+
+### 6️⃣ **Documents are sorted by `_id` in ascending order by default**
+```js
+// Default sorting behavior in MongoDB
+db.posts.find({});
+```
+✅ **Correct:** MongoDB automatically sorts documents in **ascending order** by `_id` if no explicit sorting is applied.
+
+---
+
+### 7️⃣ **Sort by `comments` in ascending order, then skip 2 documents**
+```js
+db.posts.find({}).sort({comments: 1}).skip(2);
+```
+✅ **Correct:**  
+1. **Sorts** documents by `comments` in ascending order.
+2. **Skips** the first 2 documents from the sorted result.
+
+---
+
+### 8️⃣ **Skip 2 documents first, then sort by `comments` in ascending order**
+```js
+db.posts.find({}).skip(2).sort({comments: 1});
+```
+❌ **Incorrect (unexpected behavior)**  
+- **Skipping before sorting** could lead to unpredictable results because MongoDB applies sorting **after** retrieving the documents.  
+- **Fix:** Always `sort()` before `skip()` if you want deterministic results.
+
+---
+
+### 9️⃣ **Skip 2 documents first, then sort by `shared` in ascending order**
+```js
+db.posts.find({}).skip(2).sort({shared: 1});
+```
+❌ **Same issue as above**  
+- MongoDB first retrieves documents (skipping 2) and **then** applies sorting.
+- Sorting after skipping may result in a non-deterministic output.
+
+✅ **Fix:** Apply `sort()` before `skip()`
+```js
+db.posts.find({}).sort({shared: 1}).skip(2);
+```
+
+---
+
+### **Best Practices**
+- **Always sort before skipping** to maintain predictable results.
+- **Index fields that are frequently sorted** (`comments`, `title`, `shared`) to improve query performance.
+- **Use `sort()` and `limit()` together** when paginating data:
+  ```js
+  db.posts.find({}).sort({comments: -1}).skip(10).limit(5);
+  ```
+  This efficiently paginates by fetching **page 3** (assuming page size = 5).
+
+
+
+
+
+**UPDATE**
+
+### 1️⃣ **Update a document**
+1. **First Image**:  
+   - Shows the `updateOne()` and `updateMany()` methods, which update one or multiple documents in a collection.  
+   - Syntax: `(query, update, options)`.  
+
+2. **Second Image**:  
+   - Lists MongoDB update operators:  
+     - `$set`: Modify a field.  
+     - `$unset`: Remove a field.  
+     - `$inc`: Increment a numeric value.  
+     - `$rename`: Rename a field.  
+     - `$currentDate`: Set the field to the current date.  
+     - `$addToSet`: Add unique values to an array.  
+
+
+
+
+
+### **1. Updating a Specific Post (`postId: 2618`) to Set `shared` to `true`**
+```js
+db.posts.updateOne(
+  {postId: 2618},
+  {$set: {shared: true}}
+);
+```
+- This updates the document where `postId` is **2618**, setting `shared` to **true**.
+
+### **2. Changing the Title of a Specific Post (`postId: 2618`)**
+```js
+db.posts.updateOne(
+  {postId: 2618},
+  {$set: {title: "What is the average salary of the senior frontend developer?"}}
+);
+```
+- This updates the **title** field of the post where `postId` is **2618**.
+
+### **3. Finding a Post with an Empty `tags` Array**
+```js
+db.posts.findOne({tags: []});
+```
+- This searches for a document where the `tags` array is **empty** (`[]`).
+
+### **4. Removing the `tags` Field If It's an Empty Array**
+```js
+db.posts.updateOne(
+  {tags: []},
+  {$unset: {tags: 1}}
+);
+```
+- This removes the `tags` field if its value is an empty array (`[]`).
+
+### **5. Incrementing the `comments` Count for a Post (`postId: 8451`)**
+```js
+db.posts.updateOne(
+  {postId: 8451},
+  {$inc: {comments: 1}}
+);
+```
+- This **increments** the `comments` field by **1** for the post with `postId: 8451`.
+
+### **Possible Issues to Watch Out For:**
+1. **Be Careful with `{tags: []}` Matching**  
+   - If no document has `tags: []`, the `$unset` operation won’t remove anything.
+   - You might need `{tags: {$size: 0}}` to ensure you're targeting empty arrays.
+
+2. **Ensure `postId` is Stored as the Same Data Type**  
+   - If `postId` is stored as `NumberInt`, make sure your query also uses `NumberInt(2618)`, otherwise, it may not match.
+
+
+
+
+
+**DELETE**
+
+- **deleteOne({query})**: Deletes a **single** document that matches the given query.  
+- **deleteMany({query})**: Deletes **all** documents that match the given query.  
+
+
+
+1. **Insert a document** with `postId: 1111` into the `posts` collection.  
+   ```js
+   db.posts.insertOne({postId:NumberInt(1111)});
+   ```
+   
+2. **Delete a single document** where `postId` is `1111`.  
+   ```js
+   db.posts.deleteOne({postId:NumberInt(1111)});
+   ```
+   
+3. **Find all documents** that do not have a `title` field.  
+   ```js
+   db.posts.find({title:{$exists:false}});
+   ```
+   
+4. **Delete all documents** that do not have a `title` field.  
+   ```js
+   db.posts.deleteMany({title:{$exists:false}});
+   ```
+
+
+
+
+
+
+### **MongoDB Aggregation Framework**  
+
+The **Aggregation Framework** in MongoDB is used to process and transform data using a series of stages (pipeline) to perform complex queries, computations, and transformations on collections.
+
+---
+
+### **Steps in Aggregation Framework (Pipeline Stages)**  
+
+MongoDB’s aggregation works as a **pipeline**, where documents pass through multiple stages, each modifying or filtering data.
+
+1. **$match** – Filters documents based on a condition (similar to `find`).  
+   ```js
+   db.orders.aggregate([
+     { $match: { status: "shipped" } }
+   ])
+   ```
+
+2. **$group** – Groups documents by a field and applies aggregation functions like `$sum`, `$avg`, `$max`, etc.  
+   ```js
+   db.orders.aggregate([
+     { $group: { _id: "$customerId", totalAmount: { $sum: "$amount" } } }
+   ])
+   ```
+
+3. **$project** – Selects and reshapes fields.  
+   ```js
+   db.orders.aggregate([
+     { $project: { _id: 0, name: 1, amount: 1 } }
+   ])
+   ```
+
+4. **$sort** – Sorts results in ascending (`1`) or descending (`-1`) order.  
+   ```js
+   db.orders.aggregate([
+     { $sort: { amount: -1 } }
+   ])
+   ```
+
+5. **$limit** – Limits the number of output documents.  
+   ```js
+   db.orders.aggregate([
+     { $limit: 5 }
+   ])
+   ```
+
+6. **$skip** – Skips the specified number of documents.  
+   ```js
+   db.orders.aggregate([
+     { $skip: 3 }
+   ])
+   ```
+
+7. **$lookup** – Performs a left outer join with another collection.  
+   ```js
+   db.orders.aggregate([
+     {
+       $lookup: {
+         from: "customers",
+         localField: "customerId",
+         foreignField: "_id",
+         as: "customerDetails"
+       }
+     }
+   ])
+   ```
+
+8. **$unwind** – Deconstructs an array field into multiple documents.  
+   ```js
+   db.orders.aggregate([
+     { $unwind: "$items" }
+   ])
+   ```
+
+9. **$addFields** – Adds new fields to documents.  
+   ```js
+   db.orders.aggregate([
+     { $addFields: { tax: { $multiply: ["$amount", 0.1] } } }
+   ])
+   ```
+
+10. **$out** – Stores the aggregation result into a new collection.  
+   ```js
+   db.orders.aggregate([
+     { $group: { _id: "$status", count: { $sum: 1 } } },
+     { $out: "orderSummary" }
+   ])
+   ```
+
+---
+
+### **Example Aggregation Query**  
+Find the total sales for each product and sort them in descending order:  
+```js
+db.sales.aggregate([
+  { $group: { _id: "$productId", totalSales: { $sum: "$amount" } } },
+  { $sort: { totalSales: -1 } }
+])
+```
+
+
+
+Your aggregation query groups documents in the `posts` collection by the `author.name` field.
+
+### **Explanation of the Query**
+```js
+db.posts.aggregate([
+  { $group: { _id: "$author.name" } }
+])
+```
+
+- **`$group`**: Groups documents together based on the specified field.
+- **`_id: "$author.name"`**: Groups posts by the `name` field inside the `author` object.
+- Since no additional aggregation operation (like `$sum`, `$count`, etc.) is specified, the result will just return unique author names.
+
+### **Example Input Data (`posts` Collection)**
+```json
+[
+  { "_id": 1, "title": "Post 1", "author": { "name": "Alice" } },
+  { "_id": 2, "title": "Post 2", "author": { "name": "Bob" } },
+  { "_id": 3, "title": "Post 3", "author": { "name": "Alice" } }
+]
+```
+
+### **Expected Output**
+```json
+[
+  { "_id": "Alice" },
+  { "_id": "Bob" }
+]
+```
+This output lists **unique author names**.
+
+---
+
+### **Enhancing the Query**
+1. **Count the number of posts per author**:
+   ```js
+   db.posts.aggregate([
+     { $group: { _id: "$author.name", totalPosts: { $sum: 1 } } }
+   ])
+   ```
+   **Output Example**:
+   ```json
+   [
+     { "_id": "Alice", "totalPosts": 2 },
+     { "_id": "Bob", "totalPosts": 1 }
+   ]
+   ```
+
+2. **Sort authors by the number of posts (Descending Order)**:
+   ```js
+   db.posts.aggregate([
+     { $group: { _id: "$author.name", totalPosts: { $sum: 1 } } },
+     { $sort: { totalPosts: -1 } }
+   ])
+   ```
+
+
+
+
+
+
+**MongoDB Utilities**
+
+
+### **MongoDB Data Import/Export & Backup/Restore Commands**
+
+#### **1. `mongoexport` (Export Data to JSON or CSV)**
+Exports data from a MongoDB collection to a JSON or CSV file.
+
+##### **Syntax:**
+```sh
+mongoexport --db=mydb --collection=mycollection --out=data.json
+```
+- `--db=mydb`: Specifies the database name.
+- `--collection=mycollection`: Specifies the collection to export.
+- `--out=data.json`: Output file where the exported data is stored.
+
+##### **Export as CSV:**
+```sh
+mongoexport --db=mydb --collection=mycollection --type=csv --fields=name,age --out=data.csv
+```
+- `--type=csv`: Specifies CSV format.
+- `--fields=name,age`: Specifies which fields to export.
+
+---
+
+#### **2. `mongoimport` (Import Data from JSON or CSV)**
+Imports data from a JSON or CSV file into a MongoDB collection.
+
+##### **Syntax:**
+```sh
+mongoimport --db=mydb --collection=mycollection --file=data.json --jsonArray
+```
+- `--file=data.json`: Input file containing the data.
+- `--jsonArray`: Indicates that the file contains a JSON array.
+
+##### **Import CSV Data:**
+```sh
+mongoimport --db=mydb --collection=mycollection --type=csv --headerline --file=data.csv
+```
+- `--headerline`: Uses the first row as field names.
+
+---
+
+#### **3. `mongodump` (Backup Database)**
+Creates a binary backup of a MongoDB database.
+
+##### **Syntax:**
+```sh
+mongodump --db=mydb --out=/backup/
+```
+- `--out=/backup/`: Directory where the backup is stored.
+
+##### **Backup an Entire MongoDB Instance:**
+```sh
+mongodump --out=/backup/
+```
+- This dumps all databases.
+
+---
+
+#### **4. `mongorestore` (Restore from Backup)**
+Restores a MongoDB database from a `mongodump` backup.
+
+##### **Syntax:**
+```sh
+mongorestore --db=mydb /backup/mydb
+```
+- `--db=mydb`: Specifies the database to restore into.
+
+##### **Restore an Entire Backup:**
+```sh
+mongorestore /backup/
+```
+- Restores all databases from the backup directory.
+
+---
+
+### **Summary**
+| Command      | Purpose |
+|-------------|---------|
+| `mongoexport`  | Export collection data to JSON or CSV |
+| `mongoimport`  | Import JSON or CSV data into a collection |
+| `mongodump`    | Backup database in binary format |
+| `mongorestore` | Restore database from a backup |
+
+
+**Using terminal**
+mongoexport -d forum -c posts -o posts.txt
+
+mongodump -C posts.bson
+
+
+
+### **Replica Sets in MongoDB**
+A **replica set** in MongoDB is a group of MongoDB servers that maintain the same data, providing **high availability** and **fault tolerance**. It consists of:
+
+1. **Primary Node** (Only One)
+   - Handles all **write** operations.
+   - Replicates data to secondary nodes.
+   
+2. **Secondary Nodes** (One or More)
+   - Synchronize data from the primary.
+   - Can handle **read** operations (if enabled).
+   - Can be **elected** as a new primary in case of failure.
+
+3. **Arbiter (Optional)**
+   - Doesn't store data.
+   - Helps in **voting** during primary elections.
+
+---
+
+### **Read and Write Operations in Replica Sets**
+- **Writes**: Only allowed on the **Primary**.
+- **Reads**: By default, from **Primary**, but can be configured to read from **Secondary** using read preferences.
+
+#### **Read Preference Modes**
+| Read Preference | Description |
+|----------------|------------|
+| `primary` | Default. Reads from the primary node. |
+| `secondary` | Reads from a secondary node. |
+| `primaryPreferred` | Reads from primary but switches to secondary if the primary is unavailable. |
+| `secondaryPreferred` | Reads from a secondary but switches to primary if no secondary is available. |
+| `nearest` | Reads from the nearest available node based on network latency. |
+
+---
+
+### **Setting Up a Replica Set**
+1. **Start MongoDB instances** (Example: three nodes)
+```sh
+mongod --replSet "rs0" --port 27017 --dbpath /data/db1 --fork --logpath /data/db1.log
+mongod --replSet "rs0" --port 27018 --dbpath /data/db2 --fork --logpath /data/db2.log
+mongod --replSet "rs0" --port 27019 --dbpath /data/db3 --fork --logpath /data/db3.log
+```
+2. **Connect to Mongo Shell**
+```sh
+mongo --port 27017
+```
+3. **Initiate Replica Set**
+```js
+rs.initiate({
+  _id: "rs0",
+  members: [
+    { _id: 0, host: "localhost:27017" },
+    { _id: 1, host: "localhost:27018" },
+    { _id: 2, host: "localhost:27019" }
+  ]
+})
+```
+4. **Check Replica Set Status**
+```js
+rs.status()
+```
+---
+
+### **MongoDB Drivers**
+MongoDB provides official drivers for different programming languages to interact with the database.
+
+| Language | Driver |
+|----------|--------|
+| **Node.js** | `mongodb` |
+| **Python** | `pymongo` |
+| **Java** | `mongodb-driver-sync` |
+| **C#/.NET** | `MongoDB.Driver` |
+| **Go** | `go.mongodb.org/mongo-driver` |
+| **PHP** | `mongodb` extension |
+| **C++** | `mongo-cxx-driver` |
+
+#### **Example: Node.js MongoDB Driver**
+```js
+const { MongoClient } = require("mongodb");
+const uri = "mongodb://localhost:27017";
+const client = new MongoClient(uri);
+
+async function run() {
+    try {
+        await client.connect();
+        const db = client.db("test");
+        const collection = db.collection("users");
+        const result = await collection.findOne({});
+        console.log(result);
+    } finally {
+        await client.close();
+    }
+}
+run().catch(console.dir);
+```
+
+---
+
+### **Key Takeaways**
+✅ **Replica Set** ensures **high availability**.  
+✅ **Writes** always go to the **primary**.  
+✅ **Reads** can be done from **secondary** with appropriate settings.  
+✅ **MongoDB Drivers** allow different languages to connect to MongoDB.  
+
+Would you like help with a specific MongoDB driver? 🚀

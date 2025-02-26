@@ -282,10 +282,6 @@ These are *stages* within an aggregation pipeline, not standalone commands.  The
 
 
 
-
-
-the previous response.
-
 **I. Server and Shell Commands (Missing/Expanded)**
 
 *   **`mongod --config <path/to/config/file>` (or `--configsvr`, `--configdb`, `--shardsvr`)**
@@ -322,6 +318,9 @@ the previous response.
 
 * **`db.collection.stats()`**
 	* Provides detailed statistics about a *specific* collection, including storage size, number of documents, index information, and more. More detailed than `db.stats()`.
+
+
+
 
 **IV. Document Operations (CRUD) - (`mongosh` Shell) (Missing/Expanded)**
 
