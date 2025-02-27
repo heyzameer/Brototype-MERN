@@ -140,6 +140,7 @@ These are *stages* within an aggregation pipeline, not standalone commands.  The
 *   **`$match`**
     *   Filters documents based on specified criteria (like a `WHERE` clause).
     *   Used for selecting a subset of documents.
+    *   Supportts all query operators.
 
 *   **`$group`**
     *   Groups documents by a specified field and performs calculations (like `GROUP BY` in SQL).
@@ -341,7 +342,24 @@ These are *stages* within an aggregation pipeline, not standalone commands.  The
         db.users.find({ age: { $in: [25, 30, 35] } }) // Users aged 25, 30, or 35
         ```
 
-    *   **Logical Operators:**
+        Here's a **short description** of MongoDB update operators:
+
+
+**Common Update Operators**
+- **`$set`** – Sets or updates a field's value. *(Creates it if it doesn't exist.)*  
+- **`$unset`** – Removes a field from the document.  
+- **`$inc`** – Increments or decrements a numeric field.  
+- **`$rename`** – Renames a field.  
+- **`$mul`** – Multiplies a numeric field’s value.  
+- **`$min`** – Updates a field only if the new value is **less** than the current one.  
+- **`$max`** – Updates a field only if the new value is **greater** than the current one.  
+- **`$push`** – Adds an element to an array field.  
+- **`$pull`** – Removes elements from an array that match a condition.  
+- **`$addToSet`** – Like `$push`, but prevents duplicates.  
+
+Let me know if you need further refinements! 🚀
+
+*   **Logical Operators:**
         *   **`$and`:**  Joins query clauses with a logical AND.
         *   **`$or`:**   Joins query clauses with a logical OR.
         *   **`$not`:**  Inverts the effect of a query expression.

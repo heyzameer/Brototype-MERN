@@ -589,6 +589,54 @@ db.posts.find({}).sort({shared: 1}).skip(2);
      - `$rename`: Rename a field.  
      - `$currentDate`: Set the field to the current date.  
      - `$addToSet`: Add unique values to an array.  
+The **third optional field** in the `updateOne` method in MongoDB is an **options object**. It allows you to specify additional settings like `upsert`, `writeConcern`, and `collation`.
+
+### **Syntax:**
+```javascript
+db.collection.updateOne(filter, update, options)
+```
+- `filter` – The condition to match the document(s) (e.g., `{ postId: 2618 }`).
+- `update` – The modifications to apply (e.g., `{ $set: { shared: true } }`).
+- `options` – (Optional) Additional options.
+
+---
+
+### **Common Options:**
+| Option    | Type  | Description |
+|-----------|------|-------------|
+| `upsert`  | Boolean | If `true`, inserts a new document if no match is found. Default is `false`. |
+| `writeConcern` | Object | Controls acknowledgment behavior of the write operation. |
+| `collation` | Object | Specifies collation rules for string comparison. |
+
+---
+
+### **Example Using `upsert`:**
+```javascript
+db.posts.updateOne(
+  { postId: 2618 },
+  { $set: { shared: true } },
+  { upsert: true }  // If no document is found, a new one will be inserted
+);
+```
+
+### **Example Using `collation`:**
+```javascript
+db.posts.updateOne(
+  { postId: 2618 },
+  { $set: { shared: true } },
+  { collation: { locale: "en", strength: 2 } } // Case-insensitive comparison
+);
+```
+
+### **Your Code with the Third Field:**
+```javascript
+db.posts.updateOne(
+  { postId: 2618 },
+  { $set: { shared: true } },
+  { upsert: true }  // Ensures the document exists
+);
+```
+This ensures that if no document with `postId: 2618` exists, MongoDB will create one.
 
 
 
