@@ -334,7 +334,9 @@ These are *stages* within an aggregation pipeline, not standalone commands.  The
         *   **`$lt`:**  Matches values that are less than a specified value.
         *   **`$lte`:** Matches values that are less than or equal to a specified value.
         *   **`$ne`:**  Matches values that are *not* equal to a specified value.
-        *   **`$in`:**  Matches any of the values specified in an array.
+        *   **`
+        
+        `:**  Matches any of the values specified in an array.
         *   **`$nin`:** Matches *none* of the values specified in an array.
 
         ```javascript

@@ -31,7 +31,7 @@
    - Sorts by `totalSales` in descending order.  
 
 
-
+ 
 
 
 
@@ -758,9 +758,12 @@ db.persons.find({}).count()
 ❌ **Incorrect: Using `.count()` directly in aggregation**
 ```js
 db.persons.aggregate([]).count() // ❌ Not valid
-```
 
+
+db.users.countDocuments({ isActive: true });
+```
 ---
+
 
 ### **⚡ Best Practices**
 - ✅ **For best performance:** Use `$count` inside aggregation (`db.persons.aggregate([{ $count: "count" }])`).

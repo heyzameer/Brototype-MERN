@@ -1,5 +1,3 @@
-Okay, here's a structured and enhanced version of the provided MongoDB information, incorporating explanations, examples, and better organization.
-
 **MongoDB: A Comprehensive Overview**
 
 **1. Introduction: What is MongoDB?**
@@ -354,7 +352,16 @@ These operators are used within the `update` document to specify the changes you
 
     ```javascript
     { $rename: { fullName: "name" } } // Renames "fullName" to "name"
+
+
+    db.users.updateOne(
+    { _id: 1 },
+    { $rename: { "firstName": "fullName" } }
+    );
+
     ```
+
+    
 
 *   **`$mul`:** Multiply the value of a numeric field.
 
@@ -371,7 +378,18 @@ These operators are used within the `update` document to specify the changes you
 
     ```javascript
      { $max: { highScore: 2500 } } //Update highScore if 2500 is grater thatn the current highScore
-    ```
+   db.employees.aggregate([
+  {
+    $group: {
+      _id: "$department",
+      minSalary: { $min: "$salary" }
+    }
+  }
+]);
+
+   
+   
+
 *   **`$push`:** Adds an element to an *array* field.
 
     ```javascript
