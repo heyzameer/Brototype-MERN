@@ -369,6 +369,19 @@ db.products.aggregate([
   { "_id": 3, "name": "Phone", "category": "Electronics", "price": 700 }
 ]
 ```
+```js
+db.products.aggregate([
+  { 
+    $match: { 
+      $and: [
+        { category: "Electronics" }, 
+        { price: { $gt: 500 } }
+      ] 
+    } 
+  }
+])
+
+```
 
 ---
 

@@ -218,3 +218,117 @@ db.users.updateMany({ age: { $gt: 50 } }, { $set: { isDeleted: true } });
 ---
 
 Would you like **real data examples** to practice? 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Here are some **questions** based on the given MongoDB document and how to use `$match` in queries:
+
+### **Basic `$match` Queries**
+1️⃣ **Find the post with `postId` 3511**
+```js
+db.posts.aggregate([
+  { $match: { postId: 3511 } }
+])
+```
+
+2️⃣ **Find all posts where `comments` are greater than 5**
+```js
+db.posts.aggregate([
+  { $match: { comments: { $gt: 5 } } }
+])
+```
+
+3️⃣ **Find posts that are shared (`shared: true`)**
+```js
+db.posts.aggregate([
+  { $match: { shared: true } }
+])
+```
+
+---
+
+### **Using `$match` with Arrays**
+4️⃣ **Find posts that contain the tag `'JavaScript'`**
+```js
+db.posts.aggregate([
+  { $match: { tags: "JavaScript" } }
+])
+```
+💡 *This works because MongoDB checks if `"JavaScript"` exists inside the `tags` array.*
+
+5️⃣ **Find posts that contain both `'JavaScript'` and `'programming'` in `tags`**
+```js
+db.posts.aggregate([
+  { $match: { tags: { $all: ["JavaScript", "programming"] } } }
+])
+```
+
+---
+
+### **Using `$match` with Nested Objects**
+6️⃣ **Find posts written by `Mike Forester`**
+```js
+db.posts.aggregate([
+  { $match: { "author.name": "Mike Forester" } }
+])
+```
+
+7️⃣ **Find posts where the author's nickname is `'mikef'`**
+```js
+db.posts.aggregate([
+  { $match: { "author.nickname": "mikef" } }
+])
+```
+
+---
+
+### **Using `$match` with Multiple Conditions (`$and`, `$or`)**
+8️⃣ **Find posts where `comments > 5` AND `shared: true`**
+```js
+db.posts.aggregate([
+  { 
+    $match: { 
+      $and: [
+        { comments: { $gt: 5 } }, 
+        { shared: true } 
+      ]
+    } 
+  }
+])
+```
+💡 *You can omit `$and` because MongoDB applies `AND` by default when multiple conditions exist in `$match`.*
+
+9️⃣ **Find posts where `comments > 5` OR `tags` contain `'JavaScript'`**
+```js
+db.posts.aggregate([
+  { 
+    $match: { 
+      $or: [
+        { comments: { $gt: 5 } }, 
+        { tags: "JavaScript" }
+      ]
+    } 
+  }
+])
+```
+
+---
+
+🔹 Let me know if you need more `$match` examples! 🚀
