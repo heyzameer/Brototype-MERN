@@ -131,3 +131,23 @@ db.studb09.find({ degree: "BCA", sem: 6 }).pretty()
 ```
 
 Make sure to replace `studentDB` with the actual database name you're using. 🚀
+
+
+
+
+
+
+
+array inside an arraay
+
+db.studb09.updateMany({srn:111},{$addToSet:{Marks:[1,2,3,4]}});
+
+
+
+ db.studb09.updateMany({srn:111},{$addToSet:{Marks:{$each:[1,2,3,4]}}});
+
+
+
+
+
+ db.studb09.updateMany({"location.country":""},{$set:{"location.country":"India"}}); // update all documents where location.country is empty string to India

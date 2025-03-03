@@ -381,3 +381,81 @@ db.emp09.updateOne(
 ```
 
 This ensures smooth execution. Let me know if you need further clarification! 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+In MongoDB, you can use **`$and`** and **`$or`** to filter documents based on multiple conditions.
+
+---
+
+## **1. Using `$and` (All conditions must be true)**
+To find employees in **Finance** department **AND** earning more than `40000`:
+```js
+db.collection.find({
+  $and: [
+    { dept: "Finance" },
+    { salary: { $gt: 40000 } }
+  ]
+});
+```
+✅ **Explanation:**  
+- `$and` ensures **both conditions** are true.
+- `{ salary: { $gt: 40000 } }` → Filters salaries **greater than 40000**.
+
+---
+## **2. Using `$or` (At least one condition must be true)**
+To find employees who are either in **Finance** OR earn more than `40000`:
+```js
+db.collection.find({
+  $or: [
+    { dept: "Finance" },
+    { salary: { $gt: 40000 } }
+  ]
+});
+```
+✅ **Explanation:**  
+- `$or` returns documents where **at least one** condition is true.
+---
+
+## **3. Using `$and` & `$or` Together**
+Find employees in **Finance** department **AND** (`salary > 40000` OR `yoj < 2020`):
+```js
+db.collection.find({
+  $and: [
+    { dept: "Finance" },
+    { 
+      $or: [
+        { salary: { $gt: 40000 } },
+        { yoj: { $lt: 2020 } }
+      ]
+    }
+  ]
+});
+```
+✅ **Explanation:**
+- The **Finance** department is mandatory.
+- Employees should **either** earn more than `40000` **OR** have joined before `2020`.
+
+---
+
+Would you like more complex examples? 🚀

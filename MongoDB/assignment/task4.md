@@ -259,5 +259,332 @@ db.food.updateMany(
 
 ---
 
+### **13. Round off the price of all food items to 2 decimal places**
+```js
+db.collection.updateMany( {},[ { $set: { price: { $round: ["$price", 2] } } } ] ); 
+
+```
 
 
+
+
+
+
+
+
+
+
+
+
+
+---
+
+### **1. Update the `price` Field Using `$set`**
+If you want to **update the `price` field** to `150`, use:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { $set: { price: 150 } }
+);
+```
+✅ **Explanation:**  
+- Finds the document where `foodid: "f08"` and updates `price` to `150`.
+
+---
+
+### **2. Add a New Ingredient Using `$push`**
+If you want to **add "chocolate" to the `ingredients` array**, use:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { $push: { ingredients: "chocolate" } }
+);
+```
+✅ **Explanation:**  
+- `$push` adds `"chocolate"` to the `ingredients` array.
+
+---
+
+### **3. Prevent Duplicates Using `$addToSet`**
+If you want to **add "vanilla" to `ingredients`** but **only if it doesn’t already exist**:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { $addToSet: { ingredients: "vanilla" } }
+);
+```
+✅ **Explanation:**  
+- `$addToSet` **prevents duplicates** while adding `"vanilla"`.
+
+---
+
+### **4. Remove a Specific Ingredient Using `$pull`**
+If you want to **remove "sugar" from `ingredients`**, use:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { $pull: { ingredients: "sugar" } }
+);
+```
+✅ **Explanation:**  
+- `$pull` removes `"sugar"` if it exists in `ingredients`.
+
+---
+
+### **5. Remove the First or Last Element Using `$pop`**
+- To **remove the last element** from `ingredients`, use:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { $pop: { ingredients: 1 } }
+);
+```
+- To **remove the first element**, use:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { $pop: { ingredients: -1 } }
+);
+```
+✅ **Explanation:**  
+- `$pop: 1` → Removes the **last element**.
+- `$pop: -1` → Removes the **first element**.
+
+---
+
+### **6. Rename the `hotelname` Field Using `$rename`**
+If you want to **rename `hotelname` to `restaurant`**, use:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { $rename: { hotelname: "restaurant" } }
+);
+```
+✅ **Explanation:**  
+- `$rename` changes `hotelname` → `restaurant`.
+
+---
+
+### **7. Remove a Field Using `$unset`**
+If you want to **remove the `chefname` field**, use:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { $unset: { chefname: "" } }
+);
+```
+✅ **Explanation:**  
+- `$unset` deletes `chefname` from the document.
+
+---
+
+### **8. Use `$setOnInsert` in Upsert**
+If you want to **insert a new document if it doesn’t exist**, but **update only if it does**, use:
+```js
+db.collection.updateOne(
+  { foodid: "f08" },
+  { 
+    $set: { price: 145 },
+    $setOnInsert: { createdAt: new Date() }
+  },
+  { upsert: true }
+);
+```
+✅ **Explanation:**  
+- **If the document exists**, it updates `price` to `145`.
+- **If it doesn’t exist**, it inserts a new document with `createdAt: <current time>`.
+
+---
+
+---
+
+## 🔹 **1. Insert a Document Without Creating a Collection**
+Yes! MongoDB **automatically creates a collection** when you insert a document:
+```js
+db.food.insertOne({
+  foodid: "f08",
+  foodname: "ice cream",
+  foodcat: "dessert",
+  hotelname: "sweet bites",
+  ingredients: ["milk", "sugar", "flavors"],
+  price: 135
+});
+```
+✅ **No need to create a collection manually!**  
+
+---
+
+## 🔹 **2. Find the Highest Salary**
+To find the **highest salary** in a collection:
+```js
+db.employees.find().sort({ salary: -1 }).limit(1);
+```
+✅ **Explanation:**  
+- `sort({ salary: -1 })` → Sorts in **descending order**.  
+- `limit(1)` → Fetches **only the highest salary**.
+
+To get **just the salary value**, use:
+```js
+db.employees.find({}, { salary: 1, _id: 0 }).sort({ salary: -1 }).limit(1);
+```
+✅ **This returns only the salary field**.
+
+---
+
+## 🔹 **3. `$and` & `$or` Conditions**
+### **Find Employees in "Finance" Department Earning More Than 40K**
+```js
+db.employees.find({
+  $and: [
+    { dept: "Finance" },
+    { salary: { $gt: 40000 } }
+  ]
+});
+```
+✅ **Both conditions must be true**.
+
+### **Find Employees in Either "Finance" or "HR" Department**
+```js
+db.employees.find({
+  $or: [
+    { dept: "Finance" },
+    { dept: "HR" }
+  ]
+});
+```
+✅ **At least one condition must be true**.
+
+---
+
+## 🔹 **4. Updating Documents**
+### **a) Update Using `$set`**
+```js
+db.food.updateOne(
+  { foodid: "f08" },
+  { $set: { price: 150 } }
+);
+```
+✅ **Updates `price` to 150**.
+
+---
+
+### **b) Update & Prevent Duplicate Values (`$addToSet`)**
+```js
+db.food.updateOne(
+  { foodid: "f08" },
+  { $addToSet: { ingredients: "chocolate" } }
+);
+```
+✅ **Prevents duplicate values in `ingredients`**.
+
+---
+
+### **c) Remove an Element from an Array (`$pull`)**
+```js
+db.food.updateOne(
+  { foodid: "f08" },
+  { $pull: { ingredients: "sugar" } }
+);
+```
+✅ **Removes `"sugar"` from the `ingredients` array**.
+
+---
+
+### **d) Remove First/Last Element from an Array (`$pop`)**
+- **Remove last ingredient**:
+  ```js
+  db.food.updateOne(
+    { foodid: "f08" },
+    { $pop: { ingredients: 1 } }
+  );
+  ```
+- **Remove first ingredient**:
+  ```js
+  db.food.updateOne(
+    { foodid: "f08" },
+    { $pop: { ingredients: -1 } }
+  );
+  ```
+
+✅ **Removes elements from an array**.
+
+---
+
+### **e) Rename a Field (`$rename`)**
+```js
+db.food.updateOne(
+  { foodid: "f08" },
+  { $rename: { hotelname: "restaurant" } }
+);
+```
+✅ **Renames `hotelname` to `restaurant`**.
+
+---
+
+### **f) Remove a Field (`$unset`)**
+```js
+db.food.updateOne(
+  { foodid: "f08" },
+  { $unset: { chefname: "" } }
+);
+```
+✅ **Deletes the `chefname` field**.
+
+---
+
+### **g) Multiply a Numeric Field (`$mul`)**
+```js
+db.food.updateOne(
+  { foodid: "f08" },
+  { $mul: { price: 1.1 } }  // Increase price by 10%
+);
+```
+✅ **Multiplies `price` by `1.1` (10% increase)**.
+
+---
+
+## 🔹 **5. Use `upsert` to Insert If Not Found**
+```js
+db.food.updateOne(
+  { foodid: "f08" },
+  {
+    $set: { price: 145 },
+    $setOnInsert: { createdAt: new Date() }
+  },
+  { upsert: true }
+);
+```
+✅ **Inserts the document if it doesn’t exist**.
+
+---
+
+## 🔹 **6. Reduce Decimal Points**
+If you have:
+```json
+{
+  "price": 841.5000000000001
+}
+```
+You can **update and round it**:
+```js
+db.food.updateMany(
+  {},
+  [{ $set: { price: { $round: ["$price", 2] } } }]
+);
+```
+✅ **Keeps only 2 decimal places**.
+
+---
+
+## 🔹 **7. Find & Update (`find` + `update`)**
+No, **you cannot chain `.find()` directly with `.update()`**. But you can do:
+```js
+let doc = db.food.findOne({ foodid: "f08" });
+db.food.updateOne(
+  { foodid: "f08" },
+  { $set: { price: doc.price * 1.1 } }  // Increase price by 10%
+);
+```
+✅ **First finds the document, then updates it**.
+
+---
