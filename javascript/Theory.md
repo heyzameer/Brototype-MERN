@@ -29,6 +29,46 @@
         * `defer` attribute scripts are executed after complete HTML parsing.
         * `async` scripts are exectuted asynchronously.
 
+### **`defer` vs `async` in `<script>` tags** 🚀  
+
+Both are used to **load JavaScript without blocking HTML rendering**, but they behave differently:
+
+#### **🔹 `async` (Asynchronous)**
+- Script loads **in parallel** with HTML.
+- Executes **as soon as it's ready** (not in order).
+- Best for **independent scripts** (e.g., analytics, ads).
+
+✅ Use when script **doesn’t depend on other scripts**.  
+❌ May cause issues if scripts rely on execution order.
+
+```html
+<script async src="script.js"></script>
+```
+
+#### **🔹 `defer` (Deferred)**
+- Script loads **in parallel** with HTML.
+- Executes **after HTML is fully loaded**, **in order**.
+- Best for **scripts that need DOM elements**.
+
+✅ Use for **dependent scripts** (like frameworks).  
+✅ Ensures correct **execution order**.
+
+```html
+<script defer src="script.js"></script>
+```
+
+### **⚡ Quick Summary**
+| Feature  | `async` | `defer` |
+|----------|--------|--------|
+| Loads while parsing HTML? | ✅ Yes | ✅ Yes |
+| Executes immediately? | ✅ Yes (when ready) | ❌ No (waits for full HTML) |
+| Executes in order? | ❌ No | ✅ Yes |
+| Use case | Independent scripts | DOM-dependent scripts |
+
+🔹 **Use `async`** for small, independent scripts (e.g., ads, analytics).  
+🔹 **Use `defer`** for scripts that manipulate the DOM or need a specific order.
+
+
 **2. Event Propagation**
 
 *   **Definition:** The order in which event handlers are called when an event occurs on an element that is nested within other elements.
@@ -113,6 +153,8 @@
         let proxy = new Proxy(target, handler);
         console.log(proxy.name); // Output: Getting name, then John
         ```
+
+
 
 *   **e. Event Loop:**  The mechanism that allows JavaScript to handle asynchronous operations (like network requests, timers) in a non-blocking way.
 

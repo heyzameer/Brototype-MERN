@@ -37,11 +37,11 @@
 34. Proxy object
 35. Shallow copy vs. Deep copy (multiple mentions)
 36. Currying
-37. Event bubbling (multiple mentions)
-38. Event propagation
-39. Event capturing
-40. Event delegation
-41. Arrow functions vs. regular functions (`this` keyword differences)
+37. Event bubbling (multiple mentions) ✅
+38. Event propagation ✅
+39. Event capturing ✅
+40. Event delegation ✅
+41. Arrow functions vs. regular functions (`this` keyword differences) ✅
 42. Hashmap
 43. String builder and string buffer
 44. String immutability
@@ -67,11 +67,11 @@
 64. Copy constructor
 65. `throw` and `throws` keywords
 66. Generics
-67. BOM (Browser Object Model) uses
-68. Toggle checkbox by button click (DOM manipulation)
-69. Disable right click of a button (DOM manipulation)
-70. DOM manipulation problems/practice
-71. Event management practice
+67. BOM (Browser Object Model) uses ✅
+68. Toggle checkbox by button click (DOM manipulation) ✅
+69. Disable right click of a button (DOM manipulation) ✅
+70. DOM manipulation problems/practice ✅
+71. Event management practice 
 72. Web API vs REST API
 73. Applications of generator functions
 74. Remove multiples of 3 from an array
@@ -79,7 +79,7 @@
 76. Different ways of creating objects
 77. How to create a class (Classes)
 78. Promise creation and usages
-79. Event loop & code execution
+79. Event loop & code execution ✅
 80. Dynamic typing
 81. Truthy/Falsy values (multiple mentions)
 82. ECMAScript
@@ -120,24 +120,25 @@
 117. Array empty check
 118. Object empty check
 119. Single purpose aggregation
-120. Throttling
+120. Throttling ✅
+120. Debouncing ❌
 121. Event loop
-122. `appendChild` vs `removeChild`
-123. `event.preventDefault`
+122. `appendChild` vs `removeChild` ✅
+123. `event.preventDefault` ✅
 124. Functions vs methods
 125. Factory Functions
-126. V8 engine
-127. Hoisting
-128. Single Thread vs synchronous
-129. Synchronous vs asynchronous
-130. Blocking vs Non-Blocking
+126. V8 engine ✅
+127. Hoisting ✅
+128. Single Thread vs synchronous ✅
+129. Synchronous vs asynchronous ✅
+130. Blocking vs Non-Blocking ✅
 131. Shortest word from string
 132. State in promises
 133. Promise methods
 134. `includes()`
 135. Memoization
 136. Primitive vs Non -Primitive
-137. Var , let , const
+137. Var , let , const ✅
 138. Block {}
 139. Array map
 

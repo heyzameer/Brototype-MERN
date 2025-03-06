@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+      
+    </style>
+</head>
+<body>
+    <div  id="boxMain">
+        <div id="box" style="width: 100px; height: 100px; background-color: red; border-radius: 50%; border: 1px solid black; margin-right: 20px;">
+        </div>
+        
+        <button id="btn" onclick="change()">On</button>
+    </div>
+
+
+    <!-- <div id="clock" style="font-size: 40px; font-family: Arial, sans-serif; text-align: center; margin: 50px 30%; background: black; color: white; padding: 20px; border-radius: 10px;">
+        00:00:00
+    </div> -->
+
+    <!-- <input type="checkbox" id="myCheckbox">
+    <button id="toggleButton">Toggle Checkbox</button>
+    
+    <script>
+      let checkbox = document.getElementById("myCheckbox");
+      let button = document.getElementById("toggleButton");
+    
+      button.addEventListener("click", function() {
+        checkbox.checked = !checkbox.checked; // Toggle the checked state
+      });
+    </script> -->
+
+
+    <button id="button">Toggle Checkbox</button>
+    
+    <!-- <script>
+      let button = document.getElementById("button");
+    
+      button.addEventListener("contextmenu", function() {
+        event.preventDefault();
+        alert("Right-clicking is disabled on this page.");
+      });
+    </script> -->
+
+
+<!-- 
+    <script>
+
+
+function throttle(func,delay){
+let lastCall = 0;
+return function(...args){
+if(Date.now()-lastCall>=delay){
+lastCall= Date.now();
+func(...args);
+}}
+}   
+
+function change(){
+    console.log("change");
+}
+
+
+window.addEventListener("scroll",throttle(change,1000));
+
+    </script> -->
+
+    <script>
+        // function change() {
+        //     let box = document.getElementById('box');
+        //     let btn = document.getElementById('btn');
+        //     let container = document.querySelector('#boxMain');
+        //     let isOn = false;
+
+        //     if (isOn) {
+        //         box.style.backgroundColor = 'red';
+        //         btn.textContent = 'On';
+        //         isOn = false;
+                
+        //         container.classList.add('container');
+        //     } else {
+        //         box.style.backgroundColor = 'green';
+        //         btn.textContent = 'Off';
+        //         isOn = true;
+        //         container.classList.remove('container');
+        //     }
+        //
+
+//  function setTime() {
+//         setInterval(() => {
+//             let now = new Date();
+//             let hours = now.getHours();
+//             let minutes = now.getMinutes().toString().padStart(2, '0');
+//             let seconds = now.getSeconds().toString().padStart(2, '0');
+//             let ampm = hours >= 12 ? "PM" : "AM";
+
+//             // Convert to 12-hour format
+//             hours = hours % 12 || 12; // Converts 0 (midnight) or 12 (noon) to 12
+
+//             document.getElementById("clock").innerText = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+//         }, 1000);
+//     }
+
+    // setTime();
+
+        // var box = document.getElementById('box');
+        // var btn = document.getElementById('btn');
+        // const container = document.querySelector('#boxMain');
+        // var isOn = false;
+
+        // btn.addEventListener('click', function() {
+        //     if (isOn) {
+        //         box.style.backgroundColor = 'red';
+        //         btn.textContent = 'On';
+        //         isOn = false;
+                
+        //         container.classList.add('container');
+        //     } else {
+        //         box.style.backgroundColor = 'green';
+        //         btn.textContent = 'Off';
+        //         isOn = true;
+        //         container.classList.remove('container');
+        //     }
+        // });
+
+
+        // function change() {
+        //     if (isOn) {
+        //         box.style.backgroundColor = 'red';
+        //         // btn.textContent = 'On';
+
+        //     btn.textContent= 'On';
+        //         isOn = false;
+                
+        //         container.classList.add('container');
+        //     } else {
+        //         box.style.backgroundColor = 'green';
+        //         btn.textContent = 'Off';
+        //         isOn = true;
+        //         container.classList.remove('container');
+        //     }
+        // }
+        
+        // let parent = document.getElementById("myDiv");
+        // let newParagraph = document.createElement("p");
+        // newParagraph.textContent = "This is a new paragraph.";
+
+        // newParagraph.setAttribute("style", "color: red; font-size: 20px;");
+        // newParagraph.setClass("myClass");
+
+
+
+
+
+
+
+//   function debounce(func, delay) {
+//     let timeOut;
+//     return function() {
+//      clearTimeout(timeOut);
+//      timeOut= setTimeout(()=>{
+//             func();
+//      },delay);
+//     }
+// }
+//  function chnage(){
+//      console.log("change");
+//     }
+
+//     window.addEventListener("scroll",debounce(chnage,1000));
+
+
+
+
+
+    </script>
+</body>
+</html>
