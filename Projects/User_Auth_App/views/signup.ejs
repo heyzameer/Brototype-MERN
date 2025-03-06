@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style1.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Signup</h2>
+
+    <form id="signup-form" action="/signup" method="POST">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input id="email" type="email" name="email">
+            <small class="error-message" id="email-error"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input id="password" type="password" name="password">
+            <small class="error-message" id="password-error"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password:</label>
+            <input id="confirm-password" type="password" name="cpassword">
+            <small class="error-message" id="confirm-password-error"></small>
+        </div>
+
+        <button type="submit">Signup</button>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('signup-form').addEventListener('submit', formValidate);
+});
+
+function formValidate(e) {
+    e.preventDefault();
+    let isValid = true;
+
+    // Clear previous error messages
+    document.getElementById("email-error").textContent = "";
+    document.getElementById("password-error").textContent = "";
+    document.getElementById("confirm-password-error").textContent = "";
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    // Email validation
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (email === "") {
+        document.getElementById("email-error").textContent = "Please enter your email.";
+        isValid = false;
+    } else if (!emailPattern.test(email)) {
+        document.getElementById("email-error").textContent = "Please enter a valid email address.";
+        isValid = false;
+    }
+
+   // Password validation
+if (password === "") {
+    document.getElementById("password-error").textContent = "Please enter your password.";
+    isValid = false;
+} else if (password.length < 4) {
+    document.getElementById("password-error").textContent = "Password must be at least 4 characters long.";
+    isValid = false;
+} else if (!/^\d+$/.test(password)) {
+    document.getElementById("password-error").textContent = "Password must contain only numbers.";
+    isValid = false;
+}
+
+
+    // Confirm Password validation
+    if (confirmPassword === "") {
+        document.getElementById("confirm-password-error").textContent = "Please confirm your password.";
+        isValid = false;
+    } else if (password !== confirmPassword) {
+        document.getElementById("confirm-password-error").textContent = "Passwords do not match.";
+        isValid = false;
+    }
+
+    // If form is valid, submit it
+    if (isValid) {
+        e.target.submit();
+    }
+}
+</script>
+
+</body>
+</html>

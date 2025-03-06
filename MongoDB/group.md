@@ -404,6 +404,19 @@ db.collection.aggregate([
 ])
 
 
+
+
+db["persons"].aggregate([
+  { $match: { "company.location.country": { $exists: true } } },  
+  { 
+    $group: { 
+      _id: { country: "$company.location.country", age: "$age" },  // Grouping by country and age
+      count: { $sum: 1 }  // Counting the number of persons in each group
+    } 
+  }
+])
+```
+```js
 db["persons"].aggregate([
   {
     $match: { "company.location.country": { $exists: true } }

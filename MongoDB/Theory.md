@@ -1655,7 +1655,7 @@ Using the filtered Laptop sales from the previous example, let's calculate the *
 
 **Key Operators within `$group`:**
 
-*   `$sum`: Adds up numerical values.
+*   `$sum`: Adds up numerical valuxbnbnes.
 *   `$avg`: Calculates the average.
 *   `$min`: Finds the minimum value.
 *   `$max`: Finds the maximum value.

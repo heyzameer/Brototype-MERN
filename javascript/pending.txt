@@ -1,0 +1,1133 @@
+bejesh
+
+
+Pure functions
+Finally block syntax
+Error objects
+instanceof
+Bind concept
+New keyword
+Async-await
+Rest operator
+Inheritance in JS
+IIFE syntax
+Node.js architecture
+Projection in find()
+Creating index
+$all
+$in query
+
+
+
+
+JS:
+illegal shadowing
+generator function example
+constructor
+find non repeating elements from array
+object methods
+console.log(1+ +'1')
+console.log('A'-1)
+find object key with highest value
+
+Node:
+HTTP OPTION
+router chaining
+dynamic routing
+
+Mongo:
+clustered collection
+data modeling
+covered query
+Average on a condition
+pattern matching with vowel
+$setUnion
+
+
+
+
+
+
+
+
+call by value , call by reference
+splice
+reverse a string 
+check if an object is empty
+rest vs spread
+
+v8 engine
+middleware - practical 
+http status codes 
+
+upsert
+$map
+covered query - lacks clarity
+data models
+
+
+
+
+
+
+
+
+
+call,apply,bind(need clarity)
+callback function
+polyfills(need clarity)
+debouncing
+timer function
+reduce
+flatmap
+create middle ware to block all get request
+event emitter
+reactor pattern 
+clustering in node JS
+put vs post
+aggregation pipeline
+distinct
+group
+project
+sort limit
+create compound index
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constructor functions
+Limitations of clsoure
+Function borrowing
+Print first 10 even numbers with a time delay
+
+Node.js - P: 5.5, T: 5.5
+
+Error handling middleware- refer more
+Concurrency - refer more
+
+Mongodb - P: 5, T: 5.5
+
+Second yougest age
+$setUnion
+
+
+
+
+
+
+
+
+JackSon
+
+
+
+
+promise.race vs promise.any, 
+proxy object, 
+pure functions
+
+
+
+Get familiar with basic JS functions && syntax more
+const a1 = [{a1:5,m1:6},{b1:6,b4:45},{k:3,L:9},{m:3,b:4}]
+shallow copy vs deep copy
+call
+apply
+bind
+currying
+Event bubbling
+Event propagation
+arrow functions vs regular functions (this keyword)
+proxy object
+
+
+Hashmap
+Callback
+Multi threading
+String builder and string buffer
+String immutablity
+Operetor precedence
+Implicit type convertion
+Explicit type casting
+Interface
+Declare static array
+Prime number
+Fibonacci series
+
+
+
+
+
+Identifier
+Keywords
+Literals
+Escape sequence
+Interface
+For and while
+Stream api
+Filter 
+Map
+reduce
+ForEach vs map
+Map vs flatMap
+Map and HashMap
+Collection framework
+Set
+Copy constructor
+Throw and throws
+Callback
+Multi threading
+Generics
+StringBuilfer and buffer
+
+
+
+Relational vs Non Relational
+types of index
+replica set
+shard key
+text search
+embedded document
+
+
+
+Geospatial index
+$nor, $not
+$elemMatch
+doubt in update practicals
+
+
+
+Updations and Pending Topics:
+do session management properly
+how to create a capped collection
+upsert query
+practice more aggregate workouts
+pure function 
+higher order functions
+map vs forEach
+object methods
+types of stream
+express.json vs express.urlencoded
+OPTION method
+authentication vs authorization
+session vs cookies
+
+
+
+
+
+
+
+
+Nikhil
+
+Bitways oparetor 
+For and while
+Nullish oparetor 
+Throw
+Res.write
+Router lever middleware 
+maxAge and Expires 
+Views
+Capped collection 
+Merge
+
+
+
+Event capturing(need clarity)
+Event bubbling(need clarity)
+memoization
+debouncing
+reduce
+splice
+flatmap
+promise with settimeout(need clarity)
+put vs patch
+post
+OPTION
+parse url using url module
+transform stream
+piping
+child_process
+fork
+spawn
+Authorization(need clarity)
+distinct
+group
+$avg
+$bulkwrite
+$lookup
+dropindex
+
+
+
+
+
+
+
+BOM uses, 
+toggle checkbox by button click - not known, 
+disable right click of a button, 
+event bubbling vs event capturing, 
+event delegation, 
+regular function vs arrow function, 
+constructor - understand better, 
+pure function - understand better, 
+applications of generator function, 
+deep copy vs shallow copy, 
+path module vs url module, 
+middleware to log all parameters, 
+web api vs rest api, 
+application of capped collection, 
+use of embedded documents, 
+drawbacks of indexing, 
+TTL index, 
+$pop vs $pull, 
+upsert query - learn more, 
+query to find average mark in class 10 - not completed., 
+Need proper understanding of queries working.
+Practice event management and DOM manipulation.
+
+
+
+
+
+JS
+-------
+closures - applications & drawbacks
+workout: remove all the multiples of 3 from an array
+workout: find out the student with highest score from an array of student objects
+different ways of creating objects
+how to create a class
+needs to have better understanding on promise creation & its usages
+event loop & code execution
+
+node-express
+--------------
+built in level middlewares
+router chaining
+query params vs url params - usecases
+
+mongoDB
+-----------
+covered query
+bulkwrite operation
+how to modify a collection name
+pattern matching using regex
+querying with logical operators
+concat two different fields
+give 20% increment to the salary of all the employees
+$expr
+$elemMatch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JS
+- dynamic typing 
+- truthy falsy
+- ECMAScript 
+- is undefined an object?
+- deep copying
+- bind()
+- Weak Ref
+- prototype chain
+- strict mode
+- Promise.all vs Promise.allSettled
+- remove an objet key
+- find largest value in object
+- destructuring 
+- remove nth element from array
+- .reduce(): total characters used in array
+- stop a setInterval after 5 seconds
+
+DB
+- namespace
+- journaling 
+- isolation
+- view
+- distinct
+- $expr
+- $out
+- $unwind
+- priciest vitamin C fruit
+- fruit names ending with "y"
+
+Framework
+- CommonJS
+- thread vs process
+- event emitter
+- environment variables
+- socket
+- clustering
+- process.nextTick vs setImmediate
+- express.urlencoded
+- express.set()
+- CSRF
+- query params vs path params
+- using query params in middleware
+- HTTP 403
+- content negotiation
+- browser cache
+- cookie storage
+
+
+
+
+
+
+
+
+
+Primitive vs Non -Primitive
+Var , let , const
+Functions vs methods
+Factory Functions
+Generator Function
+Object.Create vs Constructor Function
+appendChild vs removeChild
+event.preventDefault
+String Coercion
+== vs ===
+Boolean Coercion
+IIFE 
+Benefits Of IIFE
+this 
+Classes 
+Objects
+Octal Literals 
+Binary Literals
+Cookie vs Cache
+Create A server using node js
+http
+Fs Module
+Write Current date and time to a file using FS module
+Modules
+App.use 
+App.locals
+Exec vs execFile
+Parts of HTTP request and response
+Aggregation
+Practice aggregation 
+$group
+$max 
+$min
+$or , $and , $in
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ajmal
+
+
+Pending
+
+-hrowser is us nodejs
+
+CommonJS
+
+- operations
+
+-clustering
+
+event loop
+
+process.nextTick
+
+event emitter
+
+-duplex stream
+
+environment variables
+
+localhost
+
+-socket
+
+structure of HTTP request and response
+
+HTTP 403, 500
+
+HTTP OPTIONS, CORS, preflight request
+
+content negotiation
+
+cookie headers
+
+query params, reg query
+
+path paramis, roq parame
+
+-error handling middleware atgs
+
+express urlencode
+
+express all vs express.get
+
+changing status code of a resonse
+
+res locals
+
+static files
+
+cookie storage
+
+browser cache
+
+template partials
+
+passing dats to templates
+
+don't show login page for logged in users, redirect them to hom
+
+add a 404 page
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Fs.stat
+
+CSRF
+
+Preflight Request
+
+Parts of HTTP request and response 
+
+ Write current date and time to a file ning FS module
+
+
+res.send res.write
+
+Spawn ve Fork 
+
+Exec ExecFile
+
+Event Loop
+
+Macotask vs Microtask
+
+
+
+
+
+ACID
+
+Components of id
+
+Transactions in DB 
+
+Embedding ve reffrencing when to me which (Data modeling) 
+
+upsert 
+
+Mongoose, ODM, and ORM
+
+ Indexing in detail and its working
+
+Replication
+
+Shardning
+
+TTL 
+
+Capped collection
+
+
+
+
+
+
+
+
+
+ACID
+
+Components of if
+
+Transactions in DB
+
+Embedding vs referencing when to use which (Data modeling)
+
+Suport
+
+Mongoose, ODM, and ORM
+
+Indexing in detail and its working
+
+Replication
+
+Sharding
+
+
+capped acollection
+
+agrgatuion
+
+
+
+
+
+
+Projection
+
+Index-list & create
+
+explain()
+
+Aggregation
+
+
+
+
+
+
+
+Normalised vs Denormalised Data model
+
+addToSet vs Push
+
+replace set working
+
+$map
+
+config db
+
+
+
+
+
+
+
+
+
+
+
+
+full  domain
+
+Callback function
+
+currying
+
+Promise
+
+pana by value va pass by reference(immediately invoked function)
+
+IFE(peed clanty)
+
+memorization
+
+call
+
+apply
+
+bind
+
+Flatmap
+
+polyfills
+
+includes
+
+reduce
+
+debouncing
+
+passport authentication
+
+Event driven arcvhitecture
+
+Event emmiter
+
+Reactor ppsttern
+
+child process
+
+perse hostname  using url module
+
+HTTP methods
+
+preflight request
+
+
+option
+
+tye of streams
+
+distinct
+
+grouop
+
+$avg
+
+sort
+limit
+
+
+gridfs
+
+create capped colleection
+
+iscapped
+
+$addtoSet v$push
+
+cap theorem
+
+explain
+
+replica set
+
+delete document
+
+$lookup
+
+$bulkwrite
+
+
+
+
+palindrome
+
+generater function
+
+factory function
+
+appendchild
+remove child
+
+evenrt prevent default
+
+
+string coercion
+
+object.create vs constructer pattern
+
+weakmap
+json method
+
+
+find second highest elem,et in an array
+
+CORS hewaders
+
+fs.stat
+
+$match
+$group
+
+$max
+
+$min
+
+Clusterd collection
+
+views
+$expr
+
+
+
+
+
+
+
+
+clusterring
+
+option methiods
+
+dispatxch
+
+cookieparser
+
+consurrency
+
+
+
+
+polyyfils
+
+bind()
+
+truthy falsy
+
+factory functions
+
+array sorting
+
+sum of numbers from obnject
+
+$redact
+
+
+
+
+
+
+new Set()
+
+has
+
+Array.from()
+
+
+lastIndexOf()
+
+Symbol
+
+object.entities
+
+strung reverse
+
+sorting
+
+matching eklement in two diff array
+
+
+
+
+
+node js core module
+
+npm install
+
+clustering
+
+CORS policy
+
+constructer
+
+interceptors
+splitting string with space
+usagwe of $set $inc
+
+rwename collectioon
+
+clustered collection
+
+disntinct
+
+\
+
+
+
+
+
+
+
+Single Thread vs synchronous
+
+synchronous vs asynchronous
+
+blocking vs Non-Blocking
+
+Explicit vs  Implicit Type Coercion
+
+Closure
+
+Hoisting
+
+Shallow vs. Deep Copy
+
+Async await
+
+
+
+niodejs
+
+app.use
+
+URL paramws
+
+res.resnder
+
+fork()
+
+express-session
+
+ all flags in cookies
+
+ view engine
+
+ shardning 
+
+
+ voting in replication
+
+ GRIdFS
+
+ $group
+
+var let const
+
+
+BLOck{}
+
+Arrap map
+
+express middle ware
+
+router midlleware
+
+application midllewarwe
+
+
+view engine
+
+
+datatype in mongodb
+
+
+storage engines
+
+trithy false values
+
+asynchronoues functions
+
+
+
+finally
+
+sprad rest operatter
+
+
+
+
+
+
+
+
+
+
+
+application and drwavback opf closure
+
+shorte word from string
+
+hwo to remove a key value pair from an object
+
+arrowe functioon
+
+regular function
+array object combination workouts
+
+
+nodejs
+
+routing in http server
+
+application vs router level middle ware
+
+sessin cookie working flow
+
+
+http options
+
+
+mongo
+
+$expr
+
+$facet
+
+aggreagation workout involving multiple statgesd
+
+
+session handling
+
+http
+
+
+cors
+
+types of middlewaewe
+
+
+MVC arcitectyre
+
+process vs thread
+
+res.write and res.send diffrence
+
+
+state in promises
+promise methids
+
+replica ste
+
+condintional operaters in mongo
+
+cout group sum
+
+
+
+
+Duplicate Error handling, validation, exception handling, Session timeout, Legs, Negative infinity, pup up boxes (alert.prompt.confirm), delegation, pipe, Hooks, Date, Var, esll backfunction, example of het, hoc, shallow/Deep Copy, Aggregartion, Atlas function, triggers, debugging, Load balancing.
+
+
+
+
+
+
+
+variable shadowing
+
+deep copy of an object
+
+const name = myStr ??no name;
+
+ const name myStr?.name;
+ 
+console.log(null == undefined);
+
+
+100 ststus code
+
+XSS attacks
+
+csrf csrf tokens
+
+security machanism
+
+write head vs setHeader
+
+session and cookie
+
+
+vieww engine 
+
+
+
+
+
+TTL index
+
+create ttl index
+
+ckuster and custer index
+
+$facet
+
+isCapped
+
+renameCollection
+
+Sum of arte of all documenets
+
+
+
+
+prototype
+
+array emplty
+
+
+object empty
+
+morgan
+
+single purpose aggr
+app.all
+app.use(express.json())
+
+http OPtions
+
+router.route route chaining
+
+.env File
+
+
+
+
+
+
+
+
+
+
+dom
+bom
+
+manuapulation problems
+
+array object strings
+
+reduce example-- duplicate avg multiple prime
+
+
+call back promise async await
+
+genarator function example
+
+
+event propagation
+
+throtteling debousing
+
+
+
+
+promise and write the data I the file
+
+event cluster child process
+
+
+
+theory
+
+indexing why 
+
+other then indexing optimization
+
+why lookup
+
+mongodb advance query

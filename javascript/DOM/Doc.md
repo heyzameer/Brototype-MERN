@@ -1,5 +1,5 @@
 
-<!-- **DOM (Document Object Model)** is a programming interface for web documents. It represents the structure of an HTML or XML document as a **tree-like model**, where each element is a **node**. With the DOM, JavaScript can access and manipulate elements dynamically, allowing developers to modify content, structure, and styles in real time.
+**DOM (Document Object Model)** is a programming interface for web documents. It represents the structure of an HTML or XML document as a **tree-like model**, where each element is a **node**. With the DOM, JavaScript can access and manipulate elements dynamically, allowing developers to modify content, structure, and styles in real time.
 
 ### **Key Features of DOM:**
 - Represents **HTML elements** as objects.
@@ -20,7 +20,7 @@ function changeText() {
 }
 ```
 When the button is clicked, the text inside the `<p>` tag changes dynamically.
- -->
+
 
 
 

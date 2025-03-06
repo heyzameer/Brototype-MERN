@@ -859,8 +859,11 @@ MongoDB provides a variety of conditional operators for both querying and aggreg
 
     ```javascript
     db.adminCommand({ renameCollection: "<old_db_name>.<old_collection_name>", to: "<new_db_name>.<new_collection_name>" });
-    ```
+ 
+    dv.adminCommand({renameColllection:"db.persons", to: "db.newPersons"})
 
+    db.persons.renameCollection("person");
+   ```
     *   `<old_db_name>.<old_collection_name>`: The fully qualified name (including the database) of the collection to rename.
     *   `<new_db_name>.<new_collection_name>`: The desired new fully qualified name.
 
@@ -995,3 +998,136 @@ db.users.aggregate([
 - `$group` → Groups documents by `country`  
 - `$sum` → Counts occurrences  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### **Data Modeling in MongoDB**
+Data modeling in MongoDB involves structuring your data efficiently to ensure high performance, scalability, and ease of querying. Since MongoDB is a NoSQL database, its schema is flexible, allowing developers to design models that fit their application needs.
+
+#### **1. Schema Design Approaches**
+MongoDB supports two primary ways to structure data:
+1. **Embedded Documents (Denormalization)**
+   - Store related data within a single document.
+   - Best for **one-to-few** relationships.
+   - Improves read performance as no joins are needed.
+   - Example:
+     ```json
+     {
+       "_id": 1,
+       "name": "John Doe",
+       "orders": [
+         { "order_id": 101, "amount": 250 },
+         { "order_id": 102, "amount": 100 }
+       ]
+     }
+     ```
+   - ✅ Fast reads, fewer queries.
+   - ❌ Duplication of data if orders are updated separately.
+
+2. **References (Normalization)**
+   - Store related data separately and use references (ObjectIds).
+   - Best for **one-to-many** or **many-to-many** relationships.
+   - Improves consistency and reduces redundancy.
+   - Example:
+     ```json
+     {
+       "_id": 1,
+       "name": "John Doe",
+       "orders": [101, 102]
+     }
+     ```
+     ```json
+     {
+       "_id": 101,
+       "user_id": 1,
+       "amount": 250
+     }
+     ```
+   - ✅ Avoids data duplication, good for large relationships.
+   - ❌ More queries needed (joins using `$lookup` in aggregation).
+
+---
+
+#### **2. Choosing Between Embedded vs. Referenced**
+| **Factor**     | **Embedded** | **Referenced** |
+|---------------|------------|--------------|
+| Data Size | Small | Large |
+| Read Performance | Faster | Slower |
+| Write Performance | Slower (duplication) | Faster (normalized) |
+| Data Consistency | Lower | Higher |
+| Query Complexity | Simple | Complex |
+
+---
+
+### **Anti-Patterns in MongoDB**
+Anti-patterns are design mistakes that can degrade performance, increase storage costs, or make querying inefficient.
+
+#### **1. Massive One-to-Many Embedded Arrays**
+- **Issue:** Storing large arrays inside documents leads to excessive document size.
+- **Example:**
+  ```json
+  {
+    "_id": 1,
+    "name": "Course",
+    "students": [ "student1", "student2", ..., "student100000" ]
+  }
+  ```
+- **Fix:** Use references instead.
+
+#### **2. Unbounded Growth in Documents**
+- **Issue:** Documents growing too large (above 16MB BSON limit).
+- **Example:**
+  ```json
+  {
+    "_id": 1,
+    "chat_id": "123",
+    "messages": [
+      { "text": "Hello" },
+      { "text": "How are you?" },
+      ...
+    ]
+  }
+  ```
+- **Fix:** Use a **separate collection** for messages and reference them.
+
+#### **3. Indexing Everything**
+- **Issue:** Having too many indexes increases write overhead.
+- **Fix:** Create **indexes only on frequently queried fields**.
+
+#### **4. Large Number of Collections**
+- **Issue:** Creating separate collections for every user (e.g., `user_1_posts`, `user_2_posts`).
+- **Fix:** Store user posts in a **single collection** with a `user_id` field.
+
+#### **5. Overusing `$lookup` (Joins)**
+- **Issue:** Excessive use of `$lookup` in aggregation pipelines causes slow queries.
+- **Fix:** Consider **denormalization** where appropriate.
+
+#### **6. Storing Computable Data**
+- **Issue:** Storing fields that can be calculated at query time increases storage costs.
+- **Fix:** Compute values when querying instead of storing redundant data.
+
+---
+
+### **Best Practices**
+✅ Use **embedded documents** for small, frequently accessed related data.  
+✅ Use **references** for large, growing datasets.  
+✅ Optimize indexes and avoid over-indexing.  
+✅ Keep documents **within BSON size limits** (16MB).  
+✅ Use **sharding** when scaling large collections.  
+
+Would you like examples for a specific use case? 🚀
