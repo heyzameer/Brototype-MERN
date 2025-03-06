@@ -1091,3 +1091,29 @@ In an interview, be prepared to:
 | Method Definition | Can be used. `this` will refer to the object the method is called on                | Can be used. `this` will lexically bind to surrounding scope, often the class instance.         |
 
 In short: Arrow functions are a more concise syntax for writing functions, and their lexical `this` binding makes them particularly useful in situations where you want to preserve the `this` context from the surrounding code. Regular functions are more flexible and are necessary in cases where you need dynamic `this` binding, the `arguments` object, or constructor behavior.  Choose the type of function that best suits the specific situation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ### **Differences Between `var`, `let`, and `const` in JavaScript**
+
+ | **Feature**                  | **`var`** | **`let`** | **`const`** |
+ |------------------------------|-----------|-----------|-------------|
+ | **Introduced In**             | ES5 (Old JavaScript) | ES6 (Modern JavaScript) | ES6 (Modern JavaScript) |
+ | **Hoisting**                  | ✅ Hoisted with `undefined` | ✅ Hoisted but in **Temporal Dead Zone (TDZ)** | ✅ Hoisted but in **Temporal Dead Zone (TDZ)** |
+ | **Scope**                     | Function-scoped | Block-scoped | Block-scoped |
+ | **Redeclaration**             | ✅ Allowed | ❌ Not allowed | ❌ Not allowed |
+ | **Reassignment**              | ✅ Allowed | ✅ Allowed | ❌ Not allowed |
+ | **Default Initialization**    | `undefined` | ❌ No default value (TDZ) | ❌ No default value (TDZ) |
+ | **Global Object Attachment**  | ✅ Attached to the global object (`window` in browsers) | ❌ Not attached to the global object | ❌ Not attached to the global object |
+ | **Usage**                     | Use in function scope or older JavaScript code | Use when block scope is needed (loops, conditionals) | Use when a variable should not be reassigned after initialization (constants) |

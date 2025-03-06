@@ -526,54 +526,54 @@ console.log(arr);  // Output: [1, 2, 3, 4, 5]
 
 
 
-const array2D = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-];
+// const array2D = [
+//     [1, 2, 3],
+//     [4, 5, 6],
+//     [7, 8, 9]
+// ];
 
-// Using nested loops
-for (let i = 0; i < array2D.length; i++) {
-    let row = '';
-    for (let j = 0; j < array2D[i].length; j++) {
-        row += array2D[i][j] + ' '; // Add each element of the row to a string
-    }
-    console.log(row); // Print the row after adding all elements
-}
-
-
+// // Using nested loops
+// for (let i = 0; i < array2D.length; i++) {
+//     let row = '';
+//     for (let j = 0; j < array2D[i].length; j++) {
+//         row += array2D[i][j] + ' '; // Add each element of the row to a string
+//     }
+//     console.log(row); // Print the row after adding all elements
+// }
 
 
 
 
-const prompt = require('prompt-sync')();
-let rows = 2, cols = 2;
-let array1 = [];
-
-// Using nested loops to take input
-for (let i = 0; i < rows; i++) {
-    array1[i] = []; // Initialize row
-    for (let j = 0; j < cols; j++) {
-        array1[i][j] = parseInt(prompt(`Enter value for arr[${i}][${j}]`));
-    }
-}
-
-console.log(array1);
 
 
-
-
-const readline = require("readline-sync");
-
+// const prompt = require('prompt-sync')();
 // let rows = 2, cols = 2;
-let array2 = [];
+// let array1 = [];
 
-// Taking input
-for (let i = 0; i < rows; i++) {
-    array2[i] = [];
-    for (let j = 0; j < cols; j++) {
-        array2[i][j] = parseInt(readline.question(`Enter value for arr[${i}][${j}]: `));
-    }
-}
+// // Using nested loops to take input
+// for (let i = 0; i < rows; i++) {
+//     array1[i] = []; // Initialize row
+//     for (let j = 0; j < cols; j++) {
+//         array1[i][j] = parseInt(prompt(`Enter value for arr[${i}][${j}]`));
+//     }
+// }
 
-console.log(array2);
+// console.log(array1);
+
+
+
+
+// const readline = require("readline-sync");
+
+// // let rows = 2, cols = 2;
+// let array2 = [];
+
+// // Taking input
+// for (let i = 0; i < rows; i++) {
+//     array2[i] = [];
+//     for (let j = 0; j < cols; j++) {
+//         array2[i][j] = parseInt(readline.question(`Enter value for arr[${i}][${j}]: `));
+//     }
+// }
+
+// console.log(array2);

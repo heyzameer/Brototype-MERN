@@ -370,3 +370,39 @@ Total Topics (approximate, due to some overlap and clarification):
 *   **MongoDB:** 108
 
 **Grand Total: 350**
+
+
+
+
+
+
+
+
+
+Here are a few key **Node.js, Express.js, and MongoDB** topics you should focus on for your **Week 6 Full Domain Review**:  
+
+### **1. Node.js**  
+- **Event Loop & Asynchronous Programming** → Understanding how Node.js handles async tasks using the event loop.  
+- **File System (fs module)** → Reading, writing, updating, and deleting files.  
+- **Streams & Buffers** → Handling large data efficiently using streams.  
+- **Child Processes** → Running system commands or background tasks in Node.js.  
+- **Built-in Modules** → Using `path`, `os`, `http`, `crypto`, etc.  
+- **Error Handling** → Try-catch, async error handling, and middleware-based handling.  
+
+### **2. Express.js**  
+- **Routing & Middleware** → Implementing route handling and custom middleware.  
+- **Request & Response Handling** → Managing HTTP methods (`GET`, `POST`, etc.) and responses.  
+- **Authentication & Authorization** → Implementing JWT-based authentication and role-based access.  
+- **Error Handling in Express** → Using global error-handling middleware.  
+- **Session & Cookies** → Managing user sessions and cookies.  
+- **CORS Handling** → Enabling cross-origin requests.  
+
+### **3. MongoDB (with Mongoose)**  
+- **Schema & Models** → Defining collections using Mongoose schemas.  
+- **CRUD Operations** → Performing Create, Read, Update, Delete operations.  
+- **Aggregation Framework** → Using pipelines for advanced data queries.  
+- **Indexes & Performance Optimization** → Creating indexes for better performance.  
+- **Transactions in MongoDB** → Handling multiple operations atomically.  
+- **Connection Handling** → Using connection pools and handling database disconnections.  
+
+These are the major topics that will help you in your review. Since you're following these topics more, let me know if you need **deep dives, cheat sheets, or practice problems** for any of them! 🚀
