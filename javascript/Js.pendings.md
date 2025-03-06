@@ -1,3 +1,4 @@
+✅❌
 **JavaScript Interview Questions:**
 
 1.  **Pure functions:**
