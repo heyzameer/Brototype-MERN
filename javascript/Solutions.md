@@ -1980,6 +1980,137 @@ In essence, `Array.of()` is for creating arrays from literal values, while `Arra
     console.log(mySet.size); // Output: 0
     ```
 
+
+
+
+---
+
+### ✅ **1. Using `new Set()` Constructor (Most Common)**
+```js
+let mySet = new Set();
+mySet.add(1);
+mySet.add(2);
+mySet.add(2); // Duplicate, won't be added
+
+console.log(mySet); // Output: Set(2) {1, 2}
+```
+- **Explanation:**  
+   - `new Set()` creates a new empty Set.  
+   - `.add()` method is used to add unique values.  
+   - If you try to add duplicates, they will be ignored.  
+
+---
+
+### ✅ **2. Creating a Set from an Array**
+```js
+let myArray = [1, 2, 3, 3, 4, 5, 5];
+let mySet = new Set(myArray);
+
+console.log(mySet); // Output: Set(5) {1, 2, 3, 4, 5}
+```
+- **Explanation:**  
+   - Pass an array inside the `new Set()` constructor.  
+   - It automatically removes duplicate values.  
+
+---
+
+### ✅ **3. Using `Set()` with Strings**
+```js
+let myString = "aabbcc";
+let mySet = new Set(myString);
+
+console.log(mySet); // Output: Set(3) {'a', 'b', 'c'}
+```
+- **Explanation:**  
+   - It will automatically remove duplicate letters from the string.  
+   - Useful when you want to extract **unique characters** from a string.  
+
+---
+
+### ✅ **4. Convert Set Back to Array (Optional)**
+If you want to convert a Set back to an array:  
+```js
+let mySet = new Set([1, 2, 2, 3, 4]);
+let uniqueArray = Array.from(mySet);
+
+console.log(uniqueArray); // Output: [1, 2, 3, 4]
+```
+OR  
+```js
+let uniqueArray = [...mySet];
+console.log(uniqueArray); // Output: [1, 2, 3, 4]
+```
+
+---
+
+### ✅ **5. Remove Elements from Set**
+```js
+let mySet = new Set([1, 2, 3, 4]);
+
+mySet.delete(2);
+console.log(mySet); // Output: Set(3) {1, 3, 4}
+```
+
+---
+
+### ✅ **6. Check if an Element Exists**
+```js
+let mySet = new Set([1, 2, 3]);
+
+console.log(mySet.has(2)); // true
+console.log(mySet.has(5)); // false
+```
+
+---
+
+### ✅ **7. Clear All Elements from Set**
+```js
+let mySet = new Set([1, 2, 3]);
+
+mySet.clear();
+console.log(mySet); // Output: Set(0) {}
+```
+
+---
+
+### ✅ **8. Iterate Over a Set**
+```js
+let mySet = new Set([1, 2, 3]);
+
+mySet.forEach(value => {
+  console.log(value);
+});
+```
+OR  
+```js
+for (let value of mySet) {
+  console.log(value);
+}
+```
+
+---
+
+### 🚀 Summary
+| Method      | Description                      |
+|-------------|----------------------------------|
+| `add()`     | Adds a new element to the Set.   |
+| `delete()`  | Removes an element from the Set. |
+| `has()`     | Checks if an element exists.     |
+| `clear()`   | Removes all elements from Set.   |
+| `forEach()` | Iterates through the Set.        |
+
+---
+
+
+
+
+
+
+
+
+
+
+
 **2. `Map`**
 
 *   **Purpose:** Stores a collection of *key-value pairs*, where both keys and values can be of *any* type (primitive or object).  This is different from plain JavaScript objects, where keys are always coerced to strings.
