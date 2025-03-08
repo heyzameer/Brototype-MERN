@@ -561,7 +561,6 @@ This detailed explanation, along with the examples, should give you a very stron
 
 
 
-Okay, let's thoroughly cover these crucial event handling concepts in JavaScript: Event Bubbling, Event Propagation, Event Capturing, and Event Delegation. I'll provide clear explanations, examples, and comparisons, geared towards a solid understanding for interviews and practical use.
 
 **Event Propagation: The Foundation**
 
@@ -1117,3 +1116,1007 @@ In short: Arrow functions are a more concise syntax for writing functions, and t
  | **Default Initialization**    | `undefined` | ❌ No default value (TDZ) | ❌ No default value (TDZ) |
  | **Global Object Attachment**  | ✅ Attached to the global object (`window` in browsers) | ❌ Not attached to the global object | ❌ Not attached to the global object |
  | **Usage**                     | Use in function scope or older JavaScript code | Use when block scope is needed (loops, conditionals) | Use when a variable should not be reassigned after initialization (constants) |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**Pure Functions:**
+
+*   **Deterministic:** Same inputs *always* produce the same output.
+*   **No Side Effects:**  Doesn't modify anything outside its scope (no global variable changes, no argument mutations, no I/O).
+*   **Benefits:** Predictable, testable, composable, memoizable, parallelizable.
+
+**Impure Functions:**
+
+*   **Non-Deterministic:** Output might vary even with the same inputs (e.g., uses random numbers, dates, external state).
+*   **Side Effects:** Modifies something outside its scope (changes global variables, mutates arguments passed by reference, performs I/O like network requests or DOM updates).
+
+**In essence:**
+
+*   Pure functions *only* return a value based on their inputs, like a mathematical formula.
+*   Impure functions *do* something else besides returning a value, affecting the outside world.
+
+**Complete, but short:** A pure function is like a self-contained calculation; an impure function interacts with the broader system.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Let's discuss function borrowing and the limitations of closures in JavaScript.
+
+**31. Function Borrowing**
+
+Function borrowing in JavaScript is a technique where an object uses a method (function) that belongs to a *different* object.  It's a way to reuse functionality without inheritance or creating new objects. This is primarily achieved using the `call()`, `apply()`, and `bind()` methods.
+
+**How it Works:**
+
+*   **`this` Keyword:** The key to function borrowing is understanding the `this` keyword.  Inside a function, `this` usually refers to the object that "owns" the function (the object the function is a property of).  However, `call()`, `apply()`, and `bind()` allow you to *explicitly set* what `this` refers to when the function is called.
+
+*   **`call()`:**
+    *   Syntax: `function.call(thisArg, arg1, arg2, ...)`
+    *   `thisArg`: The object that you want `this` to refer to inside the function.
+    *   `arg1`, `arg2`, ...:  Arguments to be passed to the function *individually*.
+
+*   **`apply()`:**
+    *   Syntax: `function.apply(thisArg, [argsArray])`
+    *   `thisArg`:  Same as `call()`.
+    *   `argsArray`: An *array* (or array-like object) containing the arguments to be passed to the function.
+
+*   **`bind()`:**
+    *   Syntax: `function.bind(thisArg, arg1, arg2, ...)`
+    *   `thisArg`: Same as `call()`.
+    *   `arg1`, `arg2`, ...:  Arguments to be *pre-bound* to the function.
+    *   **Key Difference:**  `bind()` doesn't *immediately* call the function.  Instead, it returns a *new* function where `this` is *permanently* set to `thisArg`, and any provided arguments are pre-filled. You can then call this new function later.
+
+**Example:**
+
+```javascript
+// Object with a method
+const person1 = {
+  firstName: "Alice",
+  lastName: "Smith",
+  fullName: function(greeting, punctuation) {
+    return greeting + " " + this.firstName + " " + this.lastName + punctuation;
+  }
+};
+
+// Another object that doesn't have the fullName method
+const person2 = {
+  firstName: "Bob",
+  lastName: "Jones"
+};
+
+// Borrowing using call()
+let result1 = person1.fullName.call(person2, "Hello", "!");
+console.log(result1); // Output: Hello Bob Jones!
+
+// Borrowing using apply()
+let result2 = person1.fullName.apply(person2, ["Hi there", "?"]);
+console.log(result2); // Output: Hi there Bob Jones?
+
+// Borrowing using bind()
+const greetBob = person1.fullName.bind(person2, "Greetings"); // Pre-bind greeting
+let result3 = greetBob("..."); // Call the bound function later
+console.log(result3); // Output: Greetings Bob Jones...
+
+//Another Example
+const wizard = {
+    name: "Merlin",
+    health: 50,
+    heal(num1, num2){
+        return this.health += num1 + num2;
+    }
+}
+const archer = {
+    name: "Robin Hood",
+    health: 30
+}
+
+console.log("1", archer); // 1 {name: 'Robin Hood', health: 30}
+wizard.heal.call(archer, 50, 60); // borrowing heal method from wizard using call
+//wizard.heal.apply(archer, [20, 30]); // using apply
+console.log("2", archer); // 2 {name: 'Robin Hood', health: 140}
+
+const healArcher = wizard.heal.bind(archer, 50, 60);
+console.log("3", archer);
+healArcher();
+console.log("4",archer);
+
+```
+
+**When to Use Function Borrowing:**
+
+*   **Code Reuse:**  Avoid duplicating code when you have similar methods across different objects.
+*   **Working with Array-Like Objects:**  `apply()` is particularly useful for working with array-like objects (e.g., the `arguments` object within a function) that don't have built-in array methods. You can borrow methods like `slice()` from the `Array.prototype`.
+* **Functional Programming Techniques:** In functional programming, using call and apply on Array methods is a common pattern.
+
+**32. Limitations of Closures**
+
+Closures are a powerful and fundamental feature in JavaScript, but they do have some limitations:
+
+1.  **Memory Consumption (Potential for Memory Leaks):**
+    *   The most significant limitation.  A closure keeps a reference to its surrounding lexical environment (variables from the outer function).  As long as the closure exists, those variables *cannot* be garbage collected, even if the outer function has finished executing.
+    *   If you're not careful, this can lead to memory leaks, especially in long-running applications or when creating many closures in a loop.  If a closure holds onto large objects or data structures that are no longer needed, they'll consume memory unnecessarily.
+
+2.  **Performance Overhead (Slight):**
+    *   Creating and maintaining closures does have a *small* performance overhead compared to accessing variables directly within the same scope.  The JavaScript engine needs to keep track of the closure's environment.
+    *   This overhead is usually negligible in most cases, but it *can* become noticeable in performance-critical code with very frequent closure creation or access.
+
+3.  **Complexity (Can Make Code Harder to Understand):**
+    *   While closures are powerful, they can sometimes make code harder to reason about, especially for developers who are new to the concept.  The fact that a function can access variables from its surrounding scope, even after that scope has seemingly finished, can be a source of confusion.
+    *   Overuse or deeply nested closures can lead to code that's difficult to follow and debug.
+
+4. **Accidental Variable Sharing (Especially in Loops):**
+    * Classic Issue with Loops:
+       ```javascript
+            for (var i = 0; i < 5; i++) {
+                setTimeout(function() {
+                console.log(i); // Logs 5 five times!
+                }, 1000);
+            }
+       ```
+    *    Reason:  All the closures created inside the loop share the *same* `i` variable (because of `var`). By the time the `setTimeout` callbacks execute, the loop has finished, and `i` is 5.
+    * Solutions:
+      *   Use `let` instead of `var`: `let` creates a *new* binding of `i` for each iteration of the loop.
+         ```javascript
+          for (let i = 0; i < 5; i++) { // Use let
+            setTimeout(function() {
+                console.log(i); // Logs 0, 1, 2, 3, 4
+            }, 1000);
+         }
+         ```
+      *  IIFE (Immediately Invoked Function Expression): Create a new scope for each iteration.
+         ```javascript
+         for (var i = 0; i < 5; i++) {
+             (function(j) { // Create a new scope with IIFE
+                 setTimeout(function() {
+                    console.log(j); // Logs 0, 1, 2, 3, 4
+                 }, 1000);
+             })(i);
+         }
+         ```
+5. **Private Data is Not Truly Private:**
+    *   Although closures are often used to emulate "private" variables, they're not truly private in the same way that, say, private members in a class-based language are.  It's still possible to access the closed-over variables through debugging tools or by manipulating the closure itself.  It's *private by convention*, not enforced by the language.
+
+**In Summary:**
+
+The main limitations of closures revolve around memory management and potential complexity.  While the performance overhead is usually minor, the risk of memory leaks is real and requires careful consideration. The loop issue with `var` is a common pitfall to be aware of.  Despite these limitations, closures are an essential and widely used feature in JavaScript, and understanding these limitations helps you use them effectively and avoid problems.
+
+
+
+
+
+
+
+
+
+
+
+
+**31. Function Borrowing**
+
+Function borrowing in JavaScript is a technique where an object uses a method (function) that belongs to a *different* object.  It's a way to reuse functionality without inheritance or creating new objects. This is primarily achieved using the `call()`, `apply()`, and `bind()` methods.
+
+**How it Works:**
+
+*   **`this` Keyword:** The key to function borrowing is understanding the `this` keyword.  Inside a function, `this` usually refers to the object that "owns" the function (the object the function is a property of).  However, `call()`, `apply()`, and `bind()` allow you to *explicitly set* what `this` refers to when the function is called.
+
+*   **`call()`:**
+    *   Syntax: `function.call(thisArg, arg1, arg2, ...)`
+    *   `thisArg`: The object that you want `this` to refer to inside the function.
+    *   `arg1`, `arg2`, ...:  Arguments to be passed to the function *individually*.
+
+*   **`apply()`:**
+    *   Syntax: `function.apply(thisArg, [argsArray])`
+    *   `thisArg`:  Same as `call()`.
+    *   `argsArray`: An *array* (or array-like object) containing the arguments to be passed to the function.
+
+*   **`bind()`:**
+    *   Syntax: `function.bind(thisArg, arg1, arg2, ...)`
+    *   `thisArg`: Same as `call()`.
+    *   `arg1`, `arg2`, ...:  Arguments to be *pre-bound* to the function.
+    *   **Key Difference:**  `bind()` doesn't *immediately* call the function.  Instead, it returns a *new* function where `this` is *permanently* set to `thisArg`, and any provided arguments are pre-filled. You can then call this new function later.
+
+**Example:**
+
+```javascript
+// Object with a method
+const person1 = {
+  firstName: "Alice",
+  lastName: "Smith",
+  fullName: function(greeting, punctuation) {
+    return greeting + " " + this.firstName + " " + this.lastName + punctuation;
+  }
+};
+
+// Another object that doesn't have the fullName method
+const person2 = {
+  firstName: "Bob",
+  lastName: "Jones"
+};
+
+// Borrowing using call()
+let result1 = person1.fullName.call(person2, "Hello", "!");
+console.log(result1); // Output: Hello Bob Jones!
+
+// Borrowing using apply()
+let result2 = person1.fullName.apply(person2, ["Hi there", "?"]);
+console.log(result2); // Output: Hi there Bob Jones?
+
+// Borrowing using bind()
+const greetBob = person1.fullName.bind(person2, "Greetings"); // Pre-bind greeting
+let result3 = greetBob("..."); // Call the bound function later
+console.log(result3); // Output: Greetings Bob Jones...
+
+//Another Example
+const wizard = {
+    name: "Merlin",
+    health: 50,
+    heal(num1, num2){
+        return this.health += num1 + num2;
+    }
+}
+const archer = {
+    name: "Robin Hood",
+    health: 30
+}
+
+console.log("1", archer); // 1 {name: 'Robin Hood', health: 30}
+wizard.heal.call(archer, 50, 60); // borrowing heal method from wizard using call
+//wizard.heal.apply(archer, [20, 30]); // using apply
+console.log("2", archer); // 2 {name: 'Robin Hood', health: 140}
+
+const healArcher = wizard.heal.bind(archer, 50, 60);
+console.log("3", archer);
+healArcher();
+console.log("4",archer);
+
+```
+
+**When to Use Function Borrowing:**
+
+*   **Code Reuse:**  Avoid duplicating code when you have similar methods across different objects.
+*   **Working with Array-Like Objects:**  `apply()` is particularly useful for working with array-like objects (e.g., the `arguments` object within a function) that don't have built-in array methods. You can borrow methods like `slice()` from the `Array.prototype`.
+* **Functional Programming Techniques:** In functional programming, using call and apply on Array methods is a common pattern.
+
+**32. Limitations of Closures**
+
+Closures are a powerful and fundamental feature in JavaScript, but they do have some limitations:
+
+1.  **Memory Consumption (Potential for Memory Leaks):**
+    *   The most significant limitation.  A closure keeps a reference to its surrounding lexical environment (variables from the outer function).  As long as the closure exists, those variables *cannot* be garbage collected, even if the outer function has finished executing.
+    *   If you're not careful, this can lead to memory leaks, especially in long-running applications or when creating many closures in a loop.  If a closure holds onto large objects or data structures that are no longer needed, they'll consume memory unnecessarily.
+
+2.  **Performance Overhead (Slight):**
+    *   Creating and maintaining closures does have a *small* performance overhead compared to accessing variables directly within the same scope.  The JavaScript engine needs to keep track of the closure's environment.
+    *   This overhead is usually negligible in most cases, but it *can* become noticeable in performance-critical code with very frequent closure creation or access.
+
+3.  **Complexity (Can Make Code Harder to Understand):**
+    *   While closures are powerful, they can sometimes make code harder to reason about, especially for developers who are new to the concept.  The fact that a function can access variables from its surrounding scope, even after that scope has seemingly finished, can be a source of confusion.
+    *   Overuse or deeply nested closures can lead to code that's difficult to follow and debug.
+
+4. **Accidental Variable Sharing (Especially in Loops):**
+    * Classic Issue with Loops:
+       ```javascript
+            for (var i = 0; i < 5; i++) {
+                setTimeout(function() {
+                console.log(i); // Logs 5 five times!
+                }, 1000);
+            }
+       ```
+    *    Reason:  All the closures created inside the loop share the *same* `i` variable (because of `var`). By the time the `setTimeout` callbacks execute, the loop has finished, and `i` is 5.
+    * Solutions:
+      *   Use `let` instead of `var`: `let` creates a *new* binding of `i` for each iteration of the loop.
+         ```javascript
+          for (let i = 0; i < 5; i++) { // Use let
+            setTimeout(function() {
+                console.log(i); // Logs 0, 1, 2, 3, 4
+            }, 1000);
+         }
+         ```
+      *  IIFE (Immediately Invoked Function Expression): Create a new scope for each iteration.
+         ```javascript
+         for (var i = 0; i < 5; i++) {
+             (function(j) { // Create a new scope with IIFE
+                 setTimeout(function() {
+                    console.log(j); // Logs 0, 1, 2, 3, 4
+                 }, 1000);
+             })(i);
+         }
+         ```
+5. **Private Data is Not Truly Private:**
+    *   Although closures are often used to emulate "private" variables, they're not truly private in the same way that, say, private members in a class-based language are.  It's still possible to access the closed-over variables through debugging tools or by manipulating the closure itself.  It's *private by convention*, not enforced by the language.
+
+
+
+
+
+
+
+
+
+
+If you want to round a result to **two decimal places** in JavaScript, you can use any of the following methods:
+
+### **1. Using `toFixed(2)` (returns a string)**
+```javascript
+let num = 5.6789;
+let rounded = num.toFixed(2);
+console.log(rounded); // Output: "5.68" (String)
+```
+**Note:** `toFixed(2)` returns a **string**, so convert it to a number if needed:
+```javascript
+let roundedNumber = parseFloat(num.toFixed(2));
+console.log(roundedNumber); // Output: 5.68 (Number)
+```
+
+---
+
+### **2. Using `Math.round()` (returns a number)**
+```javascript
+let num = 5.6789;
+let rounded = Math.round(num * 100) / 100;
+console.log(rounded); // Output: 5.68 (Number)
+```
+
+---
+
+### **3. Using `Number.toPrecision()` (for significant figures)**
+```javascript
+let num = 5.6789;
+let rounded = Number(num.toPrecision(3)); // 3 significant digits
+console.log(rounded); // Output: 5.68
+```
+
+Which method to use?
+- ✅ **Use `.toFixed(2)`** if you need a **string** result (for display).
+- ✅ **Use `Math.round()`** if you need a **number** result.
+- ✅ **Use `toPrecision()`** if working with significant figures.
+
+Let me know if you need further clarification! 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Let's break down the difference between primitive and non-primitive data types in JavaScript. This is a fundamental concept for understanding how JavaScript handles data.
+
+**Primitive Data Types**
+
+*   **Definition:** Primitive data types are the most basic building blocks of data. They are *immutable*, meaning their values cannot be changed after they are created.  When you "modify" a primitive, you're actually creating a *new* primitive value.
+*   **Stored by Value:** Primitive values are stored *directly* in the variable's memory location. When you assign a primitive value to a variable, that variable holds the actual value itself.
+*   **Types in JavaScript:**
+    *   **`string`:** Textual data (e.g., "hello", 'world').
+    *   **`number`:** Numeric data (e.g., 10, 3.14, -5, NaN, Infinity).
+    *   **`boolean`:**  `true` or `false`.
+    *   **`undefined`:** Represents a variable that has been declared but not assigned a value.
+    *   **`null`:** Represents the intentional absence of a value.  It's a deliberate "empty" value.
+    *   **`symbol`:** (ES6)  Used to create unique identifiers, often for object properties.
+    *   **`bigint`:** (ES2020)  Represents whole numbers larger than 2<sup>53</sup> - 1.
+
+* **Example (Immutability):**
+
+   ```javascript
+   let str = "hello";
+   str.toUpperCase(); // Returns "HELLO", but doesn't change str
+   console.log(str); // Output: "hello" (original string is unchanged)
+
+   let x = 10;
+   let y = x;  // y gets a *copy* of the value 10
+   y = 20;     // Changing y doesn't affect x
+   console.log(x); // Output: 10
+   console.log(y); // Output: 20
+   ```
+
+**Non-Primitive Data Types (Objects)**
+
+*   **Definition:** Non-primitive data types (also called *reference types*) are more complex. They are *mutable*, meaning their values *can* be changed after creation.  They are essentially collections of properties (key-value pairs).
+*   **Stored by Reference:** Non-primitive values are stored *by reference*.  A variable that holds a non-primitive value doesn't store the actual object in its memory location. Instead, it stores a *reference* (or pointer) to the location in memory where the object is stored.
+*   **Types in JavaScript:**
+    *   **`object`:** The fundamental non-primitive type.  All other non-primitive types are based on objects.
+    *   **`array`:** A special type of object used to store ordered collections of data.
+    *   **`function`:** A special type of object that can be invoked (executed).
+    *   **`Date`:** Represents a specific point in time.
+    *   **`RegExp`:** Represents a regular expression (for pattern matching in strings).
+    *   ...and many others (e.g., `Map`, `Set`, `WeakMap`, `WeakSet`).  All custom objects you create are also non-primitive.
+
+* **Example (Mutability and Reference):**
+
+   ```javascript
+   let obj1 = { name: "Alice" };
+   let obj2 = obj1; // obj2 gets a *reference* to the *same* object as obj1
+
+   obj2.name = "Bob"; // Modifies the object *referenced by both* obj1 and obj2
+   console.log(obj1.name); // Output: "Bob" (obj1 is also changed!)
+   console.log(obj2.name); // Output: "Bob"
+
+   let arr1 = [1, 2, 3];
+   let arr2 = arr1;
+   arr2.push(4);        // Modifies the array referenced by both
+
+   console.log(arr1); // Output: [1, 2, 3, 4]
+   console.log(arr2); // Output: [1, 2, 3, 4]
+   ```
+
+**Key Differences Summarized**
+
+| Feature           | Primitive                                  | Non-Primitive (Object)                    |
+| ----------------- | ------------------------------------------ | ------------------------------------------ |
+| Mutability        | Immutable (cannot be changed)            | Mutable (can be changed)                  |
+| Storage           | Stored by value                           | Stored by reference                       |
+| Value in Variable | Holds the actual value                    | Holds a reference to the object's location |
+| Copying          | Copying creates a new, independent value   | Copying creates a new reference to the *same* object |
+| Comparison       | Compared by value                          | Compared by reference (identity)          |
+
+**Comparison Example:**
+
+```javascript
+// Primitive comparison (by value)
+let a = 10;
+let b = 10;
+console.log(a === b); // Output: true (values are the same)
+
+// Non-primitive comparison (by reference)
+let objA = { value: 10 };
+let objB = { value: 10 };
+let objC = objA;
+
+console.log(objA === objB); // Output: false (different objects in memory)
+console.log(objA === objC); // Output: true (same object in memory)
+```
+
+**Why This Matters:**
+
+Understanding the difference between primitive and non-primitive types is crucial for:
+
+*   **Avoiding Unexpected Behavior:**  Knowing how values are stored and copied prevents bugs related to unintentional object modification.
+*   **Memory Management:**  Understanding references is essential for grasping how JavaScript manages memory and garbage collection.
+*   **Functional Programming:**  The concept of immutability is central to functional programming paradigms.
+*   **Performance:** In some cases, choosing between mutable and immutable approaches can impact performance.
+
+
+
+
+
+
+
+
+
+**Bitwise Operators**
+
+Bitwise operators treat their operands as sequences of 32 bits (zeros and ones), rather than as decimal, hexadecimal, or octal numbers. They perform operations bit by bit, directly manipulating the binary representation of numbers.
+
+*   **`&` (Bitwise AND):**
+    *   Returns a 1 in each bit position where *both* operands have a 1.  Otherwise, returns 0.
+    *   Example:
+        ```javascript
+        let a = 5;  // 0101 in binary
+        let b = 3;  // 0011 in binary
+        let result = a & b; // 0001 in binary (which is 1 in decimal)
+        console.log(result); // Output: 1
+        ```
+
+*   **`|` (Bitwise OR):**
+    *   Returns a 1 in each bit position where *either* operand has a 1.  Returns 0 only if *both* are 0.
+    *   Example:
+        ```javascript
+        let a = 5;  // 0101
+        let b = 3;  // 0011
+        let result = a | b; // 0111 (which is 7 in decimal)
+        console.log(result); // Output: 7
+        ```
+
+*   **`^` (Bitwise XOR - Exclusive OR):**
+    *   Returns a 1 in each bit position where the bits are *different* (one is 0 and the other is 1). Returns 0 if the bits are the same.
+    *   Example:
+        ```javascript
+        let a = 5;  // 0101
+        let b = 3;  // 0011
+        let result = a ^ b; // 0110 (which is 6 in decimal)
+        console.log(result); // Output: 6
+        ```
+
+*   **`~` (Bitwise NOT):**
+    *   *Unary* operator (operates on a single operand).
+    *   Inverts the bits of its operand (0 becomes 1, and 1 becomes 0).  This is also known as the one's complement.  Important: JavaScript uses 32-bit signed integers, so the result will be a 32-bit number.
+    *   Example:
+        ```javascript
+        let a = 5;   // 00000000000000000000000000000101
+        let result = ~a; // 11111111111111111111111111111010 (which is -6 in decimal)
+        console.log(result); // Output: -6
+        ```
+        *   **Formula for `~x`:**  The result of `~x` is always `-(x + 1)`.
+
+*   **`<<` (Left Shift):**
+    *   Shifts the bits of the first operand to the left by the number of positions specified by the second operand.  Zeros are shifted in from the right.  Effectively multiplies the number by 2 for each position shifted.
+    *   Example:
+        ```javascript
+        let a = 5;    // 00000000000000000000000000000101
+        let result = a << 2; // 00000000000000000000000000010100 (which is 20 in decimal)
+        console.log(result); // Output: 20 (5 * 2 * 2 = 20)
+        ```
+
+*   **`>>` (Signed Right Shift):**
+    *   Shifts the bits of the first operand to the right by the number of positions specified by the second operand.  The *sign bit* (the leftmost bit) is copied to fill in the new positions on the left.  This preserves the sign of the number.  Effectively divides the number by 2 for each position shifted (integer division).
+    *   Example:
+        ```javascript
+        let a = 5;       // 00000000000000000000000000000101
+        let result = a >> 1;  // 00000000000000000000000000000010 (which is 2 in decimal)
+        console.log(result);  // Output: 2
+
+        let b = -5;      // 11111111111111111111111111111011
+        let result2 = b >> 1; // 11111111111111111111111111111101 (which is -3 in decimal)
+        console.log(result2); // Output: -3
+        ```
+*    **`>>>` (Zero-fill Right Shift):**
+    * Shifts the bits of the first operand to the right by the number of positions specified by the second operand. Zeros are shifted in from the left, regardless of the sign of the original number. The result is always a non-negative integer.
+    *  Example:
+        ```javascript
+         let a = 5;       // 00000000000000000000000000000101
+        let result = a >>> 1;  // 00000000000000000000000000000010 (which is 2 in decimal)
+        console.log(result);  // Output: 2
+
+        let b = -5;      // 11111111111111111111111111111011
+        let result2 = b >>> 1; // 01111111111111111111111111111101 (which is 2147483645)
+        console.log(result2); // Output: 2147483645
+
+        ```
+
+**When to Use Bitwise Operators:**
+
+*   **Low-Level Operations:**  Working with binary data, flags, bitmasks, network protocols, graphics programming, cryptography.
+*   **Performance Optimization (Rare):** In *very specific* cases, bitwise operations can be faster than equivalent arithmetic operations. However, this is rarely a significant factor in modern JavaScript engines, and readability should be prioritized.
+*   **Specific Algorithms:**  Certain algorithms are naturally expressed using bitwise operations (e.g., checking if a number is a power of 2).
+
+**Ternary Operator (`condition ? trueValue : falseValue`)**
+
+The ternary operator is a concise way to write a conditional expression. It's a shorthand for an `if...else` statement.
+
+*   **Syntax:**
+
+    ```javascript
+    condition ? expressionIfTrue : expressionIfFalse;
+    ```
+
+*   **How it Works:**
+
+    1.  `condition`: An expression that evaluates to `true` or `false`.
+    2.  `?`:  The ternary operator.
+    3.  `expressionIfTrue`:  The expression that is evaluated and returned if `condition` is `true`.
+    4.  `:`: Separator.
+    5.  `expressionIfFalse`: The expression that is evaluated and returned if `condition` is `false`.
+
+*   **Example:**
+
+    ```javascript
+    let age = 20;
+    let message = age >= 18 ? "You are an adult" : "You are a minor";
+    console.log(message); // Output: "You are an adult"
+
+    // Equivalent if...else statement:
+    let age2 = 15;
+    let message2;
+    if (age2 >= 18) {
+      message2 = "You are an adult";
+    } else {
+      message2 = "You are a minor";
+    }
+    console.log(message2); // "You are a minor"
+    ```
+
+* **Nested Ternary Operators (Use with Caution):**
+
+  You *can* nest ternary operators, but this quickly becomes unreadable.  It's generally best to avoid nesting them more than once.
+
+  ```javascript
+  let score = 75;
+  let grade = score >= 90 ? 'A' : (score >= 80 ? 'B' : (score >= 70 ? 'C' : 'D'));
+  console.log(grade); // Output: C
+  ```
+
+**When to Use the Ternary Operator:**
+
+*   **Simple Conditionals:** When you have a simple `if...else` condition that can be expressed concisely.
+*   **Assigning Values Conditionally:**  As in the `message` example above, it's a compact way to assign a value based on a condition.
+*   **Returning Values Conditionally:**  You can use it within a function to return different values based on a condition.
+
+**Key Differences and Summary:**
+
+*   **Bitwise Operators:** Operate on the *binary representation* of numbers. Used for low-level bit manipulation.
+*   **Ternary Operator:**  A *conditional operator* that provides a shorthand for `if...else` statements.  Used for concisely expressing conditional logic.
+
+
+
+
+
+
+
+
+
+
+
+
+Let's break down `Array.of()` and `Array.from()` in JavaScript, two important methods for creating arrays.
+
+**`Array.of()`**
+
+*   **Purpose:** Creates a new `Array` instance from a variable number of arguments, *regardless* of the number or type of the arguments.  This solves a quirk with the `Array` constructor.
+
+*   **Syntax:**
+
+    ```javascript
+    Array.of(element0, element1, /* ... ,*/ elementN)
+    ```
+
+*   **Problem with `Array` Constructor:** The `Array` constructor behaves differently depending on the number and type of arguments passed to it:
+    *   `new Array(element0, element1, ..., elementN)`: Creates an array with the given elements.
+    *   `new Array(arrayLength)`: Creates an array with the specified *length*, but with *empty slots* (not `undefined` values). This is often not what you want.
+
+    ```javascript
+    let arr1 = new Array(1, 2, 3); // Creates [1, 2, 3]
+    let arr2 = new Array(3);     // Creates [empty × 3] (length 3, but no elements)
+    console.log(arr2[0]);         // Output: undefined (but it's not truly undefined)
+    console.log(arr2.length);     // Output: 3
+    console.log(arr2.hasOwnProperty(0)); //Output: false
+    ```
+
+*   **`Array.of()` Solution:** `Array.of()` *always* creates an array with the provided arguments as its elements, avoiding the special case of the single-argument `Array` constructor.
+
+    ```javascript
+    let arr3 = Array.of(1, 2, 3); // Creates [1, 2, 3]
+    let arr4 = Array.of(3);     // Creates [3] (an array *containing* the number 3)
+    console.log(arr4[0]);       // Output: 3
+    console.log(arr4.length);    //Output: 1
+    ```
+
+**`Array.from()`**
+
+*   **Purpose:** Creates a new, *shallow-copied* `Array` instance from:
+    *   An *array-like* object (e.g., `arguments`, `NodeList`, `HTMLCollection`, strings).
+    *   An *iterable* object (e.g., `Map`, `Set`).
+
+*   **Syntax:**
+
+    ```javascript
+    Array.from(arrayLikeOrIterable [, mapFn [, thisArg]])
+    ```
+
+    *   `arrayLikeOrIterable`: The array-like or iterable object to convert to an array.
+    *   `mapFn` (optional): A mapping function to call on every element of the array.  Similar to `Array.prototype.map()`.
+    *   `thisArg` (optional): Value to use as `this` when executing `mapFn`.
+
+*   **Array-Like Objects:** Objects that have a `length` property and indexed elements (like `arguments` inside a function, or DOM collections).
+
+*   **Iterable Objects:** Objects that have a `Symbol.iterator` method, allowing them to be iterated over (like `Map` and `Set`).
+
+* **Examples:**
+
+   ```javascript
+   // From an array-like object (arguments)
+   function createArray() {
+     return Array.from(arguments);
+   }
+   let myArray = createArray(1, 2, 3);
+   console.log(myArray); // Output: [1, 2, 3]
+
+   // From a string
+   let strArray = Array.from("hello");
+   console.log(strArray); // Output: ["h", "e", "l", "l", "o"]
+
+   // From a Set
+   let mySet = new Set([1, 2, 2, 3, 4]);
+   let setArray = Array.from(mySet);
+   console.log(setArray); // Output: [1, 2, 3, 4]
+
+   // From a Map
+    const map = new Map([
+        [1, 'one'],
+        [2, 'two'],
+        [3, 'three']
+        ]);
+    const array2 = Array.from(map);
+    console.log(array2);
+
+   // Using the mapFn
+   let doubledArray = Array.from([1, 2, 3], x => x * 2);
+   console.log(doubledArray); // Output: [2, 4, 6]
+
+   //Using the thisArg
+     const obj = {
+        multiplier: 2,
+        double(value) {
+            return value * this.multiplier;
+        }
+    };
+
+    const numbers = [1, 2, 3];
+    const doubledNumbers = Array.from(numbers, obj.double, obj);
+
+    console.log(doubledNumbers); // Output: [2, 4, 6]
+
+   // From a NodeList (DOM)
+   // (This example would run in a browser environment)
+   // let nodeList = document.querySelectorAll('div');
+   // let divArray = Array.from(nodeList);
+
+   // From an HTMLCollection (DOM)
+   // (This example would run in a browser environment)
+   // let htmlCollection = document.getElementsByClassName('my-class');
+   // let classArray = Array.from(htmlCollection);
+   ```
+
+**Key Differences and Summary**
+
+| Feature          | `Array.of()`                                        | `Array.from()`                                                                                                         |
+| ---------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Purpose          | Creates an array from its arguments.                | Creates an array from an array-like or iterable object.                                                              |
+| Arguments        | Accepts any number and type of arguments.            | Accepts an array-like or iterable object, optionally a mapping function and a `this` value for the mapping function. |
+| Special Cases    | Avoids the special behavior of `new Array(number)`. | Handles array-like and iterable objects that aren't true arrays.                                                     |
+| Mapping Function | Does not have a built-in mapping function.        | Can optionally include a mapping function to transform elements during array creation.                             |
+
+**When to Use Which:**
+
+*   **`Array.of()`:**  Use when you want to create an array with specific values, especially when you have a single numeric argument and want an array *containing* that number, not an array of that *length*.
+*   **`Array.from()`:**  Use when you need to convert something that's *not* a true array (but behaves like one, or is iterable) into a true array.  This is common when working with the DOM, function arguments, or data structures like `Set` and `Map`.  The mapping function makes it very versatile for transforming data during array creation.
+
+In essence, `Array.of()` is for creating arrays from literal values, while `Array.from()` is for converting other data structures into arrays. They are both valuable tools for working with arrays in modern JavaScript.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**1. `Set`**
+
+*   **Purpose:** Stores a collection of *unique* values of *any* type (primitive or object).  It does *not* allow duplicate values.
+*   **Key Features:**
+    *   **Uniqueness:**  The core characteristic.  If you try to add a value that already exists, it's simply ignored.
+    *   **No Keys:**  Values are not associated with keys (unlike `Map`).  You just have values.
+    *   **Iteration Order:**  Values are iterated in the order they were inserted.
+    *   **Methods:**
+        *   `add(value)`: Adds a value to the set. Returns the set itself (chainable).
+        *   `delete(value)`: Removes a value from the set. Returns `true` if the value was found and removed, `false` otherwise.
+        *   `has(value)`: Returns `true` if the set contains the value, `false` otherwise.
+        *   `clear()`: Removes all values from the set.
+        *   `size`: A property (not a method) that returns the number of values in the set.
+        *   `values()`: Returns an iterator for the values in the set.
+        *   `keys()`: Returns an iterator, the same iterator as values().
+        *   `entries()`: Returns an iterator of [value, value] pairs for each element in the Set
+        *   `forEach(callbackFn [, thisArg])`: for each item in set, the callbackFn called.
+
+*   **Example:**
+
+    ```javascript
+    let mySet = new Set();
+
+    mySet.add(1);
+    mySet.add("hello");
+    mySet.add({ a: 1 });
+    mySet.add(1); // Ignored (duplicate)
+
+    console.log(mySet.size); // Output: 3
+    console.log(mySet.has("hello")); // Output: true
+    console.log(mySet.has(2)); // Output: false
+
+    mySet.delete("hello");
+    console.log(mySet.size); // Output: 2
+
+    // Iterating
+    for (let value of mySet) {
+      console.log(value);
+    }
+    // 1
+    // { a: 1 }
+
+    //Iterating entries
+    for (let entry of mySet.entries()) {
+        console.log(entry);
+    }
+    // [ 1, 1 ]
+    // [ { a: 1 }, { a: 1 } ]
+
+    //Iterating with forEach
+    mySet.forEach((value, key, set) => {
+        console.log(value,key,set)
+    });
+    // 1 1 Set(2) { 1, { a: 1 } }
+    // { a: 1 } { a: 1 } Set(2) { 1, { a: 1 } }
+
+    mySet.clear();
+    console.log(mySet.size); // Output: 0
+    ```
+
+**2. `Map`**
+
+*   **Purpose:** Stores a collection of *key-value pairs*, where both keys and values can be of *any* type (primitive or object).  This is different from plain JavaScript objects, where keys are always coerced to strings.
+*   **Key Features:**
+    *   **Key-Value Pairs:**  Similar to objects, but keys can be *any* type, not just strings.
+    *   **Iteration Order:**  Key-value pairs are iterated in the order they were inserted.
+    *   **Methods:**
+        *   `set(key, value)`: Adds or updates a key-value pair. Returns the map itself (chainable).
+        *   `get(key)`: Returns the value associated with the key, or `undefined` if the key doesn't exist.
+        *   `has(key)`: Returns `true` if the map contains the key, `false` otherwise.
+        *   `delete(key)`: Removes the key-value pair. Returns `true` if the key was found and removed, `false` otherwise.
+        *   `clear()`: Removes all key-value pairs.
+        *   `size`: A property that returns the number of key-value pairs.
+        *   `keys()`: Returns an iterator for the keys.
+        *   `values()`: Returns an iterator for the values.
+        *   `entries()`: Returns an iterator for the key-value pairs (as `[key, value]` arrays).
+        *   `forEach(callbackFn [, thisArg])`
+
+*   **Example:**
+
+    ```javascript
+    let myMap = new Map();
+
+    let objKey = { id: 1 };
+
+    myMap.set("name", "Alice");
+    myMap.set(123, "number key");
+    myMap.set(objKey, "object key");
+    myMap.set(objKey, "object key updated"); // Overwrites the previous value
+
+    console.log(myMap.size); // Output: 3
+    console.log(myMap.get("name")); // Output: "Alice"
+    console.log(myMap.get(123));    // Output: "number key"
+    console.log(myMap.get(objKey)); // Output: "object key updated"
+    console.log(myMap.get({ id: 1 })); // Output: undefined (different object)
+    console.log(myMap.has("name"));    // Output: true
+
+    // Iterating
+    for (let [key, value] of myMap) {
+      console.log(key, value);
+    }
+        // name Alice
+        // 123 'number key'
+        // { id: 1 } 'object key updated'
+
+
+    myMap.delete(123);
+    console.log(myMap.size);    // Output: 2
+
+    myMap.clear();
+    console.log(myMap.size);    // Output: 0
+    ```
+
+**3. `WeakSet`**
+
+*   **Purpose:** Similar to `Set`, but with key differences:
+    *   **Objects Only:**  A `WeakSet` can *only* store *objects*.  It cannot store primitive values.
+    *   **Weak References:**  The crucial difference.  A `WeakSet` holds *weak references* to the objects it contains. This means that if an object is only referenced by a `WeakSet`, it *can* be garbage collected.  Regular `Set`s hold *strong* references, preventing garbage collection.
+*   **Key Features:**
+    *   **Weak References:**  The defining feature.  Helps prevent memory leaks.
+    *   **No Iteration:** You *cannot* iterate over a `WeakSet`. There are no `keys()`, `values()`, `entries()`, or `forEach()` methods.  This is because the contents of a `WeakSet` can change at any time due to garbage collection.
+    *   **Limited Methods:** Only has `add(value)`, `delete(value)`, and `has(value)`.
+    *   **No `size` Property:** You cannot get the size of a `WeakSet`.
+
+*   **Example:**
+
+    ```javascript
+    let myWeakSet = new WeakSet();
+
+    let obj1 = { data: "some data" };
+    let obj2 = { data: "other data" };
+
+    myWeakSet.add(obj1);
+    myWeakSet.add(obj2);
+
+    console.log(myWeakSet.has(obj1)); // Output: true
+
+    obj1 = null; // Remove the only *strong* reference to obj1
+
+    // At some point in the future, the garbage collector may run.
+    // After garbage collection, obj1 will likely be removed from myWeakSet.
+
+    // You *cannot* reliably check the size or iterate over a WeakSet.
+    // console.log(myWeakSet.size); // Error:  myWeakSet.size is not a function/property
+
+    ```
+
+**4. `WeakMap`**
+
+*   **Purpose:** Similar to `Map`, but with key differences, mirroring the `WeakSet` vs. `Set` relationship:
+    *   **Object Keys Only:**  Keys in a `WeakMap` *must* be objects.  Values can be of any type.
+    *   **Weak References (to Keys):**  `WeakMap` holds *weak references* to its *keys* (not its values).  If an object used as a key is only referenced by a `WeakMap`, that object can be garbage collected, and the corresponding key-value pair will be automatically removed from the `WeakMap`.
+*   **Key Features:**
+    *   **Weak References (to Keys):**  The defining feature. Prevents memory leaks.
+    *   **No Iteration:**  You cannot iterate over a `WeakMap`. No `keys()`, `values()`, `entries()`, or `forEach()`.
+    *   **Limited Methods:** Only has `set(key, value)`, `get(key)`, `delete(key)`, and `has(key)`.
+    *   **No `size` Property:** You cannot get the size of a `WeakMap`.
+
+*   **Example:**
+
+    ```javascript
+    let myWeakMap = new WeakMap();
+
+    let keyObj = { id: 1 };
+    let valueObj = { data: "some data" };
+
+    myWeakMap.set(keyObj, valueObj);
+
+    console.log(myWeakMap.has(keyObj)); // Output: true
+    console.log(myWeakMap.get(keyObj)); // Output: { data: "some data" }
+
+    keyObj = null; // Remove the only *strong* reference to keyObj
+
+    // At some point, the garbage collector may run.
+    // After garbage collection, the key-value pair will be removed.
+
+    // You cannot iterate or get the size.
+    ```
+
+**Key Differences and Use Cases**
+
+| Feature         | `Set`                                    | `Map`                                         | `WeakSet`                                                        | `WeakMap`                                                              |
+| --------------- | ---------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Key Type        | Any                                      | Any                                           | Objects only                                                     | Objects only                                                           |
+| Value Type      | Any                                      | Any                                           | N/A (only stores values)                                    | Any                                                                    |
+| Uniqueness      | Values are unique                       | Keys are unique                               | Values are unique (and must be objects)                          | Keys are unique (and must be objects)                                 |
+| References      | Strong references                        | Strong references                             | Weak references                                                  | Weak references (to keys)                                                |
+| Iteration       | Iterable (`values()`, `forEach()`, etc.) | Iterable (`keys()`, `values()`, `entries()`, `forEach()`) | Not iterable                                                      | Not iterable                                                           |
+| `size` Property | Yes                                      | Yes                                           | No                                                               | No                                                                     |
+| Use Cases       | - Unique value lists                     | - Key-value pairs with any key type         | - Detecting if an object has been seen before (without leaks)   | - Associating data with objects without preventing garbage collection |
+|                 | - Checking for membership                | - Maintaining order of insertion            | - Weakly associating objects                                     | - Implementing private data for objects (weakly)                     |
+
+**When to Use Which:**
+
+*   **`Set`:** Use when you need a collection of *unique* values and you don't need to associate them with keys.
+*   **`Map`:** Use when you need to store *key-value pairs* and the keys might not be strings, or when you need to preserve the insertion order.
+*   **`WeakSet`:** Use when you need to keep track of a set of objects, but you *don't* want to prevent those objects from being garbage collected if they are no longer referenced elsewhere.  Useful for things like tracking event listeners that should be automatically removed when the associated element is removed from the DOM.
+*   **`WeakMap`:** Use when you need to associate data with objects, but you *don't* want to prevent those objects (used as keys) from being garbage collected. This is useful for caching, private data, or metadata associated with objects, where you want the data to be automatically cleaned up when the object is no longer in use. The key point is preventing memory leaks.
+
+The `Weak` versions are specifically designed for scenarios where you want to avoid memory leaks caused by holding strong references to objects that might no longer be needed. They are less commonly used than `Set` and `Map`, but they are essential tools for certain advanced use cases.

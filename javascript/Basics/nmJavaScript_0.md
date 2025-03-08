@@ -1663,9 +1663,9 @@ Here, `x` changes its type dynamically as the value changes.
     - **Example**:
 
    ```js
-      var a = 5;   Outer variable
+      var a = 5;   //Outer variable
       if (true) {
-        let a = 10;   Shadowing the outer variable
+        let a = 10;   //Shadowing the outer variable
         console.log(a);  10
       }
       console.log(a);  5
@@ -2089,7 +2089,7 @@ Here, `x` changes its type dynamically as the value changes.
  function debounce(func, delay) {
      let timer;
      return function(...args) {
-         clearTimeout(timer);   Reset the timer on every new call
+         clearTimeout(timer);   //Reset the timer on every new call
          timer = setTimeout(() => func.apply(this, args), delay);
      };
  }

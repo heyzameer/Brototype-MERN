@@ -116,8 +116,10 @@ JavaScript follows specific rules for type coercion based on operators. Some imp
    - `===` (strict equality) does **not** perform type coercion and requires the operands to be of the same type.
 
    ```javascript
+   
    console.log(0 === false); // false (different types)
    console.log(5 === "5");   // false (different types)
+   
    ```
 
 5. **Falsy values:**

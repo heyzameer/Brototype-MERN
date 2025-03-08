@@ -1,8 +1,8 @@
 ✅❌
 **JavaScript (JS)**
 
-1.  Pure functions (mentioned multiple times)
-2.  Finally block syntax
+1.  Pure functions (mentioned multiple times) ✅
+2.  Finally block syntax 
 3.  Error objects
 4.  `instanceof` operator
 5.  Bind concept (`.bind()`, call, apply, bind - consolidated)
@@ -11,10 +11,10 @@
 8.  Rest operator
 9.  Inheritance in JS
 10. IIFE (Immediately Invoked Function Expression) syntax and benefits
-11. Illegal shadowing
+11. Illegal shadowing ✅
 12. Generator function (examples, applications)
 13. Constructor functions (and comparison with `Object.create`)
-14. Finding non-repeating elements from an array
+14. Finding non-repeating elements from an array 
 15. Object methods (multiple mentions)
 16. `console.log(1 + +'1')` - Implicit type coercion
 17. `console.log('A' - 1)` - Implicit type coercion
@@ -24,19 +24,19 @@
 21. Reverse a string
 22. Check if an object is empty
 23. Rest vs. Spread operators
-24. Callback functions
+24. Callback functions ✅
 25. Polyfills
-26. Debouncing
+26. Debouncing ✅
 27. Timer functions (`setInterval`, stopping after a time)
 28. `reduce()` method (multiple examples: total characters, sum, etc.)
 29. `flatMap()` method
 30. Print first 10 even numbers with a time delay
-31. Function borrowing
-32. Limitations of closure
+31. Function borrowing call(), apply(), and bind()  ✅
+32. Limitations of closure ✅
 33. `promise.race` vs `promise.any`
 34. Proxy object
 35. Shallow copy vs. Deep copy (multiple mentions)
-36. Currying
+36. Currying  ✅
 37. Event bubbling (multiple mentions) ✅
 38. Event propagation ✅
 39. Event capturing ✅
@@ -80,7 +80,7 @@
 77. How to create a class (Classes)
 78. Promise creation and usages
 79. Event loop & code execution ✅
-80. Dynamic typing
+80. Dynamic typing  ✅
 81. Truthy/Falsy values (multiple mentions)
 82. ECMAScript
 83. Is `undefined` an object?
@@ -121,7 +121,7 @@
 118. Object empty check
 119. Single purpose aggregation
 120. Throttling ✅
-120. Debouncing ❌
+120. Debouncing ❌  ✅
 121. Event loop
 122. `appendChild` vs `removeChild` ✅
 123. `event.preventDefault` ✅
@@ -136,7 +136,7 @@
 132. State in promises
 133. Promise methods
 134. `includes()`
-135. Memoization
+135. Memoization  ✅
 136. Primitive vs Non -Primitive
 137. Var , let , const ✅
 138. Block {}

@@ -286,7 +286,7 @@ console.log(multiplyByTwo(10)); // Output: 20
 // Arrow functions are a more concise way of writing functions in JavaScript, introduced in **ES6**. They are often used for their shorter syntax, but also bring some important differences compared to regular functions.
 
 // ### Key Differences between Regular Functions and Arrow Functions:
-
+                   
 // 1. **Syntax**:
 //    - Arrow functions have a shorter syntax, especially when the function body is a single expression.
 //    - The `function` keyword is replaced by `=>`.
@@ -1006,6 +1006,22 @@ console.log(multiplyByTwo(10)); // Output: 20
 
 
 
+
+// In JavaScript, "event-driven" refers to a programming paradigm where the flow of a program is determined by events, such as:
+
+// - User interactions (e.g., mouse clicks, keyboard input)
+// - Network requests (e.g., API calls, WebSocket messages)
+// - Timer events (e.g., setTimeout, setInterval)
+// - Error events (e.g., try-catch blocks)
+
+// In an event-driven program, the code is designed to respond to these events, rather than following a predetermined sequence of steps.
+
+// Here are some key characteristics of event-driven programming in JavaScript:
+
+// 1. Asynchronous: Event-driven code often involves asynchronous operations, where the program continues executing while waiting for an event to occur.
+// 2. Callback functions: Event-driven code frequently uses callback functions, which are executed in response to a specific event.
+// 3. Event listeners: Event listeners are functions that are attached to specific events, allowing the program to respond when the event occurs.
+// 4. Non-blocking: Event-driven code is designed to avoid blocking or freezing the program while waiting for an event, allowing for a more responsive and efficient user experience.
 
 
 

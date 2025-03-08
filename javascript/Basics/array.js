@@ -153,9 +153,7 @@ console.log(evenNumbers);
 
 // // o. **`join()`** - Joins all elements of an array into a string, separated by a specified separator.
 
-// let arr = ["a", "b", "c"];
-// let joined = arr.join(", "); // "a, b, c"
-// console.log(joined);
+
 
 // // p. **`sort()`** - Sorts the elements of an array in place according to the Unicode order of the elements.
 
@@ -341,15 +339,15 @@ console.log(numbers1);
 
 // #### **splice() - Add/Remove elements from any position**
 // ```javascript
-let arr = [1, 2, 3, 4, 5];
+// let arr = [1, 2, 3, 4, 5];
 // Removing elements
-var a = arr.splice(1, 2);  // Removes 2 elements from index 1
-console.log(a);  // Output: [2, 3]
-console.log(arr);  // Output: [1, 4, 5]
+// var a = arr.splice(1, 2);  // Removes 2 elements from index 1
+// console.log(a);  // Output: [2, 3]
+// console.log(arr);  // Output: [1, 4, 5]
 
 // Adding elements
-arr.splice(1, 0, 2, 3,6,7,8); // Insert 2,3 at index 1
-console.log(arr);  // Output: [1, 2, 3, 4, 5]
+// arr.splice(1, 0, 2, 3,6,7,8); // Insert 2,3 at index 1
+// console.log(arr);  // Output: [1, 2, 3, 4, 5]
 
 
 // ---
@@ -540,7 +538,6 @@ console.log(arr);  // Output: [1, 2, 3, 4, 5]
 //     }
 //     console.log(row); // Print the row after adding all elements
 // }
-
 
 
 

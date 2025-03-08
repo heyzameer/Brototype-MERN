@@ -18,6 +18,26 @@
     </div>
 
 
+    
+
+    <!-- <div id="outer">
+        <button id="inner">Click Me</button>
+      </div>
+  
+      <script>
+        let outer = document.getElementById("outer");
+        let inner = document.getElementById("inner");
+  
+        outer.addEventListener("click", function() {
+          console.log("Outer div clicked (capturing)");
+        }); // true enables capturing
+  
+        inner.addEventListener("click", function() {
+          console.log("Inner button clicked (bubbling)");
+        });
+      </script> -->
+
+
     <!-- <div id="clock" style="font-size: 40px; font-family: Arial, sans-serif; text-align: center; margin: 50px 30%; background: black; color: white; padding: 20px; border-radius: 10px;">
         00:00:00
     </div> -->
@@ -159,20 +179,20 @@ window.addEventListener("scroll",throttle(change,1000));
 
 
 
-//   function debounce(func, delay) {
-//     let timeOut;
-//     return function() {
-//      clearTimeout(timeOut);
-//      timeOut= setTimeout(()=>{
-//             func();
-//      },delay);
-//     }
-// }
-//  function chnage(){
-//      console.log("change");
-//     }
+  function debounce(func, delay) {
+    let timeOut;
+    return function() {
+     clearTimeout(timeOut);
+     timeOut= setTimeout(()=>{
+            func();
+     },delay);
+    }
+}
+ function chnage(){
+     console.log("change");
+    }
 
-//     window.addEventListener("scroll",debounce(chnage,1000));
+    window.addEventListener("scroll",debounce(chnage,1000));
 
 
 

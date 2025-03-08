@@ -38,7 +38,7 @@
 //    ```
 
 // 2. **String**: Represents sequences of characters.
-//    ```javascript
+//    ```javascript  
 //    let name = 'Zameer';
 //    let greeting = "Hello, world!";
 //    ```
