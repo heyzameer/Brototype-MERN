@@ -23,7 +23,7 @@
 20. `splice()` method
 21. Reverse a string
 22. Check if an object is empty
-23. Rest vs. Spread operators
+23. Rest vs. Spread operators 
 24. Callback functions ✅
 25. Polyfills
 26. Debouncing ✅

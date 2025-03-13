@@ -2,7 +2,7 @@
 // for (let i = 1; i <= 10; i++) {
 //     setTimeout(() => console.log(i), i * 1000);
 //   }
-  
+
 // // // ---
 
 //  ### 2. **Find Numbers Divisible by 8 Between 100 and 1:**
@@ -15,6 +15,10 @@
 
 
 
+// array.forEach((element, index, array) => {
+//   // code to execute
+// });
+// 
 
 // Here are different ways to remove duplicates from an array in JavaScript:
 
@@ -24,16 +28,14 @@ function removeDuplicates(arr) {
   return [...new Set(arr)];
 }
 
-console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); 
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5]));
 // Output: [1, 2, 3, 4, 5]
 
-// **🔍 How it works?**  
+// **🔍 How it works?**
 // - `Set` only stores **unique values**, so duplicates are automatically removed.
 // - Spreading (`...`) it back into an array gives a duplicate-free array.
 
-
 // ---
-
 
 // ### ✅ **2. Using `filter()`**
 // This method removes duplicates by checking the first occurrence index of each element.
@@ -41,15 +43,15 @@ function removeDuplicates(arr) {
   return arr.filter((item, index) => arr.indexOf(item) === index);
 }
 
-console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); 
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5]));
 // Output: [1, 2, 3, 4, 5]
 
-// **🔍 How it works?**  
+// **🔍 How it works?**
 // - `indexOf(item)` returns the **first occurrence** index of an element.
 // - If `indexOf(item) === index`, it means this is the first time it's appearing in the array, so it's kept.
 
-
 // ---
+
 
 
 // ### ✅ **3. Using `reduce()`**
@@ -64,32 +66,28 @@ function removeDuplicates(arr) {
 console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5]));
 // Output: [1, 2, 3, 4, 5]
 
-// **🔍 How it works?**  
+// **🔍 How it works?**
 // - `reduce()` iterates over the array and keeps only unique elements in `acc`.
 // - `acc.includes(item)` ensures duplicates are not added again.
 
-
 // ---
-
 
 // ### ✅ **4. Using `forEach()` and an Object (Efficient for Large Data)**
 // This method stores unique elements in an object, making it more efficient for large datasets.
 function removeDuplicates(arr) {
   let unique = {};
-  arr.forEach(item => unique[item] = true);
+  arr.forEach((item) => (unique[item] = true));
   return Object.keys(unique).map(Number);
 }
 
-console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); 
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5]));
 // Output: [1, 2, 3, 4, 5]
 
-// **🔍 How it works?**  
+// **🔍 How it works?**
 // - Uses an **object** (`unique[item] = true`) since object keys are **unique**.
 // - Extracts **keys** as an array and converts them to numbers.
 
-
 // ---
-
 
 // ### 💡 **Which One Should You Use?**
 // | Method               | Performance | Best Use Case                          |
@@ -101,48 +99,74 @@ console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5]));
 
 // For most cases, **use `Set` (`new Set(arr)`)** since it's the cleanest and fastest.
 
-console.log("Which method do you prefer? 🚀");
-
-
-
-
-
-
 
 // frequency
 function countFrequency(arr) {
-    return arr.reduce((acc, item) => {
-      acc[item] = (acc[item] || 0) + 1;
-      return acc;
-    }, {});
-  }
-  
-  const data = ["apple", "banana", "apple", "orange", "banana", "apple"];
-  console.log(countFrequency(data));
-  // Output: { apple: 3, banana: 2, orange: 1 }
-  
+  return arr.reduce((acc, item) => {
+    acc[item] = (acc[item] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+const data = ["apple", "banana", "apple", "orange", "banana", "apple"];
+console.log(countFrequency(data));
+// Output: { apple: 3, banana: 2, orange: 1 }
 
 
-  function countFrequency(arr) {
-    let frequency = {};
-    arr.forEach(item => {
-      frequency[item] = (frequency[item] || 0) + 1;
-    });
-    return frequency;
-  }
-  
-  const data1 = [1, 2, 2, 3, 4, 4, 4, 5];
-  console.log(countFrequency(data1));
-  // Output: { '1': 1, '2': 2, '3': 1, '4': 3, '5': 1 }
-  
-
-
-
-          
+// console.log(countFrequency([1, 2, 2, 3, 4, 4, 4, 5]));
 
 
 
 
+function countFrequency(arr) {
+  let frequency = {};
+  arr.forEach((item) => {
+    frequency[item] = (frequency[item] || 0) + 1;
+  });
+  return frequency;
+}
+
+const data1 = [1, 2, 2, 3, 4, 4, 4, 5];
+console.log(countFrequency(data1));
+// Output: { '1': 1, '2': 2, '3': 1, '4': 3, '5': 1 }
+
+// let array = [1, 2, 2, 3, 4, 4, 4, 5];
+
+
+
+
+let frequency = new Map();
+
+for (let num of array) {
+  frequency.set(num, (frequency.get(num) || 0) + 1);
+}
+
+console.log(frequency);
+// Output: Map { 1 => 1, 2 => 2, 3 => 1, 4 => 3, 5 => 1 }
+
+let array = [1, 2, 2, 3, 4, 4, 4, 5];
+
+let frequencyObj = {};
+
+for (let num of array) {
+  frequency[num] = (frequencyObj[num] || 0) + 1;
+}
+
+console.log(frequencyObj);
+
+// let array = [1, 2, 2, 3, 4, 4, 4, 5];
+
+// let frequency = {};
+
+// for(let i = 0; i < array.length; i++){
+//     if(frequency[array[i]]){
+//         frequency[array[i]]++;
+//     } else {
+//         frequency[array[i]] = 1;
+//     }
+// }
+
+// console.log(frequency);
 
 // // // ### 4. **Remove the Last Property from an Object:**
 // // // ```javascript
@@ -181,13 +205,6 @@ function countFrequency(arr) {
 // // // ---
 
 // // // These examples address all your requirements, from printing numbers to handling events and manipulating data.
-
-
-
-
-
-
-
 
 // // To count the occurrences of a value in an array, you can use various methods in JavaScript. Here are a few approaches:
 
@@ -270,23 +287,6 @@ function countFrequency(arr) {
 
 // // Each of these methods has its use case depending on the complexity and what fits your specific need (whether you need to count a single value or all values in an array).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Here are the solutions for your requests:
 
 // ### **Reverse Array**
@@ -341,21 +341,6 @@ function countFrequency(arr) {
 
 // You can choose any of these methods depending on your preference. The `for` loop provides more flexibility, while `forEach()` and `map()` are more modern and concise.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Here are the solutions for each of the tasks you've mentioned:
 
 // ### 1. **Throw error if argument is string:**
@@ -387,8 +372,6 @@ function countFrequency(arr) {
 //   return allDigits.filter(digit => !arr.includes(digit));
 // }
 
-
-
 // console.log(findMissingDigits([0, 1, 2, 4, 5, 6]));  // [3, 7, 8, 9]
 
 // function findMissingDigits(arr, range) {
@@ -399,22 +382,29 @@ function countFrequency(arr) {
 //         }
 //         return acc;
 //       }, []);
-  
+
 //     return missing;
 //   }
-  
+
+
+// let arr = [1, 2, 3, 4, 5,7];
+
+
+// let sum = (7*(7+1))/2;
+// let sum1 = arr.reduce((acc,item)=>{
+//  acc=  acc+item;
+//   return acc;
+// },0)
+// console.log(sum-sum1);
+
 //   // Example
 //   const arr = [1, 2, 4, 5, 7, 8, 10];
 //   const range = 10;
 //   console.log(findMissingDigits(arr, range));  // Output: [3, 6, 9]
-  
-
-
-
 
 // function findMissingDigits(arr, range) {
 //     const missing = [];
-    
+
 //     // Loop through the range from 1 to 'range'
 //     for (let i = 1; i <= range; i++) {
 //       // If the number is not found in the array, add it to the missing array
@@ -425,25 +415,20 @@ function countFrequency(arr) {
 //           break; // Exit the inner loop if the number is found
 //         }
 //       }
-  
+
 //       // If the number wasn't found, it's missing
 //       if (!isFound) {
 //         missing.push(i);
 //       }
 //     }
-  
+
 //     return missing;
 //   }
-  
+
 //   // Example usage
 //   const arr = [1, 2, 4, 5, 7, 8, 10];
 //   const range = 10;
 //   console.log(findMissingDigits(arr, range));  // Output: [3, 6, 9]
-  
-
-
-
-
 
 // ```
 
@@ -456,7 +441,7 @@ function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-console.log(capitalizeFirstLetter('hello'));  // "Hello"
+console.log(capitalizeFirstLetter("hello")); // "Hello"
 // ```
 
 // ### 4. **Stopping an interval timer:**
@@ -513,3 +498,16 @@ console.log(capitalizeFirstLetter('hello'));  // "Hello"
 // ```
 
 // Each of these solutions addresses the respective task you've mentioned. Let me know if you'd like further details!
+
+
+
+// function findMissingBySorting(arr, n) {
+//   arr.sort((a, b) => a - b);
+//   for (let i = 0; i < n - 1; i++) {
+//     if (arr[i] + 1 !== arr[i + 1]) return arr[i] + 1;
+//   }
+//   return -1; // No missing number
+// }
+
+// const arr3 = [5, 3, 1, 2, 6];
+// console.log(findMissingBySorting(arr3, 6)); // Output: 4

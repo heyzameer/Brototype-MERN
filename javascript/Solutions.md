@@ -1898,15 +1898,30 @@ In essence, `Array.of()` is for creating arrays from literal values, while `Arra
 
 
 
+## ✅ **Summary Table: Array and Object Copy Methods**  
 
+### ✔ For Arrays  
+| Method                           | Type of Copy     | Break Reference?     | Suitable For                | Recommended For              |
+|-------------------------------|-------------------|---------------------|-----------------------------|-----------------------------|
+| ✅ `Array.from()`                | **Shallow Copy**   | ❌ No (for objects)   | **Simple arrays (numbers, strings)** | Arrays without nested objects  |
+| ✅ `[...array]` (spread operator) | **Shallow Copy**   | ❌ No (for objects)   | **Simple arrays (numbers, strings)** | Arrays without nested objects  |
+| ✅ `Object.assign([], array)`    | **Shallow Copy**   | ❌ No (for objects)   | **Simple arrays (numbers, strings)** | Arrays without nested objects  |
+| ✅ `JSON.parse(JSON.stringify(array))` | **Deep Copy**      | ✅ Yes               | **Nested arrays with objects** | Small projects with nested objects |
+| ✅ `structuredClone(array)`     | **Deep Copy**      | ✅ Yes               | **Any type of array (with objects)** | Modern browsers (Chrome, Firefox, Edge) |
+| ✅ `_.cloneDeep(array)` (Lodash) | **Deep Copy**      | ✅ Yes               | **Large projects (React, Node.js)** | Arrays with deep nested objects  |
 
+---
 
+### ✔ For Objects  
+| Method                           | Type of Copy     | Break Reference?     | Suitable For                | Recommended For              |
+|-------------------------------|-------------------|---------------------|-----------------------------|-----------------------------|
+| ✅ `Object.assign({}, obj)`     | **Shallow Copy**   | ❌ No (for nested objects) | **Plain objects (without nested objects)** | Simple key-value objects       |
+| ✅ `{...obj}` (spread operator)  | **Shallow Copy**   | ❌ No (for nested objects) | **Plain objects (without nested objects)** | Simple key-value objects       |
+| ✅ `JSON.parse(JSON.stringify(obj))` | **Deep Copy**      | ✅ Yes               | **Nested objects (basic)**    | Small projects with deep objects |
+| ✅ `structuredClone(obj)`      | **Deep Copy**      | ✅ Yes               | **Nested objects (all types)** | Modern browsers (Chrome, Firefox, Edge) |
+| ✅ `_.cloneDeep(obj)` (Lodash) | **Deep Copy**      | ✅ Yes               | **Large projects (React, Node.js)** | Objects with deep nested data  |
 
-
-
-
-
-
+---
 
 
 

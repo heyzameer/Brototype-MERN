@@ -574,3 +574,4 @@ console.log(numbers1);
 // }
 
 // console.log(array2);
+

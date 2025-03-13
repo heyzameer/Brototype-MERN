@@ -592,6 +592,20 @@ console.log(numbers[4]);  // Output: 50
 //   - It also has a method `greet()`, which is a function that returns a greeting message using the `name` property.
 //   - The `this` keyword refers to the object itself, so `this.name` accesses the `name` property of the `person` object.
 
+// function Singleton() {
+//     if (!Singleton.instance) {
+//       Singleton.instance = this; // Store single instance
+//       this.name = "Singleton Object";
+//     }
+//     return Singleton.instance;
+//   }
+  
+//   const s1 = new Singleton();
+//   const s2 = new Singleton();
+  
+//   console.log(s1 === s2); // ✅ true (Same instance)
+  
+
 // ---
 
 // ### **2. Object Methods**
@@ -770,17 +784,94 @@ console.log(numbers[4]);  // Output: 50
 
 
 
-// ### **Which Method to Use?**
-// | Method | Use Case |
-// |--------|---------|
-// | `for...in` | Simple iteration over object properties |
-// | `Object.keys()` | Get an array of keys |
-// | `Object.values()` | Get an array of values |
-// | `Object.entries()` | Get both keys and values (best for key-value iteration) |
+// ## ✅ **JavaScript Object Methods Summary Table**
 
-// Let me know if you need more details! 🚀
+// | Method                           | Purpose                                            | Example                                         | Output                      |
+// |-------------------------------|---------------------------------------------------|-------------------------------------------------|----------------------------|
+// | **`Object.keys()`**             | ✅ Returns an array of **keys** in the object      | ```js Object.keys(obj) ```                     | `["name", "age", "city"]`   |
+// | **`Object.values()`**           | ✅ Returns an array of **values** in the object   | ```js Object.values(obj) ```                   | `["John", 30, "New York"]`  |
+// | **`Object.entries()`**          | ✅ Returns an array of **key-value pairs**        | ```js Object.entries(obj) ```                  | `[["name","John"], ["age",30]]` |
+// | **`Object.assign()`**           | ✅ Copies properties from one object to another    | ```js Object.assign({}, obj1, obj2) ```         | Merged Object              |
+// | **`Object.freeze()`**           | ✅ Prevents object modification (read-only)       | ```js Object.freeze(obj) ```                   | Cannot modify object        |
+// | **`Object.seal()`**             | ✅ Prevents adding/removing properties, but allows modifying existing ones | ```js Object.seal(obj) ``` | Cannot add/remove, but can modify |
+// | **`Object.hasOwnProperty()`**   | ✅ Checks if an object has a property (own key)    | ```js obj.hasOwnProperty("name") ```            | `true` or `false`          |
+// | **`Object.getOwnPropertyNames()`** | ✅ Returns all keys including non-enumerable    | ```js Object.getOwnPropertyNames(obj) ```       | All keys (including hidden) |
+// | **`Object.create()`**           | ✅ Creates a new object with a prototype         | ```js Object.create(protoObj) ```               | New object based on prototype |
+// | **`Object.fromEntries()`**     | ✅ Converts array of key-value pairs to object   | ```js Object.fromEntries([["name","John"]]) ``` | `{ name: "John" }`         |
+// | **`Object.defineProperty()`**   | ✅ Adds/Modifies a property with control        | ```js Object.defineProperty(obj, "age", {writable: false})``` | Cannot modify age          |
+// | **`Object.getPrototypeOf()`**   | ✅ Returns the prototype of an object           | ```js Object.getPrototypeOf(obj) ```           | `{}` (Prototype Object)    |
+// | **`Object.is()`**               | ✅ Strict comparison (like === but better)       | ```js Object.is(0, -0) ```                     | `false`                    |
+// | **`Object.isFrozen()`**         | ✅ Check if the object is frozen                | ```js Object.isFrozen(obj) ```                 | `true` or `false`          |
+// | **`Object.isSealed()`**         | ✅ Check if the object is sealed                | ```js Object.isSealed(obj) ```                 | `true` or `false`          |
+// | **`Object.preventExtensions()`** | ✅ Prevent adding new properties to the object  | ```js Object.preventExtensions(obj) ```        | Cannot add properties      |
+// | **`Object.keys().length`**     | ✅ Count total properties                      | ```js Object.keys(obj).length ```             | `3`                        |
+// | **`for...in` loop**            | ✅ Iterate over object keys                     | ```js for (let key in obj) ```                | All keys                    |
+// | **`Object.defineProperties()`** | ✅ Define multiple properties at once          | ```js Object.defineProperties(obj, {...}) ```  | Adds multiple properties   |
 
+// ---
 
+// In JavaScript, you can delete an object or its properties in different ways. Here’s how:  
+
+// ### **1️⃣ Delete a Property from an Object**  
+// Use the `delete` operator to remove a property.  
+// ```javascript
+// const person = { name: "Alice", age: 25, city: "New York" };
+// delete person.age;
+
+// console.log(person); 
+// // Output: { name: 'Alice', city: 'New York' }
+// ```
+
+// ---
+
+// ### **2️⃣ Delete All Properties (Empty the Object)**
+// You can loop through the object and remove all properties.  
+// ```javascript
+// const obj = { a: 1, b: 2, c: 3 };
+
+// Object.keys(obj).forEach(key => delete obj[key]);
+
+// console.log(obj); 
+// // Output: {}
+// ```
+
+// ---
+
+// ### **3️⃣ Completely Remove an Object (Set to `null` or `undefined`)**  
+// If you want to remove the reference to an object:  
+// ```javascript
+// let obj = { x: 10, y: 20 };
+// obj = null;  // OR obj = undefined;
+
+// console.log(obj); // Output: null (or undefined)
+// ```
+// 🚨 *This doesn’t delete the object from memory but removes the reference to it, allowing garbage collection to clean it up.*
+
+// ---
+
+// ### **4️⃣ Reassign the Object to an Empty Object**
+// ```javascript
+// let person = { name: "John", age: 30 };
+// person = {}; 
+
+// console.log(person); 
+// // Output: {}
+// ```
+// This is useful if you want to keep the variable but reset its data.
+
+// ---
+
+// ### **5️⃣ Using `Object.freeze()` to Prevent Deletion**
+// If you want to prevent an object from being modified:
+// ```javascript
+// const data = { id: 1, name: "Item" };
+// Object.freeze(data);
+
+// delete data.name;  // Won't work
+
+// console.log(data);
+// // Output: { id: 1, name: 'Item' }
+// ```
 
 
 
@@ -1106,6 +1197,14 @@ console.log(numbers[4]);  // Output: 50
 
 // console.log(arr1); // [1, 2, { a: 999 }] (Original affected ❌)
 // console.log(arr2); // [1, 2, { a: 999 }]
+
+// ✅ Array.from():
+
+// let array2 = Array.from(array);
+
+// ✅ slice() method:
+
+// let array2 = array.slice();
 // ```
 
 // #### ✅ **Example: Shallow Copy with Objects**
