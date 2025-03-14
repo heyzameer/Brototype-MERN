@@ -22,7 +22,12 @@ by allowing asynchronous code to be written in a synchronous style.
 3. Provides better error handling using try...catch.
 */
 
-// ========================================
+// ====================
+// How await Works in an async Function
+// await pauses the execution of the async function until the Promise resolves.
+// It does not block the entire JavaScript execution; only the async function execution is paused.
+// Other code outside the async function continues to run.
+// ====================
 // Example: Without async/await (Using Promise Chain)
 // ========================================
 

@@ -1,6 +1,6 @@
 // The `call()`, `apply()`, and `bind()` methods in JavaScript are used to explicitly set the value of `this` inside a function. These methods allow for more control over the context in which the function is executed. Here's a detailed explanation of each method:
 
-// ---
+// ---The this keyword in JavaScript refers to the context in which a function is executed. Its value depends on how and where the function is called, not where it is defined.
 
 // ### **1. `call()` Method**
 

@@ -2143,6 +2143,58 @@ console.log(numbers[4]);  // Output: 50
 
 
 
+// The `instanceof` operator in JavaScript is used to check whether an object is an instance of a specific constructor or class. It returns `true` if the object is an instance of the given constructor, otherwise `false`.  
+
+// ### **Syntax**
+// ```javascript
+// object instanceof Constructor
+// ```
+
+// ### **Example 1: Checking Instances**
+// ```javascript
+// class Person {}
+// let p = new Person();
+
+// console.log(p instanceof Person); // true
+// console.log(p instanceof Object); // true (because all objects inherit from Object)
+// ```
+
+// ### **Example 2: Checking Built-in Types**
+// ```javascript
+// let arr = [1, 2, 3];
+// console.log(arr instanceof Array); // true
+// console.log(arr instanceof Object); // true (since arrays inherit from Object)
+// console.log(arr instanceof String); // false
+// ```
+
+// ### **Example 3: Custom Constructor Function**
+// ```javascript
+// function Animal(name) {
+//   this.name = name;
+// }
+// let dog = new Animal("Buddy");
+
+// console.log(dog instanceof Animal); // true
+// console.log(dog instanceof Object); // true
+// ```
+
+// ### **Example 4: `instanceof` with Class Inheritance**
+// ```javascript
+// class Parent {}
+// class Child extends Parent {}
+
+// let obj = new Child();
+
+// console.log(obj instanceof Child); // true
+// console.log(obj instanceof Parent); // true (because Child extends Parent)
+// console.log(obj instanceof Object); // true
+// ```
+
+// ### **Example 5: Using `instanceof` with `null` or `undefined`**
+// ```javascript
+// console.log(null instanceof Object); // false
+// console.log(undefined instanceof Object); // false
+// ```
 
 
 

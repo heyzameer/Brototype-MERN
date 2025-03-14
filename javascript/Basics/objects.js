@@ -399,3 +399,71 @@ console.log(user);
 // obj.age = 25;       // ❌ Not Allowed
 // console.log(obj);
 // ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// In JavaScript, you can delete an object or its properties in several ways:  
+
+// ### **1. Deleting a Property from an Object**  
+// Use the `delete` operator to remove a property from an object.  
+
+// ```javascript
+// let person = { name: "Zameer", age: 25 };
+// delete person.age;
+
+// console.log(person); // Output: { name: "Zameer" }
+// ```
+
+// ### **2. Deleting an Object (Setting to `null` or `undefined`)**  
+// You can't directly delete an entire object, but you can remove references to it.  
+
+// ```javascript
+// let person = { name: "Zameer", age: 25 };
+// person = null;  // The object will be garbage collected if no other references exist
+// ```
+
+// ```javascript
+// let person = { name: "Zameer", age: 25 };
+// person = undefined; // Similar to null, removes reference
+// ```
+
+// ### **3. Deleting an Object from an Array**
+// - Using `.splice()` (Recommended)  
+// ```javascript
+// let arr = [{ id: 1 }, { id: 2 }, { id: 3 }];
+// arr.splice(1, 1); // Removes the second object
+
+// console.log(arr); // Output: [ { id: 1 }, { id: 3 } ]
+// ```
+
+// - Using `.filter()` (Immutable way)  
+// ```javascript
+// let arr = [{ id: 1 }, { id: 2 }, { id: 3 }];
+// arr = arr.filter(obj => obj.id !== 2); // Removes object with id 2
+
+// console.log(arr); // Output: [ { id: 1 }, { id: 3 } ]
+// ```
+
+// ### **4. Clearing an Object Completely**
+// ```javascript
+// let obj = { a: 1, b: 2 };
+// Object.keys(obj).forEach(key => delete obj[key]);
+
+// console.log(obj); // Output: {}
+// ```
+
+// Let me know if you need a specific method! 🚀

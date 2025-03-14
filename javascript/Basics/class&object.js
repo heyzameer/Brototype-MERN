@@ -183,7 +183,7 @@
 // // Subclass (child class) inherits from Animal
 // class Dog extends Animal {
 //     constructor(name, breed) {
-//         super(name);  // Call the parent class constructor
+//         super(name);  // Call the parent class constructor In JavaScript, when a class extends another class, the child class must call super() before accessing this inside the constructor. This is because the parent class needs to initialize its properties first.
 //         this.breed = breed;
 //     }
 

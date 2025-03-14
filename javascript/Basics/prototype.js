@@ -1651,3 +1651,141 @@
 // - It **starts execution quickly** (interpreted) and **optimizes code over time** (compiled).
 
 // Would you like an example of how different engines (V8, SpiderMonkey) handle this? 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Here are explanations for each JavaScript function type you mentioned:
+
+// ### 1. **First-Class Function**  
+//    - In JavaScript, functions are treated as **first-class citizens**, meaning they can be:
+//      - Assigned to variables.
+//      - Passed as arguments to other functions.
+//      - Returned from other functions.
+//    - Example:
+//      ```js
+//      function greet(name) {
+//          return `Hello, ${name}`;
+//      }
+//      let sayHello = greet; // Assigning function to a variable
+//      console.log(sayHello("Zameer")); // Output: Hello, Zameer
+//      ```
+   
+// ---
+
+// ### 2. **Pure Function**  
+//    - A function is **pure** if:
+//      1. It **always returns the same output** for the same input.
+//      2. It **does not modify external state (no side effects)**.
+//    - Example:
+//      ```js
+//      function add(a, b) {
+//          return a + b; // No side effects
+//      }
+//      console.log(add(3, 5)); // Always returns 8
+//      ```
+//    - **Impure Function Example:**
+//      ```js
+//      let total = 0;
+//      function addToTotal(value) {
+//          total += value; // Modifies external variable
+//      }
+//      ```
+
+// ---
+
+// ### 3. **Higher-Order Function (HOF)**  
+//    - A function is **higher-order** if it:
+//      - Takes another function as an argument.
+//      - Returns a function.
+//    - Example:
+//      ```js
+//      function operate(operation, a, b) {
+//          return operation(a, b);
+//      }
+//      function multiply(x, y) {
+//          return x * y;
+//      }
+//      console.log(operate(multiply, 3, 4)); // Output: 12
+//      ```
+//    - **Common HOFs in JavaScript**: `map()`, `filter()`, `reduce()`
+
+// ---
+
+// ### 4. **First-Order Function**  
+//    - A **first-order function** is **not** higher-order, meaning it:
+//      - Does **not** take a function as an argument.
+//      - Does **not** return a function.
+//    - Example:
+//      ```js
+//      function square(n) {
+//          return n * n;
+//      }
+//      console.log(square(4)); // Output: 16
+//      ```
+
+// ---
+
+// ### 5. **Unary Function**  
+//    - A **unary function** is a function that **takes exactly one parameter**.
+//    - Example:
+//      ```js
+//      const double = x => x * 2;
+//      console.log(double(5)); // Output: 10
+//      ```
+//    - **Why use unary functions?**  
+//      - They work well with functions like `map()`:
+//        ```js
+//        let numbers = [1, 2, 3];
+//        let squared = numbers.map(n => n * n); // Unary function inside map
+//        console.log(squared); // Output: [1, 4, 9]
+//        ```
+
+// ---
+
+// ### 6. **Currying Function**  
+//    - **Currying** is a technique where a function:
+//      - Takes multiple arguments **one at a time**.
+//      - Returns a function until all arguments are received.
+//    - Example:
+//      ```js
+//      function multiply(a) {
+//          return function(b) {
+//              return a * b;
+//          };
+//      }
+//      const double = multiply(2);
+//      console.log(double(5)); // Output: 10
+//      ```
+//    - **ES6 Arrow Function Currying:**
+//      ```js
+//      const multiply = a => b => a * b;
+//      console.log(multiply(2)(5)); // Output: 10
+//      ```
+
+// ---
+
+// ### Summary:
+
+// | Function Type      | Description |
+// |--------------------|------------|
+// | **First-Class Function** | Functions can be assigned, passed, and returned like variables. |
+// | **Pure Function** | No side effects, same input → same output. |
+// | **Higher-Order Function** | Takes or returns another function. |
+// | **First-Order Function** | Regular function, doesn’t take or return a function. |
+// | **Unary Function** | Takes exactly one argument. |
+// | **Currying Function** | Converts multiple parameters into a series of single-parameter functions. |
+
+// Would you like a real-world use case for any of these? 🚀
