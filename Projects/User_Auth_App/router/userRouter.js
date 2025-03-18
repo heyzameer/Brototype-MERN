@@ -10,7 +10,7 @@ router.get('/login',usermiddlewire.iflogged,userController.login);
 router.post('/login',userController.loginPost)
 router.get('/logout',userController.logout)
 router.get('/signup',usermiddlewire.iflogged,userController.signup);
-// router.get('/contact',usermiddlewire.iflogged1,userController.contact);
+router.get('/contact',usermiddlewire.iflogged1,userController.contact);
 // router.get('/forgot-password',usermiddlewire.iflogged,userController.profile);
 
 

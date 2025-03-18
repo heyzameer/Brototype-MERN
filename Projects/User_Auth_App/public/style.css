@@ -14,8 +14,15 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
-    text-align: center;
+    text-align: center !important;
+    box-sizing: border-box;
 }
+
+
+input {
+    width: calc(100% - 20px); /* Reduce width to account for padding */
+}
+
 
 h2 {
     margin-bottom: 20px;
@@ -36,6 +43,7 @@ input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 button {
