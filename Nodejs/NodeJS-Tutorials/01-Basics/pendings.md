@@ -276,7 +276,96 @@ const fs = require('fs'); //  example require
 const http = require('http');
 // Use module functionality
 ```
+### **Node.js `util` Module** 🚀
 
+The **`util`** module in Node.js provides useful utility functions for debugging, formatting, and working with asynchronous operations.
+
+---
+
+## **1️⃣ Importing `util`**
+```javascript
+const util = require('util');
+```
+
+---
+
+## **2️⃣ Common Methods in `util`**
+
+### **✅ `util.promisify()`**
+Converts a callback-based function into a promise-based function.
+
+🔹 **Example: Converting `fs.readFile()` to use Promises**
+```javascript
+const fs = require('fs');
+const readFilePromise = util.promisify(fs.readFile);
+
+readFilePromise('example.txt', 'utf8')
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+```
+
+---
+
+### **✅ `util.format()`**
+Formats a string like `printf()` in C.
+
+🔹 **Example:**
+```javascript
+console.log(util.format('Hello, %s! You have %d messages.', 'Alice', 5));
+```
+✅ **Output:**  
+```
+Hello, Alice! You have 5 messages.
+```
+
+---
+
+### **✅ `util.inspect()`**
+Prints an object in a readable format (useful for debugging).
+
+🔹 **Example:**
+```javascript
+const obj = { name: "Zameer", age: 25, skills: { js: true, python: false } };
+console.log(util.inspect(obj, { depth: null, colors: true }));
+```
+
+---
+
+### **✅ `util.types`**
+Provides type-checking functions.
+
+🔹 **Example:**
+```javascript
+console.log(util.types.isDate(new Date())); // true
+console.log(util.types.isRegExp(/abc/));   // true
+```
+
+---
+
+### **✅ `util.deprecate()`**
+Marks a function as deprecated (warns when used).
+
+🔹 **Example:**
+```javascript
+const oldFunction = util.deprecate(() => {
+  console.log("This function is deprecated!");
+}, "oldFunction() is deprecated. Use newFunction() instead.");
+
+oldFunction(); // Will show a warning
+```
+
+---
+
+### **🔥 Summary Table**
+| Method | Use Case |
+|--------|---------|
+| `util.promisify()` | Converts callback-based functions to Promises |
+| `util.format()` | Formats strings like `printf()` |
+| `util.inspect()` | Prints objects in a readable format |
+| `util.types` | Checks object types (`isDate`, `isRegExp`, etc.) |
+| `util.deprecate()` | Marks functions as deprecated |
+
+Would you like a deep dive into any specific method? 🚀
 ---
 
 # Child Process (Node.js)
@@ -406,6 +495,17 @@ The `child_process` module spawns new processes from your Node.js application, e
 
 *   Image Processing, Video Encoding, Data Analysis, System Monitoring, Microservices.
 
+## **🔥 Key Differences**
+| Feature   | `fork()` | `spawn()` |
+|-----------|---------|----------|
+| **Creates new V8 instance?** | ✅ Yes | ❌ No |
+| **Used for Node.js scripts?** | ✅ Yes | ❌ No |
+| **Supports IPC (message passing)?** | ✅ Yes | ❌ No |
+| **Runs external system commands?** | ❌ No | ✅ Yes |
+| **Lightweight?** | ❌ No (heavier) | ✅ Yes (lighter) |
+
+📌 **Choose `fork()` when** you need to run another Node.js process and communicate with it.  
+📌 **Choose `spawn()` when** you need to run external commands or scripts.  
 ---
 
 # Environment Variables (Node.js)
@@ -582,7 +682,7 @@ app.get('/profile', (req, res) => {
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Profile</title>
+  <title>Profile</title> 
 </head>
 <body>
   <h1>User Profile</h1>
