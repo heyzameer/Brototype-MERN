@@ -1,5 +1,3 @@
-Okay, here's a breakdown of each topic, including context, definitions, explanations, and answers to your questions, with added interview-relevant details:
-
 **1. Pure Functions**
 
 *   **Context:** Pure functions are a cornerstone of functional programming and contribute significantly to code predictability and maintainability.
@@ -404,7 +402,27 @@ Okay, here's a breakdown of each topic, including context, definitions, explanat
         myDog.bark();    // Woof!
         console.log(myDog instanceof Dog); //true
         console.log(myDog instanceof Animal) //true
+
+
+
+      // second example
+        function Person(name) {
+        this.name = name;
+        }
+
+        // Adding a method to the prototype
+        Person.prototype.greet = function() {
+          return `Hello, my name is ${this.name}`;
+        };
+
+        const person1 = new Person("Zameer");
+        const person2 = new Person("Ahamed");
+
+        console.log(person1.greet()); // Output: Hello, my name is Zameer
+        console.log(person2.greet()); // Output: Hello, my name is Ahamed
         ```
+
+        
 
     *   **ES6 (Classes):**  Syntactic sugar over the prototypal inheritance model.  It looks more like classical inheritance but works the same way under the hood.
 
@@ -575,6 +593,20 @@ Okay, let's tackle these additional topics.
     console.log(gen.next()); // { value: 2, done: false }
     console.log(gen.next()); // { value: 3, done: false }
     console.log(gen.next()); // { value: undefined, done: true }
+
+      function* numberGenerator() {
+            yield 1;
+            yield 2;
+            yield 3;
+        }
+
+        const generator = numberGenerator();
+
+        console.log(generator.next().value); // Output: 1
+        console.log(generator.next().value); // Output: 2
+        console.log(generator.next().value); // Output: 3
+        console.log(generator.next().done);  // Output: true (generator is finished)
+
     ```
 
 *   **`yield` Keyword:**
@@ -1144,6 +1176,25 @@ console.log(mergedObj) //{a: 1, b: 2, c: 4, d: 5}
         return false;
       };
     }
+
+       const radius = [3,6,2,1];
+
+       const area = function (radius) {
+           return Math.PI* radius *radius;
+       }
+
+          
+       Array.prototype.calculate = function(logic){
+           const result=[];
+
+           for (let i = 0; i < this.length; i++) {
+             result.push(logic(this[i])); 
+           }
+           return result;
+       }
+      console.log("our implemetation of map")
+       console.log(radius.calculate(area));
+
     ```
 
     You would typically use a well-tested polyfill library like core-js rather than writing your own.
@@ -1320,403 +1371,7 @@ printEvenNumbersWithDelayAsync()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Let's continue with these advanced JavaScript concepts and coding challenges.
-
-**21. Reverse a String**
-
-```javascript
-function reverseString(str) {
-  let reversed = "";
-  for (let i = str.length - 1; i >= 0; i--) {
-    reversed += str[i];
-  }
-  return reversed;
-}
-
-console.log(reverseString("hello")); // olleh
-console.log(reverseString("world")); // dlrow
-console.log(reverseString(""));      // ""
-
-// Alternative using a loop with two pointers (more efficient for very long strings):
-function reverseStringTwoPointers(str) {
-    const arr = str.split('');
-    let left = 0;
-    let right = arr.length - 1;
-
-    while (left < right) {
-        // Swap characters at left and right pointers
-        const temp = arr[left];
-        arr[left] = arr[right];
-        arr[right] = temp;
-
-        left++;
-        right--;
-    }
-
-    return arr.join('');
-}
-
-//Alternative using recursion
-function reverseStringRecursion(str){
-    if(str === ""){ //Base condition
-        return "";
-    } else {
-        return reverseStringRecursion(str.substring(1)) + str.charAt(0);
-    }
-}
-
-//Alternative using built in methods (although the question specifically asks not to)
-function reverseStringBuiltIn(str){
-    return str.split("").reverse().join("");
-}
-```
-
-**22. Check if an Object is Empty**
-
-```javascript
-function isObjectEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
-
-console.log(isObjectEmpty({})); // true
-console.log(isObjectEmpty({ a: 1 })); // false
-console.log(isObjectEmpty({ a: 1, b: 2 })); // false
-
-// Alternative, very slightly more performant (stops iterating early)
-function isObjectEmptyAlternative(obj) {
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      return false; // Found a property, so it's not empty
-    }
-  }
-  return true; // No properties found
-}
-```
-
-**23. Rest vs. Spread Operators**
-
-*   **Rest Operator (`...`)**:  *Collects* multiple elements into a single array. Used in function parameters and destructuring.
-*   **Spread Operator (`...`)**:  *Expands* an iterable (array, string, object) into individual elements. Used in array literals, function calls, and object literals.
-
-```javascript
-// Rest Operator (function parameters)
-function myFunc(...args) {
-  console.log(args);
-}
-myFunc(1, 2, 3); // [1, 2, 3]
-
-// Rest Operator (destructuring)
-const [first, ...rest] = [1, 2, 3, 4];
-console.log(first); // 1
-console.log(rest);  // [2, 3, 4]
-
-// Spread Operator (array literal)
-const arr1 = [1, 2, 3];
-const arr2 = [...arr1, 4, 5]; // Copy and add elements
-console.log(arr2); // [1, 2, 3, 4, 5]
-
-// Spread Operator (function call)
-function add(a, b, c) {
-  return a + b + c;
-}
-const numbers = [1, 2, 3];
-console.log(add(...numbers)); // 6 (expands the array into individual arguments)
-
-// Spread Operator (object literal) - Shallow Copy!
-const obj1 = { a: 1, b: 2 };
-const obj2 = { ...obj1, c: 3 }; // Copy and add a property
-console.log(obj2); // { a: 1, b: 2, c: 3 }
-
-// Spread for Merging objects:
-const person = { name: "Alice" };
-const details = { age: 30, city: "New York" };
-const merged = { ...person, ...details };
-console.log(merged); // { name: "Alice", age: 30, city: "New York" }
-
-//If there are duplicate keys the last one will override
-const objOne = { a: 1, b: 2, c:3 };
-const objTwo = { c: 4, d:5 };
-const mergedObj = { ...objOne, ...objTwo};
-console.log(mergedObj) //{a: 1, b: 2, c: 4, d: 5}
-
-```
-
-**24. Callback Functions**
-
-*   **Callback Function:** A function that is passed as an argument to another function and is executed *after* the outer function has completed (or at a specific point during the outer function's execution).
-
-*   **Example:**
-
-    ```javascript
-    function doSomething(callback) {
-      // Do some work...
-      console.log("Doing something...");
-      // Call the callback function
-      callback();
-    }
-
-    function myCallback() {
-      console.log("Callback executed!");
-    }
-
-    doSomething(myCallback);
-    // Output:
-    // Doing something...
-    // Callback executed!
-    ```
-
-*   **Asynchronous JavaScript:** Callbacks are essential for handling asynchronous operations (e.g., network requests, timers, file I/O).  Since these operations don't complete immediately, you provide a callback function to be executed when the operation is finished.
-
-*   **Callback Hell (Pyramid of Doom):** Deeply nested callbacks, making code difficult to read and maintain.
-
-    ```javascript
-    // Example of Callback Hell (simplified)
-    asyncOperation1(function(result1) {
-      asyncOperation2(result1, function(result2) {
-        asyncOperation3(result2, function(result3) {
-          // ...and so on...
-        });
-      });
-    });
-    ```
-
-*   **Avoiding Callback Hell:**
-
-    *   **Promises:** Use Promises and `.then()` chaining.
-    *   **`async/await`:**  Provides a more synchronous-looking way to work with Promises.
-    *   **Modularize Code:** Break down your code into smaller, named functions.
-
-**25. Polyfills**
-
-*   **Polyfill:** A piece of code (usually JavaScript) that provides functionality that is not natively supported by a particular browser (or JavaScript environment).  It "fills in" the gap, allowing you to use modern features even in older environments.
-
-*   **Why Use Polyfills?** To ensure your code works consistently across different browsers and versions, especially when using newer JavaScript features.
-
-*   **Example:**
-
-    *   `Array.prototype.includes()` (introduced in ES2016) might need a polyfill for very old browsers.
-
-    ```javascript
-    // A very simple (and incomplete) polyfill for Array.prototype.includes
-    if (!Array.prototype.includes) {
-      Array.prototype.includes = function(searchElement, fromIndex) {
-        // ...implementation... (using indexOf, for example)
-        if(this == null){
-            throw new TypeError('"this" is null or not defined');
-        }
-
-        const arr = Object(this);
-        const len = arr.length >>> 0; // Convert to integer
-
-        if (len === 0) {
-          return false;
-        }
-        const n = fromIndex | 0; //convert to int
-
-        let k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
-
-        while(k < len){
-            if(arr[k] === searchElement){
-                return true
-            }
-            k++;
-        }
-
-        return false;
-      };
-    }
-    ```
-
-    You would typically use a well-tested polyfill library like core-js rather than writing your own.
-
-**26. Debouncing**
-
-*   **Debouncing:** A technique to limit the rate at which a function can fire. It ensures that a function is only called *after* a certain amount of time has passed since the *last* time it was invoked.
-
-*   **Scenario:**  Useful for events that fire very frequently, such as:
-
-    *   **Window Resizing:**  Only update the layout after the user has stopped resizing the window.
-    *   **Search Input:**  Only send a search request to the server after the user has stopped typing for a short period.
-    *   **Scroll Events:**  Avoid excessive calculations or updates while the user is scrolling rapidly.
-
-*   **Implementation:**
-
-    ```javascript
-    function debounce(func, delay) {
-      let timeoutId;
-
-      return function(...args) {
-        clearTimeout(timeoutId); // Clear any previous timer
-
-        timeoutId = setTimeout(() => {
-          func.apply(this, args);
-        }, delay);
-      };
-    }
-
-    // Example usage:
-    function handleResize() {
-      console.log("Window resized!");
-    }
-
-    const debouncedResize = debounce(handleResize, 300); // Debounce with a 300ms delay
-
-    window.addEventListener("resize", debouncedResize);
-    ```
-
-**27. Timer Functions (`setInterval`, Stopping)**
-
-*   **`setTimeout(callback, delay)`:** Executes a function *once* after a specified delay (in milliseconds).
-*   **`setInterval(callback, delay)`:** Executes a function repeatedly at a specified interval (in milliseconds).
-
-*   **Stopping `setInterval`:**  `setInterval` returns an ID.  You use `clearInterval(intervalId)` to stop the interval.
-
-*   **Log Message for 5 Seconds:**
-
-    ```javascript
-    function logForFiveSeconds() {
-      let count = 0;
-      const intervalId = setInterval(() => {
-        console.log("Logging...");
-        count++;
-
-        if (count >= 5) {
-          clearInterval(intervalId); // Stop the interval
-          console.log("Stopped.");
-        }
-      }, 1000); // Every 1 second (1000ms)
-    }
-
-    logForFiveSeconds();
-    ```
-
-**28. `reduce()` Method**
-
-*   **`reduce(callback(accumulator, currentValue, currentIndex, array), initialValue)`:**  Applies a function against an accumulator and each element in an array (from left to right) to reduce it to a single value.
-
-    *   `accumulator`:  The accumulated value (initially `initialValue`, or the first element of the array if `initialValue` is not provided).
-    *   `currentValue`: The current element being processed.
-    *   `currentIndex`: The index of the current element.
-    *   `array`: The array `reduce` was called upon.
-    *   `initialValue` (optional):  The initial value of the accumulator.  If not provided, the first element of the array is used as the initial accumulator value, and the iteration starts from the second element.
-
-*   **Sum of an Array:**
-
-    ```javascript
-    const numbers = [1, 2, 3, 4, 5];
-    const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-    console.log(sum); // 15
-    ```
-
-*   **Maximum Value:**
-
-    ```javascript
-    const numbers = [1, 5, 2, 8, 3];
-    const max = numbers.reduce((accumulator, currentValue) => Math.max(accumulator, currentValue), -Infinity);
-     // Start with -Infinity to handle negative numbers
-    console.log(max); // 8
-    ```
-
-*   **Frequency Map:**
-
-    ```javascript
-    const elements = ["a", "b", "a", "c", "b", "b"];
-    const frequencyMap = elements.reduce((accumulator, currentValue) => {
-      accumulator[currentValue] = (accumulator[currentValue] || 0) + 1;
-      return accumulator;
-    }, {}); // Initialize with an empty object
-    console.log(frequencyMap); // { a: 2, b: 3, c: 1 }
-    ```
-* **Total Characters**
-    ```javascript
-        const words = ["apple", "banana", "cherry"];
-        const totalCharacters = words.reduce((acc, curr)=>{
-            return acc + curr.length;
-        },0)
-        console.log(totalCharacters) //17
-    ```
-
-**29. `flatMap()` Method**
-
-* **`flatMap()`:**  The `flatMap()` method first maps each element using a mapping function, then flattens the result into a new array.  It's essentially a combination of `map()` followed by a `flat()` of depth 1.
-
-```javascript
-const arr = [1, 2, 3, 4];
-
-// Using map() and flat() separately:
-const mapped = arr.map(x => [x * 2, x * 3]); // [[2, 3], [4, 6], [6, 9], [8, 12]]
-const flattened = mapped.flat();         // [2, 3, 4, 6, 6, 9, 8, 12]
-
-// Using flatMap():
-const flatMapped = arr.flatMap(x => [x * 2, x * 3]); // [2, 3, 4, 6, 6, 9, 8, 12]
-```
-* **Example**
-
-```javascript
-    const sentences = ["Hello world", "The quick brown fox"];
-    const words = sentences.flatMap(sentence => sentence.split(" "));
-    console.log(words);
-    // Output: ["Hello", "world", "The", "quick", "brown", "fox"]
-
-    //Example: Generate pairs
-    const numbers = [1, 2, 3];
-    const pairs = numbers.flatMap(
-    (num) => [num, num * 2]
-    );
-    console.log(pairs); // Output: [1, 2, 2, 4, 3, 6]
-```
-
-**30. Print First 10 Even Numbers with Delay**
-
-```javascript
-function printEvenNumbersWithDelay() {
-  let count = 0;
-  let num = 2; // Start with the first even number
-
-  const intervalId = setInterval(() => {
-    console.log(num);
-    num += 2;       // Get the next even number
-    count++;
-
-    if (count >= 10) {
-      clearInterval(intervalId); // Stop after 10 numbers
-    }
-  }, 1000); // 1-second delay
-}
-
-printEvenNumbersWithDelay();
-
-// Alternative using async/await (more modern approach)
-async function printEvenNumbersWithDelayAsync() {
-    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-    for (let i = 2; i <= 20; i += 2) {
-        console.log(i);
-        await delay(1000); // Wait for 1 second
-    }
-}
-printEvenNumbersWithDelayAsync()
-```
-
-This comprehensive set of explanations and code examples covers a wide range of important JavaScript concepts. Remember to practice these examples and try modifying them to deepen your understanding. Good luck with your interviews!
-
-
-
-
+\
 
 
 
@@ -2300,6 +1955,8 @@ arrowWithRest(1,2,3) // [1,2,3]
 **42. Hashmap**
 
 *   **Implementation of Hashmap:** In JavaScript, you can implement a hashmap using an object or the built-in `Map` object. `Map` is generally preferred for hashmaps because it handles keys of any type (not just strings), avoids potential collisions with inherited properties, and offers better performance for frequent additions and removals.
+
+A HashMap (or Hash Table) is a data structure that stores key-value pairs using a hashing function. It allows for fast lookups, insertions, and deletions in average O(1) time complexity.
 
     ```javascript
     // Using a plain object (simple hashmap for string keys):
@@ -4852,5 +4509,3 @@ function findShortestWord2(str){
         console.log(withIndex);
         // ["Number 1 at index 0", "Number 2 at index 1", "Number 3 at index 2", "Number 4 at index 3", "Number 5 at index 4"]
         ```
-
-This completes the massive JavaScript review! You've covered a huge range of topics, from fundamental concepts to advanced techniques.  The key now is continued practice, building projects, and reinforcing your understanding.  Good luck!

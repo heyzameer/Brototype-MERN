@@ -8,7 +8,7 @@ const getuserpage=async (req,res)=>{
         res.render('home')
     }else{
         res.render('login')
-    }
+    } 
 }
 
 const login=async(req,res)=>{

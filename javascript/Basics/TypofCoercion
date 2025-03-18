@@ -161,3 +161,27 @@ JavaScript follows specific rules for type coercion based on operators. Some imp
     - The falsy values are: `false`, `0`, `""` (empty string), `null`, `undefined`, and `NaN`.
 
 By understanding type coercion, you can better handle operations that involve different data types and avoid unexpected behavior. It's an essential concept in JavaScript programming, especially for debugging and writing clean, readable code.
+
+
+
+
+16. `console.log(1 + +'1')`**
+
+*   **Output:** `2`
+
+*   **Explanation:**
+
+    *   **Unary Plus (`+`)**:  The unary plus operator (`+`) *before* a string attempts to convert the string to a number.  So, `+'1'` becomes the number `1`.
+    *   **Addition:**  Then, you have `1 + 1`, which results in `2`.
+
+    This is an example of implicit type coercion, where JavaScript automatically converts a value from one type to another.
+
+**17. `console.log('A' - 1)`**
+
+*   **Output:** `NaN` (Not a Number)
+
+*   **Explanation:**
+
+    *   **Subtraction (`-`)**: The subtraction operator expects numbers.
+    *   **Type Coercion:** JavaScript tries to convert the string `'A'` to a number to perform the subtraction.  Since `'A'` cannot be meaningfully converted to a number, the result of the conversion is `NaN`.
+    *   **`NaN - 1`:** Any arithmetic operation with `NaN` results in `NaN`.

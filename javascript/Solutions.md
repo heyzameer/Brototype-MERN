@@ -1,3 +1,1748 @@
+### **1. Function Composition**
+**Definition:** Function composition is a way of combining two or more functions to create a new function.  The output of one function becomes the input of the next, creating a pipeline of operations.  It's a core concept in functional programming that promotes code reusability, modularity, and readability.
+
+**Explanation:** Instead of writing a single, large function that performs many steps, you break the process down into smaller, independent functions.  Composition then allows you to combine these smaller functions in various ways, creating new functionality without modifying the original functions.
+
+**Example (Expanded):**
+
+```javascript
+const add = (x) => x + 2;
+const multiply = (x) => x * 3;
+const square = (x) => x * x;
+
+// Generalized compose function (right-to-left composition)
+const compose = (...fns) => (x) => fns.reduceRight((acc, fn) => fn(acc), x);
+
+// Using compose to create a new function
+const addMultiplySquare = compose(square, multiply, add);
+
+console.log(addMultiplySquare(5)); // ((5 + 2) * 3)^2 = 441
+
+// Another example, demonstrating reusability
+const addThenSquare = compose(square, add);
+console.log(addThenSquare(5)); // (5 + 2)^2 = 49
+```
+**Explanation of the `compose` function:**
+
+*   `...fns`: This uses the rest parameter syntax to accept any number of functions as arguments.  `fns` becomes an array of functions.
+*   `(x) => ...`: This returns an anonymous function that takes a single argument `x` (the initial input).
+*   `fns.reduceRight(...)`: This is the core of the composition.  `reduceRight` works from right to left through the array of functions:
+    *   `acc`: The accumulator.  In the first iteration, it's the initial input `x`.  In subsequent iterations, it's the result of the previous function call.
+    *   `fn`: The current function being processed.
+    *   `fn(acc)`:  The current function is called with the accumulated result.
+    *   The final result of `reduceRight` is the output of the entire composed function.
+
+**Real-world Scenarios:**
+
+*   **Redux:** Middleware are composed to handle actions before they reach the reducers. Enhancers are composed to add functionality to the store.
+*   **RxJS:** Operators (like `map`, `filter`, `mergeMap`) are composed to create complex data streams.
+*   **Functional Libraries:** Libraries like Ramda and Lodash/fp provide utility functions designed for composition.
+
+**Error Handling:**
+
+```javascript
+const divide = (x) => {
+  if (x === 0) {
+    throw new Error("Division by zero!");
+  }
+  return 10 / x;
+};
+
+const add2 = (x) => x + 2;
+
+const composed = compose(add2, divide);
+
+try {
+  console.log(composed(2)); // 10 / 2 + 2 = 7
+  console.log(composed(0)); // Throws an error
+} catch (error) {
+  console.error(error.message); // "Division by zero!"
+}
+```
+
+**Point-free Style (Tacit Programming):**
+
+```javascript
+// Not point-free:
+const double = (x) => x * 2;
+const increment = (x) => x + 1;
+const doubleAndIncrement = (x) => increment(double(x));
+
+// Point-free (using compose):
+const doubleAndIncrement_PF = compose(increment, double);
+```
+
+---
+
+### **2. Shallow Freeze and Deep Freeze**
+
+**Definition:**
+
+*   **Shallow Freeze (`Object.freeze`)**:  Makes an object immutable at the *first level* only.  You cannot add, remove, or modify the object's direct properties.  However, if a property's value is itself an object, that nested object *can* still be modified.
+*   **Deep Freeze:** Makes an object *completely* immutable, including all nested objects.  No properties at any level can be changed.
+
+**Explanation:** JavaScript objects are mutable by default.  Freezing provides a way to prevent accidental or unwanted modifications, which can be crucial for data integrity and debugging.
+
+**Example:**
+
+```javascript
+// Shallow Freeze
+const obj1 = {
+  name: "Alice",
+  address: {
+    city: "New York",
+  },
+};
+
+Object.freeze(obj1);
+
+obj1.name = "Bob"; // No effect - cannot change
+obj1.age = 30;      // No effect - cannot add
+delete obj1.name;   // No effect - cannot delete
+
+obj1.address.city = "Los Angeles"; // THIS WORKS! - shallow freeze
+console.log(obj1); // { name: 'Alice', address: { city: 'Los Angeles' } }
+
+// Deep Freeze (recursive function)
+function deepFreeze(object) {
+  const propNames = Object.getOwnPropertyNames(object);
+
+  for (let name of propNames) {
+    const value = object[name];
+
+    if (value && typeof value === "object") {
+      deepFreeze(value); // Recursively freeze nested objects
+    }
+  }
+
+  return Object.freeze(object);
+}
+
+const obj2 = {
+  name: "Alice",
+  address: {
+    city: "New York",
+    zip: {
+      code: 10001
+    }
+  },
+};
+
+deepFreeze(obj2);
+
+obj2.address.city = "Los Angeles"; // No effect
+obj2.address.zip.code = 90210;    // No effect
+console.log(obj2); // Remains unchanged
+```
+
+**Use Cases and Considerations:**
+
+*   **Immutable Data Structures:**  Important in functional programming and libraries like React and Redux, where immutability helps with predictable state management.
+*   **Configuration Objects:** Freezing configuration objects can prevent accidental changes.
+*   **Security:** Can help prevent certain types of tampering (though not a complete security solution).
+*   **Performance:** Deep freezing large, deeply nested objects can have a performance cost.
+*   **Flexibility:**  You might *not* want to deep freeze if you need to modify nested objects later.
+
+---
+
+### **3. Prototype Pollution**
+
+**Definition:** Prototype pollution is a vulnerability where an attacker can modify the default properties (prototype) of built-in JavaScript objects, such as `Object`, `Array`, or `Function`.  This can lead to unexpected behavior, denial of service, or even arbitrary code execution.
+
+**Explanation:** JavaScript uses prototype-based inheritance.  Every object inherits properties and methods from its prototype.  If an attacker can add or modify properties on a base object's prototype, *all* objects that inherit from that prototype will be affected.
+
+**Example:**
+
+```javascript
+// Simple example
+Object.prototype.hackedProperty = "I've been hacked!";
+
+const myObject = {};
+console.log(myObject.hackedProperty); // "I've been hacked!"
+
+// More subtle example (affecting a library)
+Object.prototype.toString = function() {
+  return "Hacked!";
+};
+
+const arr = [1, 2, 3];
+console.log(arr.toString()); // "Hacked!" (instead of "1,2,3")
+```
+
+**Vulnerability in Express (Illustrative):**
+
+```javascript
+//Vulnerable Code
+const express = require('express');
+const app = express();
+
+app.get('/user', (req, res) => {
+  const userData = req.query; // User-controlled input
+  const user = {};
+
+  // Prototype pollution vulnerability!
+  for (const key in userData) {
+    user[key] = userData[key];
+  }
+
+  // ... (later code might use properties of 'user', assuming they are safe)
+
+  res.send("User data processed.");
+});
+
+app.listen(3000);
+```
+
+**Attacker's Request:**
+
+`GET /user?__proto__[isAdmin]=true`
+
+**Explanation of the Attack:**
+
+*   `__proto__`:  This special property (in some JavaScript environments) allows access to an object's prototype.  It's deprecated and should not be used directly in code, but it's a common target for prototype pollution attacks.
+*   `[isAdmin]=true`: The attacker sets the `isAdmin` property on the *prototype* of all objects.
+*   Now, *any* new object created after this point might inherit `isAdmin: true`, potentially granting unauthorized access.
+
+**Prevention Techniques (Comprehensive):**
+
+1.  **`Object.create(null)`:** Creates an object with *no* prototype.  This is the most robust way to prevent prototype pollution:
+    ```javascript
+    const safeObject = Object.create(null);
+    safeObject.name = "John";
+    console.log(safeObject.__proto__); // undefined (no prototype!)
+    ```
+
+2.  **`Object.freeze(Object.prototype)`:** Prevents modifications to `Object.prototype`.  This should be done very early in your application's lifecycle:
+    ```javascript
+    Object.freeze(Object.prototype);
+    ```
+
+3.  **Input Sanitization and Validation:**  *Always* validate and sanitize user input *before* using it to access or modify object properties.  This is your *primary* defense:
+    *   **Whitelist:**  Define a list of allowed property names and reject any others.
+    *   **Schema Validation:** Use a library like Joi or Ajv to define a schema for your expected input and validate against it.
+    *   **Type Checking:** Ensure that the input has the expected data type (e.g., string, number, boolean).
+    *   **Avoid `__proto__`, `constructor`, `prototype`:**  Never allow user input to directly set these properties.
+
+4.  **Using `Map` instead of `Object`:** For key-value storage where you don't need prototype inheritance, `Map` is a safer alternative.
+
+5.  **Code Reviews and Security Audits:** Regularly review your code for potential prototype pollution vulnerabilities.
+
+6.  **Keep Dependencies Updated:** Vulnerabilities are often found and patched in third-party libraries.  Keep your dependencies up-to-date.
+
+---
+
+### **4. Partials and Currying**
+
+**Definition:**
+
+*   **Partial Application:** A technique where you create a new function by pre-filling some of the arguments of an existing function.  The new function takes fewer arguments than the original.
+*   **Currying:** A technique where you transform a function that takes multiple arguments into a *sequence* of functions that each take a *single* argument.
+
+**Explanation:** Both partial application and currying are ways to create more specialized functions from more general ones.  They promote code reuse and make functions more flexible.
+
+**Example (Partial Application - Expanded):**
+
+```javascript
+function partial(func, ...fixedArgs) {
+  return function (...remainingArgs) {
+    return func(...fixedArgs, ...remainingArgs);
+  };
+}
+
+function greet(greeting, name, punctuation) {
+  return `${greeting}, ${name}${punctuation}`;
+}
+
+const sayHello = partial(greet, "Hello"); // Pre-fill the greeting
+console.log(sayHello("Alice", "!"));  // "Hello, Alice!"
+console.log(sayHello("Bob", "."));    // "Hello, Bob."
+
+const greetExcitedly = partial(greet, "Hey", "!!!");//Pre-fill greeting and punctuation arguments
+console.log(greetExcitedly("Charlie"));
+```
+
+**Example (Currying):**
+
+```javascript
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      // If we have enough arguments, call the original function
+      return fn.apply(this, args);
+    } else {
+      // Otherwise, return a new function that takes the remaining arguments
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      };
+    }
+  };
+}
+
+function add(a, b, c) {
+  return a + b + c;
+}
+
+function curriedAdd(a) {
+  return function (b) {
+    return function (c) {
+      return a + b + c;
+    };
+  };
+}
+
+console.log(curriedAdd(1)(2)(3));
+
+const curriedAdd = curry(add);
+
+console.log(curriedAdd(1)(2)(3)); // 6 (calling with one argument at a time)
+console.log(curriedAdd(1, 2)(3)); // 6 (mixing argument groups)
+console.log(curriedAdd(1)(2, 3)); // 6
+console.log(curriedAdd(1, 2, 3)); // 6 (calling with all arguments)
+
+const add5 = curriedAdd(5); // Partially apply '5'
+console.log(add5(10)(20))    // partially apply 5 and 10 then call the function with 20
+
+```
+
+**`bind` Method:**
+
+```javascript
+function multiply(a, b) {
+  return a * b;
+}
+
+const double = multiply.bind(null, 2); // 'null' for 'this', 2 for 'a'
+console.log(double(5)); // 10
+```
+
+**Difference between Partial Application and Currying:**
+
+*   **Partial Application:** Returns a function that takes the *remaining* arguments (which can be more than one).
+*   **Currying:** Returns a *sequence* of functions, each taking *one* argument.
+
+---
+
+### **5. Rate Limiting**
+
+**Definition:** Rate limiting is a technique used to control the rate of traffic sent or received by a network interface.  In the context of APIs, it limits the number of requests a client (user, IP address, application) can make within a specific time period.
+
+**Explanation:** Rate limiting protects APIs from overuse, abuse (e.g., denial-of-service attacks), and helps ensure fair usage among all clients.
+
+**Example (using `express-rate-limit` - Expanded):**
+
+```javascript
+const express = require('express');
+const rateLimit = require('express-rate-limit');
+const Redis = require('ioredis') // for using redis
+
+const app = express();
+const port = 3000;
+
+
+// Basic Rate Limiting (Fixed Window, In-Memory)
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute window
+  max: 5,               // Limit each IP to 5 requests per window
+  message: "Too many requests from this IP, please try again after a minute",
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+app.use(limiter); // Apply to all routes
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+//----------------------------------------------------------------------------------------
+// Redis setup (for distributed rate limiting)
+const redisClient = new Redis({
+  host: 'localhost', // Your Redis host
+  port: 6379,        // Your Redis port
+  // password: 'your_redis_password', // If you have a password
+});
+
+
+// Rate Limiting with Redis (Sliding Window)
+const redisLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute window
+  max: 10,               // Max 10 requests per minute
+  message: "Too many requests from this IP, please try again later.",
+  standardHeaders: true,
+  legacyHeaders: false,
+  store: new rateLimit.RateLimitRedisStore({ // Use Redis store
+    sendCommand: (...args) => redisClient.call(...args)
+  }),
+  keyGenerator: (request, response) => request.ip //  use the `request.ip` as the key
+});
+// Apply to a specific route
+app.use('/api/redis', redisLimiter, (req, res) => {
+     res.send('Data from Redis route');
+ });
+//---------------------------------------------------------------------------------
+
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
+```
+
+**Explanation of the Expanded Example:**
+
+*   **`express-rate-limit`:** A popular Node.js middleware for rate limiting.
+*   **`windowMs`:** The time window (in milliseconds) for which the limit applies.
+*   **`max`:** The maximum number of requests allowed within the `windowMs`.
+*   **`message`:**  The message sent to the client when the rate limit is exceeded (can be a string or a JSON object).
+*   **`standardHeaders` / `legacyHeaders`:**  Controls whether rate limit information is included in the response headers.
+*   **`store`:**  Specifies where to store the rate limit data.  The basic example uses an in-memory store (not suitable for distributed applications).  The Redis example uses `rate-limit-redis` to store data in Redis (suitable for distributed applications).
+*   **`keyGenerator`**: Customize the key used to track rate limits (e.g., by IP address, user ID, API key).
+* **Redis Setup**: Shows how to connect to a Redis server.
+* **Redis Limiter**:  Demonstrates how to use `express-rate-limit` with a Redis store for distributed rate limiting. This is crucial for applications running on multiple servers.
+
+**Rate Limiting Algorithms:**
+
+*   **Fixed Window:**  The simplest approach.  A fixed time window (e.g., 1 minute) is defined, and requests are counted within that window.  When the window resets, the count starts from zero.
+*   **Sliding Window:**  More accurate than fixed window.  The window "slides" over time.  For example, if the window is 1 minute, the rate limiter might track requests within the last 60 seconds, even if that spans across two fixed window boundaries.
+*   **Token Bucket:**  A "bucket" has a certain capacity (number of tokens).  Each request consumes a token.  Tokens are replenished at a fixed rate.  This allows for bursts of traffic (up to the bucket capacity) while still enforcing an average rate limit.
+*   **Leaky Bucket:**  Similar to token bucket, but requests are processed at a constant rate.  If the bucket is full, new requests are rejected (or queued).
+
+**HTTP Headers:**
+
+*   **`X-RateLimit-Limit`:** The maximum number of requests allowed.
+*   **`X-RateLimit-Remaining`:** The number of requests remaining in the current window.
+*   **`X-RateLimit-Reset`:** The time (usually a Unix timestamp) when the rate limit window resets.
+*   **`Retry-After`:** (Used with 429 Too Many Requests) Indicates how long (in seconds or as an HTTP date) the client should wait before making a new request.
+
+**Storage:**
+
+*   **In-Memory:** Simple, fast, but not suitable for distributed applications (each server has its own counter).
+*   **Redis:** A popular choice for distributed rate limiting.  Fast, scalable, and provides persistence.
+*   **Database:**  Can be used, but might be slower than Redis.
+
+---
+
+### **6. Axios Interceptors in React**
+
+**Definition:** Axios interceptors are functions that are called *before* a request is sent (request interceptors) or *after* a response is received (response interceptors). They allow you to modify the request or response globally, handle errors, and perform other tasks.
+
+**Explanation:** Interceptors provide a centralized way to handle common tasks related to API requests, such as:
+
+*   Adding authorization headers
+*   Setting default headers
+*   Logging requests and responses
+*   Handling errors (e.g., automatically retrying requests, redirecting to login on 401)
+*   Transforming request/response data
+
+**Example (Expanded):**
+
+```javascript
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'https://api.example.com',
+});
+
+// Request Interceptor
+api.interceptors.request.use(
+  (config) => {
+    // Add authorization header
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    // Log the request (for debugging)
+    console.log('Request:', config.method, config.url, config.data);
+
+    return config;
+  },
+  (error) => {
+    // Handle request errors (e.g., network errors)
+    console.error('Request Error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Response Interceptor
+api.interceptors.response.use(
+  (response) => {
+    // Log the response
+    console.log('Response:', response.status, response.data);
+
+    // Transform the response data (optional)
+    // return response.data;
+
+    return response;
+  },
+  (error) => {
+    // Handle response errors (e.g., 401, 404, 500)
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.error('Response Error:', error.response.status, error.response.data);
+
+      if (error.response.status === 401) {
+        // Unauthorized - redirect to login
+        window.location.href = '/login';
+      } else if (error.response.status === 404) {
+          // Handle Not found error
+      } else if (error.response.status === 500) {
+        // Handle Internal server error
+      }
+
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error('Network Error:', error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Error:', error.message);
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+// Example of using the configured Axios instance
+async function fetchData() {
+  try {
+    const response = await api.get('/data');
+    console.log('Data:', response.data);
+  } catch (error) {
+    // Error handling is already done in the interceptor
+  }
+}
+
+fetchData();
+```
+
+**Explanation of the Expanded Example:**
+
+*   **`axios.create`:** Creates a new instance of Axios with a base URL.  This is good practice for configuring Axios for a specific API.
+*   **`api.interceptors.request.use`:**  Adds a request interceptor.
+    *   The first argument is a function that is called *before* the request is sent.  It receives the request `config` object, which you can modify.
+    *   The second argument is a function that is called if there is an error *preparing* the request (e.g., a network error).
+*   **`api.interceptors.response.use`:** Adds a response interceptor.
+    *   The first argument is a function that is called when the response is successful (status code 2xx).  It receives the `response` object.
+    *   The second argument is a function that is called if there is an error with the response (status code other than 2xx).
+*   **Error Handling:**  The response interceptor provides a central place to handle API errors.  You can check the status code, display error messages, redirect the user, or retry the request.
+*   **`Promise.reject(error)`:**  It's important to re-throw the error (using `Promise.reject`) in the interceptor's error handler so that the calling code can also handle the error (if needed).
+*   **Centralized Logic:**  Interceptors help you avoid repeating the same logic (e.g., adding headers, handling errors) in every API call.
+
+**Request Cancellation:**
+
+```javascript
+import axios from 'axios';
+
+const CancelToken = axios.CancelToken;
+let cancel;
+
+async function fetchData() {
+  try {
+    const response = await axios.get('/data', {
+      cancelToken: new CancelToken(function executor(c) {
+        // An executor function receives a cancel function as a parameter
+        cancel = c;
+      }),
+    });
+    console.log(response.data);
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log('Request canceled:', error.message);
+    } else {
+      // Handle other errors
+    }
+  }
+}
+
+fetchData();
+
+// Cancel the request (e.g., when the user navigates away)
+if (cancel) {
+  cancel('Request canceled by user');
+}
+```
+
+---
+
+### **7. DOM Methods**
+
+**Definition:** DOM (Document Object Model) methods are functions provided by the browser's JavaScript engine that allow you to interact with and manipulate the structure, content, and style of HTML documents.
+
+**Explanation:** The DOM represents an HTML document as a tree of nodes.  DOM methods allow you to:
+
+*   **Select elements:** Find specific elements in the document.
+*   **Create elements:** Create new HTML elements.
+*   **Modify elements:** Change the content, attributes, and styles of elements.
+*   **Remove elements:** Delete elements from the document.
+*   **Handle events:** Respond to user interactions (e.g., clicks, key presses).
+
+**Examples (Expanded):**
+
+```javascript
+// Selecting Elements
+const heading = document.getElementById('myHeading'); // By ID
+const paragraphs = document.querySelectorAll('.paragraph'); // By CSS selector (all matching)
+const firstParagraph = document.querySelector('.paragraph'); // First matching element
+const listItem = document.querySelector('ul li:nth-child(2)'); // Using CSS selectors
+const parentElement = document.getElementById('myDiv').parentElement; // Accessing Parent
+const childNode = document.getElementById('myDiv').childNodes; // Accessing all child
+const firstChild = document.getElementById('myDiv').firstChild; // access first child
+const lastChild = document.getElementById('myDiv').lastChild // accessing last child
+
+// Creating Elements
+const newDiv = document.createElement('div');
+const newParagraph = document.createElement('p');
+const newText = document.createTextNode('This is new text.');
+
+// Modifying Elements
+newParagraph.textContent = 'Hello, DOM!'; // Set text content
+newDiv.innerHTML = '<p>This is <strong>bold</strong> text.</p>'; // Set HTML content
+newDiv.setAttribute('id', 'newDiv'); // Set an attribute
+newDiv.classList.add('highlight'); // Add a CSS class
+newDiv.classList.remove('highlight'); // Remove a CSS class
+newDiv.classList.toggle('active'); // Toggle a CSS class
+newDiv.style.color = 'blue'; // Set inline style
+
+// Adding Elements to the DOM
+newDiv.appendChild(newParagraph); // Add a child element
+newParagraph.appendChild(newText) // Add child textNode
+document.body.appendChild(newDiv); // Add to the end of the body
+const container = document.getElementById("container");
+container.insertBefore(newDiv, container.firstChild) // insert newDiv before first child of container
+
+// Removing Elements
+// newDiv.remove(); // Remove the element itself (modern approach)
+document.body.removeChild(newDiv); // Remove from its parent (older approach)
+
+// Event Handling
+const button = document.getElementById('myButton');
+button.addEventListener('click', function(event) {
+  alert('Button clicked!');
+  console.log('Event target:', event.target); // The element that triggered the event
+  console.log('Event type:', event.type); // The type of event (e.g., 'click')
+});
+```
+
+**Key DOM Methods and Properties:**
+
+*   **`document.getElementById(id)`:** Returns the element with the given ID.
+*   **`document.querySelector(selector)`:** Returns the *first* element that matches the given CSS selector.
+*   **`document.querySelectorAll(selector)`:** Returns a *NodeList* of all elements that match the given CSS selector.
+*   **`document.createElement(tagName)`:** Creates a new element of the given tag name.
+*   **`document.createTextNode(text)`:** Creates a new text node.
+*   **`element.appendChild(child)`:** Adds a child element to the end of the parent element's children.
+*   **`element.insertBefore(newChild, referenceChild)`:** Inserts `newChild` before `referenceChild`.
+*   **`element.removeChild(child)`:** Removes a child element from the parent.
+*   **`element.remove()`:** Removes the element from the DOM (more modern).
+*   **`element.textContent`:** Gets or sets the text content of an element.
+*   **`element.innerHTML`:** Gets or sets the HTML content of an element.
+*   **`element.setAttribute(name, value)`:** Sets the value of an attribute.
+*   **`element.getAttribute(name)`:** Gets the value of an attribute.
+*   **`element.classList.add(className)`:** Adds a CSS class.
+*   **`element.classList.remove(className)`:** Removes a CSS class.
+*   **`element.classList.toggle(className)`:** Toggles a CSS class (adds if it's not there, removes if it is).
+*   **`element.style.property = value`:** Sets an inline style.
+*   **`element.addEventListener(event, callback)`:** Attaches an event listener.
+*   **`event.target`:** The element that triggered the event.
+*   **`event.type`:** The type of event (e.g., 'click', 'mouseover', 'keydown').
+*   **`event.preventDefault()`:** Prevents the default behavior of the event (e.g., preventing a link from navigating).
+*   **`event.stopPropagation()`:** Stops the event from bubbling up the DOM tree.
+*   **`parentElement`**: Returns the parent element.
+*   **`childNodes`**: Returns a live NodeList of all child nodes (including text nodes and comments).
+*   **`children`**: Returns a live HTMLCollection of all child *elements* (excluding text nodes and comments).
+*   **`firstChild`**: Returns the first child node.
+*   **`lastChild`**: Returns the last child node.
+*   **`nextSibling`**: Returns the next sibling node.
+*   **`previousSibling`**: Returns the previous sibling node.
+
+**Event Delegation:**
+
+```javascript
+// Instead of attaching event listeners to each individual item:
+// <ul id="myList">
+//   <li>Item 1</li>
+//   <li>Item 2</li>
+//   <li>Item 3</li>
+// </ul>
+
+document.getElementById('myList').addEventListener('click', function(event) {
+  if (event.target.tagName === 'LI') {
+    // Handle click on an LI element
+    console.log('Clicked:', event.target.textContent);
+  }
+});
+```
+
+---
+
+### **8. Identifier**
+
+**Definition:** An identifier is a name used to identify a variable, function, property, class, or module in JavaScript.  It's how you refer to these entities in your code.
+
+**Rules:**
+
+*   **Valid Characters:** Identifiers can contain:
+    *   Letters (a-z, A-Z)
+    *   Digits (0-9)
+    *   Underscores (`_`)
+    *   Dollar signs (`$`)
+*   **Starting Character:** An identifier *cannot* start with a digit.
+*   **Case Sensitivity:** Identifiers are case-sensitive (`myVariable` is different from `MyVariable`).
+*   **Reserved Words:** You cannot use JavaScript reserved words (keywords) as identifiers (e.g., `if`, `else`, `function`, `var`, `let`, `const`, `class`, `return`, etc.).
+* **Unicode**: Identifiers can include certain Unicode characters.
+
+**Examples:**
+
+```javascript
+// Valid identifiers
+let myVariable;
+const _privateVar = 10;
+function calculateSum() {}
+class MyClass {}
+const $ = 'jQuery'; // (Commonly used for jQuery, but be careful)
+let counter1;
+let user_name;
+
+// Invalid identifiers
+// let 123invalid;     // Starts with a digit
+// let my-variable;  // Contains a hyphen
+// let function;       // Reserved word
+```
+
+---
+
+### **9. `map` vs `forEach`**
+
+**Definition:**
+
+*   **`map()`:** A higher-order array method that creates a *new* array by applying a provided function to each element of the original array.
+*   **`forEach()`:** A higher-order array method that executes a provided function once for each element in an array.  It does *not* return a new array (it returns `undefined`).
+
+**Explanation:** Both `map()` and `forEach()` iterate over an array, but their purpose and behavior are different.  `map()` is for *transforming* data, while `forEach()` is for *performing side effects*.
+
+| Feature         | `map()`                       | `forEach()`                     |
+| --------------- | ----------------------------- | ------------------------------- |
+| **Returns**     | A *new* array                 | `undefined`                     |
+| **Purpose**     | Transforming data             | Performing side effects          |
+| **Modifies**   | Does *not* modify original    | Does *not* modify original      |
+| **Chaining**    | Can be chained                | Cannot be chained               |
+| **Break**      | Cannot break or continue      | Cannot break or continue        |
+
+**Examples:**
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+// map(): Create a new array with doubled values
+const doubledNumbers = numbers.map(function(number) {
+  return number * 2;
+});
+console.log(doubledNumbers); // [2, 4, 6, 8, 10]
+console.log(numbers);        // [1, 2, 3, 4, 5] (original unchanged)
+
+// forEach(): Log each number to the console
+numbers.forEach(function(number) {
+  console.log(number); // 1 2 3 4 5 (side effect)
+});
+const result = numbers.forEach(n => n*2) // result is undefined
+
+// Chaining with map()
+const squaredAndIncremented = numbers
+  .map(n => n * n)  // Square each number
+  .map(n => n + 1); // Increment each squared number
+console.log(squaredAndIncremented); // [2, 5, 10, 17, 26]
+
+// for...of loop (alternative for iteration)
+for (const number of numbers) {
+  console.log(number); // 1 2 3 4 5
+}
+
+```
+ 
+**Key Differences and When to Use:**
+
+*   **`map()`:** Use when you need to transform an array into a *new* array with modified values.
+*   **`forEach()`:** Use when you need to perform an operation on each element of an array *without* creating a new array (e.g., logging, updating DOM elements, sending data to an API).
+*   **`for...of`:**  Use when you need a simple loop and don't need the index of each element.  It's often more performant than `forEach()`.  You *can* `break` or `continue` within a `for...of` loop.
+
+---
+
+Let's break down each of these JavaScript, programming, and database concepts in detail.  I'll provide explanations, examples, and context where necessary.
+
+**1. First-Class Functions (First-Class Citizens)**
+
+*   **Concept:** In JavaScript (and many other modern languages), functions are "first-class citizens."  This means they are treated like any other value (like a number, string, or object).  They can be:
+
+    *   Assigned to variables.
+    *   Passed as arguments to other functions (callbacks).
+    *   Returned as values from other functions.
+    *   Stored in data structures (like arrays or objects).
+    *   Have properties and methods.
+
+*   **Why it's important:** This is *fundamental* to functional programming paradigms in JavaScript. It enables higher-order functions (functions that operate on other functions), callbacks, closures, and more.
+
+*   **Example:**
+
+    ```javascript
+    // Assign a function to a variable
+    const greet = function(name) {
+        console.log(`Hello, ${name}!`);
+    };
+
+    // Pass a function as an argument
+    function doSomething(callback) {
+        callback("World");
+    }
+    doSomething(greet); // Output: Hello, World!
+
+    // Return a function from a function
+    function createMultiplier(factor) {
+        return function(number) {
+            return number * factor;
+        };
+    }
+    const double = createMultiplier(2);
+    console.log(double(5)); // Output: 10
+    ```
+
+**2. `PUT` vs. `PATCH` (HTTP Methods)**
+
+*   **HTTP Verbs:**  `PUT` and `PATCH` are HTTP methods (verbs) used in RESTful APIs to update resources on a server.  The key is how they approach the update.
+
+*   **`PUT` (Replace):**
+    *   `PUT` is *idempotent* (explained later).  Multiple identical requests have the same effect as a single request.
+    *   You send the *entire* updated resource representation with `PUT`.  The server *replaces* the existing resource with the one you provide.  If you omit a field, it's effectively deleted on the server.
+    *   Example:  If you have a user object `{ id: 1, name: "Alice", email: "alice@example.com" }`, and you `PUT` `{ id: 1, name: "Alicia" }`, the email will be removed because it wasn't included in the `PUT` request.
+
+*   **`PATCH` (Partial Update):**
+    *   `PATCH` is *not necessarily* idempotent (though it can be designed to be).
+    *   You send *only the changes* you want to make to the resource.  The server updates the resource with those specific changes.
+    *   Example:  Using the same user object, if you `PATCH` `{ email: "alicia@newemail.com" }`, only the email field will be updated. The `name` field will remain unchanged.
+    *   PATCH can be more efficient if you are only changing a small part of a large resource.
+
+*   **Choosing between PUT and PATCH:**
+    *   Use `PUT` when you're sending the complete, updated representation of a resource.
+    *   Use `PATCH` when you're sending a partial update.
+
+**3. `fs` Methods (Node.js File System Module)**
+
+*   **`fs` Module:** Node.js provides the built-in `fs` (File System) module for interacting with the file system. It offers synchronous and asynchronous methods.
+
+*   **Key Methods (with Asynchronous Examples):**
+
+    *   **`fs.readFile(path, options, callback)`:** Reads the contents of a file.
+        ```javascript
+        const fs = require('fs');
+
+        fs.readFile('myFile.txt', 'utf8', (err, data) => {
+            if (err) {
+                console.error("Error reading file:", err);
+                return;
+            }
+            console.log("File contents:", data);
+        });
+        ```
+
+    *   **`fs.writeFile(path, data, options, callback)`:** Writes data to a file.  Overwrites if the file exists.
+        ```javascript
+        fs.writeFile('myFile.txt', 'Hello, Node.js!', 'utf8', (err) => {
+            if (err) {
+                console.error("Error writing file:", err);
+                return;
+            }
+            console.log("File written successfully!");
+        });
+        ```
+
+    *   **`fs.appendFile(path, data, options, callback)`:** Appends data to a file.
+        ```javascript
+        fs.appendFile('myFile.txt', '\nAppended text.', 'utf8', (err) => {
+            if (err) throw err;
+            console.log('The "data to append" was appended to file!');
+          });
+        ```
+
+    *   **`fs.mkdir(path, options, callback)`:** Creates a directory.
+        ```javascript
+        fs.mkdir('myNewDirectory', (err) => {
+          if (err) throw err;
+          console.log('directory created successfully!');
+        });
+        ```
+
+    *   **`fs.rmdir(path, options, callback)`:** Removes a directory (must be empty).
+         ```javascript
+        fs.rmdir('myNewDirectory', (err) => {
+            if (err) throw err;
+            console.log('directory deleted successfully!');
+        });
+        ```
+
+    *   **`fs.unlink(path, callback)`:** Deletes a file.
+        ```javascript
+        fs.unlink('myFile.txt', (err) => {
+            if (err) throw err;
+            console.log('file deleted successfully');
+          });
+        ```
+
+    *   **`fs.readdir(path, options, callback)`:** Reads the contents of a directory (filenames).
+        ```javascript
+        fs.readdir('./', (err, files) => {
+            if (err) throw err;
+            console.log(files);
+        });
+        ```
+    *  **`fs.stat(path, options, callback)`:**  Gets information about a file or directory (size, modification time, etc.).  Very useful!
+        ```javascript
+        fs.stat('./', (err, stats) => {
+            if (err) throw err;
+            console.log(`stats: ${JSON.stringify(stats)}`);
+        });
+        ```
+    *   **`fs.rename(oldPath, newPath, callback)`:** Renames a file or directory.
+    *   **`fs.copyFile(src, dest, mode, callback)`:** Copies a file.
+    *  **`fs.existsSync(path)`** : Synchronously tests whether or not the given path exists by checking with the file system. Returns `true` if the path exists, `false` otherwise.
+
+*   **Synchronous vs. Asynchronous:**
+    *   Asynchronous methods (like `fs.readFile`) are non-blocking. They return immediately and use a callback function to handle the result (or error) later.  This is the preferred approach for most Node.js applications to maintain responsiveness.
+    *   Synchronous methods (like `fs.readFileSync`) *block* the event loop until the operation is complete.  This can lead to performance issues, especially in server-side code.  Use them with caution.
+
+**4. Recursion**
+
+*   **Concept:** A function is recursive if it calls itself within its own definition. This is a powerful technique for solving problems that can be broken down into smaller, self-similar subproblems.
+
+*   **Key Components:**
+    *   **Base Case:** A condition that stops the recursion. Without a base case, you'll get infinite recursion (and a stack overflow error).
+    *   **Recursive Step:** The part of the function where it calls itself, typically with a modified input that moves towards the base case.
+
+*   **Example (Factorial):**
+
+    ```javascript
+    function factorial(n) {
+        // Base Case: factorial of 0 is 1
+        if (n === 0) {
+            return 1;
+        }
+        // Recursive Step: n! = n * (n-1)!
+        else {
+            return n * factorial(n - 1);
+        }
+    }
+
+    console.log(factorial(5)); // Output: 120
+    ```
+
+*   **Advantages:**
+    *   Can lead to elegant and concise solutions for certain problems.
+    *   Naturally models problems with recursive structures (like trees or fractals).
+
+*   **Disadvantages:**
+    *   Can be harder to understand and debug than iterative solutions.
+    *   Excessive recursion can lead to stack overflow errors if the recursion depth is too large.  (Tail call optimization, discussed below, can help mitigate this in some cases).
+    *   May be less efficient than iteration in some cases due to function call overhead.
+
+*   **Tail Recursion:**  A special form of recursion where the recursive call is the *very last* operation performed in the function.  Some languages (and JavaScript engines with optimization) can optimize tail-recursive functions to avoid stack overflow errors by reusing the same stack frame.  This is called *tail call optimization* (TCO).  JavaScript's support for TCO is still somewhat inconsistent across environments, so you shouldn't *rely* on it.
+
+**5. Literals**
+
+*   **Concept:** Literals are *fixed values* that are written directly in your code.  They represent data directly, rather than through variables or expressions.
+
+*   **Types of Literals:**
+
+    *   **Numeric Literals:**  `10`, `3.14`, `-5`, `0xFF` (hexadecimal), `0b1010` (binary), `1e6` (scientific notation)
+    *   **String Literals:**  `"Hello"`, `'World'`, `` `Template literal with ${variable}` ``
+    *   **Boolean Literals:**  `true`, `false`
+    *   **Null Literal:**  `null`
+    *   **Undefined Literal:** (While technically not a literal in the strictest sense, `undefined` is a predefined value)
+    *   **Object Literals:**  `{ name: "John", age: 30 }`
+    *   **Array Literals:**  `[1, 2, 3, 4]`
+    *   **Regular Expression Literals:**  `/abc/g`
+    *   **Function Literals (Anonymous Functions):**  `function(x) { return x * 2; }`
+    * **BigInt Literals** : `42n`
+
+*   **Example:**
+
+    ```javascript
+    let age = 30; // 30 is a numeric literal
+    let name = "Alice"; // "Alice" is a string literal
+    let isActive = true; // true is a boolean literal
+    let person = { name: "Bob", age: 25 }; // Object literal
+    ```
+
+**6. `flatMap` (Array Method)**
+
+*   **Concept:**  `flatMap()` is a powerful array method in JavaScript that combines `map()` and `flat()` into a single operation.  It first maps each element of an array using a provided function, and then *flattens* the result into a new array.  It's particularly useful when your mapping function returns arrays.
+
+*   **How it works:**
+
+    1.  **Map:** Applies a function to each element of the original array. This function can return *any* value, including another array.
+    2.  **Flatten:**  If the result of the mapping function is an array, `flatMap()` flattens it by one level.  It effectively concatenates the inner arrays into the outer array.  It *does not* recursively flatten deeper nested arrays.
+
+*   **Example:**
+
+    ```javascript
+    const numbers = [1, 2, 3];
+
+    // Using map (results in an array of arrays)
+    const doubledAndSplit = numbers.map(n => [n, n * 2]);
+    console.log(doubledAndSplit); // Output: [[1, 2], [2, 4], [3, 6]]
+
+    // Using flatMap (flattens the result)
+    const flattened = numbers.flatMap(n => [n, n * 2]);
+    console.log(flattened); // Output: [1, 2, 2, 4, 3, 6]
+
+    //Another example
+    let arr1 = ["it's Sunny in", "", "California"];
+
+    arr1.map((x) => x.split(" "));
+    // [["it's","Sunny","in"],[""],["California"]]
+
+    arr1.flatMap((x) => x.split(" "));
+    // ["it's","Sunny","in", "", "California"]
+
+    ```
+
+*   **Use Cases:**
+    *   Extracting data from nested structures.
+    *   Generating lists from arrays where each element might produce multiple results.
+    *   Transforming arrays into different shapes.
+
+**7. Hash Map (Hash Table)**
+
+*   **Concept:** A hash map (also known as a hash table, dictionary, or associative array) is a data structure that implements an associative array abstract data type, a structure that can map keys to values.  It uses a *hash function* to compute an index (a "hash code") into an array of buckets or slots, from which the desired value can be found.
+
+*   **Key Components:**
+    *   **Keys:** Unique identifiers used to access values.
+    *   **Values:** The data associated with each key.
+    *   **Hash Function:** A function that takes a key as input and returns an integer (the hash code).  A good hash function distributes keys evenly across the buckets to minimize collisions.
+    *   **Buckets (or Slots):** An array where the values are stored.  The hash code is used to determine the index of the bucket.
+    *   **Collision Handling:**  What happens when two different keys produce the same hash code (a "collision").  Common strategies include:
+        *   **Separate Chaining:** Each bucket stores a linked list of key-value pairs that hash to the same index.
+        *   **Open Addressing:** If a bucket is occupied, the algorithm probes for another open slot, using techniques like linear probing, quadratic probing, or double hashing.
+
+*   **JavaScript's `Map` Object:**  JavaScript provides a built-in `Map` object that implements a hash map.
+    *   Keys can be of *any* data type (unlike plain JavaScript objects, where keys are coerced to strings).
+    *   `Map` preserves insertion order.
+    * it can directly be iterated
+
+*   **Example (`Map`):**
+
+    ```javascript
+    const myMap = new Map();
+
+    myMap.set('name', 'Alice');
+    myMap.set(1, 'one');
+    myMap.set(true, 'boolean key');
+
+    console.log(myMap.get('name')); // Output: Alice
+    console.log(myMap.get(1));      // Output: one
+    console.log(myMap.has(true));   // Output: true
+    console.log(myMap.size);       // Output: 3
+    myMap.delete(1);
+    console.log(myMap.size);       // Output: 2
+
+    // Iterating over a Map
+    for (const [key, value] of myMap) {
+        console.log(`${key} = ${value}`);
+    }
+    ```
+
+*   **JavaScript Objects as (Limited) Hash Maps:** Plain JavaScript objects can also be used as hash maps, but with limitations:
+    *   Keys are coerced to strings.
+    *   You don't have methods like `get`, `set`, `has`, `delete`, and `size` directly on the object.  You use bracket notation (`obj[key]`) or dot notation (`obj.key`).
+    *   Objects do *not* guarantee insertion order.
+
+*   **Advantages of Hash Maps:**
+    *   **Fast Lookups:**  On average, looking up a value by its key in a hash map takes O(1) time (constant time), assuming a good hash function and reasonable collision handling.
+    *   **Efficient Insertion and Deletion:**  Adding and removing key-value pairs are also typically O(1) on average.
+
+*   **Disadvantages:**
+    *   **Worst-Case Performance:**  In the worst case (e.g., all keys hash to the same bucket), lookups, insertions, and deletions can degrade to O(n) time (linear time), where n is the number of elements.
+    *   **Memory Usage:** Hash maps can consume more memory than some other data structures, especially if there are many empty buckets.
+    *   **Hash Function Choice:** The performance of a hash map heavily depends on the quality of the hash function.
+
+
+
+ 
+A **factory function** in JavaScript is a function that returns a new object. It provides an alternative to using `class` or `constructor` functions for object creation.
+
+
+### 🔹 **Basic Factory Function**
+```js
+function createUser(name, age) {
+    return {
+        name,
+        age,
+        greet() {
+            return `Hello, my name is ${this.name}`;
+        }
+    };
+}
+
+const user1 = createUser("Alice", 25);
+const user2 = createUser("Bob", 30);
+
+console.log(user1.greet()); // "Hello, my name is Alice"
+console.log(user2.greet()); // "Hello, my name is Bob"
+```
+
+---
+
+### 🔹 **Advantages of Factory Functions**
+1. **Encapsulation**: Can keep private variables.
+2. **No Need for `new`**: Unlike constructors, factory functions don’t require `new`, preventing `this` issues.
+3. **Custom Object Creation**: You can easily modify object creation logic.
+
+---
+
+### 🔹 **Factory Function with Private Variables**
+```js
+function createCounter() {
+    let count = 0; // Private variable
+
+    return {
+        increment() {
+            count++;
+            return count;
+        },
+        decrement() {
+            count--;
+            return count;
+        },
+        getCount() {
+            return count;
+        }
+    };
+}
+
+const counter = createCounter();
+console.log(counter.increment()); // 1
+console.log(counter.increment()); // 2
+console.log(counter.getCount()); // 2
+console.log(counter.count); // undefined (because count is private)
+```
+
+---
+
+### 🔹 **Factory Function with Prototypes (Optimized Memory Usage)**
+Instead of defining functions inside each object, we can share methods via prototypes.
+
+```js
+const userMethods = {
+    greet() {
+        return `Hello, my name is ${this.name}`;
+    }
+};
+
+function createUser(name, age) {
+    const user = Object.create(userMethods); // Inherit methods
+    user.name = name;
+    user.age = age;
+    return user;
+}
+
+const user1 = createUser("Charlie", 28);
+console.log(user1.greet()); // "Hello, my name is Charlie"
+```
+
+---
+
+### 🔹 **When to Use Factory Functions?**
+✅ When you need encapsulation (private variables).  
+✅ When you don’t want to use `new` or deal with prototype inheritance manually.  
+✅ When you want flexibility in object creation (like adding custom properties dynamically).  
+
+Would you like an example tailored to a specific use case? 🚀
+
+*   **Generator Functions (Iterators):**
+    *   **Concept:**  Generator functions (using the `function*` syntax) are a special type of function in JavaScript that can be paused and resumed. They produce a sequence of values *on demand*, rather than computing them all at once.  They are often used to create iterators.
+    *   **`yield` Keyword:** The `yield` keyword pauses the generator function and returns a value.  The next time the generator is called, it resumes execution from where it left off.
+
+    *   **Example:**
+
+        ```javascript
+        function* numberGenerator() {
+            yield 1;
+            yield 2;
+            yield 3;
+        }
+
+        const generator = numberGenerator();
+
+        console.log(generator.next().value); // Output: 1
+        console.log(generator.next().value); // Output: 2
+        console.log(generator.next().value); // Output: 3
+        console.log(generator.next().done);  // Output: true (generator is finished)
+
+        // Using a generator to create an infinite sequence
+        function* infiniteSequence() {
+          let i = 0;
+          while (true) {
+            yield i++;
+          }
+        }
+
+        const infiniteGen = infiniteSequence();
+        console.log(infiniteGen.next().value) // 0
+        console.log(infiniteGen.next().value) // 1
+        console.log(infiniteGen.next().value) // 2
+        //and so on...
+
+        // Iterating a generator with for...of
+         function* iterableSequence() {
+          yield 'a';
+          yield 'b';
+          yield 'c';
+        }
+        for (const val of iterableSequence()) {
+            console.log(val);
+        }
+        ```
+
+    *   **Use Cases:**
+        *   Creating iterators for custom data structures.
+        *   Generating infinite sequences (e.g., Fibonacci numbers).
+        *   Working with asynchronous operations (using `yield` with promises).
+        *   Implementing lazy evaluation (computing values only when needed).
+
+**9. Constructor Functions**
+
+*   **Concept:** In JavaScript, constructor functions are used with the `new` keyword to create objects. They are a way to define a "blueprint" or "class" (although JavaScript uses prototypal inheritance, not classical inheritance) for creating objects with similar properties and methods.
+
+*   **How they work:**
+
+    1.  **`new` Keyword:** When you use `new` with a function, several things happen:
+        *   A new, empty object is created.
+        *   The `this` keyword inside the constructor function is bound to this new object.
+        *   The newly created object is linked to the constructor function's `prototype` property.
+        *   If the constructor function doesn't explicitly return an object, the newly created object is returned automatically.
+
+    2.  **`this` Keyword:** Inside the constructor, `this` refers to the newly created object. You use `this` to assign properties and methods to the object.
+
+    3.  **`prototype` Property:**  Every function in JavaScript has a `prototype` property.  This is an object that serves as a template for objects created by that constructor.  Methods defined on the `prototype` are shared by all instances created by the constructor (this is how inheritance works in JavaScript).
+
+*   **Example:**
+
+    ```javascript
+    function Person(name, age) {
+        // Assign properties to the new object
+        this.name = name;
+        this.age = age;
+
+        // You *can* define methods directly on the object, but it's less efficient
+        // this.greet = function() {
+        //     console.log(`Hello, my name is ${this.name}`);
+        // };
+    }
+
+    // Define methods on the prototype (more efficient)
+    Person.prototype.greet = function() {
+        console.log(`Hello, my name is ${this.name}`);
+    };
+    Person.prototype.celebrateBirthday = function() {
+        this.age++;
+        console.log(`Happy birthday! I am now ${this.age} years old.`)
+    }
+
+    // Create instances using 'new'
+    const alice = new Person("Alice", 30);
+    const bob = new Person("Bob", 25);
+
+    console.log(alice.name); // Output: Alice
+    alice.greet();         // Output: Hello, my name is Alice
+    bob.celebrateBirthday(); // Output: Happy birthday! I am now 26 years old.
+
+    // Check if an object is an instance of a constructor
+    console.log(alice instanceof Person); // Output: true
+    ```
+
+*   **ES6 Classes:**  ES6 (ECMAScript 2015) introduced the `class` syntax, which provides a more familiar (to those coming from class-based languages) way to define constructors and prototypes.  Under the hood, it still uses prototypal inheritance.
+
+    ```javascript
+    class Person {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        greet() {
+            console.log(`Hello, my name is ${this.name}`);
+        }
+    }
+    ```
+
+**10. SOLID Principles**
+
+*   **Concept:** SOLID is an acronym that represents five fundamental principles of object-oriented design and programming. They help create software that is more maintainable, flexible, and understandable.
+
+*   **The Principles:**
+
+    *   **S - Single Responsibility Principle (SRP):**
+        *   A class should have only *one reason to change*.  It should have one, and only one, responsibility.  This promotes high cohesion.
+        *   **Example:**  Don't put database logic, user interface code, *and* business rules all in the same class.  Separate them into different classes (e.g., a `User` class, a `UserRepository` class, a `UserView` class).
+
+    *   **O - Open/Closed Principle (OCP):**
+        *   Software entities (classes, modules, functions, etc.) should be *open for extension, but closed for modification*.  You should be able to add new functionality without changing existing code.
+        *   **Example:**  Use abstract classes and interfaces to define a base behavior, and then create subclasses to implement specific variations.  If you need a new behavior, you add a new subclass, not modify the base class.  The Strategy pattern is a good example.
+
+    *   **L - Liskov Substitution Principle (LSP):**
+        *   Subtypes must be substitutable for their base types *without altering the correctness of the program*.  If you have a class `Bird` and a subclass `Penguin`, you should be able to use a `Penguin` object wherever a `Bird` object is expected.
+        *   **Example:**  If `Bird` has a `fly()` method, `Penguin` should also have a `fly()` method, even if it doesn't actually fly (it might throw an exception or do nothing).  The key is that the *interface* is consistent.  A better design might be to have a `move()` method on `Bird`, and then `Penguin` can implement `move()` by swimming.
+
+    *   **I - Interface Segregation Principle (ISP):**
+        *   Clients should not be forced to depend on methods they do not use.  Create *smaller, more specific interfaces* rather than one large, general-purpose interface.
+        *   **Example:**  If you have an interface `Worker` with methods `work()` and `eat()`, but some workers (like robots) don't need to eat, create separate interfaces: `Workable` (with `work()`) and `Eatable` (with `eat()`).  Then, a `HumanWorker` can implement both, while a `RobotWorker` only implements `Workable`.
+
+    *   **D - Dependency Inversion Principle (DIP):**
+        *   High-level modules should not depend on low-level modules.  Both should depend on *abstractions*.
+        *   Abstractions should not depend on details.  Details should depend on abstractions.
+        *   **Example:**  Instead of a `ReportGenerator` class directly depending on a specific database class (like `MySQLDatabase`), create an interface `Database` that defines the methods for interacting with the database.  Then, `ReportGenerator` depends on the `Database` interface, and you can provide different implementations (like `MySQLDatabase`, `PostgreSQLDatabase`, etc.) that implement that interface.  This is often used with *dependency injection*.
+
+**11. OOP (Object-Oriented Programming)**
+
+*   **Concept:** OOP is a programming paradigm based on the concept of "objects," which contain data (fields or attributes) and code (methods or procedures) that operate on that data.
+
+*   **Key Principles:**
+
+    *   **Abstraction:** Hiding complex implementation details and exposing only essential information to the outside world.  Think of a car: you use the steering wheel, pedals, etc., without needing to know the inner workings of the engine.
+    *   **Encapsulation:** Bundling data and methods that operate on that data within a single unit (a class). This protects the data from being accessed or modified directly from outside the class, promoting data integrity.  Often achieved using access modifiers (e.g., `private`, `public`, `protected`, though JavaScript has limited support for true privacy).
+    *   **Inheritance:** Creating new classes (derived classes or subclasses) from existing classes (base classes or superclasses), inheriting their properties and methods.  This promotes code reuse and establishes a hierarchical relationship between classes.  JavaScript uses *prototypal inheritance*.
+    *   **Polymorphism:**  The ability of an object to take on many forms.  This allows you to use objects of different classes through a common interface.  In JavaScript, this is often achieved through method overriding (defining a method in a subclass with the same name as a method in its superclass) and duck typing (if it walks like a duck and quacks like a duck, it's a duck).
+
+*   **JavaScript and OOP:** JavaScript is a multi-paradigm language, supporting both procedural and object-oriented programming.  While it doesn't have classes in the traditional sense (until ES6), it uses *prototypal inheritance*, which is a powerful and flexible way to achieve OOP principles.
+
+**12. Propagation and Delegation**
+
+*   **Event Propagation (Event Bubbling and Event Capturing):** This refers to the order in which event listeners are triggered when an event occurs on a nested HTML element.
+
+    *   **Bubbling (Default):** The event is first handled by the innermost element where it occurred, and then it "bubbles" up the DOM tree, triggering event listeners on its parent elements, all the way up to the `document` and `window`.
+
+    *   **Capturing:**  The event is first handled by the outermost element (`window`), and then it "trickles" down the DOM tree, triggering event listeners on each element until it reaches the target element.  Capturing is less commonly used than bubbling.
+
+    *   **Example:**
+
+        ```html
+        <div id="outer">
+            <button id="inner">Click Me</button>
+        </div>
+
+        <script>
+            const outer = document.getElementById('outer');
+            const inner = document.getElementById('inner');
+
+            // Bubbling (default)
+            inner.addEventListener('click', function(event) {
+                console.log('Inner clicked (bubbling)'); // Fires first
+            });
+            outer.addEventListener('click', function(event) {
+                console.log('Outer clicked (bubbling)'); // Fires second
+            });
+
+            // Capturing (useCapture = true)
+            outer.addEventListener('click', function(event) {
+                console.log('Outer clicked (capturing)'); // Fires first
+            }, true); // The 'true' enables capturing
+            inner.addEventListener('click', function(event) {
+                console.log('Inner clicked (capturing)'); // Fires second
+            });
+        </script>
+        ```
+
+    *   **`event.stopPropagation()`:**  You can stop the propagation of an event (either bubbling or capturing) by calling `event.stopPropagation()` within an event listener. This prevents the event from reaching other elements.
+
+    *   **`event.target` vs. `event.currentTarget`:**
+        *   `event.target`:  The element that *originally* triggered the event.
+        *   `event.currentTarget`: The element to which the *current* event listener is attached.  This changes as the event propagates.
+
+*   **Event Delegation:**
+    * **Concept**: Instead of attaching event listeners to many individual elements, you attach a *single* event listener to a *parent* element.  This listener then handles events that occur on any of its descendant elements.
+
+    *   **Benefits:**
+        *   **Improved Performance:**  Fewer event listeners mean less memory usage and faster setup.
+        *   **Handles Dynamic Elements:**  Works even for elements that are added to the DOM *after* the event listener is attached.
+
+    *   **Example:**
+
+        ```html
+        <ul id="myList">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            </ul>
+
+        <script>
+        const list = document.getElementById('myList');
+
+        list.addEventListener('click', function(event) {
+          if (event.target.tagName === 'LI') { // Check if the clicked element is an LI
+            console.log('You clicked on:', event.target.textContent);
+          }
+        });
+
+        // Add a new item dynamically
+        const newItem = document.createElement('li');
+        newItem.textContent = 'Item 3';
+        list.appendChild(newItem); // Event delegation still works!
+        </script>
+        ```
+**13. `return` and `break`**
+
+*   **`return`:**
+
+    *   **Purpose:** Used inside a function to:
+        1.  *Stop* the execution of the function.
+        2.  Optionally *return a value* from the function.
+
+    *   **Example:**
+
+        ```javascript
+        function add(a, b) {
+            return a + b; // Stops execution and returns the sum
+            console.log("This will never be executed");
+        }
+
+        let sum = add(5, 3);
+        console.log(sum); // Output: 8
+        function myFunc() {
+            console.log('hello');
+            return;
+            console.log('world');
+        }
+
+        myFunc();
+        //  'hello'
+        ```
+     *   **Without a Value:** If you use `return` without a value (or omit it entirely at the end of a function), the function implicitly returns `undefined`.
+
+*   **`break`:**
+
+    *   **Purpose:** Used inside loops (`for`, `while`, `do...while`) and `switch` statements to:
+        1.  *Immediately exit* the loop or `switch` statement.
+        2.  Control jumps to the statement immediately *following* the loop or `switch`.
+
+    *   **Example (Loop):**
+
+        ```javascript
+        for (let i = 0; i < 10; i++) {
+            if (i === 5) {
+                break; // Exit the loop when i is 5
+            }
+            console.log(i); // Output: 0 1 2 3 4
+        }
+
+        console.log("Loop finished");
+        ```
+
+    *   **Example (Switch):**
+
+        ```javascript
+        let day = "Tuesday";
+        switch (day) {
+            case "Monday":
+                console.log("Start of the work week");
+                break;
+            case "Tuesday":
+                console.log("Second day");
+                break; // Important: Without break, it would fall through to the next case
+            case "Wednesday":
+                console.log("Midweek");
+                break;
+            default:
+                console.log("Other day");
+        }
+        ```
+
+    * **`continue` (Related):**  The `continue` statement is used *inside loops* to skip the *rest of the current iteration* and proceed to the *next iteration* of the loop.  It doesn't exit the loop entirely, like `break`.
+
+        ```javascript
+         for (let i = 0; i < 5; i++) {
+           if (i === 2) {
+             continue; // Skip the rest of this iteration when i is 2
+           }
+           console.log(i); // Output: 0 1 3 4
+         }
+        ```
+**14. JSON Methods**
+
+*   **JSON (JavaScript Object Notation):** A lightweight data-interchange format that is easy for humans to read and write and easy for machines to parse and generate. It's widely used for transmitting data between a server and a web application, as an alternative to XML.
+
+*   **Key Methods:**
+
+    *   **`JSON.parse(text[, reviver])`:**
+        *   **Purpose:**  Converts a JSON *string* into a JavaScript *object*.
+        *   **`text`:**  The JSON string to parse.
+        *   **`reviver` (Optional):**  A function that prescribes how the value originally produced by parsing is transformed before being returned.
+        *   **Example:**
+
+            ```javascript
+            const jsonString = '{"name": "Alice", "age": 30, "isActive": true}
+
+
+Okay, let's continue with the remaining concepts.
+
+**14. JSON Methods (Continued)**
+
+    *   **`JSON.stringify(value[, replacer[, space]])`:**
+        *   **Purpose:** Converts a JavaScript *object* or *value* into a JSON *string*.  This is the opposite of `JSON.parse()`.
+        *   **`value`:** The value to convert to a JSON string.
+        *   **`replacer` (Optional):**  Can be either:
+            *   A function that alters the behavior of the stringification process.  It takes two parameters: `key` and `value`. You can use this to selectively include or exclude properties, or to transform values.
+            *   An array of strings or numbers, specifying the properties to be included in the JSON string. Only properties with keys in this array will be included.
+        *   **`space` (Optional):**  A string or number used for indentation in the output JSON string, making it more readable.  A number specifies the number of spaces; a string (up to 10 characters) is used as the indentation string itself.
+        *   **Example:**
+
+            ```javascript
+            const myObject = {
+                name: "Bob",
+                age: 25,
+                address: {
+                    street: "123 Main St",
+                    city: "Anytown"
+                },
+                hobbies: ["reading", "hiking"]
+            };
+
+            // Basic stringification
+            const jsonString = JSON.stringify(myObject);
+            console.log(jsonString);
+            // Output: {"name":"Bob","age":25,"address":{"street":"123 Main St","city":"Anytown"},"hobbies":["reading","hiking"]}
+
+            // With indentation (for readability)
+            const prettyJson = JSON.stringify(myObject, null, 2); // 2 spaces for indentation
+            console.log(prettyJson);
+            /* Output:
+            {
+              "name": "Bob",
+              "age": 25,
+              "address": {
+                "street": "123 Main St",
+                "city": "Anytown"
+              },
+              "hobbies": [
+                "reading",
+                "hiking"
+              ]
+            }
+            */
+
+            // Using a replacer function
+            const replacerFunction = (key, value) => {
+                if (typeof value === 'number') {
+                    return value * 2; // Double all numeric values
+                }
+                return value;
+            };
+            const modifiedJson = JSON.stringify(myObject, replacerFunction, 2);
+            console.log(modifiedJson);
+            /* Output:
+            {
+              "name": "Bob",
+              "age": 50,
+              "address": {
+                "street": "123 Main St",
+                "city": "Anytown"
+              },
+              "hobbies": [
+                "reading",
+                "hiking"
+              ]
+            }
+            */
+
+            // Using a replacer array
+            const selectiveJson = JSON.stringify(myObject, ['name', 'hobbies'], 2);
+            console.log(selectiveJson);
+            /* Output:
+             {
+              "name": "Bob",
+              "hobbies": [
+                "reading",
+                "hiking"
+              ]
+            }
+            */
+            ```
+
+*   **Important Notes about JSON:**
+    *   JSON supports only a limited set of data types: strings, numbers, booleans, null, arrays, and objects (which must have string keys).
+    *   JSON does *not* support functions, dates (directly - they are typically represented as strings), or undefined values.  `JSON.stringify()` will omit properties with undefined values or functions.
+    *   Circular references (where an object refers to itself, directly or indirectly) will cause `JSON.stringify()` to throw an error.
+
+**15. Idempotence**
+
+*   **Concept:**  An operation is idempotent if it can be applied multiple times without changing the result beyond the initial application.  In other words, repeated identical requests have the same effect as a single request.
+
+*   **Importance in RESTful APIs:**  Idempotence is crucial for building robust and reliable APIs, especially in distributed systems where network issues can lead to retries.  If a client sends a request and doesn't get a response (due to a timeout, for example), it can safely retry the request without worrying about unintended side effects.
+
+*   **Examples:**
+
+    *   **Idempotent:**
+        *   Setting a user's status to "active" (even if it's already active).
+        *   Deleting a resource by its ID (if the resource is already deleted, subsequent requests will have no effect).
+        *   `PUT` requests in REST (as explained earlier - replacing the entire resource).
+
+    *   **Non-Idempotent:**
+        *   Incrementing a counter (each request changes the value).
+        *   Adding an item to a shopping cart (each request adds another item).
+        *   `POST` requests are generally *not* idempotent (though they can be designed to be in specific cases).  `POST` usually creates a new resource, and repeated requests might create multiple resources.
+
+*   **Achieving Idempotence:**
+
+    *   **Unique Identifiers:** Use unique identifiers (like UUIDs) for resources, so you can track whether a request has already been processed.
+    *   **Conditional Requests:** Use HTTP headers like `If-Match` or `If-None-Match` to ensure that a request is only processed if the resource is in a specific state.
+    *   **Request IDs (Idempotency Keys):**  The client can generate a unique ID for each request and include it in the request (e.g., in a custom header).  The server can then track these IDs and ensure that requests with the same ID are only processed once.
+
+**16. ACID Properties (Database Transactions)**
+
+*   **Concept:** ACID is an acronym that describes a set of properties that guarantee reliable processing of database transactions.  A transaction is a sequence of one or more operations that are treated as a single, indivisible unit of work.
+
+*   **The Properties:**
+
+    *   **Atomicity:**  A transaction is treated as an "all or nothing" operation.  Either *all* of the operations within the transaction succeed, or *none* of them do. If any part of the transaction fails, the entire transaction is rolled back (as if it never happened), leaving the database in its original state.
+        *   **Example:**  Transferring money between two bank accounts.  You must debit one account *and* credit the other.  If either operation fails, both should be rolled back to prevent inconsistencies.
+
+    *   **Consistency:**  A transaction moves the database from one *valid* state to another *valid* state. It ensures that any data written to the database must be valid according to all defined rules, including constraints, cascades, and triggers.
+        *   **Example:**  If a database has a constraint that a customer's balance cannot be negative, a transaction that would violate this constraint will be rejected.
+
+    *   **Isolation:**  Transactions are isolated from each other.  The intermediate state of one transaction is not visible to other transactions.  This prevents concurrency issues where multiple transactions might interfere with each other.  Different isolation levels (e.g., read uncommitted, read committed, repeatable read, serializable) provide varying degrees of isolation.
+        *   **Example:**  Two users trying to update the same record at the same time.  Isolation ensures that one user's changes don't overwrite the other's without proper synchronization.
+
+    *   **Durability:**  Once a transaction is committed (successfully completed), the changes are permanent and will survive even system failures (like power outages or crashes).  The data is typically written to non-volatile storage.
+        *   **Example:**  After confirming a purchase, the order details should be permanently stored in the database, even if the server crashes immediately afterward.
+
+*   **Why ACID is Important:**  ACID properties ensure data integrity and consistency, which are essential for reliable database systems, especially in applications that handle critical data (like financial transactions, medical records, etc.).
+
+**17. Dynamic Memory Allocation (Advantages and Disadvantages)**
+
+* **Concept:** Dynamic memory allocation is the process of allocating memory during the *runtime* of a program (as opposed to compile time). In languages like C and C++, you use functions like `malloc`, `calloc`, `realloc`, and `free`. JavaScript handles memory management automatically through garbage collection, but understanding the underlying principles is still valuable.
+
+*   **Advantages:**
+
+    *   **Flexibility:**  You can allocate memory exactly when you need it and in the exact amount required.  This is essential when you don't know the size of the data you'll need at compile time (e.g., reading data from a file, handling user input, or working with data structures that grow and shrink dynamically).
+    *   **Efficient Memory Usage:**  You only use the memory you need.  You can free memory when it's no longer needed, making it available for other parts of the program.
+    *   **Data Structures:**  Dynamic memory allocation is fundamental for implementing dynamic data structures like linked lists, trees, and graphs, which can grow and shrink as needed.
+
+*   **Disadvantages:**
+
+    *   **Overhead:**  Dynamic memory allocation has some runtime overhead compared to static allocation (where memory is allocated at compile time).  The system needs to find available memory blocks and manage them.
+    *   **Memory Fragmentation:**  Over time, as memory is allocated and freed, the available memory can become fragmented into small, non-contiguous blocks.  This can make it difficult to allocate large contiguous blocks of memory, even if there's enough total free memory.  There are two types of fragmentation:
+        *   **External Fragmentation:** Free memory is scattered in non-contiguous blocks.
+        *   **Internal Fragmentation:**  When you allocate a block of memory that's larger than what you actually need, the unused portion within the allocated block is wasted.
+    *   **Memory Leaks:**  If you allocate memory but forget to free it when it's no longer needed, you create a *memory leak*.  This can lead to the program consuming more and more memory over time, eventually causing it to crash or slow down.  This is a *major* concern in languages like C and C++ where you have to manage memory manually.
+    *   **Dangling Pointers:**  If you free a block of memory but still have a pointer that refers to that memory, you have a *dangling pointer*.  Attempting to access the memory through a dangling pointer can lead to unpredictable behavior or crashes.
+    *  **Complexity:** Manual memory management adds complexity to your code.  You need to be careful to allocate and free memory correctly, which can be error-prone.
+
+*   **JavaScript's Garbage Collection:** JavaScript uses *automatic garbage collection*.  The JavaScript engine automatically allocates memory for objects and reclaims memory when objects are no longer reachable.  This greatly reduces the risk of memory leaks and dangling pointers, making development easier.  However, it's still possible to create memory leaks in JavaScript, although they are usually less obvious (e.g., by keeping unnecessary references to objects in closures, event listeners, or global variables).
+
+**18. JavaScript Engine and JavaScript Runtime**
+
+*   **JavaScript Engine:**
+
+    *   **Purpose:** The JavaScript engine is a program or interpreter that *executes* JavaScript code.  It's responsible for:
+        *   **Parsing:**  Reading the JavaScript code and converting it into an Abstract Syntax Tree (AST).
+        *   **Compilation:**  Translating the AST into bytecode or machine code that the computer can understand.  Modern engines often use Just-In-Time (JIT) compilation, which compiles code on the fly during execution.
+        *   **Optimization:**  Applying various optimizations to improve the performance of the code (e.g., inlining functions, optimizing loops).
+        *   **Execution:**  Running the compiled code.
+        *   **Garbage Collection:**  Managing memory automatically.
+
+    *   **Examples:**
+        *   **V8:** Google's open-source engine, used in Chrome, Node.js, and other environments.
+        *   **SpiderMonkey:** Mozilla's engine, used in Firefox.
+        *   **JavaScriptCore:** Apple's engine, used in Safari.
+        *   **Chakra:** Microsoft's engine (previously used in Edge, now Edge uses V8).
+
+*   **JavaScript Runtime:**
+
+    *   **Purpose:**  The JavaScript runtime is the *environment* where JavaScript code runs.  It provides the engine *plus* additional features and APIs that allow JavaScript code to interact with the outside world (like the browser or the operating system).  The runtime defines what objects and functions are available to your JavaScript code.
+    *  **The runtime environment is responsible for:**
+       * Providing the event loop, timers, and other mechanisms for asynchronous programming.
+       * Handling interactions with the DOM (in a browser environment).
+       * Providing access to APIs like `fetch`, `setTimeout`, `console`, etc.
+
+    *   **Examples:**
+
+        *   **Browser Runtime:**  When you run JavaScript in a web browser, the runtime includes:
+            *   The JavaScript engine (e.g., V8 in Chrome).
+            *   The Web APIs (DOM, BOM, Fetch API, etc.) that allow JavaScript to interact with the web page and the browser.
+            *   The event loop, which handles asynchronous events and callbacks.
+
+        *   **Node.js Runtime:**  When you run JavaScript with Node.js, the runtime includes:
+            *   The JavaScript engine (V8).
+            *   Node.js-specific APIs that provide access to the file system, networking, and other system-level functionalities (e.g., the `fs` module, `http` module, etc.).
+            *   The event loop.
+
+    *   **Key Difference:** The *engine* executes the JavaScript code itself. The *runtime* provides the context and the APIs that allow that code to do useful things. You can think of the engine as the core "brain," and the runtime as the "body" that lets the brain interact with its environment.
+
+**19. Memory Leak (Covered Above - See Dynamic Memory Allocation)**
+
+A Memory leak occurs when you allocate memory but forget to free it when it's no longer needed.
+
+**20. REST Principles (Representational State Transfer)**
+
+*   **Concept:** REST is an architectural *style* for designing networked applications, particularly web services.  It's not a protocol or a standard, but rather a set of constraints and principles.  RESTful APIs are widely used for building web services that are scalable, stateless, and easy to understand.
+
+*   **Key Principles:**
+
+    *   **Client-Server Architecture:**  The client and server are separate entities with distinct responsibilities.  The client initiates requests, and the server processes them and sends responses. This separation of concerns promotes scalability and maintainability.
+
+    *   **Statelessness:**  Each request from the client to the server must contain *all* the information needed to understand and process the request.  The server does *not* store any client context between requests.  This makes the server simpler and more scalable, as it doesn't need to maintain session state.  Any state needed for a sequence of interactions is managed by the client.
+
+    *   **Cacheability:**  Responses from the server should be explicitly labeled as cacheable or non-cacheable.  Clients and intermediate caches (like proxies) can cache responses to improve performance and reduce server load.  HTTP headers like `Cache-Control`, `Expires`, and `ETag` are used to control caching.
+
+    *   **Uniform Interface:**  RESTful APIs have a consistent and uniform interface, which makes them easier to understand and use.  This is achieved through:
+        *   **Resource Identification:**  Resources are identified using URIs (Uniform Resource Identifiers).  A URI uniquely identifies a specific resource (e.g., `/users/123`, `/products/456`).
+        *   **Resource Manipulation through Representations:**  Clients interact with resources by exchanging *representations* of those resources.  Common representation formats include JSON and XML.  The client sends a request with a specific HTTP method (verb) to manipulate the resource.
+        *   **Self-Descriptive Messages:**  Each message (request or response) contains enough information to describe how to process it.  This includes the HTTP method, headers, and the content type (e.g., `application/json`).
+        *   **Hypermedia as the Engine of Application State (HATEOAS):**  Responses from the server can include *links* (hypermedia) to other related resources.  This allows clients to discover and navigate the API dynamically, without needing prior knowledge of all the available resources.  This is a more advanced and less commonly fully implemented aspect of REST.
+
+    *   **Layered System:**  The client doesn't need to know whether it's communicating directly with the server or with an intermediary (like a proxy or load balancer).  This allows for greater flexibility and scalability.
+
+    *  **Code on demand(optional):** Servers can extend the functionality of clients. An example for code on demand is Javascript code that runs on a client's browser.
+*   **HTTP Methods (Verbs):**  RESTful APIs use standard HTTP methods to indicate the desired action on a resource:
+
+    *   **`GET`:**  Retrieves a representation of a resource.  Should be *safe* (read-only) and *idempotent*.
+    *   **`POST`:**  Creates a new resource.  Generally *not* idempotent.
+    *   **`PUT`:**  Replaces an existing resource (entirely).  *Idempotent*.
+    *   **`PATCH`:**  Partially updates an existing resource.  *Not necessarily* idempotent.
+    *   **`DELETE`:**  Deletes a resource.  *Idempotent*.
+
+*   **Example:**
+
+    ```JS
+    // Get a list of users
+    GET /users
+
+    // Get a specific user by ID
+    GET /users/123
+
+    // Create a new user
+    POST /users
+    {
+        "name": "Alice",
+        "email": "alice@example.com"
+    }
+
+    // Update user 123 (replace entire resource)
+    PUT /users/123
+    {
+        "name": "Alicia",
+        "email": "alicia@example.com"
+    }
+
+    // Partially update user 123 (change only the email)
+    PATCH /users/123
+    {
+        "email": "alicia.new@example.com"
+    }
+
+    // Delete user 123
+    DELETE /users/123
+    ```
+
+This comprehensive explanation covers all the requested concepts. Let me know if you have any other questions!
+
+
+
+
+
 **122. `appendChild` vs. `removeChild` (DOM Manipulation)**
 
 *   **`appendChild(childNode)`:**
@@ -1253,57 +2998,7 @@ console.log("4",archer);
 *   **Working with Array-Like Objects:**  `apply()` is particularly useful for working with array-like objects (e.g., the `arguments` object within a function) that don't have built-in array methods. You can borrow methods like `slice()` from the `Array.prototype`.
 * **Functional Programming Techniques:** In functional programming, using call and apply on Array methods is a common pattern.
 
-**32. Limitations of Closures**
-
-Closures are a powerful and fundamental feature in JavaScript, but they do have some limitations:
-
-1.  **Memory Consumption (Potential for Memory Leaks):**
-    *   The most significant limitation.  A closure keeps a reference to its surrounding lexical environment (variables from the outer function).  As long as the closure exists, those variables *cannot* be garbage collected, even if the outer function has finished executing.
-    *   If you're not careful, this can lead to memory leaks, especially in long-running applications or when creating many closures in a loop.  If a closure holds onto large objects or data structures that are no longer needed, they'll consume memory unnecessarily.
-
-2.  **Performance Overhead (Slight):**
-    *   Creating and maintaining closures does have a *small* performance overhead compared to accessing variables directly within the same scope.  The JavaScript engine needs to keep track of the closure's environment.
-    *   This overhead is usually negligible in most cases, but it *can* become noticeable in performance-critical code with very frequent closure creation or access.
-
-3.  **Complexity (Can Make Code Harder to Understand):**
-    *   While closures are powerful, they can sometimes make code harder to reason about, especially for developers who are new to the concept.  The fact that a function can access variables from its surrounding scope, even after that scope has seemingly finished, can be a source of confusion.
-    *   Overuse or deeply nested closures can lead to code that's difficult to follow and debug.
-
-4. **Accidental Variable Sharing (Especially in Loops):**
-    * Classic Issue with Loops:
-       ```javascript
-            for (var i = 0; i < 5; i++) {
-                setTimeout(function() {
-                console.log(i); // Logs 5 five times!
-                }, 1000);
-            }
-       ```
-    *    Reason:  All the closures created inside the loop share the *same* `i` variable (because of `var`). By the time the `setTimeout` callbacks execute, the loop has finished, and `i` is 5.
-    * Solutions:
-      *   Use `let` instead of `var`: `let` creates a *new* binding of `i` for each iteration of the loop.
-         ```javascript
-          for (let i = 0; i < 5; i++) { // Use let
-            setTimeout(function() {
-                console.log(i); // Logs 0, 1, 2, 3, 4
-            }, 1000);
-         }
-         ```
-      *  IIFE (Immediately Invoked Function Expression): Create a new scope for each iteration.
-         ```javascript
-         for (var i = 0; i < 5; i++) {
-             (function(j) { // Create a new scope with IIFE
-                 setTimeout(function() {
-                    console.log(j); // Logs 0, 1, 2, 3, 4
-                 }, 1000);
-             })(i);
-         }
-         ```
-5. **Private Data is Not Truly Private:**
-    *   Although closures are often used to emulate "private" variables, they're not truly private in the same way that, say, private members in a class-based language are.  It's still possible to access the closed-over variables through debugging tools or by manipulating the closure itself.  It's *private by convention*, not enforced by the language.
-
-**In Summary:**
-
-The main limitations of closures revolve around memory management and potential complexity.  While the performance overhead is usually minor, the risk of memory leaks is real and requires careful consideration. The loop issue with `var` is a common pitfall to be aware of.  Despite these limitations, closures are an essential and widely used feature in JavaScript, and understanding these limitations helps you use them effectively and avoid problems.
+*
 
 
 
@@ -1314,93 +3009,6 @@ The main limitations of closures revolve around memory management and potential 
 
 
 
-
-
-**31. Function Borrowing**
-
-Function borrowing in JavaScript is a technique where an object uses a method (function) that belongs to a *different* object.  It's a way to reuse functionality without inheritance or creating new objects. This is primarily achieved using the `call()`, `apply()`, and `bind()` methods.
-
-**How it Works:**
-
-*   **`this` Keyword:** The key to function borrowing is understanding the `this` keyword.  Inside a function, `this` usually refers to the object that "owns" the function (the object the function is a property of).  However, `call()`, `apply()`, and `bind()` allow you to *explicitly set* what `this` refers to when the function is called.
-
-*   **`call()`:**
-    *   Syntax: `function.call(thisArg, arg1, arg2, ...)`
-    *   `thisArg`: The object that you want `this` to refer to inside the function.
-    *   `arg1`, `arg2`, ...:  Arguments to be passed to the function *individually*.
-
-*   **`apply()`:**
-    *   Syntax: `function.apply(thisArg, [argsArray])`
-    *   `thisArg`:  Same as `call()`.
-    *   `argsArray`: An *array* (or array-like object) containing the arguments to be passed to the function.
-
-*   **`bind()`:**
-    *   Syntax: `function.bind(thisArg, arg1, arg2, ...)`
-    *   `thisArg`: Same as `call()`.
-    *   `arg1`, `arg2`, ...:  Arguments to be *pre-bound* to the function.
-    *   **Key Difference:**  `bind()` doesn't *immediately* call the function.  Instead, it returns a *new* function where `this` is *permanently* set to `thisArg`, and any provided arguments are pre-filled. You can then call this new function later.
-
-**Example:**
-
-```javascript
-// Object with a method
-const person1 = {
-  firstName: "Alice",
-  lastName: "Smith",
-  fullName: function(greeting, punctuation) {
-    return greeting + " " + this.firstName + " " + this.lastName + punctuation;
-  }
-};
-
-// Another object that doesn't have the fullName method
-const person2 = {
-  firstName: "Bob",
-  lastName: "Jones"
-};
-
-// Borrowing using call()
-let result1 = person1.fullName.call(person2, "Hello", "!");
-console.log(result1); // Output: Hello Bob Jones!
-
-// Borrowing using apply()
-let result2 = person1.fullName.apply(person2, ["Hi there", "?"]);
-console.log(result2); // Output: Hi there Bob Jones?
-
-// Borrowing using bind()
-const greetBob = person1.fullName.bind(person2, "Greetings"); // Pre-bind greeting
-let result3 = greetBob("..."); // Call the bound function later
-console.log(result3); // Output: Greetings Bob Jones...
-
-//Another Example
-const wizard = {
-    name: "Merlin",
-    health: 50,
-    heal(num1, num2){
-        return this.health += num1 + num2;
-    }
-}
-const archer = {
-    name: "Robin Hood",
-    health: 30
-}
-
-console.log("1", archer); // 1 {name: 'Robin Hood', health: 30}
-wizard.heal.call(archer, 50, 60); // borrowing heal method from wizard using call
-//wizard.heal.apply(archer, [20, 30]); // using apply
-console.log("2", archer); // 2 {name: 'Robin Hood', health: 140}
-
-const healArcher = wizard.heal.bind(archer, 50, 60);
-console.log("3", archer);
-healArcher();
-console.log("4",archer);
-
-```
-
-**When to Use Function Borrowing:**
-
-*   **Code Reuse:**  Avoid duplicating code when you have similar methods across different objects.
-*   **Working with Array-Like Objects:**  `apply()` is particularly useful for working with array-like objects (e.g., the `arguments` object within a function) that don't have built-in array methods. You can borrow methods like `slice()` from the `Array.prototype`.
-* **Functional Programming Techniques:** In functional programming, using call and apply on Array methods is a common pattern.
 
 **32. Limitations of Closures**
 
@@ -1505,14 +3113,6 @@ Let me know if you need further clarification! 🚀
 
 
 
-
-
-
-
-
-
-
-Let's break down the difference between primitive and non-primitive data types in JavaScript. This is a fundamental concept for understanding how JavaScript handles data.
 
 **Primitive Data Types**
 

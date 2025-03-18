@@ -563,3 +563,538 @@ Okay, let's do a workout session focused on Arrays, Objects, and Strings in Java
         }
     ```
 
+
+ Finding Non-Repeating Elements**
+
+Find Object Key with Highest Value**
+
+`splice()` Method
+
+ Reverse a String*
+
+ flatMap()` Method
+
+ *   **Sum of an Array:**
+
+    ```javascript
+    const numbers = [1, 2, 3, 4, 5];
+    const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    console.log(sum); // 15
+    ```
+
+*   **Maximum Value:**
+
+    ```javascript
+    const numbers = [1, 5, 2, 8, 3];
+    const max = numbers.reduce((accumulator, currentValue) => Math.max(accumulator, currentValue), -Infinity);
+     // Start with -Infinity to handle negative numbers
+    console.log(max); // 8
+    ```
+
+*   **Frequency Map:**
+
+    ```javascript
+    const elements = ["a", "b", "a", "c", "b", "b"];
+    const frequencyMap = elements.reduce((accumulator, currentValue) => {
+      accumulator[currentValue] = (accumulator[currentValue] || 0) + 1;
+      return accumulator;
+    }, {}); // Initialize with an empty object
+    console.log(frequencyMap); // { a: 2, b: 3, c: 1 }
+    ```
+* **Total Characters**
+    ```javascript
+        const words = ["apple", "banana", "cherry"];
+        const totalCharacters = words.reduce((acc, curr)=>{
+            return acc + curr.length;
+        },0)
+        console.log(totalCharacters) //17
+
+
+```js
+const express = require('express');
+const fs = require('fs').promises;
+const fetch = require('node-fetch');
+
+const app = express();
+
+// API Endpoint to serve JSON response
+app.get('/data', (req, res) => {
+    const jsonData = { message: "Hello, this is JSON data!", timestamp: new Date() };
+    res.json(jsonData);
+});
+
+const PORT = 3000;
+
+// Start the server
+app.listen(PORT, async () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+
+    // Wait for the server to start before making a request
+    try {
+        const response = await fetch(`http://localhost:${PORT}/data`);
+        const jsonData = await response.json(); // Parse JSON
+
+        // Write JSON response to a file
+        await fs.writeFile('response.json', JSON.stringify(jsonData, null, 2));
+        console.log("JSON data written to file successfully!");
+    } catch (error) {
+        console.error("Error:", error);
+    }
+});
+```
+
+**30. Print First 10 Even Numbers with Delay**
+
+```javascript
+function printEvenNumbersWithDelay() {
+  let count = 0;
+  let num = 2; // Start with the first even number
+
+  const intervalId = setInterval(() => {
+    console.log(num);
+    num += 2;       // Get the next even number
+    count++;
+
+    if (count >= 10) {
+      clearInterval(intervalId); // Stop after 10 numbers
+    }
+  }, 1000); // 1-second delay
+}
+
+printEvenNumbersWithDelay();
+
+**21. Reverse a String**
+
+```javascript
+function reverseString(str) {
+  let reversed = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    reversed += str[i];
+  }
+  return reversed;
+}
+
+console.log(reverseString("hello")); // olleh
+console.log(reverseString("world")); // dlrow
+console.log(reverseString(""));      // ""
+
+// Alternative using a loop with two pointers (more efficient for very long strings):
+function reverseStringTwoPointers(str) {
+    const arr = str.split('');
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left < right) {
+        // Swap characters at left and right pointers
+        const temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+
+        left++;
+        right--;
+    }
+
+    return arr.join('');
+}
+
+//Alternative using recursion
+function reverseStringRecursion(str){
+    if(str === ""){ //Base condition
+        return "";
+    } else {
+        return reverseStringRecursion(str.substring(1)) + str.charAt(0);
+    }
+}
+
+//Alternative using built in methods (although the question specifically asks not to)
+function reverseStringBuiltIn(str){
+    return str.split("").reverse().join("");
+}
+```
+
+**22. Check if an Object is Empty**
+
+```javascript
+function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
+
+console.log(isObjectEmpty({})); // true
+console.log(isObjectEmpty({ a: 1 })); // false
+console.log(isObjectEmpty({ a: 1, b: 2 })); // false
+
+// Alternative, very slightly more performant (stops iterating early)
+function isObjectEmptyAlternative(obj) {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      return false; // Found a property, so it's not empty
+    }
+  }
+  return true; // No properties found
+}
+```
+*50. Prime Number (Algorithm)**
+
+```javascript
+function isPrime(num) {
+  if (num <= 1) {
+    return false; // 1 and numbers less than 1 are not prime
+  }
+  if (num <= 3) {
+    return true; // 2 and 3 are prime
+  }
+  if (num % 2 === 0 || num % 3 === 0) {
+    return false; // Divisible by 2 or 3
+  }
+
+  // Check divisibility up to the square root of num
+  // Optimized: Only need to check odd numbers starting from 5, incrementing by 6
+  for (let i = 5; i * i <= num; i += 6) {
+    if (num % i === 0 || num % (i + 2) === 0) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+console.log(isPrime(2));   // true
+console.log(isPrime(10));  // false
+console.log(isPrime(17));  // true
+console.log(isPrime(1));   // false
+```
+
+
+
+
+
+
+**51. Fibonacci Series (Algorithm)**
+
+```javascript
+// Recursive (less efficient for larger numbers due to repeated calculations)
+function fibonacciRecursive(n) {
+  if (n <= 1) {
+    return n;
+  }
+  return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+}
+
+// Iterative (more efficient)
+function fibonacciIterative(n) {
+  if (n <= 1) {
+    return n;
+  }
+
+  let a = 0;
+  let b = 1;
+  let temp;
+
+  for (let i = 2; i <= n; i++) {
+    temp = a + b;
+    a = b;
+    b = temp;
+  }
+
+  return b;
+}
+
+// Using Memoization (optimized recursive)
+function fibonacciMemo(n, memo = {}) {
+    if (n in memo) {
+        return memo[n];
+    }
+    if (n <= 1) {
+        return n;
+    }
+    memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo);
+    return memo[n];
+}
+
+
+console.log(fibonacciRecursive(6));   // 8
+console.log(fibonacciIterative(6));   // 8
+console.log(fibonacciMemo(6)); //8
+console.log(fibonacciRecursive(10)); //55
+
+
+
+
+
+
+
+
+
+
+forEach()` vs. `map()
+map()` Method*
+filter()` Method*
+
+
+
+
+68. Toggle Checkbox by Button Click**
+
+```html
+<input type="checkbox" id="myCheckbox">
+<button id="toggleButton">Toggle Checkbox</button>
+
+<script>
+  const checkbox = document.getElementById("myCheckbox");
+  const button = document.getElementById("toggleButton");
+
+  button.addEventListener("click", function() {
+    checkbox.checked = !checkbox.checked; // Toggle the checked state
+  });
+</script>
+```
+
+**69. Disable Right Click of a Button**
+
+```html
+<button id="myButton">Right-click me</button>
+
+<script>
+  const button = document.getElementById("myButton");
+
+  button.addEventListener("contextmenu", function(event) {
+    event.preventDefault(); // Prevent the default context menu
+  });
+</script>
+```
+
+
+
+74. Remove Multiples of 3**
+
+```javascript
+function removeMultiplesOf3(arr) {
+  return arr.filter(number => number % 3 !== 0);
+}
+
+console.log(removeMultiplesOf3([1, 2, 3, 4, 5, 6, 7, 8, 9])); // [1, 2, 4, 5, 7, 8]
+```
+
+**75. Find Student with Highest Score**
+
+```javascript
+function findStudentWithHighestScore(students) {
+    if (students.length === 0) {
+        return null; // Handle empty array case
+    }
+    let highestScoreStudent = students[0];
+    for (let i = 0; i < students.length; i++) {
+        if (students[i].score > highestScoreStudent.score) {
+            highestScoreStudent = students[i];
+        }
+    }
+    return highestScoreStudent;
+}
+
+const students = [
+  { name: "Alice", score: 85 },
+  { name: "Bob", score: 92 },
+  { name: "Charlie", score: 78 },
+];
+
+const topStudent = findStudentWithHighestScore(students);
+console.log(topStudent); // { name: "Bob", score: 92 }
+
+//Alternative using reduce
+
+function findStudentWithHighestScore2(students) {
+    if (students.length === 0) {
+        return null; // Handle empty array case
+    }
+    return students.reduce((highest, current)=>{
+        return current.score > highest.score ? current : highest;
+    })
+}
+
+
+orting Arrays
+
+Matching Elements in Two Different Arrays
+
+Sorting Objects:
+
+
+Splitting String with Space**
+
+```javascript
+const str = "This is a sentence.";
+const words = str.split(" "); // Split by space
+console.log(words); // ["This", "is", "a", "sentence."]
+```
+
+**112. Palindrome Check**
+
+*115. Find Second Highest Element**
+
+```javascript
+//  (same as #8 in Array section, but clarified here)
+function findSecondHighest(arr) {
+    if (arr.length < 2) {
+      return undefined; // Not enough elements
+    }
+
+    let highest = -Infinity;
+    let secondHighest = -Infinity;
+
+    for (const num of arr) {
+        if (num > highest) {
+            secondHighest = highest;
+            highest = num;
+        } else if (num > secondHighest && num !== highest) {
+            secondHighest = num;
+        }
+    }
+
+    // Handle cases where all elements are the same:
+    return (secondHighest === -Infinity) ? undefined : secondHighest;
+}
+
+console.log(findSecondHighest([5, 2, 8, 1, 9, 4]));    // 8
+console.log(findSecondHighest([10, 10, 10]));         // undefined
+console.log(findSecondHighest([5]));                    // undefined
+console.log(findSecondHighest([-1, -5, 0, -2]));       // -1
+```
+
+**116. Sum of Numbers from Object**
+
+```javascript
+function sumObjectValues(obj) {
+    let sum = 0;
+    for(let key in obj){
+        if(obj.hasOwnProperty(key) && typeof obj[key] === 'number'){
+            sum += obj[key];
+        }
+    }
+    return sum;
+}
+
+const myObject = { a: 10, b: 20, c: "hello", d: 30 };
+console.log(sumObjectValues(myObject)); // 60
+
+//Alternative using reduce
+function sumObjectValues2(obj){
+    return Object.values(obj).reduce((sum, value)=>{
+       return typeof value === 'number' ? sum + value : sum;
+    }, 0);
+}
+```
+
+**117. Array Empty Check**
+
+```javascript
+function isArrayEmpty(arr) {
+  return arr.length === 0;
+}
+//OR
+const arr = []
+if(!arr.length){
+    console.log('Array is empty')
+}
+```
+
+**119. Single Purpose Aggregation (Example - Sum Array)**
+
+```javascript
+// Example: Sum of an array (single-purpose aggregation)
+const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+console.log(sum); // 15
+
+```
+
+131. Shortest Word from String**
+
+```javascript
+function findShortestWord(str) {
+  const words = str.split(" ");
+  if (words.length === 0) {
+    return ""; // Or null, or undefined, depending on requirements
+  }
+  let shortest = words[0];
+    for(let i = 1; i < words.length; i++){
+        if(words[i].length < shortest.length){
+            shortest = words[i]
+        }
+    }
+    return shortest;
+}
+
+console.log(findShortestWord("This is a sentence with words of varying lengths")); // "a"
+console.log(findShortestWord("Short words here")); // "here"
+console.log(findShortestWord("")); // ""
+
+//Alternative using reduce
+function findShortestWord2(str){
+  const words = str.split(" ");
+  if (words.length === 0) {
+    return "";
+  }
+
+  return words.reduce((shortest, current)=>{
+    return current.length < shortest.length ? current : shortest;
+  });
+}
+
+
+
+
+
+
+
+
+
+
+```javascript
+    function memoize(func) {
+      const cache = new Map(); // Use a Map to store results
+
+      return function(...args) {
+        const key = JSON.stringify(args); // Create a unique key from the arguments
+
+        if (cache.has(key)) {
+          return cache.get(key); // Return cached result
+        }
+
+        const result = func.apply(this, args); // Call the original function
+        cache.set(key, result); // Store the result in the cache
+        return result;
+      };
+    }
+
+    // Example: Memoized Fibonacci
+    function fibonacci(n) {
+      if (n <= 1) {
+        return n;
+      }
+      return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+
+    const memoizedFibonacci = memoize(fibonacci);
+
+    console.time("First call");
+    console.log(memoizedFibonacci(40)); // First call: slow (calculates everything)
+    console.timeEnd("First call");
+
+    console.time("Second call");
+    console.log(memoizedFibonacci(40)); // Second call: very fast (returns cached result)
+    console.timeEnd("Second call");
+
+    //Alternative using closure and object
+    function memoize2(func){
+      const cache = {};
+      return function(...args){
+        const key = JSON.stringify(args);
+        if(key in cache){
+          return cache[key];
+        }
+        const result = func.apply(this, args);
+        cache[key] = result;
+        return result;
+      }
+    }
+```
