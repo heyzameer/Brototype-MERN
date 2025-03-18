@@ -1987,11 +1987,3 @@ An HTTP response consists of:
 *   **Relationship:** TCP runs *on top of* IP.  IP provides the basic mechanism for sending packets across the internet. TCP adds reliability and connection management on top of IP.  Think of IP as the postal service (delivering individual letters) and TCP as a registered mail service (guaranteeing delivery and order).
 
 This document provides a comprehensive overview of HTTP, HTTPS, web security vulnerabilities (XSS, CSRF, SQL injection), and the underlying networking concepts of TCP and IP. It's tailored for a Node.js development context, with practical examples and explanations. This covers a large amount of ground important for building robust and secure web applications.
-
-
-
-
-
-
-
-
