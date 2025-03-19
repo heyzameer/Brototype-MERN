@@ -6,7 +6,7 @@
 libuv is a multi-platform C library that provides asynchronous I/O (Input/Output) support.  It's the *crucial* component of Node.js, enabling its non-blocking and event-driven architecture. libuv allows Node.js to perform I/O operations concurrently *without* blocking the main thread, leading to high performance and scalability.
 
 ## Detailed Explanation
-
+'
 ### Importance
 
 libuv is the engine that drives Node.js's ability to handle concurrent requests efficiently.  Without libuv, Node.js would be limited to synchronous I/O, severely restricting its performance.  It's the glue that binds the V8 JavaScript engine to the underlying operating system.

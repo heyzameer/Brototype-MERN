@@ -1,30 +1,45 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
+const fs = require('fs').promises;
+const path = require('path');
 
 const app = express();
-app.use(cookieParser('your-secret-key')); // Use a secret for signed cookies
+app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-  // Access cookies
-  console.log('Cookies:', req.cookies);
-  console.log('Signed Cookies:', req.signedCookies);
+const filePath = path.join(__dirname, 'data.json');
 
-  // Set a normal cookie
-  res.cookie('name', 'John Doe', { maxAge: 900000, httpOnly: true });
+// Read data from file (return an empty array if file is missing or empty)
+const readData = async () => {
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        const parsedData = data ? JSON.parse(data) : [];
+        return Array.isArray(parsedData) ? parsedData : []; // Ensure it's an array
+    } catch {
+        return [];
+    }
+};
 
-  // Set a signed cookie
-  res.cookie('signedCookie', 'This is a signed cookie', { signed: true });
 
-  res.send('Check your cookies!');
+// Write data to file
+const writeData = async (data) => {
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+};
+
+// Render form
+app.get('/', (req, res) => res.render('index'));
+
+// Save form data
+app.post('/submit', async (req, res) => {
+    console.log(req.body.name);
+    const newEntry = { name: req.body.name, email: req.body.email, phone: req.body.phone };
+    const existingData = await readData();  // Read current data
+    console.log(newEntry);
+    existingData.push(newEntry);            // Add new entry
+    await writeData(existingData);          // Save back to file
+    res.redirect('/');
 });
 
-app.get('/clear', (req, res) => {
-  res.clearCookie('name'); // Clears the 'name' cookie
-  res.clearCookie('signedCookie'); // Clears the signed cookie
-  res.send('Cookies have been cleared!');
-});
+// Read stored data
+app.get('/readData', async (req, res) => res.json(await readData()));
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+app.listen(3000, () => console.log('Server running on port 3000'));

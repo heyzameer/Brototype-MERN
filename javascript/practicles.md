@@ -1,6 +1,255 @@
-Okay, let's do a workout session focused on Arrays, Objects, and Strings in JavaScript. I'll provide a mix of problems with varying difficulty, and then give the solutions with explanations. This is all about *practice*, so I highly recommend trying to solve each problem *before* looking at the solution.
+### **Practical Examples Using an Array of Objects in JavaScript**
 
+Here are some **real-world practical examples** using **arrays of objects** in JavaScript.
+
+---
+
+## **1. Filter Users by Age**
+```js
+let users = [
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+    { name: "Charlie", age: 22 }
+];
+
+// Get users older than 25
+let filteredUsers = users.filter(user => user.age > 25);
+console.log(filteredUsers);
+```
+### **Output:**
+```js
+[{ name: "Bob", age: 30 }]
+```
+📌 **Use case:** Get users who are eligible for a job based on age.
+
+---
+
+## **2. Find a Specific Product by ID**
+```js
+let products = [
+    { id: 1, name: "Laptop", price: 800 },
+    { id: 2, name: "Phone", price: 500 },
+    { id: 3, name: "Tablet", price: 300 }
+];
+
+// Find product with ID 2
+let product = products.find(p => p.id === 2);
+console.log(product);
+```
+### **Output:**
+```js
+{ id: 2, name: "Phone", price: 500 }
+```
+📌 **Use case:** Get details of a product when a user selects it.
+
+---
+
+## **3. Calculate Total Price of All Products**
+```js
+let cart = [
+    { name: "Laptop", price: 800 },
+    { name: "Phone", price: 500 },
+    { name: "Tablet", price: 300 }
+];
+
+// Calculate total price
+let total = cart.reduce((sum, item) => sum + item.price, 0);
+console.log(total);
+```
+### **Output:**
+```js
+1600
+```
+📌 **Use case:** Calculate the total bill for an online shopping cart.
+
+---
+
+## **4. Get an Array of Employee Names**
+```js
+let employees = [
+    { id: 1, name: "John", role: "Developer" },
+    { id: 2, name: "Jane", role: "Designer" },
+    { id: 3, name: "Mike", role: "Manager" }
+];
+
+// Extract names
+let names = employees.map(emp => emp.name);
+console.log(names);
+```
+### **Output:**
+```js
+["John", "Jane", "Mike"]
+```
+📌 **Use case:** Display employee names in a dropdown.
+
+---
+
+## **5. Sort Products by Price (Ascending)**
+```js
+let products = [
+    { name: "Laptop", price: 800 },
+    { name: "Phone", price: 500 },
+    { name: "Tablet", price: 300 }
+];
+
+// Sort by price (ascending)
+products.sort((a, b) => a.price - b.price);
+console.log(products);
+```
+### **Output:**
+```js
+[
+  { name: "Tablet", price: 300 },
+  { name: "Phone", price: 500 },
+  { name: "Laptop", price: 800 }
+]
+```
+📌 **Use case:** Sort products in an online store by price.
+
+---
+
+## **6. Count the Number of Items by Category**
+```js
+let items = [
+    { name: "Apple", category: "Fruit" },
+    { name: "Carrot", category: "Vegetable" },
+    { name: "Banana", category: "Fruit" },
+    { name: "Broccoli", category: "Vegetable" }
+];
+
+// Count items by category
+let countByCategory = items.reduce((acc, item) => {
+    acc[item.category] = (acc[item.category] || 0) + 1;
+    return acc;
+}, {});
+
+console.log(countByCategory);
+```
+### **Output:**
+```js
+{ Fruit: 2, Vegetable: 2 }
+```
+📌 **Use case:** Display a count of items in each category on an e-commerce website.
+
+---
+
+## **7. Check If All Employees Are Developers**
+```js
+let employees = [
+    { name: "John", role: "Developer" },
+    { name: "Jane", role: "Developer" },
+    { name: "Mike", role: "Manager" }
+];
+
+// Check if all are developers
+let allDevelopers = employees.every(emp => emp.role === "Developer");
+console.log(allDevelopers);
+```
+### **Output:**
+```js
+false
+```
+📌 **Use case:** Check if a team consists only of developers before assigning a project.
+
+---
+
+## **8. Check If At Least One Expensive Product Exists**
+```js
+let products = [
+    { name: "Laptop", price: 800 },
+    { name: "Phone", price: 500 },
+    { name: "Tablet", price: 300 }
+];
+
+// Check if any product is more than $700
+let hasExpensiveProduct = products.some(p => p.price > 700);
+console.log(hasExpensiveProduct);
+```
+### **Output:**
+```js
+true
+```
+📌 **Use case:** Show a warning if expensive products exist in the cart.
+
+---
+
+## **9. Remove Duplicates From an Array of Objects**
+```js
+let users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" },
+    { id: 1, name: "Alice" }
+];
+
+// Remove duplicates based on `id`
+let uniqueUsers = users.filter((user, index, self) => 
+    index === self.findIndex(u => u.id === user.id)
+);
+
+console.log(uniqueUsers);
+```
+### **Output:**
+```js
+[
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" }
+]
+```
+📌 **Use case:** Ensure unique records in a database.
+
+---
+
+## **10. Group Students by Grade**
+```js
+let students = [
+    { name: "Alice", grade: "A" },
+    { name: "Bob", grade: "B" },
+    { name: "Charlie", grade: "A" },
+    { name: "David", grade: "B" }
+];
+
+// Group by grade
+let groupedStudents = students.reduce((acc, student) => {
+    (acc[student.grade] = acc[student.grade] || []).push(student);
+    return acc;
+}, {});
+
+console.log(groupedStudents);
+```
+### **Output:**
+```js
+{
+  A: [{ name: "Alice", grade: "A" }, { name: "Charlie", grade: "A" }],
+  B: [{ name: "Bob", grade: "B" }, { name: "David", grade: "B" }]
+}
+```
+📌 **Use case:** Group students based on performance.
+
+---
+
+### **Summary Table**
+| **Functionality** | **Method Used** |
+|------------------|----------------|
+| Filter users by age | `filter()` |
+| Find a specific product | `find()` |
+| Calculate total price | `reduce()` |
+| Get an array of names | `map()` |
+| Sort products by price | `sort()` |
+| Count items by category | `reduce()` |
+| Check if all employees are developers | `every()` |
+| Check if at least one expensive product exists | `some()` |
+| Remove duplicates | `filter() + findIndex()` |
+| Group students by grade | `reduce()` |
+
+---
+
+### **Conclusion**
+These examples demonstrate how **`map()`**, **`filter()`**, **`reduce()`**, **`find()`**, and other methods work with arrays of objects in real-world applications. Let me know if you need more explanations! 🚀🔥
 **Part 1: Array Problems**
+
+
+
+
 
 1.  **Sum of Array:**
     *   Write a function `sumArray(arr)` that takes an array of numbers and returns the sum of all the numbers.
@@ -564,15 +813,166 @@ Okay, let's do a workout session focused on Arrays, Objects, and Strings in Java
     ```
 
 
- Finding Non-Repeating Elements**
+Here are explanations and examples for each of the topics you mentioned:
 
-Find Object Key with Highest Value**
+---
 
-`splice()` Method
+## **1️⃣ Finding Non-Repeating Elements**
+You can find non-repeating elements in an array of numbers or objects.
 
- Reverse a String*
+### **Example: Find Non-Repeating Numbers**
+```js
+let numbers = [4, 5, 6, 4, 7, 5, 8, 8, 9];
 
- flatMap()` Method
+let nonRepeating = numbers.filter((num, index, arr) => 
+    arr.indexOf(num) === arr.lastIndexOf(num)
+);
+
+console.log(nonRepeating); // Output: [6, 7, 9]
+```
+👉 **Explanation**:
+- `indexOf(num) === lastIndexOf(num)` ensures the number appears **only once** in the array.
+
+---
+
+### **Example: Find Non-Repeating Objects**
+```js
+let users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" },
+    { id: 1, name: "Alice" },
+    { id: 3, name: "Charlie" }
+];
+
+let uniqueUsers = users.filter((user, index, self) => 
+    self.findIndex(u => u.id === user.id) === self.lastIndexOf(u => u.id === user.id)
+);
+
+console.log(uniqueUsers); // Output: [{ id: 2, name: "Bob" }, { id: 3, name: "Charlie" }]
+```
+👉 **Explanation**:
+- This finds users that **do not have duplicate `id`s** in the array.
+
+---
+
+## **2️⃣ Find Object Key with Highest Value**
+To find the key with the highest value in an object, use `Object.entries()` and `reduce()`.
+
+### **Example**
+```js
+let scores = {
+    Alice: 85,
+    Bob: 90,
+    Charlie: 78,
+    David: 95
+};
+
+let highest = Object.entries(scores).reduce((acc, [key, value]) => 
+    value > acc[1] ? [key, value] : acc
+, ["", -Infinity]);
+
+console.log(highest[0]); // Output: "David"
+```
+👉 **Explanation**:
+- `Object.entries(scores)` converts the object into an array of `[key, value]` pairs.
+- `reduce()` keeps track of the key with the highest value.
+
+---
+
+## **3️⃣ `splice()` Method**
+`splice(start, deleteCount, item1, item2, ...)` modifies an array by **adding, removing, or replacing** elements.
+
+### **Example: Remove Elements**
+```js
+let arr = [1, 2, 3, 4, 5];
+arr.splice(2, 2); // Remove 2 elements from index 2
+
+console.log(arr); // Output: [1, 2, 5]
+```
+👉 **Explanation**:
+- Starts at **index 2**, removes **2 elements** (`3, 4`).
+
+---
+
+### **Example: Insert Elements**
+```js
+let arr = [1, 2, 5];
+arr.splice(2, 0, 3, 4); // Insert 3, 4 at index 2
+
+console.log(arr); // Output: [1, 2, 3, 4, 5]
+```
+👉 **Explanation**:
+- `0` means **don't remove**, only insert `3, 4` at index **2**.
+
+---
+
+### **Example: Replace Elements**
+```js
+let arr = [1, 2, 3, 4, 5];
+arr.splice(1, 2, 9, 10); // Replace 2 elements from index 1 with 9, 10
+
+console.log(arr); // Output: [1, 9, 10, 4, 5]
+```
+👉 **Explanation**:
+- **Replaces** `2, 3` with `9, 10`.
+
+---
+
+## **4️⃣ Reverse a String**
+You can **reverse a string** using `split()`, `reverse()`, and `join()`.
+
+### **Example**
+```js
+let str = "hello";
+let reversed = str.split("").reverse().join("");
+
+console.log(reversed); // Output: "olleh"
+```
+👉 **Explanation**:
+- `split("")` → Converts string to an **array** of characters.
+- `reverse()` → Reverses the array.
+- `join("")` → Converts the array **back to a string**.
+
+---
+
+## **5️⃣ `flatMap()` Method**
+`flatMap()` is used to **map** each element and then **flatten** the result **by one level**.
+
+### **Example: Flatten and Transform**
+```js
+let arr = [[1], [2, 3], [4, 5]];
+let result = arr.flatMap(x => x);
+
+console.log(result); // Output: [1, 2, 3, 4, 5]
+```
+👉 **Explanation**:
+- `flatMap(x => x)` **flattens one level** of nested arrays.
+
+---
+
+### **Example: Modify and Flatten**
+```js
+let words = ["hello", "world"];
+let result = words.flatMap(word => word.split(""));
+
+console.log(result); 
+// Output: ["h", "e", "l", "l", "o", "w", "o", "r", "l", "d"]
+```
+👉 **Explanation**:
+- `split("")` **splits words into letters**, then `flatMap()` **flattens** them.
+
+---
+
+### **Summary Table**
+| **Method** | **Use Case** | **Example Output** |
+|------------|-------------|--------------------|
+| **Finding Non-Repeating Elements** | Filter unique values in an array | `[6, 7, 9]` |
+| **Find Object Key with Highest Value** | Find the highest-scoring person | `"David"` |
+| **`splice()`** | Add, remove, or replace array elements | `[1, 9, 10, 4, 5]` |
+| **Reverse a String** | Reverse `"hello"` | `"olleh"` |
+| **`flatMap()`** | Flatten nested arrays and modify elements | `[1, 2, 3, 4, 5]` |
+
+Would you like more examples? 🚀
 
  *   **Sum of an Array:**
 
@@ -665,7 +1065,6 @@ printEvenNumbersWithDelay();
 
 **21. Reverse a String**
 
-```javascript
 function reverseString(str) {
   let reversed = "";
   for (let i = str.length - 1; i >= 0; i--) {
@@ -821,7 +1220,13 @@ console.log(fibonacciRecursive(10)); //55
 
 
 
-
+function* fibonacciGenerator() {
+    let [a, b] = [0, 1];
+    while (true) {
+        yield a;
+        [a, b] = [b, a + b]; // Swap values
+    }
+}
 
 
 

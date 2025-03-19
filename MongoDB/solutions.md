@@ -1,5 +1,45 @@
 ### **MongoDB: Key Topics You Asked For** 🚀
 
+\
+#### **2️⃣ Client-Side Counting Methods (Slower)**
+👉 **These methods retrieve documents first, then count them.**
+👉 **Not recommended for large datasets.**
+
+🚀 **Using `.toArray().length` (Takes ~1.7s)**
+```js
+db.persons.aggregate([]).toArray().length
+```
+
+🚀 **Using `.itcount()` (Takes ~1.4s)**
+```js
+db.persons.aggregate([]).itcount()
+```
+
+---
+
+#### **3️⃣ Other Server-Side Methods (Faster)**
+👉 **More efficient than client-side methods.**
+
+✅ **Using `$count` in Aggregation (Takes ~0.21s)**
+```js
+db.persons.aggregate([{ $count: "count" }])
+```
+
+✅ **Using `.count()` in `find()`**
+```js
+db.persons.find({}).count()
+```
+
+❌ **Incorrect: Using `.count()` directly in aggregation**
+```js
+db.persons.aggregate([]).count() // ❌ Not valid
+
+
+db.users.countDocuments({ isActive: true });
+```
+---
+
+
 ---
 
 ## **1️⃣ Data Modeling & Anti-Patterns in MongoDB**
@@ -1469,3 +1509,1163 @@ Let's continue with the explanation of `$project` and then cover the remaining t
         { $text: { $search: "post" } },
         { score: { $meta: "textScore" } } // Project the text score
     ).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+That’s a comprehensive set of MongoDB interview questions! I’ll answer each of them one by one.  
+
+---
+
+### **1. Projection in `find()`**
+**Q: What is projection in MongoDB? Why is it used?**  
+**A:** Projection is used to specify which fields should be included or excluded in the output of a `find()` query. It helps optimize performance by retrieving only the necessary fields.  
+
+**Q: How do you include specific fields in the output of a `find()` query?**  
+**A:** Use `1` or `true` for the fields you want to include.  
+```js
+db.users.find({}, { name: 1, email: 1 }) 
+```
+
+**Q: How do you exclude specific fields in the output of a `find()` query?**  
+**A:** Use `0` or `false` for the fields you want to exclude.  
+```js
+db.users.find({}, { password: 0 }) 
+```
+
+**Q: How do you exclude the `_id` field?**  
+**A:** Use `_id: 0` in the projection.  
+```js
+db.users.find({}, { _id: 0, name: 1, email: 1 }) 
+```
+
+**Q: Query to return only `name` and `email` fields in `users` collection?**  
+```js
+db.users.find({}, { name: 1, email: 1, _id: 0 })
+```
+
+---
+
+### **2. Indexes (Single, Compound, TTL)**
+**Q: What is an index? Why are indexes important?**  
+**A:** An index speeds up query performance by creating a sorted structure of specified fields. Without indexes, MongoDB must scan the entire collection.
+
+**Q: How do you create a single-field index?**  
+```js
+db.users.createIndex({ email: 1 }) 
+```
+
+**Q: What is a compound index? Provide an example.**  
+**A:** A compound index is an index on multiple fields.  
+```js
+db.users.createIndex({ firstName: 1, lastName: 1 }) 
+```
+Used when queries involve multiple fields.
+
+**Q: What is a TTL index? What is its purpose?**  
+**A:** TTL (Time-To-Live) index automatically deletes documents after a set time.  
+
+**Q: How do you create a TTL index?**  
+```js
+db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 }) 
+```
+Deletes documents 1 hour after insertion.
+
+---
+
+### **3. `$all` Operator**
+**Q: What does `$all` do?**  
+**A:** Finds documents where an array contains **all** specified values.  
+```js
+db.products.find({ tags: { $all: ["electronics", "computers", "laptops"] } }) 
+```
+
+**Q: Difference between `$all` and `$in`?**  
+- `$all`: Matches documents containing **all** specified values in an array.  
+- `$in`: Matches documents where at least **one** value exists.  
+
+---
+
+### **4. `$in` Query**
+**Q: What does `$in` do?**  
+**A:** Matches documents where a field's value is in a specified array.  
+```js
+db.users.find({ status: { $in: ["active", "pending"] } }) 
+```
+
+---
+
+### **5. Clustered Collection**
+**Q: What is a clustered collection?**  
+**A:** A collection where documents are stored based on a clustered index, optimizing read performance.  
+
+**Q: How to create a clustered collection?**  
+```js
+db.createCollection("users", { clusteredIndex: { key: { _id: 1 }, unique: true } }) 
+```
+
+---
+
+### **6. Data Modeling (Embedding vs. Referencing)**
+**Embedding:**  
+- Stores related data in a single document.  
+- **Pros:** Fast reads.  
+- **Cons:** Data duplication, large document size.  
+
+**Referencing:**  
+- Stores related data in different collections.  
+- **Pros:** Avoids redundancy.  
+- **Cons:** Slower joins.  
+
+**Example:**  
+- Use **embedding** for user addresses.  
+- Use **referencing** for blog posts and authors.  
+
+---
+
+### **7. Covered Query**
+**Q: What is a covered query?**  
+**A:** A query where all fields are part of an index, avoiding full document scans.  
+
+**Q: Conditions for a covered query?**  
+- Index contains **all** queried fields.  
+- No fields outside the index are requested.  
+
+```js
+db.users.createIndex({ email: 1, name: 1 }) 
+db.users.find({ email: "test@example.com" }, { email: 1, name: 1, _id: 0 }) 
+```
+
+---
+
+### **8. Average Calculation**
+```js
+db.users.aggregate([
+  { $match: { status: "active" } },
+  { $group: { _id: null, avgAge: { $avg: "$age" } } }
+])
+```
+
+---
+
+### **9. Pattern Matching (Starts with Vowel)**
+```js
+db.products.find({ name: { $regex: "^[aeiouAEIOU]" } })
+```
+
+---
+
+### **10. `$setUnion`**
+```js
+db.students.aggregate([
+  { $project: { combinedSubjects: { $setUnion: ["$mathSubjects", "$scienceSubjects"] } } }
+])
+```
+
+---
+
+### **11. Upsert**
+```js
+db.users.updateOne(
+  { email: "test@example.com" },
+  { $set: { name: "John Doe", age: 30 } },
+  { upsert: true }
+)
+```
+
+---
+
+### **12. `$map`**
+```js
+db.users.aggregate([
+  { $project: { updatedScores: { $map: { input: "$scores", as: "score", in: { $multiply: ["$$score", 2] } } } } }
+])
+```
+
+---
+
+### **13. Aggregation Pipeline**
+- `$match`, `$project`, `$group`, `$sort`, `$limit`, `$lookup`.
+
+---
+
+### **14. `distinct`**
+```js
+db.users.distinct("city")
+```
+
+---
+
+### **15. `$group`**
+```js
+db.orders.aggregate([
+  { $group: { _id: "$customerId", totalSpent: { $sum: "$amount" } } }
+])
+```
+
+---
+
+### **16. `$project`**
+```js
+db.users.aggregate([
+  { $project: { fullName: { $concat: ["$firstName", " ", "$lastName"] } } }
+])
+```
+
+---
+
+### **17. `$sort` and `$limit`**
+```js
+db.products.aggregate([{ $sort: { price: -1 } }, { $limit: 5 }])
+```
+
+---
+
+### **18. Second Youngest Age**
+```js
+db.users.aggregate([{ $sort: { age: 1 } }, { $skip: 1 }, { $limit: 1 }])
+```
+
+---
+
+### **19. Geospatial Index**
+```js
+db.places.createIndex({ location: "2dsphere" })
+```
+
+---
+
+### **20. `$nor`, `$not`**
+```js
+db.users.find({ $nor: [{ age: { $gt: 18 } }, { status: "inactive" }] })
+```
+
+---
+
+### **21. `$elemMatch`**
+```js
+db.users.find({ scores: { $elemMatch: { subject: "Math", score: { $gte: 90 } } } })
+```
+
+---
+
+### **22. Updates**
+Practice `$set`, `$inc`, `$push`, `$pull`, `$addToSet`.
+
+---
+
+### **23. Capped Collection**
+```js
+db.createCollection("logs", { capped: true, size: 100000 })
+```
+
+---
+
+### **24. Aggregation Practice**
+Experiment with `$lookup`, `$facet`, `$bucket`.
+
+---
+
+### **25. Relational vs Non-Relational**
+- **SQL:** Structured, strict schema.  
+- **NoSQL:** Flexible, fast for reads.  
+
+---
+
+### **26. Types of Index**
+- Single-field, compound, multi-key, text, geospatial, hashed, TTL.
+
+---
+
+### **27. Replica Set**
+Ensures **high availability**.
+
+---
+
+### **28. Shard Key**
+Partitioning key for distributed storage.
+
+---
+
+### **29. Text Search**
+```js
+db.posts.createIndex({ content: "text" })
+```
+
+---
+
+### **30. Drawbacks of Indexing**
+- More storage.  
+- Slower writes.
+
+---
+
+### **31. Index Intersection**
+**Q: What is index intersection in MongoDB?**  
+**A:** Index intersection occurs when MongoDB uses multiple indexes to execute a query efficiently. Instead of relying on a single compound index, it combines multiple indexes to filter results.
+
+**Example:**  
+Consider two separate indexes:  
+```js
+db.users.createIndex({ age: 1 });
+db.users.createIndex({ city: 1 });
+```
+Now, if we run a query:  
+```js
+db.users.find({ age: { $gt: 25 }, city: "New York" })
+```
+MongoDB can use **both** indexes to optimize this query.
+
+---
+
+### **32. Explain `$lookup` with an example**
+**Q: What is `$lookup` in MongoDB?**  
+**A:** `$lookup` performs a **left outer join** between two collections. It is used in aggregation to fetch related documents from another collection.
+
+**Example:** Joining `orders` and `customers` collections:  
+```js
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customerId",
+      foreignField: "_id",
+      as: "customerDetails"
+    }
+  }
+])
+```
+This adds `customerDetails` to each order.
+
+---
+
+### **33. Find the Most Repeated Value in a Field**
+```js
+db.users.aggregate([
+  { $group: { _id: "$city", count: { $sum: 1 } } },
+  { $sort: { count: -1 } },
+  { $limit: 1 }
+])
+```
+This finds the most frequently occurring city.
+
+---
+
+### **34. Difference Between `$addToSet` and `$push`**
+- **`$push`**: Adds a value to an array **even if it's a duplicate**.  
+- **`$addToSet`**: Adds a value **only if it does not already exist** in the array.
+
+```js
+db.users.updateOne(
+  { name: "John" },
+  { $push: { hobbies: "reading" } }
+)
+
+db.users.updateOne(
+  { name: "John" },
+  { $addToSet: { hobbies: "reading" } }
+)
+```
+If `"reading"` already exists, `$addToSet` does nothing.
+
+---
+
+### **35. Find Users Who Don't Have a Specific Field**
+```js
+db.users.find({ age: { $exists: false } })
+```
+This finds users **without** an `age` field.
+
+---
+
+### **36. Find Documents with a Field Having `null`**
+```js
+db.users.find({ age: null })
+```
+Finds users **where `age` is `null` or missing**.
+
+---
+
+### **37. `$unwind` Usage**
+**Q: What is `$unwind` in MongoDB?**  
+**A:** `$unwind` is used to **deconstruct an array field** so that each element in the array becomes a separate document.
+
+```js
+db.orders.aggregate([
+  { $unwind: "$items" }
+])
+```
+If an order contains multiple `items`, each item becomes a separate document.
+
+---
+
+### **38. Sorting Text Search Results by Relevance**
+```js
+db.articles.createIndex({ content: "text" });
+
+db.articles.find(
+  { $text: { $search: "mongodb" } },
+  { score: { $meta: "textScore" } }
+).sort({ score: { $meta: "textScore" } })
+```
+This sorts articles by **search relevance**.
+
+---
+
+### **39. Query to Find Users Created in the Last 30 Days**
+```js
+db.users.find({
+  createdAt: { $gte: new Date(new Date().setDate(new Date().getDate() - 30)) }
+})
+```
+
+---
+
+### **40. `$mergeObjects`**
+```js
+db.users.aggregate([
+  {
+    $project: {
+      fullData: { $mergeObjects: ["$address", "$profile"] }
+    }
+  }
+])
+```
+Combines `address` and `profile` fields into `fullData`.
+
+---
+
+### **41. Count Documents in a Collection**
+```js
+db.users.countDocuments({})
+```
+
+---
+
+### **42. Find Users with Even Age**
+```js
+db.users.find({ age: { $mod: [2, 0] } })
+```
+
+---
+
+### **43. `$bucket` Usage**
+```js
+db.products.aggregate([
+  {
+    $bucket: {
+      groupBy: "$price",
+      boundaries: [0, 50, 100, 200, 500],
+      default: "500+",
+      output: { count: { $sum: 1 } }
+    }
+  }
+])
+```
+Groups products into price ranges.
+
+---
+
+### **44. `$redact` Usage**
+```js
+db.users.aggregate([
+  {
+    $redact: {
+      $cond: {
+        if: { $eq: ["$role", "admin"] },
+        then: "$$KEEP",
+        else: "$$PRUNE"
+      }
+    }
+  }
+])
+```
+Only keeps documents where `role` is `"admin"`.
+### **MongoDB Aggregation Operators: `$redact` and `$bucket`**
+Both `$redact` and `$bucket` are **powerful aggregation operators**, but they serve **different purposes**:
+
+---
+
+
+
+## **1️⃣ `$redact` → Filters Documents Based on Conditions**
+### **Purpose:**  
+- Used for **data filtering** at the document level.
+- Allows **field-level access control** by including or excluding certain parts of a document.
+
+### **Syntax:**
+```js
+{
+  $redact: {
+    $cond: {
+      if: <condition>,
+      then: "$$DESCEND",  // Keep this document
+      else: "$$PRUNE"     // Remove this document
+    }
+  }
+}
+```
+---
+### **Example: Filtering Nested Fields**
+#### **Sample Collection (`employees`)**
+```json
+[
+  { "_id": 1, "name": "Alice", "role": "admin", "salary": 100000 },
+  { "_id": 2, "name": "Bob", "role": "user", "salary": 50000 },
+  { "_id": 3, "name": "Charlie", "role": "user", "salary": 55000 }
+]
+```
+#### **Query: Hide Salary for Non-Admins**
+```js
+db.employees.aggregate([
+  {
+    $redact: {
+      $cond: {
+        if: { $eq: ["$role", "admin"] },
+        then: "$$DESCEND",  // Keep full document
+        else: "$$PRUNE"     // Remove document
+      }
+    }
+  }
+]);
+```
+#### **Output:**
+```json
+[
+  { "_id": 1, "name": "Alice", "role": "admin", "salary": 100000 }
+]
+```
+---
+### **Key Operators for `$redact`**
+| Operator      | Description |
+|--------------|------------|
+| `$$KEEP`     | Keeps the document as is |
+| `$$PRUNE`    | Removes the document |
+| `$$DESCEND`  | Evaluates child fields |
+
+---
+## **2️⃣ `$bucket` → Groups Data into Ranges**
+### **Purpose:**  
+- **Creates fixed-size groups (buckets) of data**.
+- Similar to SQL’s `CASE WHEN` or **histogram binning**.
+
+### **Syntax:**
+```js
+{
+  $bucket: {
+    groupBy: "<field>", 
+    boundaries: [<lower>, <mid>, <upper>], 
+    default: "<default-group>",
+    output: { <field>: { $sum: 1 } }
+  }
+}
+```
+---
+### **Example: Categorizing Users by Age**
+#### **Sample Collection (`users`)**
+```json
+[
+  { "_id": 1, "name": "Alice", "age": 25 },
+  { "_id": 2, "name": "Bob", "age": 30 },
+  { "_id": 3, "name": "Charlie", "age": 42 },
+  { "_id": 4, "name": "David", "age": 52 },
+  { "_id": 5, "name": "Emma", "age": 18 }
+]
+```
+#### **Query: Bucket Users into Age Groups**
+```js
+db.users.aggregate([
+  {
+    $bucket: {
+      groupBy: "$age",
+      boundaries: [0, 20, 40, 60], // Age Ranges: 0-19, 20-39, 40-59
+      default: "60+",  // Anything above 59 goes into "60+"
+      output: { count: { $sum: 1 } }
+    }
+  }
+]);
+```
+#### **Output:**
+```json
+[
+  { "_id":  "0-19",  "count": 1 },
+  { "_id":  "20-39", "count": 2 },
+  { "_id":  "40-59", "count": 2 }
+]
+```
+---
+### **Key Differences:**
+| Operator   | Purpose |
+|------------|----------|
+| `$redact`  | Filters documents based on field values |
+| `$bucket`  | Groups documents into ranges |
+
+---
+
+### **Conclusion**
+- **Use `$redact`** when you need **fine-grained filtering** of documents based on conditions.
+- **Use `$bucket`** when you want to **categorize numeric data into ranges**.
+
+Would you like more advanced examples? 🚀
+---
+
+### **45. Find Users Whose Name Contains a Digit**
+```js
+db.users.find({ name: { $regex: "[0-9]" } })
+```
+
+---
+
+### **46. `$out` Usage**
+```js
+db.orders.aggregate([
+  { $match: { status: "shipped" } },
+  { $out: "shippedOrders" }
+])
+```
+Saves results to a **new collection**.
+
+---
+
+### **47. `$facet` Usage**
+```js
+db.products.aggregate([
+  {
+    $facet: {
+      expensive: [{ $match: { price: { $gt: 100 } } }],
+      cheap: [{ $match: { price: { $lte: 100 } } }]
+    }
+  }
+])
+```
+Separates expensive and cheap products.
+
+---
+
+### **48. Find Documents Where an Array Contains Exactly N Elements**
+```js
+db.users.find({ hobbies: { $size: 3 } })
+```
+
+---
+
+### **49. Remove Duplicates from an Array Field**
+```js
+db.users.updateMany({}, { $set: { hobbies: { $reduce: { input: "$hobbies", initialValue: [], in: { $setUnion: ["$$value", ["$$this"]] } } } } })
+```
+
+---
+
+### **50. Explain `$switch`**
+```js
+db.users.aggregate([
+  {
+    $project: {
+      ageGroup: {
+        $switch: {
+          branches: [
+            { case: { $lt: ["$age", 18] }, then: "Minor" },
+            { case: { $lt: ["$age", 60] }, then: "Adult" }
+          ],
+          default: "Senior"
+        }
+      }
+    }
+  }
+])
+```
+Categorizes users into age groups.
+
+---
+
+
+
+
+
+Here are the answers to your MongoDB-related questions:  
+
+---
+
+### **50. Fruit names ending with "y" (Regex Query)**  
+To find all documents in a `fruits` collection where the `name` field ends with "y":  
+```js
+db.fruits.find({ name: /y$/i })
+```
+- `/y$/i`: Matches names ending with "y" (case-insensitive).  
+
+---
+
+### **51. ACID Properties**  
+**ACID (Atomicity, Consistency, Isolation, Durability):**  
+- **Atomicity:** Transactions execute fully or not at all.  
+- **Consistency:** The database remains in a valid state before/after a transaction.  
+- **Isolation:** Transactions do not interfere with each other.  
+- **Durability:** Committed changes persist even in case of failure.  
+
+**MongoDB ACID Support:**  
+- Supports **ACID** within **a single document** due to its BSON structure.  
+- Multi-document transactions were introduced in **MongoDB 4.0**.  
+
+---
+
+### **52. Components of `_id` in MongoDB**  
+**Default `_id` contains:**  
+- **Timestamp** (4 bytes)  
+- **Machine ID** (3 bytes)  
+- **Process ID** (2 bytes)  
+- **Counter** (3 bytes)  
+
+**Why is `_id` unique?**  
+- It ensures that every document has a distinct identifier.  
+
+**Can you use a different primary key?**  
+- Yes, but MongoDB requires a unique primary key, and `_id` is the default.  
+
+---
+
+### **53. Transactions in MongoDB**  
+**How transactions work in MongoDB?**  
+- **Multi-document transactions** work like SQL transactions using `startSession()`.  
+- They ensure atomic operations across multiple collections.  
+
+**Requirements for multi-document transactions:**  
+- MongoDB **4.0+**  
+- Replica set or sharded cluster  
+
+**Limitations of MongoDB transactions:**  
+- Performance overhead  
+- Locks documents for the transaction duration  
+- Limited in standalone deployments  
+
+---
+
+### **54. Mongoose, ODM, and ORM**  
+**ODM (Object-Document Mapper) vs. ORM (Object-Relational Mapper)**  
+- **ODM:** Maps documents (MongoDB) to objects (JavaScript).  
+- **ORM:** Maps relational data (SQL) to objects.  
+
+**What is Mongoose?**  
+- A MongoDB ODM for Node.js, providing schema-based validation.  
+
+**Benefits of Mongoose:**  
+- Schema validation  
+- Middleware hooks  
+- Relationships via `populate()`  
+
+**Defining a schema in Mongoose:**  
+```js
+const mongoose = require('mongoose');
+const userSchema = new mongoose.Schema({ name: String, age: Number });
+const User = mongoose.model('User', userSchema);
+```
+
+**CRUD in Mongoose:**  
+```js
+// Create
+const user = new User({ name: "Alice", age: 25 });
+user.save();
+
+// Read
+User.find({ name: "Alice" });
+
+// Update
+User.updateOne({ name: "Alice" }, { $set: { age: 30 } });
+
+// Delete
+User.deleteOne({ name: "Alice" });
+```
+
+---
+
+### **56. Sharding in MongoDB**  
+**What is sharding?**  
+- Distributes data across multiple servers for **horizontal scaling**.  
+
+**Why use sharding?**  
+- Handles **large datasets** and **high traffic** efficiently.  
+
+**Sharded Cluster Components:**  
+- **Shards:** Store the actual data.  
+- **Config Servers:** Store metadata.  
+- **Mongos Router:** Routes client requests.  
+
+---
+
+### **58. `$addToSet` vs. `$push`**  
+- **`$addToSet`**: Adds an element **only if it doesn’t exist**.  
+- **`$push`**: Adds an element **even if it already exists**.  
+
+Example:  
+```js
+db.students.updateOne({ name: "John" }, { $addToSet: { courses: "Math" } });
+db.students.updateOne({ name: "John" }, { $push: { courses: "Math" } });
+```
+
+---
+
+### **61. GridFS in MongoDB**  
+**What is GridFS?**  
+- A system for **storing large files** in MongoDB by breaking them into chunks.  
+
+**When to use GridFS?**  
+- When files exceed **16MB** (BSON limit).  
+
+**How does GridFS store files?**  
+- Splits files into **chunks (256KB each)**.  
+- Metadata is stored separately.  
+
+---
+
+### **62. `isCapped` in MongoDB**  
+- Used to check if a collection is **capped (fixed-size, auto-deletes old documents)**.  
+```js
+db.collection.stats().capped;
+```
+
+---
+
+### **64. CAP Theorem in MongoDB**  
+**CAP Theorem:**  
+- **Consistency** (same data across nodes).  
+- **Availability** (always responds).  
+- **Partition Tolerance** (handles network failures).  
+
+**MongoDB prioritizes:**  
+- **Partition Tolerance (P)** and **Availability (A)**.  
+
+---
+
+### **65. `explain()` in MongoDB**  
+**What does `explain()` do?**  
+- Analyzes query execution.  
+
+**How to use `explain()`?**  
+```js
+db.users.find({ age: { $gt: 25 } }).explain("executionStats");
+```
+
+**Stages shown by `explain()`:**  
+- **COLLSCAN** (Collection Scan)  
+- **IXSCAN** (Index Scan)  
+- **FETCH** (Fetching documents)  
+
+---
+
+### **66. Deleting Documents in MongoDB**  
+```js
+// Delete one document
+db.collection.deleteOne({ name: "Alice" });
+
+// Delete multiple documents
+db.collection.deleteMany({ age: { $lt: 18 } });
+
+// Delete all documents
+db.collection.deleteMany({});
+```
+
+---
+
+### **67. `$lookup` in MongoDB**  
+- Performs **"left outer join"** between collections.  
+
+Example:  
+```js
+db.orders.aggregate([
+  { $lookup: {
+      from: "customers",
+      localField: "customerId",
+      foreignField: "_id",
+      as: "customerInfo"
+    }
+  }
+]);
+```
+
+---
+
+### **68. `$match` in MongoDB**  
+- Filters documents **before aggregation** (similar to `find()`).  
+
+Example:  
+```js
+db.orders.aggregate([{ $match: { status: "shipped" } }]);
+```
+
+---
+
+### **69-71. Aggregation Operators**  
+```js
+db.sales.aggregate([{ $group: { _id: null, maxPrice: { $max: "$price" } } }]);  // $max  
+db.sales.aggregate([{ $group: { _id: null, minPrice: { $min: "$price" } } }]);  // $min  
+db.sales.aggregate([{ $group: { _id: null, avgPrice: { $avg: "$price" } } }]);  // $avg  
+```
+
+---
+
+### **72. `$redact` in MongoDB**  
+- Controls access to fields based on conditions.  
+
+Example:  
+```js
+db.employees.aggregate([
+  { $redact: {
+      $cond: { if: { $eq: ["$role", "admin"] }, then: "$$DESCEND", else: "$$PRUNE" }
+    }
+  }
+]);
+```
+
+---
+
+### **73. `$set` vs. `$inc` in MongoDB**  
+- **`$set`**: Updates a field to a new value.  
+- **`$inc`**: Increments a numeric field.  
+
+Example:  
+```js
+db.students.updateOne({ name: "Alice" }, { $set: { age: 30 } });
+db.students.updateOne({ name: "Alice" }, { $inc: { age: 1 } });
+```
+
+---
+
+### **76. Sum of a field in all documents**  
+```js
+db.orders.aggregate([{ $group: { _id: null, totalQuantity: { $sum: "$quantity" } } }]);
+```
+
+---
+
+### **77. `$facet` in MongoDB**  
+- Runs **multiple aggregation queries** in parallel.  
+
+Example:  
+```js
+db.products.aggregate([
+  { $facet: {
+      categoryCounts: [{ $group: { _id: "$category", count: { $sum: 1 } } }],
+      priceStats: [{ $group: { _id: null, avgPrice: { $avg: "$price" } } }]
+    }
+  }
+]);
+```
+
+---
+
+Would you like explanations for any specific answers? 😊
+
+
+
+
+
+
+That’s a comprehensive list! I'll go over each question with a concise but clear explanation.
+
+---
+
+### **MongoDB Concepts & Queries**
+
+#### **80. Conditional Operators in MongoDB**
+- `$cond`: If-else conditional logic.
+- `$ifNull`: Returns the first non-null expression.
+- `$switch`: Evaluates multiple conditions and returns a result based on the first true case.
+
+#### **82. Aggregation Workout (Multiple Stages)**
+Example pipeline:
+```js
+db.orders.aggregate([
+  { $match: { status: "delivered" } },
+  { $group: { _id: "$customerId", total: { $sum: "$amount" } } },
+  { $sort: { total: -1 } },
+  { $limit: 5 }
+]);
+```
+Filters delivered orders, groups by customer, sums amounts, sorts, and limits.
+
+#### **84. Voting in Replication**
+- **Election process**: In a replica set, nodes vote to elect a **primary**.
+- **Role of Voting**: Prevents split-brain scenarios by ensuring only one node is primary.
+
+#### **85. Data Types in MongoDB**
+- String, Number, Boolean, Date, ObjectId, Array, Embedded Document, Null, etc.
+
+#### **86. Storage Engines**
+- **WiredTiger (default)**: Better concurrency and compression.
+- **MMAPv1 (deprecated)**: Original storage engine.
+- **In-Memory**: High-speed reads/writes with no disk persistence.
+
+#### **87. Optimization Beyond Indexing**
+- Proper schema design.
+- Efficient queries (avoid `$ne`, `$exists` where possible).
+- Sharding for scalability.
+- Aggregation framework for performance.
+- Connection pooling.
+ 
+#### **88. Why `$lookup`?**
+- Performs SQL-style **JOINs** across collections.
+AVOID REDUNDENCY
+FASTER THEN JOIN
+BETTER THE MULTUIPLE FIND 
+BETTER PERFORMANCE
+
+
+Example:
+```js
+db.orders.aggregate([
+  { $lookup: { from: "customers", localField: "customerId", foreignField: "_id", as: "customerInfo" } }
+]);
+```
+
+#### **90-93: Atlas Functions, Triggers, Debugging, Load Balancing**
+- **Atlas Functions**: Serverless functions for MongoDB Atlas.
+- **Triggers**: Execute functions in response to DB changes.
+- **Debugging**: Use `explain()`, slow query logs, and MongoDB Profiler.
+- **Load Balancing**: Sharding and replica sets distribute load.
+
+#### **94. Handling Duplicate Errors**
+- Use **unique indexes**.
+- Catch errors in the app:
+```js
+try {
+  db.users.insertOne({ email: "test@example.com" });
+} catch (e) {
+  if (e.code === 11000) console.log("Duplicate entry");
+}
+```
+
+#### **95-96: Validation vs Exception Handling**
+- **Validation**: Enforces data rules (e.g., schema validation).
+- **Exception Handling**: Catches and handles errors during execution.
+
+#### **97. What is "Legs"?**
+Need clarification—this isn’t a standard MongoDB/JS concept.
+
+#### **98. Negative Infinity in JS & MongoDB**
+- **JS**: `Number.NEGATIVE_INFINITY`
+- **MongoDB**: Stored as `-Infinity`
+
+#### **99. Popup Boxes in JS**
+- `alert("Message");`
+- `prompt("Enter name:");`
+- `confirm("Are you sure?");`
+
+#### **100. Delegation**
+Event delegation lets you attach a handler to a parent and capture events from children.
+```js
+document.getElementById("parent").addEventListener("click", (e) => {
+  if (e.target.matches(".child")) {
+    console.log("Child clicked");
+  }
+});
+```
+
+#### **101. Pipe**
+- Used in Node.js streams for chaining.
+```js
+const fs = require("fs");
+fs.createReadStream("input.txt").pipe(fs.createWriteStream("output.txt"));
+```
+
+#### **102. Hooks in React**
+Functions that let you use state/lifecycle in function components.
+```js
+const [count, setCount] = useState(0);
+```
+
+#### **103. `Date` in JS**
+Creates date objects.
+```js
+const now = new Date();
+```
+
+#### **104. `var` in JS**
+Function-scoped variable declaration.
+
+#### **105. Callback Function**
+Function passed as an argument to another function.
+```js
+function fetchData(callback) {
+  setTimeout(() => callback("Data received"), 1000);
+}
+fetchData(console.log);
+```
+
+#### **106. Example of `GET` Request**
+```js
+fetch("https://api.example.com/data")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+```
+
+#### **107. Higher-Order Components (HOC)**
+A function that takes a component and returns an enhanced one.
+```js
+const withLogger = (Component) => (props) => {
+  console.log("Rendered", props);
+  return <Component {...props} />;
+};
+```
+
+#### **109. Configuring MongoDB**
+Modify `mongod.conf` for settings like replication, authentication, etc.
+
+---
+
+That covers everything! Let me know if you need more details on any topic. 🚀

@@ -1,3 +1,127 @@
+
+| Feature               | `spawn()`                                     | `fork()`                                          |
+| --------------------- | --------------------------------------------- | ------------------------------------------------ |
+| Purpose               | Execute arbitrary commands                    | Create new Node.js processes with IPC          |
+| Communication         | Standard I/O streams                         | Message passing via IPC                           |
+| Process Type          | Any executable                                | Node.js module                                    |
+| Overhead              | Lower overhead for non-Node.js processes     | Higher overhead due to IPC setup                  |
+| Default Behavior      | Simple process execution                     | Node.js process with built-in communication        |
+| Primary Use           | Running system commands, other programs      | Scaling Node.js applications, workload distribution |
+
+
+| Feature         | Macrotask                                       | Microtask                                      |
+| --------------- | ----------------------------------------------- | --------------------------------------------- |
+| Priority        | Lower priority                                  | Higher priority                                 |
+| Queue           | Macrotask Queue                                 | Microtask Queue                                |
+| Examples        | `setTimeout`, `setInterval`, I/O, UI rendering   | Promise `then/catch`, `process.nextTick`, MutationObserver |
+| Execution Order | One at a time, after microtasks are processed | All at once after each macrotask     
+
+
+
+| Feature            | `res.send()`                                | `res.write()`                               |
+| ------------------ | ------------------------------------------ | ------------------------------------------ |
+| Purpose            | Sends the HTTP response                      | Writes data to the response body          |
+| Content-Type       | Automatically set                             | Must be set manually                        |
+| Content-Length     | Automatically inferred                       | Must be set manually                        |
+| Ends Response      | Automatically ends the response (`res.end()`) | Does not end the response; `res.end()` required |
+| Data Types         | Strings, Objects, Arrays, Buffers            | Buffers, Strings                          |
+| Multiple Calls     | Cannot be called multiple times               | Can be called multiple times                |
+| Use Cases          | Simple responses, JSON APIs                 | Streaming, chunked data, Server-Sent Events |
+
+
+
+1.  **200 OK:**
+
+    *   **Meaning:** The request was successful.
+    *   **Use Case:** Default status code for successful GET, PUT, POST, or DELETE requests.
+
+2.  **201 Created:**
+
+    *   **Meaning:** The request was successful, and a new resource was created.
+    *   **Use Case:** After a successful POST request that creates a new resource.
+
+3.  **204 No Content:**
+
+    *   **Meaning:** The request was successful, but there is no content to return in the response body.
+    *   **Use Case:** After a successful DELETE request or a PUT/PATCH request that updates a resource without changing its content.
+
+4.  **301 Moved Permanently:**
+
+    *   **Meaning:** The requested resource has been permanently moved to a new URL.
+    *   **Use Case:** Redirecting users and search engines to a new URL.
+
+5.  **302 Found (or 307 Temporary Redirect):**
+
+    *   **Meaning:** The requested resource has been temporarily moved to a different URL.
+    *   **Use Case:** Redirecting users to a temporary URL, such as a maintenance page or a login page. `307` should be used instead of `302` to preserve the request method (e.g., if it was POST, redirect with POST).
+
+6.  **400 Bad Request:**
+
+    *   **Meaning:** The server cannot or will not process the request due to something that is perceived to be a client error.
+    *   **Use Case:** Invalid request parameters, missing required data, or incorrect data format.
+
+7.  **401 Unauthorized:**
+
+    *   **Meaning:** The request requires authentication. The client must authenticate itself to get the requested response.
+    *   **Use Case:** Accessing a protected resource without providing the necessary authentication credentials.
+
+8.  **403 Forbidden:**
+
+    *   **Meaning:** The client does not have permission to access the requested resource, regardless of authentication.
+    *   **Use Case:** Lack of necessary privileges, IP address restrictions, or other access control mechanisms.
+
+9.  **404 Not Found:**
+
+    *   **Meaning:** The server cannot find the requested resource.
+    *   **Use Case:** Requesting a non-existent page or API endpoint.
+
+10. **500 Internal Server Error:**
+
+    *   **Meaning:** The server encountered an unexpected condition that prevented it from fulfilling the request.
+    *   **Use Case:** Unhandled exceptions, database errors, or other server-side issues.
+
+
+
+
+### **REST Principles (📌 In Short)**  
+
+REST (Representational State Transfer) is an architectural style for designing APIs. It follows six key principles:  
+
+1️⃣ **Stateless**  
+   - Each request from a client must contain all necessary information.  
+   - The server **does not store** client session data.  
+
+2️⃣ **Client-Server Architecture**  
+   - The client and server are separate.  
+   - The client handles the UI, while the server manages data and logic.  
+
+3️⃣ **Uniform Interface**  
+   - Standardized API structure using **HTTP methods**:  
+     - `GET` → Retrieve data  
+     - `POST` → Create new resource  
+     - `PUT` → Update a resource  
+     - `DELETE` → Remove a resource  
+
+4️⃣ **Cacheable**  
+   - Responses should specify whether they **can be cached** to improve performance.  
+
+5️⃣ **Layered System**  
+   - APIs can have multiple layers (security, load balancing, etc.), and clients should not know internal details.  
+
+6️⃣ **Code on Demand (Optional)**  
+   - Servers can send executable code (like JavaScript) to clients for dynamic functionality.  
+
+💡 **Example RESTful API Endpoint**  
+```
+GET /users → Fetch all users  
+POST /users → Create a new user  
+PUT /users/{id} → Update a user  
+DELETE /users/{id} → Remove a user  
+```
+RESTful APIs should be **scalable, maintainable, and stateless**. 🚀
+
+
+
 ### **1. Function Composition**
 **Definition:** Function composition is a way of combining two or more functions to create a new function.  The output of one function becomes the input of the next, creating a pipeline of operations.  It's a core concept in functional programming that promotes code reusability, modularity, and readability.
 

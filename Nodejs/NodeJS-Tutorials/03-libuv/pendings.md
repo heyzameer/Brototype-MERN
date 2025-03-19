@@ -772,9 +772,7 @@ Run the command node next_tick.js.
 
 
 
-
-Okay, I will generate the .md file for the topic: Event Emitter (Node.js)
-
+ 
 
 
 ## Event Emitter (Node.js)
@@ -3177,7 +3175,7 @@ Data Compression: Serving compressed content (e.g., gzip, Brotli) to clients tha
 
 ## Definition
 
-Cookies are small text files that websites store on a user's computer to remember information about the user, such as login details, preferences, or shopping cart items. They are sent back to the website with each subsequent request, allowing the website to recognize the user and provide a personalized experience.
+Cookies are small text files that websites store on a user computer to remember information about the user, such as login details, preferences, or shopping cart items. They are sent back to the website with each subsequent request, allowing the website to recognize the user and provide a personalized experience.
 
 ## Detailed Explanation
 
@@ -3267,7 +3265,6 @@ Cookies are small text files that websites store on a user's computer to remembe
 
 #### Node.js with Express
 
-```javascript
 const express = require('express');
 const cookieParser = require('cookie-parser'); // Middleware for parsing cookies
 const app = express();
@@ -3367,7 +3364,7 @@ Advertising Networks: Displaying targeted ads based on user interests and browsi
 
 **3. query-params-req-params.md**
 
-```md
+
 # Query Parameters and `req.params`
 
 ## Definition
@@ -3414,7 +3411,7 @@ In web development, query parameters and route parameters (`req.params` in Expre
     *   Meaning: Get products in the "electronics" category, sorted by "price", and display page 2.
     *   Express.js code:
 
-```javascript
+
 app.get('/products', (req, res) => {
   const category = req.query.category;
   const sort = req.query.sort;
@@ -6842,3 +6839,990 @@ APIs are a fundamental part of modern software development. Understanding API co
 content_copy
 download
 Use code with caution.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**1. Browser JavaScript vs. Node.js**
+
+
+# Browser JavaScript vs. Node.js
+
+## Definition
+
+Browser JavaScript executes within a web browser for front-end development, interacting with the DOM. Node.js is a JavaScript runtime environment for server-side development and standalone applications outside a browser.
+
+## Detailed Explanation
+
+### Browser JavaScript
+
+*   **Environment:** Web browser (Chrome, Firefox, Safari, etc.).
+*   **Purpose:** Front-end development (DOM manipulation, user interactions, API requests).
+*   **Key Features:**
+    *   **DOM Access:** Direct access to the Document Object Model (DOM).
+    *   **Browser APIs:** Access to `window`, `document`, `localStorage`, `fetch`, `WebSockets`, etc.
+    *   **Security Restrictions:** Operates within a security sandbox.
+    *   **Rendering Engine:** Uses the browser's rendering engine.
+*   **Use Cases:**
+    *   Interactive web pages, handling user input, AJAX requests, animations, form validation.
+
+### Node.js
+
+*   **Environment:** JavaScript runtime built on Chrome's V8 engine.
+*   **Purpose:** Server-side development, command-line tools, scalable network applications.
+*   **Key Features:**
+    *   **Server-Side Execution:** Executes JavaScript on a server.
+    *   **File System Access:** Direct file system access.
+    *   **Networking Capabilities:** Built-in modules for HTTP, TCP servers.
+    *   **Module System:** CommonJS (or ES Modules).
+    *   **Non-Blocking I/O:** Event-driven, non-blocking I/O model.
+*   **Use Cases:**
+    *   Web servers and APIs, real-time applications, command-line tools, desktop applications (Electron), system automation, data streaming.
+
+### Key Differences Summarized
+
+| Feature          | Browser JavaScript               | Node.js                         |
+| ---------------- | ---------------------------------- | -------------------------------- |
+| Execution        | In a web browser                  | On a server or standalone       |
+| DOM Access       | Yes                                | No                              |
+| File System Access| Limited (via `File` API)          | Full access                     |
+| Browser APIs     | Yes (window, document, etc.)       | No                              |
+| Purpose          | Front-end development            | Back-end development, tools    |
+| Modules          | ES Modules (natively), older AMD  | CommonJS (or ES Modules)       |
+| Global Object    | `window`                          | `global`                        |
+
+**2. CommonJS**
+
+```md
+# CommonJS
+
+## Definition
+
+CommonJS is a module format primarily used in Node.js. It defines a standard for how JavaScript modules should be structured and loaded for code reuse and organization.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Modularity:** Enables code separation into reusable modules.
+*   **Code Reusability:** Facilitates sharing and reuse of code across projects.
+*   **Dependency Management:** Simplifies managing dependencies.
+*   **Standardization:** Provides a standard way for modules to interact.
+
+### Key Concepts
+
+*   **`require()`:**  Function to import modules.
+*   **`module.exports`:** Object containing values, functions, or classes exposed to other modules.
+*   **`exports`:** A shortcut to `module.exports`. Reassigning breaks the link; use `module.exports` instead.
+*   **Module Scope:** Each module has its own private scope.
+
+### `module.exports` vs `exports` Explained
+
+*   `exports` is initially a reference to `module.exports`.
+*   Reassigning `exports` breaks the link.  Use `module.exports` to export single values or new objects.
+
+**Correct Usage (adding properties):**
+
+```javascript
+exports.myFunction = function() {
+  console.log("Hello");
+};
+
+exports.myVariable = 42;
+```
+
+**Incorrect Usage (reassigning exports):**
+
+```javascript
+exports = {  // breaks the link!
+  myFunction: function() {
+    console.log("Hello");
+  },
+  myVariable: 42
+};
+```
+
+**To export a single value:**
+```javascript
+module.exports = {
+  myFunction: function() {
+    console.log("Hello");
+  },
+  myVariable: 42
+};
+```
+**3. FS Operations (Node.js)**
+
+```md
+# FS Operations (Node.js)
+
+## Definition
+
+FS Operations in Node.js use the `fs` module to interact with the file system for tasks like reading, writing, creating, and deleting files and directories.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Data Persistence:** Enables storing and retrieving data to/from files.
+*   **File Management:** Allows creating, modifying, and deleting files/directories.
+*   **Configuration Handling:** Facilitates reading configuration files (JSON, YAML).
+*   **Logging:** Enables writing log messages to files.
+*   **Data Processing:** Allows processing large files or datasets.
+
+### Key Concepts
+
+*   **`fs` Module:** Built-in module: `const fs = require('fs');`.
+*   **Asynchronous vs. Synchronous Operations:** Asynchronous (non-blocking) versions preferred; synchronous (blocking) end with "Sync".
+*   **Paths:** File paths can be absolute or relative.
+*   **File Descriptors:** Represent an open file.
+*   **Error Handling:** Crucial due to potential failures.
+*   **Buffers:** Data handled using `Buffer` objects.
+
+### Common FS Operations
+
+*   **Reading Files:**
+    *   `fs.readFile(path, options, callback)`: Asynchronously reads a file.
+    *   `fs.readFileSync(path, options)`: Synchronously reads a file.
+    *   `fs.createReadStream(path, options)`: Creates a readable stream.
+
+*   **Writing Files:**
+    *   `fs.writeFile(path, data, options, callback)`: Asynchronously writes to a file (replaces if exists).
+    *   `fs.writeFileSync(path, data, options)`: Synchronously writes to a file.
+    *   `fs.appendFile(path, data, options, callback)`: Asynchronously appends to a file.
+    *   `fs.appendFileSync(path, data, options)`: Synchronously appends to a file.
+    *   `fs.createWriteStream(path, options)`: Creates a writable stream.
+
+*   **Creating Directories:**
+    *   `fs.mkdir(path, options, callback)`: Asynchronously creates a directory.
+    *   `fs.mkdirSync(path, options)`: Synchronously creates a directory.
+
+*   **Deleting Files and Directories:**
+    *   `fs.unlink(path, callback)`: Asynchronously deletes a file.
+    *   `fs.unlinkSync(path)`: Synchronously deletes a file.
+    *   `fs.rmdir(path, options, callback)`: Asynchronously removes an empty directory.
+    *   `fs.rmdirSync(path, options)`: Synchronously removes an empty directory.
+    *   `fs.rm(path, options, callback)`: Asynchronously removes file/directory (recursive).
+    *   `fs.rmSync(path, options)`: Synchronously removes file/directory (recursive).
+
+*   **Checking File Existence:**
+    *   `fs.access(path, mode, callback)`: Tests user permissions.
+    *   `fs.existsSync(path)`: Synchronously checks if a file exists (discouraged).
+    *   `fs.stat(path, callback)`: Asynchronously retrieves file metadata.
+    *   `fs.statSync(path)`: Synchronously retrieves file metadata.
+
+### Asynchronous vs. Synchronous: A Deeper Dive
+
+*   Synchronous functions block the event loop.
+*   Asynchronous functions use callbacks or Promises to avoid blocking.
+
+### Error Handling
+
+*   File operations can fail (file not found, permission denied).
+*   Handle errors to prevent application crashes.
+
+**4. Clustering (Node.js)**
+
+```md
+# Clustering (Node.js)
+
+## Definition
+
+Clustering in Node.js runs multiple instances of an application on a single machine or across multiple machines to improve performance and reliability.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Improved Performance:** Leverages multiple CPU cores.
+*   **Increased Reliability:** Prevents downtime from crashes.
+*   **Load Balancing:** Distributes requests across workers.
+*   **High Availability:** Ensures availability across machines.
+*   **Zero-Downtime Deployments:** Updates application without service interruption.
+
+### Key Concepts
+
+*   **Master Process:** Manages worker processes.
+*   **Worker Processes:** Handle incoming requests.
+*   **Cluster Module:** `const cluster = require('cluster');`
+*   **Forking:** Creating a new worker process.
+*   **Process ID (PID):** Unique identifier for each process.
+*   **IPC (Inter-Process Communication):** Communication between master and workers.
+*   **Load Balancing Strategies:** Round-robin by default (OS-handled).
+
+### How Clustering Works
+
+1.  Master process checks for cluster mode.
+2.  Master forks multiple worker processes (one per core).
+3.  Worker processes listen for connections.
+4.  OS load balances connections.
+5.  Workers handle requests.
+6.  Master monitors and restarts crashed workers.
+
+### Use Cases
+
+*   High-traffic web applications, real-time applications, API gateways, background processing.
+
+**5. Event Loop (Node.js)**
+
+```md
+# Event Loop (Node.js)
+
+## Definition
+
+The event loop enables asynchronous, non-blocking I/O operations in Node.js. It's the core of Node's concurrency model.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Non-Blocking I/O:** Ensures responsiveness.
+*   **Concurrency:** Handles multiple requests without threads.
+*   **Scalability:** Manages many connections with minimal overhead.
+*   **Responsiveness:** Keeps application responsive.
+*   **Single-Threaded Execution:** JavaScript executes on a single thread.
+
+### Key Concepts
+
+*   **Single Thread:** JavaScript executes on a single thread.
+*   **Call Stack:** Tracks function calls.
+*   **Heap:** Memory allocation for objects.
+*   **Callback Queue (Task Queue):** Holds callbacks ready for execution.
+*   **Event Loop:** Monitors call stack and callback queue, moving callbacks to the stack.
+*   **Libuv:** C library for asynchronous I/O.
+
+### Phases of the Event Loop
+
+1.  **Timers:** Executes `setTimeout()`/`setInterval()` callbacks.
+2.  **Pending Callbacks:** Executes I/O callbacks deferred to the next loop.
+3.  **Poll:** Retrieves new I/O events; executes I/O callbacks. Blocks if no callbacks are pending.
+4.  **Check:** Executes `setImmediate()` callbacks.
+5.  **Close Callbacks:** Executes callbacks for closed connections.
+
+### How the Event Loop Works (Simplified)
+
+1.  Execute JavaScript code.
+2.  Asynchronous operations offloaded (using Libuv).
+3.  Callbacks pushed to the callback queue.
+4.  Event loop monitors call stack and callback queue.
+5.  If call stack empty, callback moved to call stack.
+6.  Callback executed.
+7.  Repeat.
+
+### Blocking the Event Loop
+
+*   Avoid long-running synchronous operations (e.g., synchronous file I/O, CPU-intensive calculations).
+*   Use asynchronous operations, worker threads, or break operations into smaller chunks.
+
+### Use Cases
+
+*   Web servers, real-time applications, network applications, I/O-bound tasks.
+
+**6. `process.nextTick` (Node.js)**
+
+```md
+# `process.nextTick` (Node.js)
+
+## Definition
+
+`process.nextTick(callback)` schedules a callback to be executed after the current operation completes, but *before* the event loop continues to the next phase.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Prioritization:** Executes tasks before I/O events or timers.
+*   **Preventing Stack Overflow:** Breaks up long-running operations.
+*   **Asynchronous APIs:** Creates consistent asynchronous APIs.
+*   **Deferring Expensive Computations:** Postpones operations for responsiveness.
+*   **Consistent Asynchronous Behavior:** Enforces async behavior.
+
+### Key Concepts
+
+*   **Event Loop:** Manages asynchronous operations.
+*   **Ticks:** Iterations of the event loop.
+*   **Callback Queue:** Callbacks for async operations.
+*   **Microtask Queue:** Higher-priority queue before the callback queue.
+*   **Asynchronous Execution:** Task execution doesn't block the main thread.
+*   **Single-Threaded:** Node.js uses a single thread.
+
+### How `process.nextTick` Works
+
+1.  Callback added to `nextTick` queue.
+2.  Current operation completes.
+3.  Node.js executes all callbacks in `nextTick` queue.
+4.  Event loop processes the regular callback queue.
+
+### Differences from `setTimeout(callback, 0)` and `setImmediate(callback)`
+
+*   `process.nextTick` executes *before* the next phase.
+*   `setTimeout(callback, 0)` executes in the *timers* phase.
+*   `setImmediate(callback)` executes in the *check* phase.
+
+**In summary:** `process.nextTick` executes *first*, then `setImmediate`, and then `setTimeout(..., 0)`.
+
+### Potential Pitfalls
+
+*   **Starvation:** Continuously calling `process.nextTick` can starve the event loop.
+*   **Recursion:** Avoid infinite recursion.
+
+### Use Cases
+
+*   Creating asynchronous APIs, preventing blocking, error handling, consistent execution order, avoiding stack overflow.
+
+**7. Event Emitter (Node.js)**
+
+```md
+# Event Emitter (Node.js)
+
+## Definition
+
+The Event Emitter in Node.js provides a mechanism for publishing and subscribing to named events, enabling decoupled and modular applications.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Decoupling:** Reduces dependencies between components.
+*   **Modularity:** Facilitates building modular applications.
+*   **Asynchronous Programming:** Supports asynchronous event handling.
+*   **Custom Events:** Enables custom events.
+*   **Extensibility:** Provides flexibility to extend functionality.
+*   **Real-time Communication:** Suitable for real-time applications.
+*   **Observer Pattern:** Implements the Observer pattern.
+
+### Key Concepts
+
+*   **`EventEmitter` Class:** Base class for creating event emitters.
+*   **Emitter:** Instance of `EventEmitter`.
+*   **Listener:** Function executed when an event is emitted.
+*   **Event Name:** String identifying the event.
+*   **`emit(eventName, ...args)`:** Emits an event.
+*   **`on(eventName, listener)` (or `addListener(eventName, listener)`):** Registers a listener.
+*   **`once(eventName, listener)`:** Registers a single-execution listener.
+*   **`removeListener(eventName, listener)`:** Removes a listener.
+*   **`removeAllListeners(eventName)`:** Removes all listeners.
+*   **`listeners(eventName)`:** Returns an array of listeners.
+*   **`listenerCount(eventName)`:** Returns the number of listeners.
+*   **`setMaxListeners(n)`:** Sets the maximum number of listeners.
+
+### How the Event Emitter Works
+
+1.  Create an Emitter (instance of `EventEmitter`).
+2.  Register Listeners (using `on()`).
+3.  Emit Events (using `emit()`).
+4.  Listeners Execute (when an event is emitted).
+
+### Use Cases
+
+*   Custom events, asynchronous operations, real-time communication, message queues, web frameworks, Node.js core modules.
+
+**8. Streams (Node.js)**
+
+```md
+# Streams (Node.js)
+
+## Definition
+
+Streams in Node.js handle reading and writing data in chunks, making them efficient for large amounts of data without loading everything into memory.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Memory Efficiency:** Processes large datasets without exhausting memory.
+*   **Improved Performance:** Starts processing data immediately.
+*   **Scalability:** Handles concurrent connections efficiently.
+*   **Data Pipelines:** Builds data processing pipelines.
+*   **Real-time Processing:** Processes data in real-time.
+*   **Modularity:** Breaks tasks into smaller steps.
+
+### Key Concepts
+
+*   **Chunk:** Small piece of data.
+*   **Buffer:** Temporary storage for chunks.
+*   **Piping:** Connecting streams.
+*   **Backpressure:** Controls data flow.
+*   **Types of Streams:** Readable, Writable, Duplex, Transform.
+
+### Readable Streams
+
+*   **Purpose:** Abstract the source of input data.
+*   **Methods:** `read()`, `pipe(destination)`, `on('data')`, `on('end')`, `on('error')`, `on('close')`.
+*   **Examples:** `fs.createReadStream()`, `http.get()` (response body)
+
+### Writable Streams
+
+*   **Purpose:** Abstract the destination of output data.
+*   **Methods:** `write(chunk)`, `end()`, `on('drain')`, `on('finish')`, `on('error')`, `on('close')`.
+*   **Examples:** `fs.createWriteStream()`, `http.ServerResponse` (response body)
+
+### Piping
+
+*   Connects readable to writable streams: `readableStream.pipe(writableStream)`.
+*   Handles backpressure automatically.
+
+### Backpressure
+
+*   Prevents fast streams from overwhelming slow streams.
+*   Writable stream signals readiness with `drain` event.
+
+### Transform Streams
+
+*   Transforms data from readable to writable streams.
+*   Examples: Compression, encryption, data parsing.
+*   Implement `_transform()` method.
+
+### Use Cases
+
+*   Reading/writing large files, streaming video/audio, handling network traffic, data compression, image processing, building data pipelines.
+
+**9. Duplex Streams (Node.js)**
+
+```md
+# Duplex Streams (Node.js)
+
+## Definition
+
+A Duplex Stream in Node.js is both readable and writable, allowing two-way communication.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Two-Way Communication:** Enables bidirectional data flow.
+*   **Flexibility:** Usable in many scenarios needing both read/write.
+*   **Real-time Applications:** Ideal for sockets or interactive terminals.
+*   **Transformations:** Can modify data as it passes.
+
+### Key Concepts
+
+*   **Readable and Writable:** Combines both functionalities.
+*   **Duplex Class:** `const { Duplex } = require('stream');`
+*   **`_read(size)`:** Handles reading data.
+*   **`_write(chunk, encoding, callback)`:** Handles writing data.
+*   **`_final(callback)`:** Optional cleanup.
+*   **Backpressure:** Supported.
+*   **Piping:** Data can be piped to and from.
+
+### Use Cases
+
+*   Sockets, interactive terminals, encryption/decryption, compression/decompression, data transformation, RPC.
+
+**10. Environment Variables (Node.js)**
+
+```md
+# Environment Variables (Node.js)
+
+## Definition
+
+Environment variables are dynamic-named values that configure running processes without modifying code.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Configuration:** Configures behavior without code changes.
+*   **Security:** Stores sensitive information outside codebase.
+*   **Portability:** Moves applications without code changes.
+*   **Flexibility:** Changes settings without redeploying.
+*   **Dependency Injection:** Can be a form of dependency injection.
+
+### Key Concepts
+
+*   **`process.env`:** Global object for accessing environment variables.
+*   **Setting Environment Variables:** OS-level or within a process.
+*   **Accessing Environment Variables:** Use `process.env.VARIABLE_NAME`.
+*   **Default Values:** Provide defaults if not set.
+*   **`.env` Files:** Stores variables in a file; use `dotenv` to load them.
+
+### Setting Environment Variables
+
+*   **Operating System Level:** `export` (Linux/macOS), `setx` (Windows persistent), `set` (Windows current session)
+*   **Before Running Node.js:** `MY_VARIABLE=my_value node my_script.js`
+
+### Using .env Files with dotenv
+
+1.  `npm install dotenv`
+2.  Create `.env` file:  `API_KEY=your_api_key`
+3.  Load the `.env`: `require('dotenv').config();`
+
+### Use Cases
+
+*   Database configuration, API keys, application settings, deployment environments, secrets management.
+
+**11. localhost**
+
+```md
+# localhost
+
+## Definition
+
+`localhost` refers to the loopback address (typically `127.0.0.1` or `::1`), allowing a computer to refer to itself.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Local Development:** Testing on the same machine.
+*   **Network Isolation:** Testing without external network exposure.
+*   **Inter-Process Communication:** Communication between processes on the same machine.
+*   **DNS Resolution:** Resolved by the OS without needing a DNS server.
+*   **Testing Network Services:** Testing web servers, databases locally.
+
+### Key Concepts
+
+*   **Loopback Address:** `127.0.0.1` (IPv4) or `::1` (IPv6).
+*   **Hostname:** Human-readable name, usually configured in `hosts` file.
+*   **DNS (Domain Name System):** `localhost` bypasses DNS.
+*   **`/etc/hosts` (Linux/macOS) or `C:\Windows\System32\drivers\etc\hosts` (Windows):** Maps hostnames to IP addresses.
+*   **Port:** Identifies a specific process.
+
+### How `localhost` Works
+
+1.  OS checks `hosts` file.
+2.  Maps `localhost` to loopback address.
+3.  Routes traffic to the same machine, to process listening on specific port.
+
+### Use Cases
+
+*   Web development, database testing, API testing, running development servers.
+
+**12. Sockets**
+
+```md
+# Sockets
+
+## Definition
+
+A socket is an endpoint of a two-way communication link between programs running on a network.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Network Communication:** Enables communication between applications.
+*   **Client-Server Architecture:** Forms the basis of client-server apps.
+*   **Real-time Applications:** Essential for chat servers, online games.
+*   **Inter-Process Communication:** Communication between processes on the same machine.
+*   **Distributed Systems:** Building distributed systems.
+
+### Key Concepts
+
+*   **IP Address:** Identifies a device on the network.
+*   **Port Number:** Identifies a process or service.
+*   **Socket Address:** Combination of IP address and port number.
+*   **TCP (Transmission Control Protocol):** Connection-oriented, reliable.
+*   **UDP (User Datagram Protocol):** Connectionless, unreliable, fast.
+*   **Client Socket:** Initiates a connection.
+*   **Server Socket:** Listens for connections.
+
+### Types of Sockets
+
+*   **TCP Sockets:** Connection-oriented, reliable; for HTTP, email, file transfer.
+*   **UDP Sockets:** Connectionless, unreliable; for streaming video, online games.
+*   **Unix Domain Sockets:** Inter-process communication (IPC) on the same machine; faster and more secure than TCP for local communication.
+
+### How Sockets Work (TCP Example)
+
+1.  Server creates server socket, specifying address family, type and port.
+2.  Server socket is bound to an IP address and port.
+3.  Server starts listening for incoming connections.
+4.  Client creates a client socket, specifying address family and socket type.
+5.  Client attempts to connect to the server.
+6.  Server accepts incoming connection, creates a new socket.
+7.  Client and server send and receive data.
+8.  Connection is closed.
+
+### Sockets in Node.js
+
+*   `net` module (TCP servers and clients).
+*   `dgram` module (UDP sockets).
+*   `http` and `https` modules (use sockets internally).
+*   `socket.io` library (real-time, bidirectional).
+
+### Use Cases
+
+*   Web servers, chat servers, online games, streaming services, IoT devices, microservices.
+```
+
+**13. Content Negotiation**
+
+```md
+# Content Negotiation
+
+## Definition
+
+Content negotiation allows a client and server to agree on the best data format for exchanging data.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Client Compatibility:** Supports various clients.
+*   **Data Optimization:** Sends data efficiently.
+*   **Internationalization/Localization:** Supports languages and regional settings.
+*   **API Versioning:** Enables API versions without breaking compatibility.
+*   **Accessibility:** Supports accessibility needs.
+
+### HTTP Headers Involved
+
+*   **`Accept`:** MIME media types client accepts (e.g., `text/html, application/json`).
+*   **`Accept-Charset`:** Character sets (e.g., `utf-8, iso-8859-1`).
+*   **`Accept-Encoding`:** Encoding algorithms (e.g., `gzip, deflate`).
+*   **`Accept-Language`:** Languages (e.g., `en-US, en, fr`).
+*   **`Content-Type`:** Media type of the response body.
+*   **`Content-Language`:** Language of response.
+*   **`Vary`:** Server's response depends on request headers.
+
+### Types of Content Negotiation
+
+*   **Server-Driven:** Server selects the best format based on client's headers.
+*   **Client-Driven (Redirection):** Server offers options, client selects.
+*   **Transparent:** Server uses URI to determine format (e.g. extension).
+
+**14. Cookies (Everything About It)**
+
+```md
+# Cookies (Everything About It)
+
+## Definition
+
+Cookies are small text files stored by websites on a user's computer to remember information.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Session Management:** Maintains user sessions.
+*   **Personalization:** Stores user preferences.
+*   **Tracking:** Tracks user behavior.
+*   **Authentication:** Authenticates users.
+*   **Advertising:** Targeted ads.
+
+### Key Concepts
+
+*   **Cookie Name/Value:** Identifier and data.
+*   **Domain/Path:** Validity scope.
+*   **Expires/Max-Age:** Expiration.
+*   **Secure:** Only HTTPS.
+*   **HttpOnly:** Not accessible by client-side JavaScript.
+*   **SameSite:** Cross-site request control.
+
+### Cookie Attributes
+
+*   **Name/Value:** Identifier and content
+*   **Domain:** Specifies which domain the cookie belongs to.
+*   **Path:** Restricts where cookie will be sent within specified domain.
+*   **Expires:** A specific time/date when the cookie is no longer valid
+*   **Max-Age:** How long a cookie remains valid. Overrides expires if both present
+*   **Secure:** Cookie will only be set over HTTPS protocol.
+*   **HttpOnly:** Protects the cookie from being read/manipulated by client-side javascript
+*   **SameSite:** Prevents CSRF attacks from other domains
+
+### How Cookies Work
+
+1.  Server Sends `Set-Cookie` header.
+2.  Browser Stores Cookie.
+3.  Browser Sends Cookie with requests to same domain.
+4.  Server Receives Cookie from browser requests
+
+### Setting Cookies (Server-Side)
+
+#### Node.js with Express
+
+```javascript
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const app = express();
+
+app.use(cookieParser());
+
+app.get('/setcookie', (req, res) => {
+  res.cookie('username', 'JohnDoe', {
+    domain: 'example.com',
+    path: '/',
+    maxAge: 3600000,
+    secure: true,
+    httpOnly: true,
+    sameSite: 'Strict'
+  });
+
+  res.send('Cookie has been set!');
+});
+
+// Access the cookie
+app.get('/getcookie', (req, res) => {
+  const username = req.cookies.username;
+    res.send('No username cookie found.');
+  }
+});
+```
+
+To run this example: npm install cookie-parser express
+
+### Security Considerations
+
+*  **HttpOnly**: Use it to not let xss see value, but backend will receive normally
+
+ **Secure**: Use it to guarantee the protocol is HTTPS, then the traffic be protected.
+
+*   **SameSite, input sanitization , Encryption. Short Expiration Times Regular Security Audits etc...**
+
+**15. Query Parameters and `req.params`**
+
+```md
+# Query Parameters and `req.params`
+
+## Definition
+
+Query parameters and route parameters (`req.params` in Express.js) pass data from client to server but serve different purposes.
+
+## Detailed Explanation
+
+### Query Parameters
+
+*   **Purpose:** Pass optional, non-hierarchical data.
+*   **Syntax:** `?key1=value1&key2=value2`
+*   **Characteristics:**
+    *   Optional, non-hierarchical, filtering, sorting, pagination.
+*   **Accessing Query Parameters (Express.js):** Use `req.query`.
+
+### Route Parameters (`req.params`)
+
+*   **Purpose:** Capture values from URL path segments; identify specific resources.
+*   **Syntax:** `/:paramName`
+*   **Characteristics:**
+    *   Required, hierarchical.
+*   **Accessing Route Parameters (Express.js):** Use `req.params`.
+
+### Key Differences
+
+| Feature             | Query Parameters            | Route Parameters (`req.params`) |
+| ------------------- | --------------------------- | --------------------------------- |
+| Purpose             | Optional data               | Identifying specific resources   |
+| Syntax              | `?key=value&key2=value2`   | `/:paramName`                     |
+| Location            | After `?` in the URL       | Within the URL path             |
+| Requirement         | Optional                    | Required (for the route to match) |
+| Order               | Doesn't matter             | Matters                              |
+| Access (Express.js) | `req.query`                 | `req.params`                      |
+
+**16. Error Handling Middleware (ARGS)**
+
+```md
+# Error Handling Middleware (ARGS)
+
+## Definition
+
+Error handling middleware in Express.js is a middleware function with four arguments (`err, req, res, next`) designed to catch and handle errors during request processing.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Centralized Error Handling:** Provides a single location for error management.
+*   **Preventing Crashes:** Prevents unhandled exceptions.
+*   **Graceful Error Responses:** Returns informative error messages.
+*   **Logging Errors:** Enables error logging.
+*   **Asynchronous Error Handling:**  Handles errors in asynchronous operations.
+
+### Key Concepts
+
+*   **Middleware:** Functions with access to `req`, `res`, `next`.
+*   **Error-Handling Middleware:**  Functions with `(err, req, res, next)`.
+*   **Error Object (`err`):** Information about the error.
+*   **`next()` Function:** Passes control to the next middleware; `next(err)` triggers error-handling.
+*   **Middleware Order:** Error-handling defined *after* all other middleware and route handlers.
+
+### Example Code Snippet (Express.js)
+
+```javascript
+const express = require('express');
+const app = express();
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+
+  res.status(statusCode).send({
+    error: {
+      message: message,
+      code: statusCode,
+    },
+  });
+});
+```
+
+Test with these two different requests for demonstrating
+
+   a successful request (data) will produce `http://localhost:3000/data ` but if we create this one, a bad request will produce.
+
+ `http://localhost:3000/error`
+
+**17. express.all vs express.get (and all other methods)**
+
+```md
+# `express.all` vs `express.get` (and all other methods)
+
+## Definition
+
+In Express.js, `express.all()` and `express.get()` define route handlers for different HTTP request methods.  `express.all()` handles all methods, while others are specific.
+
+## Detailed Explanation
+
+### Method Types
+**express.post()**
+**express.delete()**
+**express.put()**
+**express.patch()**
+
+### `express.all()`
+
+*   **Purpose:** Defines a handler that responds to *all* HTTP methods.
+
+### Key Differences Summarized
+
+| Method        | HTTP Methods Handled | Use Case                                                 |
+| ------------- | -------------------- | -------------------------------------------------------- |
+| `express.get()`   | GET                  | Retrieving data                                         |
+| `express.post()`  | POST                 | Creating new resources                                 |
+| `express.put()`   | PUT                  | Updating existing resources (full replacement)           |
+| `express.delete()`| DELETE               | Deleting resources                                      |
+| `express.patch()` | PATCH                | Partially updating existing resources                  |
+| `express.all()`   | All                  | Applying middleware to all requests, generic handling |
+
+### Middleware with `express.all()`
+
+```javascript
+app.all('/secret', (req, res, next) => {
+  req.isAuthenticated = true;
+  next();
+});
+```
+   Route-Specific Middleware
+Express METHOD: can be useful for request
+
+```javascript
+app.get('/example', (req, res, next) => {
+    console.log("This middleware runs only for GET requests to /example");
+    next();
+}, (req, res) => {
+    res.send("GET request to /example was successful.");
+});
+```
+
+**18. Changing the Status Code of a Response**
+
+```md
+# Changing the Status Code of a Response
+
+## Definition
+
+In Express.js, setting the HTTP response status code communicates the request's outcome.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Accurate Communication:** Accurate response data from request
+*   **Proper Error Handling:** Lets the client handles errors from back.
+*   **RESTful API Design:** Makes the development restful
+*   **SEO Optimization:** To optimize google seo tracking.
+
+### Setting Status Codes in Express.js
+
+Use `res.status()` to set the status code; chain with `res.send()`, `res.json()`, `res.redirect()`.
+
+### Common HTTP Status Codes
+
+1.  **200 OK:** Successful.
+2.  **201 Created:** New resource created.
+3.  **204 No Content:** Successful, no response body.
+4.  **301 Moved Permanently:** Resource permanently moved.
+5.  **302 Found/307 Temporary Redirect:** Resource temporarily moved (307 preserves method).
+6.  **400 Bad Request:** Client error.
+7.  **401 Unauthorized:** Requires authentication.
+8.  **403 Forbidden:** No permission, even with authentication.
+9.  **404 Not Found:** Resource not found.
+10. **500 Internal Server Error:** Server-side issue.
+
+Chaining Status Codes with Other Response Methods : can add status code, json, and redirect
+
+### Considerations
+
+Clarity and document all status code for each request!
+
+**19. `res.locals`**
+
+```md
+# `res.locals`
+
+## Definition
+
+`res.locals` (Express.js) passes data from middleware/route handlers to view templates; local to the request-response cycle.
+
+## Detailed Explanation
+
+### Importance
+
+*   **Passing Data to Views:** Passes data to templates without explicit passing in route handlers.
+*   **Sharing Data Across Middleware:** Shares data between middleware.
+*   **Centralized Data Management:** Manages data for templates.
+*   **Clean Code:** Keeps handlers/templates organized.
+
+### How `res.locals` Works
+
+1.  Set Data in Middleware or Route Handler.
+2.  Access Data in View Template.
+
+Example setting res.locals in an app to all renders can be useful, example getting token to show content in nav bar based on that token

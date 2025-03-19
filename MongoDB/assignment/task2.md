@@ -385,6 +385,20 @@ This ensures smooth execution. Let me know if you need further clarification! ðŸ
 
 
 
+db.users.updateOne(
+  { "name": "Alice Johnson" },  // Filter: Find the user by name
+  {
+    $set: { "status": "inactive", "country": "Canada" },  // Set new values
+    $inc: { "salary": 5000, "projects.completed": 2 },  // Increase salary & projects count
+    $mul: { "rating": 1.1 },  // Multiply rating by 1.1
+    $rename: { "bio": "aboutMe" },  // Rename the field 'bio' to 'aboutMe'
+    $addToSet: { "skills": "TypeScript" },  // Add a skill if not already present
+    $push: { "reviews": "Outstanding performance!" },  // Append to the reviews array
+    $pop: { "hobbies": -1 },  // Remove the first element from hobbies array
+    $pull: { "notes": { "importance": "high" } },  // Remove notes with 'high' importance
+    $currentDate: { "lastLogin": true, "meta.updatedAt": { $type: "timestamp" } } // Set lastLogin to current date
+  }
+);
 
 
 
