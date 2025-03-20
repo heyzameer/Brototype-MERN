@@ -45,6 +45,10 @@ app.post('/submit', (req, res) => {
 
 });
 
+app.use((req,res)=>[
+    res.status(404).send('Not Found')
+])
+
 app.listen(3000,()=>{
     console.log('server is running on port 3000')
 })
