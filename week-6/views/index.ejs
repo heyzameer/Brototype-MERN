@@ -4,29 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Submission</title>
-    <script>
-        async function fetchData() {
-            const response = await fetch('/readData');
-            const data = await response.json();
-            let rows = data.map((entry, index) => 
-                `<tr><td>${index + 1}</td><td>${entry.name}</td><td>${entry.email}</td><td>${entry.phone}</td></tr>`
-            ).join('');
-            document.getElementById('dataBody').innerHTML = rows;
-        }
-
-        function toggleData() {
-            const dataSection = document.getElementById('dataSection');
-            const button = document.getElementById('toggleButton');
-            if (dataSection.style.display === 'none') {
-                fetchData();
-                dataSection.style.display = 'block';
-                button.textContent = 'Hide Data';
-            } else {
-                dataSection.style.display = 'none';
-                button.textContent = 'Show Data';
-            }
-        }
-    </script>
+    
 </head>
 <body>
     <h2>Submit Your Details</h2>
@@ -37,14 +15,6 @@
         <button type="submit">Submit</button>
     </form>
 
-    <h2>Stored Data</h2>
-    <button id="toggleButton" onclick="toggleData()">Show Data</button>
-
-    <div id="dataSection" style="display: none;">
-        <table border="1">
-            <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th></tr></thead>
-            <tbody id="dataBody"></tbody>
-        </table>
-    </div>
+    
 </body>
 </html>
