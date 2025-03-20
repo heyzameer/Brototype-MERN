@@ -8,9 +8,51 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../style1.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        /* SweetAlert2 Popup Styling */
+        .small-popup {
+            border-radius: 6px;
+            background: #333;
+            color: white;
+            padding: 10px 15px;
+            font-size: 13px;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+
+            /* Fixed position to stay on top */
+            position: fixed !important;
+            z-index: 9999 !important; 
+
+            /* Center at the top */
+            top: 15px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+
+            width: 320px !important;
+            min-height: 50px !important;
+        }
+
+        /* Fix container so it doesn’t move */
+        .container {
+            position: fixed !important; /* Keeps it in place */
+            top: 100px; /* Prevents shifting */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%; /* Adjust for responsiveness */
+            max-width: 800px;
+            z-index: 1000 !important; /* Lower than popup but visible */
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            overflow: hidden; /* Prevents scrolling issues */
+        }
+    </style>
 </head>
 <body>
-
 
     <div class="container">
         <header>
@@ -20,12 +62,36 @@
         <main>
             <div class="dashboard-message">
                 <h2>Welcome to Express Dashboard</h2>
-                
-                <a href="/logout"> Logout </a><br>
-                <!-- <a href="/contact">contact</a> -->
+                <a href="#" onclick="clearAlertFlagAndLogout()" style="text-decoration: none;"> Logout </a><br>
             </div>
         </main>
     </div>
 
 </body>
+<script>
+    let message = "<%= message %>"; // Get message from server
+    
+ if (message) {
+        if (localStorage.getItem('alertShown') !== 'true') {
+            Swal.fire({
+                title: "Login Successful!",
+                text: "Welcome back!",
+                icon: "success",
+                position: "top",
+                width: "320px",
+                showConfirmButton: false,
+                timer: 1000,
+                customClass: {
+                    popup: 'small-popup'
+                }
+            });
+            localStorage.setItem('alertShown', 'true'); // Set the flag
+        }
+    }
+
+    function clearAlertFlagAndLogout() {
+        localStorage.removeItem('alertShown');
+        window.location.href = "/logout"; // Redirect to your logout route
+    }
+</script>
 </html>

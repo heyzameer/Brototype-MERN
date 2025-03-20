@@ -1,74 +1,79 @@
 const User = require('../model/userModel')
 
 
+const getuserpage = async (req, res) => {
+    if (req.session.isAuth) {
+        res.render('home', { message: "Login Successful!" });
+    } else {
+        res.render('login');
+    }
+};
 
-const getuserpage=async (req,res)=>{
-    if(req.session.isAuth){
-       
-        res.render('home')
-    }else{
-        res.render('login')
-    } 
-}
 
+    
 const login=async(req,res)=>{
     res.render('login');
 }
 
 
-const signupPost = async (req,res) => {
+const signupPost = async (req, res) => {
     try {
+        const { email, password } = req.body;
+        console.log(email, password);
 
-        const {email,password}=req.body
-        console.log(email,password)
-        const user= await User.findOne({email})
-        if(user){
-            alert("user already exist")
-            return res.render('signup')
-            
-        } 
-        
-        const newUser= {
-            email,
-            password
+        const user = await User.findOne({ email });
+
+        if (user) {
+            req.flash("error", "User already exists! Please log in.");
+            return res.redirect('/signup'); // Redirect back to signup page
         }
 
-        await User.create(newUser);
-        req.session.isAuth=true;
-        req.session.user=newUser.email;
+        const newUser = await User.create({ email, password });
+        req.session.isAuth = true;
+        req.session.user = newUser.email;
 
-        return res.render('home')
+        
+        return res.redirect('/'); // Redirect to home page after signup
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+        req.flash("error", "Server error, please try again.");
+        return res.redirect('/signup');
     }
-}
+};
 
 
-const loginPost=async (req , res) => {
+
+
+const loginPost = async (req, res) => {
     try {
-        const {email , password } = req.body;
-        console.log('req.body:',req.body);
-        const ifUser = await User.findOne({email});
-        console.log(ifUser)
-        // console.log(ifUser)
-        if(!ifUser){
-            req.flash('error','email is not correct')
-           return res.redirect('/login');
-        }
-        
+        const { email, password } = req.body;
+        console.log('req.body:', req.body);
 
-        if(email !== ifUser.email && password !== ifUser.password){
-           return res.redirect('/login');
+        const ifUser = await User.findOne({ email });
+
+        if (!ifUser) {
+            req.flash('error', 'Email is not correct');
+            return res.redirect('/login');
+        }
+
+        if (password !== ifUser.password) {
+            req.flash('error', 'Incorrect password');
+            return res.redirect('/login');
         }
 
         req.session.user = email;
-         req.session.isAuth = true;
+        req.session.isAuth = true;
 
+        
         return res.redirect('/');
     } catch (error) {
-        console.log(error.message); 
+        console.log(error.message);
+        req.flash('error', 'Something went wrong. Please try again.');
+        return res.redirect('/login');
     }
-}
+};
+
+
 
 const signup=async (req,res)=>{
     res.render('signup');
