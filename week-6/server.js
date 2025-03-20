@@ -1,45 +1,19 @@
 const express = require('express');
-const fs = require('fs').promises;
-const path = require('path');
-
 const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.set('view engine', 'ejs');
 
-const filePath = path.join(__dirname, 'data.json');
+app.get('/sum', (req, res) => {
+    const { a, b } = req.query; // Extract query parameters
 
-// Read data from file (return an empty array if file is missing or empty)
-const readData = async () => {
-    try {
-        const data = await fs.readFile(filePath, 'utf8');
-        const parsedData = data ? JSON.parse(data) : [];
-        return Array.isArray(parsedData) ? parsedData : []; // Ensure it's an array
-    } catch {
-        return [];
+    // Convert values to numbers and check if they are valid
+    const num1 = parseFloat(a);
+    const num2 = parseFloat(b);
+
+    if (isNaN(num1) || isNaN(num2)) {
+        return res.status(400).send('Invalid numbers. Please provide valid numeric values.');
     }
-};
 
-
-// Write data to file
-const writeData = async (data) => {
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
-};
-
-// Render form
-app.get('/', (req, res) => res.render('index'));
-
-// Save form data
-app.post('/submit', async (req, res) => {
-    console.log(req.body.name);
-    const newEntry = { name: req.body.name, email: req.body.email, phone: req.body.phone };
-    const existingData = await readData();  // Read current data
-    console.log(newEntry);
-    existingData.push(newEntry);            // Add new entry
-    await writeData(existingData);          // Save back to file
-    res.redirect('/');
+    const sum = num1 + num2;
+    res.send(`The sum of ${num1} and ${num2} is ${sum}`);
 });
-
-// Read stored data
-app.get('/readData', async (req, res) => res.json(await readData()));
 
 app.listen(3000, () => console.log('Server running on port 3000'));
