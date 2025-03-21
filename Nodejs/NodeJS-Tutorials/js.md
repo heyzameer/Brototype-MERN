@@ -150,10 +150,29 @@ let users = [
 
 // Remove duplicates based on `id`
 let uniqueUsers = users.filter((user, index, self) => 
-    index === self.findIndex(u => u.id === user.id)
+    index === self.findIndex(u => u.id === user.id)   //34333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
 );
 
 console.log(uniqueUsers);
+
+
+
+
+### **Example: Find Non-Repeating Objects**
+
+let users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" },
+    { id: 1, name: "Alice" },
+    { id: 3, name: "Charlie" }
+];
+
+let uniqueUsers = users.filter((user, index, self) => 
+    self.findIndex(u => u.id === user.id) === self.lastIndexOf(u => u.id === user.id)
+);
+
+console.log(uniqueUsers); // Output: [{ id: 2, name: "Bob" }, { id: 3, name: "Charlie" }]
+```
 ```
 ### **Output:**
 ```js
@@ -322,21 +341,6 @@ function rotateArray(arr, k) {
 
 
 
-### **Example: Find Non-Repeating Objects**
-
-let users = [
-    { id: 1, name: "Alice" },
-    { id: 2, name: "Bob" },
-    { id: 1, name: "Alice" },
-    { id: 3, name: "Charlie" }
-];
-
-let uniqueUsers = users.filter((user, index, self) => 
-    self.findIndex(u => u.id === user.id) === self.lastIndexOf(u => u.id === user.id)
-);
-
-console.log(uniqueUsers); // Output: [{ id: 2, name: "Bob" }, { id: 3, name: "Charlie" }]
-```
 
 
 
@@ -373,7 +377,7 @@ function fibonacciIterative(n) {
 
   return b;
 }
-
+```js
 // Using Memoization (optimized recursive)
 function fibonacciMemo(n, memo = {}) {
     if (n in memo) {
@@ -385,7 +389,7 @@ function fibonacciMemo(n, memo = {}) {
     memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo);
     return memo[n];
 }
-
+```
 
 console.log(fibonacciRecursive(6));   // 8
 console.log(fibonacciIterative(6));   // 8
@@ -406,7 +410,17 @@ function* fibonacciGenerator() {
 
 
 
+function* myGenerator() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
 
+const gen = myGenerator();
+console.log(gen.next()); // { value: 1, done: false }
+console.log(gen.next()); // { value: 2, done: false }
+console.log(gen.next()); // { value: 3, done: false }
+console.log(gen.next()); // { value: undefined, done: true }
 
 
 

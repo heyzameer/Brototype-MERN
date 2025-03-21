@@ -174,7 +174,16 @@ db.employees.aggregate([
 
 Here are the MongoDB queries for each operation you asked about:
 
----
+---### **Rename a Collection in MongoDB**
+You can rename a collection using the `renameCollection` command.
+
+#### **Syntax:**
+```js
+db.oldCollection.renameCollection("newCollection")
+
+// TTL(time to live)
+db.collection.createIndex({ sessionExpiration: 1 }, { expireAfterSeconds: 86400 }); 
+```
 
 #### **Syntax to Create a Clustered Collection**  
 ```js
@@ -242,9 +251,3 @@ use myDatabase  // Switch to the database
 db.dropDatabase() // Delete the database
 ```
 
-### **Rename a Collection in MongoDB**
-You can rename a collection using the `renameCollection` command.
-
-#### **Syntax:**
-```js
-db.oldCollection.renameCollection("newCollection")

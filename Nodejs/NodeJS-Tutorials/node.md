@@ -143,6 +143,34 @@ readStream.pipe(writeStream);
 writeStream.on("finish", () => {
     console.log("File copied successfully!");
 });
+
+
+const filePath = path.join(__dirname, fileName);
+
+
+async function readFile(fileName) {
+  const filePath = path.join(FILE_DIR, fileName);
+  try {
+    return await fs.readFile(filePath, 'utf8');
+  } catch (error) {
+    throw new Error('Error reading file: ' + error.message);
+  }
+}
+
+module.exports = { readFile, writeFile, appendFile };
+const { readFile, writeFile, appendFile } = require('./fileUtils');
+
+app.get('/read', async (req, res) => {
+  const fileName = req.query.file; // Example: /read?file=example.txt
+  if (!fileName) return res.status(400).send('File name is required');
+  
+  try {
+    const data = await readFile(fileName);
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 ```
 2
 2
