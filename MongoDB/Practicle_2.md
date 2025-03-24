@@ -785,7 +785,14 @@ db.users.countDocuments({ isActive: true });
 
 
 
-
+db.practice.aggregate([
+  {
+    $group: {
+      _id: "$foodcat",
+      total: { $sum: 1 }  
+    }
+  }
+])
 
 
 

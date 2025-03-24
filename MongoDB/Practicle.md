@@ -301,7 +301,7 @@ or working with MongoDB data.
 
 
 
-```
+```js
 
 use forum; // Switch to 'forum' database
 

@@ -252,3 +252,50 @@ use myDatabase  // Switch to the database
 db.dropDatabase() // Delete the database
 ```
 
+
+```js
+db.food.aggregate([
+    { $match: { foodname: { $regex: /^b/i } } }
+]);
+
+db.food.aggregate([
+    { $match: { foodname: { $regex: "o" } } }
+]);
+
+db.food.aggregate([
+    { $match: { foodname: { $regex: "a$",$options:"i" } } }
+]);
+
+db.practice.aggregate([
+    { $group: { _id: "$price"}},
+  {$sort:{"$_id":-1}},
+  {$skip:1},
+  {$limit:1}
+]);
+
+db.practice.aggregate([
+  {
+    $group: {
+      _id: "$foodcat",
+      total: { $sum: 1 }  
+    }
+  }
+])
+
+db.practice.aggregate([
+  { $group: { _id: null, prices: { $addToSet: "$price" } } },  // Collect unique prices
+  { $project: { _id: 0, prices: { $slice: [{ $sortArray: { input: "$prices", sortBy: -1 } }, 1, 1] } } } // Sort & get second highest
+]);
+
+
+
+
+
+db.persons.aggregate([
+   { $match: { age: { $gte: 25 } } },
+   { $group: { _id: { eyeColor: "$eyeColor", age: "$age" } } },
+   { $count: "countOfEyeColorsAndAges" }
+])
+
+
+```

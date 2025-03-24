@@ -1,5 +1,3 @@
-Okay, let's collect all the mentioned commands from all the provided documents, categorize them, and provide short descriptions. I'll organize them by functional area (e.g., server, database, collection, document operations, etc.) and then by CRUD (Create, Read, Update, Delete) operations where applicable.
-
 **I. Server and Shell Commands**
 
 *   **`mongod`**
@@ -321,51 +319,63 @@ These are *stages* within an aggregation pipeline, not standalone commands.  The
 	* Provides detailed statistics about a *specific* collection, including storage size, number of documents, index information, and more. More detailed than `db.stats()`.
 
 
+Okay, here's the properly arrayed and expanded document, formatted for clarity and with explanations for CRUD operations, aggregation stages, and associated operators.
 
+**I. Document Operations (CRUD) - (`mongosh` Shell)**
 
-**IV. Document Operations (CRUD) - (`mongosh` Shell) (Missing/Expanded)**
+**A. Create (Insert)**
 
-*   **Read (Expanded Query Operators):**  The original documents covered basic `find()`, but many more query operators exist.  These are used *within* the query document of `find()`, `findOne()`, `updateOne()`, `updateMany()`, `deleteOne()`, `deleteMany()`, and aggregation stages like `$match`.
+*   **`db.<collectionName>.insertOne(<document>)`:** Inserts a single document into the collection.
+    *   `<document>`:  The JSON document to insert.
+
+    ```javascript
+    db.users.insertOne({
+      username: "newuser",
+      email: "newuser@example.com",
+      age: 25
+    });
+    ```
+
+*   **`db.<collectionName>.insertMany([<document1>, <document2>, ...])`:** Inserts multiple documents into the collection.
+    *   `[<document1>, <document2>, ... ]`: An array of JSON documents to insert.
+
+    ```javascript
+    db.products.insertMany([
+      { name: "Laptop", price: 1200 },
+      { name: "Mouse", price: 25 },
+      { name: "Keyboard", price: 75 }
+    ]);
+    ```
+
+**B. Read (Find)**
+
+*   **`db.<collectionName>.find(<query>, <projection>)`:** Retrieves documents from the collection.
+    *   `<query>`:  A document specifying the selection criteria.  An empty document `{}` matches all documents.
+    *   `<projection>`: A document specifying which fields to include (1) or exclude (0) in the results.
+*   **`db.<collectionName>.findOne(<query>, <projection>)`:** Retrieves a single document from the collection that matches the query.
+
+*   **Query Operators:** (Used within the `<query>` document)
 
     *   **Comparison Operators:**
-        *   **`$eq`:**  Matches values that are equal to a specified value. (Implicit in most queries; `{field: value}` is the same as `{field: {$eq: value}}`)
-        *   **`$gt`:**  Matches values that are greater than a specified value.
-        *   **`$gte`:** Matches values that are greater than or equal to a specified value.
-        *   **`$lt`:**  Matches values that are less than a specified value.
-        *   **`$lte`:** Matches values that are less than or equal to a specified value.
-        *   **`$ne`:**  Matches values that are *not* equal to a specified value.
-        *   **`
-        
-        `:**  Matches any of the values specified in an array.
-        *   **`$nin`:** Matches *none* of the values specified in an array.
+        *   `$eq`: Matches values that are equal to a specified value. (Implicit: `{field: value}` is the same as `{field: {$eq: value}}`).
+        *   `$gt`: Matches values that are greater than a specified value.
+        *   `$gte`: Matches values that are greater than or equal to a specified value.
+        *   `$lt`: Matches values that are less than a specified value.
+        *   `$lte`: Matches values that are less than or equal to a specified value.
+        *   `$ne`: Matches values that are *not* equal to a specified value.
+        *   `$in`: Matches any of the values specified in an array.
+        *   `$nin`: Matches *none* of the values specified in an array.
 
         ```javascript
         db.products.find({ price: { $gt: 100 } }) // Products with price greater than 100
         db.users.find({ age: { $in: [25, 30, 35] } }) // Users aged 25, 30, or 35
         ```
 
-        Here's a **short description** of MongoDB update operators:
-
-
-**Common Update Operators**
-- **`$set`** – Sets or updates a field's value. *(Creates it if it doesn't exist.)*  
-- **`$unset`** – Removes a field from the document.  
-- **`$inc`** – Increments or decrements a numeric field.  
-- **`$rename`** – Renames a field.  
-- **`$mul`** – Multiplies a numeric field’s value.  
-- **`$min`** – Updates a field only if the new value is **less** than the current one.  
-- **`$max`** – Updates a field only if the new value is **greater** than the current one.  
-- **`$push`** – Adds an element to an array field.  
-- **`$pull`** – Removes elements from an array that match a condition.  
-- **`$addToSet`** – Like `$push`, but prevents duplicates.  
-
-Let me know if you need further refinements! 🚀
-
-*   **Logical Operators:**
-        *   **`$and`:**  Joins query clauses with a logical AND.
-        *   **`$or`:**   Joins query clauses with a logical OR.
-        *   **`$not`:**  Inverts the effect of a query expression.
-        *   **`$nor`:**  Joins query clauses with a logical NOR (NOT OR).
+    *   **Logical Operators:**
+        *   `$and`: Joins query clauses with a logical AND.
+        *   `$or`: Joins query clauses with a logical OR.
+        *   `$not`: Inverts the effect of a query expression.
+        *   `$nor`: Joins query clauses with a logical NOR (NOT OR).
 
         ```javascript
         db.products.find({ $or: [{ price: { $lt: 50 } }, { category: "Sale" }] }) // Products under 50 OR in the "Sale" category
@@ -373,8 +383,8 @@ Let me know if you need further refinements! 🚀
         ```
 
     *   **Element Operators:**
-        *   **`$exists`:** Matches documents that have (or don't have) a specified field.
-        *   **`$type`:**  Matches documents where the value of a field is of a specific BSON type.
+        *   `$exists`: Matches documents that have (or don't have) a specified field.
+        *   `$type`: Matches documents where the value of a field is of a specific BSON type.
 
         ```javascript
         db.users.find({ email: { $exists: true } }) // Users with an "email" field
@@ -382,119 +392,269 @@ Let me know if you need further refinements! 🚀
         ```
 
     *   **Array Operators:**
-        *   **`$all`:** Matches arrays that contain *all* elements specified in the query.
-        *   **`$elemMatch`:**  Matches documents that contain an array field with at least one element that matches *all* the specified query criteria.
-        *   **`$size`:**  Matches arrays of a specified size.
+        *   `$all`: Matches arrays that contain *all* elements specified in the query.
+        *   `$elemMatch`: Matches documents that contain an array field with at least one element that matches *all* the specified query criteria.
+        *   `$size`: Matches arrays of a specified size.
 
         ```javascript
         db.users.find({ hobbies: { $all: ["reading", "hiking"] } }) // Users who have BOTH "reading" AND "hiking" in their hobbies array
         db.products.find({ reviews: { $elemMatch: { rating: { $gte: 4 }, reviewer: "Alice" } } }) // Products with at least one review that has rating >= 4 AND reviewer "Alice"
         db.users.find({hobbies: {$size: 3}})
         ```
-* **`$regex`**
-  *  Selects documents where values match a specified regular expression.
-  *	Allows for powerful pattern matching within string fields.
-```js
-  { name: { $regex: /^J/, $options: "i" } }, // Name starts with "J" (case-insensitive)
-    { name: { $regex: "son$", $options: "i" } },  // Name ends with "son" (case-insensitive)
-    { name: { $regex: "lee", $options: "i" } } ,  // Name includes "lee" (anywhere in the name)
-```
-* **`$text`**
-	* Performs a text search using a text index.
-	* Allows for searching for words and phrases within text-indexed fields.
 
-        ```javascript
-         db.articles.find( { $text: { $search: "coffee shop" } } )
-        ```
+    *   **Evaluation Operators:**
+        *   `$regex`: Selects documents where values match a specified regular expression. Allows for powerful pattern matching within string fields.
+            ```javascript
+            db.products.find({ name: { $regex: /^J/, $options: "i" } }) // Name starts with "J" (case-insensitive)
+            db.products.find({ name: { $regex: "son$", $options: "i" } })  // Name ends with "son" (case-insensitive)
+            db.products.find({ name: { $regex: "lee", $options: "i" } })   // Name includes "lee" (anywhere in the name)
+            ```
+        *   `$text`: Performs a text search using a text index. Allows for searching for words and phrases within text-indexed fields.  *Requires* a text index on the field(s) you are searching.
+            ```javascript
+             db.articles.find( { $text: { $search: "coffee shop" } } )
+            ```
 
-* **Read (Cursor Methods):** These methods operate on the *cursor* returned by `find()`.
+*   **Cursor Methods:** (Applied *after* the `find()` method)
 
-    *   **`.limit(<number>)`**
-        *   Limits the number of documents returned.
-
-    *   **`.skip(<number>)`**
-        *   Skips the specified number of documents before returning results.
-
-    *   **`.sort(<sortDocument>)`**
-        *   Sorts the results.  This can be combined with indexes for efficient sorting.
-        * *Note:* This is the same `.sort` as in the aggregation pipeline, but applied to a `find` cursor.
-
-    *   **`.pretty()`**
-        *   Formats the output for better readability (indents JSON).
-
-    *  **`.countDocuments()`**
-       * Returns a count of the documents that would match a `find()` query, more efficient that using `find().count()`
+    *   `.limit(<number>)`: Limits the number of documents returned.
+    *   `.skip(<number>)`: Skips the specified number of documents before returning results.
+    *   `.sort(<sortDocument>)`: Sorts the results.  This can be combined with indexes for efficient sorting.
+    *   `.pretty()`: Formats the output for better readability (indents JSON).
+    *   `.countDocuments()`: Returns a count of the documents that would match a `find()` query, more efficient than using `find().count()`.
 
     ```javascript
     // Get the first 10 products, sorted by price (descending)
     db.products.find().sort({ price: -1 }).limit(10).pretty()
-       db.stud09.find().skip(3).limit(5)
+    db.stud09.find().skip(3).limit(5)
     ```
 
-*   **Update (Expanded Update Operators):**
+**C. Update**
 
-    * **Field Update Operators**
-      *  **`$currentDate`**:  Sets the value of a field to the current date (either as a Date or a Timestamp).
-      *  **`$setOnInsert`:** Sets the value of fields *only during an upsert* (update with `upsert: true`) if the operation results in an *insert*.  If the operation results in an *update*, `$setOnInsert` does nothing.
+*   **`db.<collectionName>.updateOne(<filter>, <update>, <options>)`:** Updates a single document that matches the filter.
+*   **`db.<collectionName>.updateMany(<filter>, <update>, <options>)`:** Updates multiple documents that match the filter.
+*   **`db.<collectionName>.replaceOne(<filter>, <replacement>, <options>)`:** Replaces an *entire* document with a new document.
 
-     ```javascript
-    // Update the user's email, and set the "lastLogin" field to the current date
+*   **Update Operators:** (Used within the `<update>` document)
+
+    *   `$set`: Sets or updates a field's value. (Creates it if it doesn't exist.)
+    *   `$unset`: Removes a field from the document.
+    *   `$inc`: Increments or decrements a numeric field.
+    *   `$rename`: Renames a field.
+    *   `$mul`: Multiplies a numeric field’s value.
+    *   `$min`: Updates a field only if the new value is **less** than the current one.
+    *   `$max`: Updates a field only if the new value is **greater** than the current one.
+    *   `$currentDate`: Sets the value of a field to the current date or timestamp.
+    *   `$push`: Adds an element to an array field.
+    *   `$pull`: Removes elements from an array that match a condition.
+    *   `$pullAll`: Removes multiple specific values from an array.
+    *   `$addToSet`: Like `$push`, but prevents duplicates.
+    *   `$pop`: Removes the first or last element from an array.  `-1` for first, `1` for last.
+    *   `$bit`: Performs bitwise updates on a field.
+
+    ```javascript
     db.users.updateOne(
-      { name: "Alice" },
-      {
-        $set: { email: "alice.new@example.com" },
-        $currentDate: { lastLogin: true } // Use true for Date, or { $type: "timestamp" }
-      }
+        { username: "john_doe" },  // Filter condition
+        {
+            $set: { status: "active", lastLogin: new Date() },  // Set new values
+            $inc: { loginCount: 1, totalPoints: 10 },  // Increment multiple fields
+            $mul: { score: 1.1 },  // Multiply the score by 1.1
+            $rename: { "oldField": "newField" },  // Rename a field
+            $unset: { temporaryData: "", obsoleteField: "" },  // Remove multiple fields
+            $min: { minScore: 50 },  // Update only if the new value is smaller
+            $max: { maxScore: 100 },  // Update only if the new value is larger
+            $currentDate: { lastUpdated: true, lastSeen: { $type: "timestamp" } },  // Set current date/timestamp
+
+            // Array Operations
+            $addToSet: { roles: "user" },  // Add value to array if it doesn't exist
+            $push: {
+                notifications: {
+                    $each: [
+                        { message: "Welcome back!", date: new Date() },
+                        { message: "New update available!", date: new Date() }
+                    ],
+                    $position: 0,  // Insert at the beginning of the array
+                    $slice: -5  // Keep only the last 5 elements in the array
+                }
+            },
+            $pull: { notifications: { read: true } },  // Remove items from array based on condition
+            $pullAll: { tags: ["inactive", "deprecated"] },  // Remove multiple specific values from an array
+
+            // Simulating $pushAll (deprecated) using $each
+            $push: { skills: { $each: ["JavaScript", "MongoDB", "Node.js"] } },
+
+            // $pop: Remove the first and last elements from arrays
+            $pop: { messages: -1, logs: 1 },  // Remove first element from messages, last from logs
+
+            // Bitwise Operations
+            $bit: { flags: { and: 5, or: 2, xor: 3 } },  // Apply bitwise AND, OR, XOR
+
+            // Concatenation Simulation
+            $set: { fullName: { $concat: ["$firstName", " ", "$lastName"] } }
+        }
     );
+    ```
 
-     // Upsert example with $setOnInsert:
-     db.users.updateOne(
-         { name: "Bob" }, // Try to find a user named "Bob"
-         {
-             $set: { status: "active" },   //If found set status to active
-             $setOnInsert: { joinedDate: new Date() } // If NOT found, insert with joinedDate set to now.
-         },
-     { upsert: true } // Enable upsert
-     );
-     ```
-*   **`db.<collectionName>.replaceOne(<filter>, <replacement>, <options>)`**
-    *   *Replaces* an *entire* document with a new document.  This is different from `updateOne()`, which modifies specific fields.
+**D. Delete**
 
-**V. Aggregation Pipeline Stages (Missing/Expanded)**
+*   **`db.<collectionName>.deleteOne(<filter>)`:** Deletes a single document that matches the filter.
+*   **`db.<collectionName>.deleteMany(<filter>)`:** Deletes multiple documents that match the filter.
 
-* **`$sample`**:
- *  Randomly selects a specified number of documents from the input.  Useful for working with a representative sample of a large collection.
+    ```javascript
+    db.users.deleteOne({ username: "olduser" });  // Delete a specific user
+    db.products.deleteMany({ price: { $gt: 1000 } }); // Delete expensive products
+    ```
 
-*   **`$geoNear`:**
-    *   Returns documents near a specified geospatial point.  Requires a geospatial index.
+**II. Aggregation Pipeline Stages**
 
-* **Redaction Stages**
-  * **`$redact`**:
-	  *	Controls access to data at the document level based on stored access control information *within the documents themselves*. This is a very powerful and specialized stage.
+The aggregation pipeline is a framework for data aggregation modeled on the concept of data processing pipelines. Documents enter a multi-stage pipeline that transforms the documents into an aggregated result.
 
-**VI. Index Management (`mongosh` Shell) (Missing/Expanded)**
+*   **`$match`**: Filters the documents to pass only the documents that match the specified condition(s) to the next pipeline stage.  Uses the same query operators as `find()`.
+*   **`$project`**: Passes along the documents with the requested fields.  Can include newly computed fields. Controls which fields are included or excluded.
+*   **`$group`**: Groups documents by a specified key.  Uses accumulator operators (like `$sum`, `$avg`, `$min`, `$max`, `$push`, `$addToSet`) to calculate values for each group.
+*   **`$sort`**: Sorts the documents by a specified field or fields.  Can be ascending (1) or descending (-1).
+*   **`$limit`**: Limits the number of documents passed to the next stage.
+*   **`$skip`**: Skips the specified number of documents before passing documents to the next stage.
+*   **`$unwind`**: Deconstructs an array field from the input documents to output a document for each element of the array.
+*   **`$lookup`**: Performs a left outer join to another collection in the *same* database to filter in documents from the "joined" collection.
+*   **`$out`**: Writes the results of the aggregation pipeline to a specified collection.
+*   **`$merge`**: Writes the results of the aggregation pipeline to a specified collection.  Similar to `$out`, but offers more control over how the results are merged with existing documents in the output collection.
+*   **`$facet`**: Processes multiple aggregation pipelines within a single stage, allowing you to create multi-faceted aggregations.
+*   **`$bucket`**: Categorizes incoming documents into groups, called buckets, based on a specified expression and bucket boundaries.
+*   **`$bucketAuto`**: Automatically determines the optimal number of buckets based on the data distribution.
+*   **`$sortByCount`**: Groups incoming documents based on the value of a specified expression, then calculates the count of documents in each distinct group.
+*   **`$addFields`**: Adds new fields to documents. Similar to `$project`, but retains all existing fields.
+*   **`$redact`**: Controls access to data at the document level based on stored access control information *within the documents themselves*. This is a very powerful and specialized stage.
+*   **`$sample`**: Randomly selects a specified number of documents from the input. Useful for working with a representative sample of a large collection.
+*   **`$geoNear`**: Returns documents near a specified geospatial point. Requires a geospatial index.
 
-*   **`db.<collectionName>.createIndexes([<keyPatterns>], <options>)`**
-    *   Creates *multiple* indexes in a single operation. This can be more efficient than creating indexes one at a time.
+**Aggregation Operators (Examples)**
 
-*   **`db.<collectionName>.reIndex()`**
-    *   Rebuilds *all* indexes on a collection.  This can be useful if the data distribution has changed significantly, or if you suspect index corruption.
+*   **Arithmetic Operators:** `$add`, `$subtract`, `$multiply`, `$divide`, `$mod`
+*   **String Operators:** `$concat`, `$substr`, `$toLower`, `$toUpper`
+*   **Array Operators:** `$slice`, `$size`, `$filter`
+*   **Boolean Operators:** `$and`, `$or`, `$not`
+*   **Comparison Operators:** `$cmp`, `$eq`, `$gt`, `$gte`, `$lt`, `$lte`, `$ne`
+*   **Conditional Operators:** `$cond`, `$ifNull`
+*   **Date Operators:** `$year`, `$month`, `$dayOfMonth`, `$hour`, `$minute`, `$second`
+*   **Accumulator Operators (for use with `$group`):** `$sum`, `$avg`, `$min`, `$max`, `$push`, `$addToSet`, `$first`, `$last`
 
-*   **`db.<collectionName>.totalIndexSize()`**
- *    Returns the total size (in bytes) of all indexes on a collection.
+```javascript
+db.orders.aggregate([
+  {
+    $match: { status: "A" }
+  },
+  {
+    $group: {
+      _id: "$customerId",
+      totalAmount: { $sum: "$amount" },
+      orderCount: { $sum: 1 }
+    }
+  },
+  {
+    $sort: { totalAmount: -1 }
+  },
+  {
+    $limit: 10
+  },
+  {
+        $project: { //Example project operators to use the most
+            _id: 0, //Suppress output from the _id field
+            customerId: "$_id",
+            totalAmount: 1,
+            orderCount: 1,
+            averageAmount: { $divide: ["$totalAmount", "$orderCount"] },// Calculate average amount
+            isLargeCustomer: { $cond: { if: { $gt: ["$totalAmount", 1000] }, then: true, else: false } } // Conditional check
+        }
+    }
+]);
 
-* **`db.<collectionName>.indexStats()`**
-	*  Provides detailed statistics about each index on a collection, including usage information (how often the index is used).  *Essential* for identifying unused indexes that can be safely removed.
+// An elaborate example using many of these operators in stages
+db.products.aggregate([
+  {
+    $match: {
+      category: "Electronics",
+      price: { $gt: 50 }
+    }
+  },
+  {
+    $project: {
+      _id: 1,
+      name: 1,
+      discountedPrice: { $subtract: ["$price", { $multiply: ["$price", 0.1] }] },
+      formattedName: { $toUpper: "$name" }
+    }
+  },
+  {
+    $group: {
+      _id: "$category",
+      avgPrice: { $avg: "$discountedPrice" },
+      productNames: { $push: "$formattedName" }
+    }
+  },
+  {
+    $sort: { avgPrice: -1 }
+  },
+  {
+    $limit: 5
+  },
+  {
+    $unwind: "$productNames"
+  },
+  {
+    $lookup: {
+      from: "reviews",
+      localField: "_id",
+      foreignField: "productId",
+      as: "productReviews"
+    }
+  },
+  {
+    $addFields: {
+      totalReviews: { $size: "$productReviews" }
+    }
+  },
+  {
+    $bucket: {
+      groupBy: "$avgPrice",
+      boundaries: [0, 100, 200, 300],
+      default: "Other",
+      output: {
+        count: { $sum: 1 },
+        products: { $push: "$_id" }
+      }
+    }
+  }
+
+]);
+```
+
+**III. Index Management (`mongosh` Shell)**
+
+*   **`db.<collectionName>.createIndex(<keyPattern>, <options>)`**: Creates a single index.
+    *   `<keyPattern>`:  A document specifying the fields to index and the index type (1 for ascending, -1 for descending).
+    *   `<options>`: A document specifying index options (e.g., `unique`, `name`, `partialFilterExpression`, `expireAfterSeconds`).
+
+*   **`db.<collectionName>.createIndexes([<keyPatterns>], <options>)`**: Creates *multiple* indexes in a single operation.
+
+*   **`db.<collectionName>.getIndexes()`**: Lists all indexes on the collection.
+
+*   **`db.<collectionName>.dropIndex(<indexName>)`**: Drops a specific index.
+
+*   **`db.<collectionName>.dropIndexes()`**: Drops *all* indexes on the collection (except the `_id` index).
+
+*   **`db.<collectionName>.reIndex()`**: Rebuilds *all* indexes on a collection.
+
+*   **`db.<collectionName>.totalIndexSize()`**: Returns the total size (in bytes) of all indexes on a collection.
+
+*   **`db.<collectionName>.indexStats()`**: Provides detailed statistics about each index on a collection, including usage information.
 
 *   **Unique Indexes:**
-    *   Create a unique index to enforce uniqueness on a field (or combination of fields).
 
     ```javascript
     db.users.createIndex({ email: 1 }, { unique: true }); // Ensures no duplicate email addresses
     ```
 
-* **Partial Indexes:**
-    *   Create an index that *only* includes documents that match a specified filter.  This can save space and improve performance if you only frequently query a subset of your data.
+*   **Partial Indexes:**
 
     ```javascript
     db.orders.createIndex(
@@ -502,45 +662,35 @@ Let me know if you need further refinements! 🚀
       { partialFilterExpression: { orderStatus: "complete" } } // Index only completed orders
     );
     ```
-* **TTL (Time-to-Live) Indexes:**
-  *  Automatically remove documents from a collection after a specified amount of time.  Useful for expiring sessions, logs, or other temporary data.
+
+*   **TTL (Time-to-Live) Indexes:**
 
     ```javascript
     db.logEntries.createIndex({ "createdAt": 1 }, { expireAfterSeconds: 3600 }); // Documents expire after 1 hour (3600 seconds)
     ```
 
-**VII. Security (Expanded)**
+**IV. Security**
 
-*   **`db.updateUser(<username>, <updateDocument>)`**
-    *   Modifies an existing user's properties (e.g., password, roles).
+*   **`db.createUser(<document>)`**: Creates a new user.  The `<document>` must include the `user` and `pwd` fields, as well as an array of `roles`.
 
-* **`db.changeUserPassword(<username>, <newPassword>)`**
- * Simplifies changing a user password.
+*   **`db.updateUser(<username>, <updateDocument>)`**: Modifies an existing user's properties.
 
-*   **`db.dropUser(<username>)`**
-    *   Removes a user from the current database.
+*   **`db.changeUserPassword(<username>, <newPassword>)`**: Simplifies changing a user password.
 
-*   **`db.grantRolesToUser(<username>, [<roles>])`**
-    *   Grants additional roles to an existing user.
+*   **`db.dropUser(<username>)`**: Removes a user from the current database.
 
-*   **`db.revokeRolesFromUser(<username>, [<roles>])`**
-    *   Revokes roles from an existing user.
+*   **`db.grantRolesToUser(<username>, [<roles>])`**: Grants additional roles to an existing user.
 
-* **`db.getUsers()`**
-	* Lists users and their information.
+*   **`db.revokeRolesFromUser(<username>, [<roles>])`**: Revokes roles from an existing user.
 
-**VIII. Other Useful Commands**
+*   **`db.getUsers()`**: Lists users and their information.
 
-*  **`rs.status()`** (Replica Set Status)
- * If you're using a replica set, this command provides information about the status of the replica set, including the primary and secondary members.
+**V. Other Useful Commands**
 
-* **`sh.status()`** (Sharding Status)
-	* If you're using sharding, this command provides information about the sharded cluster, including the distribution of data across shards.
+*   **`rs.status()`** (Replica Set Status): If you're using a replica set, this command provides information about the status of the replica set.
 
-*   **`new Date()` (and related date functions)**
-    *   Used to create Date objects in JavaScript within the `mongosh` shell. Crucial for working with dates and times.
+*   **`sh.status()`** (Sharding Status): If you're using sharding, this command provides information about the sharded cluster.
 
-*   **`ObjectId()`**
-    *   Used to create new `ObjectId` values or to convert strings to `ObjectId`s.  Important for working with references and `_id` fields.
+*   **`new Date()`** (and related date functions): Used to create Date objects in JavaScript within the `mongosh` shell.
 
-
+*   **`ObjectId()`**: Used to create new `ObjectId` values or to convert strings to `ObjectId`s.
