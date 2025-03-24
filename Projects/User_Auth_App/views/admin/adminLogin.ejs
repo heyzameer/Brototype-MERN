@@ -94,12 +94,30 @@
             color: #666;
         }
 
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .error { background-color: #ffcccc; color: #cc0000; }
+        .success { background-color: #ccffcc; color: #008000; }
+
     </style>
 </head>
 <body>
 
     <div class="login-container">
         <h2>Admin Login</h2>
+          <!-- Display flash messages -->
+    <% if (locals.error_msg && locals.error_msg.length > 0) { %>
+        <div class="flash-message error"><%= locals.error_msg %></div>
+    <% } %>
+
+    <% if (locals.success_msg && locals.success_msg.length > 0) { %>
+        <div class="flash-message success"><%= locals.success_msg %></div>
+    <% } %>
         <form action="/admin/login" method="POST">
             <div class="input-group">
                 <label for="email">Email</label>
@@ -117,6 +135,13 @@
         </form>
         <p class="footer-text">Forgot your password? <a href="#">Click here</a></p>
     </div>
-
+    <script>
+        setTimeout(() => {
+            const flashMessage = document.querySelector('.flash-message');
+            if (flashMessage) {
+                flashMessage.style.display = 'none';
+            }
+        }, 3000); // Hide after 3 seconds
+    </script>
 </body>
 </html>

@@ -23,6 +23,7 @@ const login = async (req, res) => {
 
         if (!ifAdmin) {
             console.log('Admin not found');
+            req.flash('error', 'Email is not correct');
             return res.redirect('/admin/login');
         }
 
