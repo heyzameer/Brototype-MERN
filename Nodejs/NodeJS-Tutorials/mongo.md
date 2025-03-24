@@ -136,9 +136,9 @@ db.users.aggregate([
 4
 4
 4
-44
 4
-
+4
+4
 **Group**
 ```js
 db.employees.aggregate([
@@ -225,6 +225,7 @@ db.orders.aggregate([
       localField: "customer_id", // Field in orders
       foreignField: "_id", // Field in customers
       as: "customer_info" // Output array field
+       
     }
   }
 ])

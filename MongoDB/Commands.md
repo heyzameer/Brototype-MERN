@@ -394,7 +394,11 @@ Let me know if you need further refinements! 🚀
 * **`$regex`**
   *  Selects documents where values match a specified regular expression.
   *	Allows for powerful pattern matching within string fields.
-
+```js
+  { name: { $regex: /^J/, $options: "i" } }, // Name starts with "J" (case-insensitive)
+    { name: { $regex: "son$", $options: "i" } },  // Name ends with "son" (case-insensitive)
+    { name: { $regex: "lee", $options: "i" } } ,  // Name includes "lee" (anywhere in the name)
+```
 * **`$text`**
 	* Performs a text search using a text index.
 	* Allows for searching for words and phrases within text-indexed fields.
@@ -424,6 +428,7 @@ Let me know if you need further refinements! 🚀
     ```javascript
     // Get the first 10 products, sorted by price (descending)
     db.products.find().sort({ price: -1 }).limit(10).pretty()
+       db.stud09.find().skip(3).limit(5)
     ```
 
 *   **Update (Expanded Update Operators):**
