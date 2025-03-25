@@ -58,6 +58,35 @@ function isPrime(num) {
 let arr = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 let filteredArr = arr.filter(num => !isPrime(num));
 console.log(filteredArr); // [4, 6, 8, 9, 10]
+
+function  isPrime(num){
+    if(num<2){
+        return false;
+    }
+    for(let i = 2; i * i <= num; i++){
+        if(num%i===0){
+            return false;
+        }
+    }
+    return true;
+}
+
+function remove(array) {
+    let j =0;
+    for(let i = 0; i<array.length;i++){
+        if(!isPrime(array[i])){
+            array[j] = array[i];
+            j++;
+        }
+    }
+
+    array.length = j;
+}
+
+
+let array = [1,2,3,4,5,6,7,8,9];
+remove(array);
+console.log(array);
 ```
 
 ---
@@ -113,9 +142,17 @@ app.get("/admin", (req, res) => {
 ### **📌 Find the Second Largest Price in a MongoDB Document**
 ```js
 db.practice.aggregate([
-  { $sort: { price: -1 } }, // Sort by price in descending order
-  { $skip: 1 }, // Skip the highest price
-  { $limit: 1 } // Get only one document (second highest)
+  { $group: { _id: "$price" } },   // Group by price (unique values)
+  { $sort: { _id: -1 } },          // Sort by price in descending order
+  { $skip: 1 },                    // Skip the highest price
+  { $limit: 1 }                    // Get the second highest price
+]);
+
+
+
+db.practice.aggregate([
+  { $group: { _id: null, prices: { $addToSet: "$price" } } },  // Collect unique prices
+  { $project: { _id: 0, prices: { $slice: [{ $sortArray: { input: "$prices", sortBy: -1 } }, 1, 1] } } } // Sort & get second highest
 ]);
 ```
 
@@ -155,17 +192,15 @@ db.users.updateOne(
 ---
 
 ### **📌 Namespace in JavaScript**
-A **namespace** is a container to avoid naming conflicts in large codebases.
 
-#### **Example Using an Object as a Namespace**
+A MongoDB namespace is a logical grouping of a database and a collection. It is used to uniquely identify collections within a database. The namespace is written in the following format:
+
 ```js
-const MyNamespace = {
-  sayHello: function() {
-    console.log("Hello from MyNamespace!");
-  }
-};
+database_name.collection_name   
 
-MyNamespace.sayHello(); // Output: Hello from MyNamespace!
+For example, the namespace `my_database.my_collection` refers to the collection `my_collection` in the database `my_database`.
+
+Namespaces are important for a number of reasons. First, they allow you to have multiple collections with the same name in different databases. Second, they make it easier to manage permissions for collections. Finally, they are used by the MongoDB storage engine to organize data on disk.
 ```
 
 ---
