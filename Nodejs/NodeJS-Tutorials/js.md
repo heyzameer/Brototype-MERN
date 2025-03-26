@@ -158,7 +158,7 @@ console.log(uniqueUsers);
 
 
 
-### **Example: Find Non-Repeating Objects**
+### **Example: Find non-Repeating Objects**
 
 let users = [
     { id: 1, name: "Alice" },

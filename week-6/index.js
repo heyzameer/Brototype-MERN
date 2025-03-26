@@ -64,31 +64,31 @@
 // ### **Example in JavaScript**
 // ```javascript
 // Defining a class
-class Person {
-    // Constructor method (called when a new instance is created)
-    constructor(name, age) {
-        this.name = name;  // Object property
-        this.age = age;
-    }
+// class Person {
+//     // Constructor method (called when a new instance is created)
+//     constructor(name, age) {
+//         this.name = name;  // Object property
+//         this.age = age;
+//     }
 
-    // Method to display details
-    greet() {
-        console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
-    }
-}
+//     // Method to display details
+//     greet() {
+//         console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+//     }
+// }
 
-// Creating an instance of the class
-const person1 = new Person('Alice', 25);
-const person2 = new Person('Bob', 30);
+// // Creating an instance of the class
+// const person1 = new Person('Alice', 25);
+// const person2 = new Person('Bob', 30);
 
-// Accessing properties
-console.log(person1.name); // Alice
-console.log(person2.age);  // 30
+// // Accessing properties
+// console.log(person1.name); // Alice
+// console.log(person2.age);  // 30
 
-// Calling methods
-person1.greet();  // Hello, my name is Alice and I am 25 years old.
-person2.greet();  // Hello, my name is Bob and I am 30 years old.
-// ```
+// // Calling methods
+// person1.greet();  // Hello, my name is Alice and I am 25 years old.
+// person2.greet();  // Hello, my name is Bob and I am 30 years old.
+// // ```
 
 // ---
 
@@ -288,3 +288,52 @@ person2.greet();  // Hello, my name is Bob and I am 30 years old.
 // Would you like a real-world example or a practical implementation guide? 🚀
 
 
+const express = require('express');
+const cookiParser = require('cookie-parser');
+const session = req.session('express-session')
+const { use } = require('./userRouter');
+const app = express()
+app.use(cookiParser())
+
+app.use(session({
+  secret: 'mySecretKey', // Secret key for signing session ID
+  resave: false,         // Prevents resaving session when not modified
+  saveUninitialized: true, // Saves new sessions even if they are empty
+  cookie: { secure: false, maxAge: 60000 } // Cookie settings (maxAge: 60 seconds)
+}));
+
+app.get('/set-cookies',(req,res)=>{
+  res.cookie('username','john',
+    {maxAge:900000,
+      httpOnly:true
+    });
+
+  res.send('cookie is set')
+})
+app.get('/set-session',(req,res)=>{
+  res.cookie('username','john',
+    {maxAge:900000,
+      httpOnly:true
+    });
+
+  res.send('cookie is set')
+})
+
+app.get('/get-cookies',(req,res)=>{
+  const username= req.cookies.username;
+
+  if(username){
+    res.send(`Cookie value: ${username}`);
+  }else{
+    res.send(`no cookies`)
+  }
+})
+
+app.get('/delete-cookie', (req, res) => {
+  res.clearCookie('username');
+  res.send('Cookie has been deleted');
+});
+
+app.listen(3000,()=>{
+  console.log(`server running on port 3000`)
+})

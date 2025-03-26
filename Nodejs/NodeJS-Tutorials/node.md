@@ -89,6 +89,12 @@ app.listen(PORT, () => {
 
 #### **3️⃣ `views/index.ejs` (For Rendering EJS)**
 ```html
+
+res.render('profile', {
+            username: username, // Pass data to the template
+            user: user
+        });
+        
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,6 +117,8 @@ app.listen(PORT, () => {
 1
 1
 ```js
+
+
 const fs = require("fs");
 
 // Create a file with sample text
@@ -118,6 +126,8 @@ fs.writeFileSync("input.txt", "This is a test file with some sample text.");
 
 // Create Read and Write Streams
 const readStream = fs.createReadStream("input.txt");
+const readStream = fs.createReadStream('large_file.txt', { encoding: 'utf8',highWaterMark:2 });
+
 
 
 
@@ -143,6 +153,7 @@ readStream.pipe(writeStream);
 writeStream.on("finish", () => {
     console.log("File copied successfully!");
 });
+
 
 
 const filePath = path.join(__dirname, fileName);
@@ -279,7 +290,7 @@ app.get('/destroy-session', (req, res) => {
 
 // 📌 Route to Set Cookie
 app.get('/set-cookie', (req, res) => {
-    res.cookie('user', 'JohnDoe', { maxAge: 60000, httpOnly: true }); // 60s expiry
+    res.cookie('user', 'JohnDoe', { maxAge: 60000, httpOnly: true ,signed: true}); // 60s expiry
     res.send('Cookie set!');
 });
 
@@ -315,7 +326,7 @@ app.listen(3000, () => {
 4
 4
 4
-44
+4
 4
 4
 4
@@ -364,13 +375,13 @@ module.exports = router; // Export the router
 5
 5
 5
-
-55
-
 5
 5
 5
-
+5
+5
+5
+5
 5
 55
 5

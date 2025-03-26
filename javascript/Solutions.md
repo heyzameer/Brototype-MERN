@@ -10,8 +10,8 @@
 
 
 | Feature         | Macrotask                                       | Microtask                                      |
-| --------------- | ----------------------------------------------- | --------------------------------------------- |
-| Priority        | Lower priority                                  | Higher priority                                 |
+| --------------- | --------------------------------------------- | --------------------------------------------- |
+| Priority        | Lower priority                   __               | Higher priority                                 |
 | Queue           | Macrotask Queue                                 | Microtask Queue                                |
 | Examples        | `setTimeout`, `setInterval`, I/O, UI rendering   | Promise `then/catch`, `process.nextTick`, MutationObserver |
 | Execution Order | One at a time, after microtasks are processed | All at once after each macrotask     

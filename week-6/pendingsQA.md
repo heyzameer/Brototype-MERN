@@ -230,5 +230,110 @@ app.get("/", (req, res) => {
 
 ---
 
-### 🚀 **That’s a Power-Packed JavaScript & MongoDB Guide!**
-Let me know if you need more explanations or examples! 🔥💡
+
+
+### **What is a REST API?**  
+A **REST API (Representational State Transfer Application Programming Interface)** is a way for web applications to communicate using **HTTP requests**. It follows REST principles, making it **lightweight, scalable, and stateless**.
+
+---
+
+### **Key Characteristics of a REST API**
+1. **Uses HTTP Methods**: REST APIs use standard HTTP methods to perform operations on resources.
+   - `GET` → Read data
+   - `POST` → Create data
+   - `PUT` → Update data
+   - `DELETE` → Remove data
+
+2. **Stateless**: Each request from a client to a server must contain all the necessary information, meaning the server doesn’t store client state between requests.
+
+3. **Uses URLs as Resources**: Everything in a REST API is treated as a resource, identified by a unique URL.
+   ```
+   https://api.example.com/users
+   ```
+   - `https://api.example.com/users` → Represents a collection of users
+   - `https://api.example.com/users/1` → Represents a specific user with ID `1`
+
+4. **Returns Data in JSON or XML**: Most REST APIs return data in **JSON** (JavaScript Object Notation) format because it’s lightweight and easy to parse.
+
+5. **Uses Status Codes**: REST APIs follow HTTP status codes for responses:
+   - `200 OK` → Success
+   - `201 Created` → Resource created
+   - `400 Bad Request` → Client error
+   - `404 Not Found` → Resource doesn’t exist
+   - `500 Internal Server Error` → Server-side issue
+
+---
+
+### **Example: Simple REST API**
+📌 **1. Request to Get All Users (`GET`)**
+```http
+GET /users HTTP/1.1
+Host: api.example.com
+```
+📌 **Response**
+```json
+[
+  { "id": 1, "name": "Alice" },
+  { "id": 2, "name": "Bob" }
+]
+```
+
+📌 **2. Request to Create a User (`POST`)**
+```http
+POST /users HTTP/1.1
+Host: api.example.com
+Content-Type: application/json
+
+{
+  "name": "Charlie"
+}
+```
+📌 **Response**
+```json
+{ "id": 3, "name": "Charlie" }
+```
+
+---
+
+### **How to Build a REST API in Node.js (Express.js Example)**
+```javascript
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+let users = [{ id: 1, name: "Alice" }];
+
+// GET all users
+app.get('/users', (req, res) => {
+    res.json(users);
+});
+
+// POST to add a new user
+app.post('/users', (req, res) => {
+    const newUser = { id: users.length + 1, name: req.body.name };
+    users.push(newUser);
+    res.status(201).json(newUser);
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+```
+
+---
+
+### **REST API vs. SOAP API**
+| Feature | REST API | SOAP API |
+|---------|---------|---------|
+| **Protocol** | Uses HTTP | Uses HTTP, SMTP, TCP |
+| **Data Format** | JSON, XML | XML |
+| **Speed** | Faster | Slower (more overhead) |
+| **Ease of Use** | Simple | Complex |
+
+---
+
+### **Summary**
+✅ **REST API** is a set of rules for building web services using HTTP.  
+✅ It is **stateless**, uses **HTTP methods**, and returns **JSON or XML**.  
+✅ Common HTTP methods: `GET`, `POST`, `PUT`, `DELETE`.  
+✅ REST APIs are widely used in **web applications**, **mobile apps**, and **microservices**.  
+
+Would you like an example with **database integration** (MongoDB, MySQL)? 🚀
