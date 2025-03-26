@@ -115,6 +115,34 @@ let countByCategory = items.reduce((acc, item) => {
 }, {});
 
 console.log(countByCategory);
+
+
+75. Find Student with Highest Score**
+
+
+function findStudentWithHighestScore(students) {
+    if (students.length === 0) {
+        return null; // Handle empty array case
+    }
+    let highestScoreStudent = students[0];
+    for (let i = 0; i < students.length; i++) {
+        if (students[i].score > highestScoreStudent.score) {
+            highestScoreStudent = students[i];
+        }
+    }
+    return highestScoreStudent;
+}
+
+
+
+function findStudentWithHighestScore2(students) {
+    if (students.length === 0) {
+        return null; // Handle empty array case
+    }
+    return students.reduce((highest, current)=>{
+        return current.score > highest.score ? current : highest;
+    })
+}
 ```
 ## **7. Check If All Employees Are Developers**
 ```js
@@ -426,29 +454,3 @@ console.log(gen.next()); // { value: undefined, done: true }
 
 
 
-75. Find Student with Highest Score**
-
-
-function findStudentWithHighestScore(students) {
-    if (students.length === 0) {
-        return null; // Handle empty array case
-    }
-    let highestScoreStudent = students[0];
-    for (let i = 0; i < students.length; i++) {
-        if (students[i].score > highestScoreStudent.score) {
-            highestScoreStudent = students[i];
-        }
-    }
-    return highestScoreStudent;
-}
-
-
-
-function findStudentWithHighestScore2(students) {
-    if (students.length === 0) {
-        return null; // Handle empty array case
-    }
-    return students.reduce((highest, current)=>{
-        return current.score > highest.score ? current : highest;
-    })
-}

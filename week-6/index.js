@@ -1,3 +1,231 @@
+// const data = [
+//   { numbers: [1, 2, 3] },
+//   { numbers: [4, 5, 6] },
+//   { numbers: [7, 8, 9] }
+// ];
+
+// const totalSum = data.reduce((sum, obj) => sum + obj.numbers.reduce((a, b) => a + b, 0), 0);
+
+// console.log("Total Sum:", totalSum);
+
+
+// const data = [
+//   { a: [1, 2], b: [3, 4] },
+//   { a: [5, 6], b: [7, 8] },
+//   { a: [9, 10], b: [11, 12] }
+// ];
+
+// const totalSum = data.reduce((sum, obj) => {
+//   return sum + Object.values(obj).flat().reduce((a, b) => a + b, 0);
+// }, 0);
+
+// console.log("Total Sum:", totalSum);
+
+
+// const array = [1,2,3,4,5];
+// const output =[];
+// for(let i =0;i<array.length;i++){
+//   let obj = {}
+//   obj.a = array[i];
+//   output.push(obj);
+// }
+// console.log(output);
+
+
+// for (let i = 0; i < array.length; i++) {
+//   let obj = {};
+//   obj[String.fromCharCode(97 + i)] = array[i]; // 'a' = 97 in ASCII
+//   output.push(obj);
+// }
+
+// console.log(output);
+
+
+
+
+// ### **Deep Copy in JavaScript**  
+// A **deep copy** creates a completely new object, duplicating all nested structures, so modifying the original does not affect the copy.  
+
+// ---
+
+// ### **1️⃣ Using `JSON.parse(JSON.stringify(obj))`**  
+// Best for simple objects **without functions or special types** 
+
+// ```javascript
+// const original = { a: 1, b: { c: 2 } };
+// const deepCopy = JSON.parse(JSON.stringify(original));
+
+// deepCopy.b.c = 100;
+// console.log(original.b.c); // 2 (original remains unchanged)
+// ```
+
+// ✅ **Pros:** Simple, works for nested objects  
+// ❌ **Cons:** Loses `Date`, `Map`, `Set`, functions, and `undefined` values  
+
+// ---
+
+// ### **2️⃣ Using `structuredClone()` (Best for Modern Browsers)**
+// ```javascript
+// const original = { a: 1, b: { c: 2 } };
+// const deepCopy = structuredClone(original);
+
+// deepCopy.b.c = 100;
+// console.log(original.b.c); // 2
+// ```
+// ✅ **Pros:** Handles `Date`, `Map`, `Set`, `ArrayBuffer`  
+// ❌ **Cons:** Not available in **older browsers or Node.js**
+
+// ---
+
+
+
+// ### **Transactions in Databases**
+// A **transaction** is a sequence of database operations that must be executed **as a single unit**. Transactions ensure **ACID** properties:  
+// - **A**tomicity (all or nothing)  
+// - **C**onsistency (valid state before & after)  
+// - **I**solation (independent transactions)  
+// - **D**urability (changes persist after commit)  
+
+// Now, let’s dive into key transaction concepts:
+
+// ---
+
+// ## **1️⃣ Lock**
+// Locks are mechanisms to prevent conflicts when multiple transactions try to access the same data simultaneously.
+
+// - **Types of Locks:**
+//   - **Shared Lock (Read Lock)**: Multiple transactions can read, but no one can write.
+//   - **Exclusive Lock (Write Lock)**: Only one transaction can read and write.
+//   - **Row-level Lock**: Locks a specific row instead of the whole table.
+//   - **Table-level Lock**: Locks an entire table (less concurrency).
+//   - **Deadlock**: When two transactions are waiting for each other’s locks indefinitely.
+
+// ### **Example in SQL (MySQL)**
+// ```sql
+// START TRANSACTION;
+// SELECT * FROM accounts WHERE id = 1 FOR UPDATE; -- Exclusive lock
+// UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+// COMMIT;
+// ```
+// The `FOR UPDATE` ensures no other transaction can modify the `id = 1` row until the transaction completes.
+
+// ---
+
+// ## **2️⃣ Concurrency Control**
+// Concurrency control ensures transactions execute **correctly** when multiple users access the database.
+
+// ### **Methods of Concurrency Control:**
+// 1. **Optimistic Concurrency Control (OCC)**
+//    - No locking during transaction.
+//    - Checks for conflicts before committing (e.g., checking a version number).
+//    - Useful for systems with **high read & low write** operations.
+   
+//    **Example:** Using a `version` column in MongoDB or SQL.
+//    ```sql
+//    UPDATE users SET balance = 500, version = version + 1 WHERE id = 1 AND version = 5;
+//    ```
+
+// 2. **Pessimistic Concurrency Control (PCC)**
+//    - Uses **locks** to prevent conflicts.
+//    - Suitable for **high write** scenarios.
+   
+//    Example:
+//    ```sql
+//    SELECT * FROM users WHERE id = 1 FOR UPDATE;
+//    ```
+
+// 3. **Multiversion Concurrency Control (MVCC)**
+//    - Instead of locking, creates **multiple versions** of data.
+//    - Used in **PostgreSQL, MySQL (InnoDB), and MongoDB**.
+
+// ---
+
+// ## **3️⃣ Write Concern (MongoDB)**
+// Write Concern defines **how safely** data is written to the database.
+
+// ### **Write Concern Levels:**
+// | Level | Description |
+// |--------|--------------------------------------|
+// | `w: 0` | No acknowledgment from the DB. |
+// | `w: 1` | Acknowledged after writing to the primary. |
+// | `w: majority` | Acknowledged after writing to most nodes in a replica set. |
+// | `j: true` | Ensures the write is **persisted to disk (journaled)**. |
+
+// ### **Example in MongoDB**
+// ```javascript
+// db.users.insertOne(
+//   { name: "John", balance: 1000 },
+//   { writeConcern: { w: "majority", j: true } }
+// );
+// ```
+// - Ensures the write is committed to **most replicas** and written to **disk**.
+
+// ---
+
+// ## **4️⃣ Read Concern (MongoDB)**
+// Read Concern determines **which level of committed data is returned** in a read operation.
+
+// ### **Read Concern Levels:**
+// | Level | Description |
+// |--------|--------------------------------------|
+// | `local` | Reads the latest data from the primary (default). |
+// | `available` | Returns data from any node, even if not committed. |
+// | `majority` | Returns only data committed by a majority of nodes. |
+// | `linearizable` | Ensures the most **up-to-date** data is read. |
+
+// ### **Example in MongoDB**
+// ```javascript
+// db.users.find(
+//   { name: "John" },
+//   { readConcern: { level: "majority" } }
+// );
+// ```
+// - Ensures only **fully committed** data is returned.
+
+// ---
+
+// ### **Summary**
+// | Concept | Description |
+// |---------|------------|
+// | **Lock** | Prevents conflicts in concurrent transactions (Shared, Exclusive, Row, Table locks). |
+// | **Concurrency Control** | Ensures correct execution of concurrent transactions (Optimistic, Pessimistic, MVCC). |
+// | **Write Concern** | Controls how safely writes are confirmed (e.g., `w: majority`). |
+// | **Read Concern** | Defines the consistency level of reads (e.g., `majority`, `linearizable`). |
+
+
+
+// ### **REPL (Read-Eval-Print Loop)**
+// REPL is an **interactive programming environment** that allows you to execute code **line by line** and see results immediately. It follows a simple cycle:  
+
+// 1. **Read** → Takes user input.  
+// 2. **Eval** → Evaluates the input.  
+// 3. **Print** → Outputs the result.  
+// 4. **Loop** → Repeats the cycle until the user exits.  
+
+// ---
+
+// ## **1️⃣ REPL in Node.js**
+// Node.js provides a built-in REPL. To start:  
+// 1. Open a terminal and type:
+//    ```sh
+//    node
+//    ```
+// 2. You’ll enter the interactive REPL where you can execute JavaScript commands.
+
+// ### **Example in Node.js REPL**
+// ```sh
+// > 2 + 3
+// 5
+// > console.log("Hello, REPL!")
+// Hello, REPL!
+// > const square = (x) => x * x;
+// > square(4)
+// 16
+// ```
+
+
+
+
 // const array = [1,2,3,4,5,6,7]
 // let odd = array.reduce((acc,item)=>{
 //     if(item>acc && item%2!==0) {

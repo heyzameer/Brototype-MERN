@@ -267,7 +267,7 @@ db.food.aggregate([
 ]);
 
 db.practice.aggregate([
-    { $group: { _id: "$price"}},
+  { $group: { _id: "$price"}},
   {$sort:{"$_id":-1}},
   {$skip:1},
   {$limit:1}
