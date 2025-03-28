@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ 
+</head>
+<body>
+    <button id="btn" onclick="onButtonPress()">Counter 0</button>
+    <script>
+        function onButtonPress(){
+            const currentValue = document.getElementById('btn').innerHTML;
+            const curCount = currentValue.split(" ")[1];
+            const newCount = parseInt(curCount) + 1;
+            document.getElementById('btn').innerHTML = "Counter " + newCount;
+        }
+    </script>
+</body>
+</html> 
