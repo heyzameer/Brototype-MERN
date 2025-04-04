@@ -1,0 +1,10 @@
+npm init -y
+npm install --save-dev parcel
+npm install react react-dom  
+
+  "scripts": {
+    "start": "parcel index.html",
+    "build":"parcel build index.html"
+  }
+
+  npm run start
