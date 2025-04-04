@@ -8,8 +8,11 @@ const Header = () => {
       <nav>
         <img src="./icon.png" alt="Logo" className="img-logo" />
         <input type="text" className="input" placeholder="Type something..." />
-        <img src="./profile.png" alt="" className="img-profile" />
+        <img src="./profile.png" alt="User Profile" className="img-profile" />
       </nav>
     </header>
   );
 };
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Header />);
+// export default Header;
