@@ -48,7 +48,25 @@ npm install -D parcel
   - For production build :
   ```
   npx parcel build <entry_point>
+
+  npm install react
+  npm install react-dom
   ```
+
+## Q: Difference btwm ^ and ~?
+
+A: In `package.json`, `^` and `~` are used for **versioning** dependencies. Here's the short difference:  
+
+| Symbol | Example | Meaning |
+|--------|---------|---------|
+| **`^` (Caret)** | `"^1.2.3"` | Updates **minor** (`1.x.x`), but not major (`2.0.0`). |
+| **`~` (Tilde)** | `"~1.2.3"` | Updates **patch** (`1.2.x`), but not minor (`1.3.0`). |
+
+### **Example**
+- `"^1.2.3"` → Can install versions up to `1.9.x`, but **not** `2.0.0`.  
+- `"~1.2.3"` → Can install versions up to `1.2.9`, but **not** `1.3.0`.  
+
+
 
 ## Q: Why is `.parcel-cache` folder?
 
@@ -106,6 +124,16 @@ In our code we shouldn't add the files, which we can re-generate in future e.g, 
 A: Both of these files have the same format, and perform similar functions in the root of a project. The difference is that `package-lock. json` cannot be published, and it will be ignored if found in any place other than the root project.
 
 The package. json is used for more than dependencies - like defining project properties, description, author & license information, scripts, etc. The package-lock. json is solely used to lock dependencies to a specific version number.
+
+The difference between `package.json` and `package-lock.json` in short:  
+
+- **`package.json`**: Defines the dependencies and scripts for a project. It lists packages with flexible versions (e.g., `"react": "^18.0.0"` allows updates).  
+- **`package-lock.json`**: Locks the exact versions of installed dependencies to ensure consistency across environments. It guarantees that everyone using the project gets the same package versions.  
+
+👉 **Use case:**  
+- `package.json` is for managing dependencies.  
+- `package-lock.json` ensures the same dependencies are installed everywhere.  
+
 
 ## Q: Why should I not modify `package-lock.json`?
 
