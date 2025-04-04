@@ -1,0 +1,17 @@
+/* src/components/ProfileCard.module.css */
+
+.profileCard {
+background-color: #18afe1; 
+color: white;
+padding: 20px;
+margin-bottom: 15px;
+border-radius: 8px;
+text-align: center;
+}
+.profileCard h3 {
+margin-top: 0;
+margin-bottom: 10px;
+}
+.profileCard p {
+margin-bottom: 0;
+}
