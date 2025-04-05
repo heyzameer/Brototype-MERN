@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./ProfileCard.module.css"; // Import CSS Module for styling
+import  "./profil.css"; // Import CSS Module for styling
 function ProfileCard({ name, email }) {
   return (
-    <div className={styles.profileCard}>
+    <div className="profileCard">
       {" "}
       {/* Use styles.profileCard */}
       <h3>{name}</h3>
