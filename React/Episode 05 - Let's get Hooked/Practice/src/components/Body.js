@@ -1,11 +1,20 @@
-import { useState } from 'react';
-import RestaurantCard from './RestaurantCard';
-import resList from '../utils/mockData';
+import { useState } from "react";
+import RestaurantCard from "./RestaurantCard";
+import resList from "../utils/mockData";
 
 const Body = () => {
   // * React Hook -> A normal JavaScript function which is given to us by React (or) Normal JS utility functions
+
+  //*React Hooks are functions that let you use state and other React features in functional components.
+
+  // * In React, state is an object that holds data or information about a component and determines how that component behaves or renders
+
+  // * In React, **props** (short for "properties") are read-only inputs passed from a parent component to a child component to customize or configure it.
+
   // * useState() - Super Powerful variable
-  // * useEffect() -
+  // * useEffect() - 
+
+  //* wheneever state variable changes react re renders the component
 
   // * State variable - Super Powerful variable
   const [listOfRestaurants, setListOfRestaurants] = useState(resList);
