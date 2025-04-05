@@ -896,104 +896,86 @@ Vite (pronounced "veet") is a next-generation frontend tooling that provides a s
     ```
     In this example, when the user clicks the "Home" link, the URL changes to `/`, and the `Home` component is rendered. Similarly, clicking "About" changes the URL to `/about` and renders the `About` component, all without a full page reload.
 
+
+
+
+
+
+---
+
+### 🤔 What does the second argument in `useEffect` do?
+
+It's the **dependency array**, and it controls **when** the `useEffect` runs.
+
+---
+
+## ✅ 1. **Empty Dependency Array** `[]`
+
 ```js
-import { useState } from "react";
-import "./App.css";
-
-const TodoApp = () => {
-  // Main component for TodoApp that manages tasks and their interactions (add, edit, delete, complete)
-  const [tasks, setTasks] = useState([]);  // State to store the list of tasks
-  const [newTask, setNewTask] = useState("");  // State to store the new task input
-  const [editIndex, setEditIndex] = useState(null);  // State to track the index of the task being edited
-  const [editTask, setEditTask] = useState("");  // State to store the task being edited
-
-  // Adds a new task to the list
-  const handleAddTask = () => {
-    if (newTask) {
-      setTasks([...tasks, { text: newTask, completed: false }]);  // Add task with text and completed status
-      setNewTask("");  // Clear input field after adding the task
-    }
-  };
-
-  // Deletes a task based on the index
-  const handleDeleteTask = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);  // Remove the task at the specified index
-    setTasks(updatedTasks);  // Update the tasks list
-  };
-
-  // Sets up the task for editing by saving its index and content
-  const handleEditTask = (index) => {
-    setEditIndex(index);  // Save the index of the task being edited
-    setEditTask(tasks[index].text);  // Set the text of the task being edited
-  };
-
-  // Saves the edited task and updates the task list
-  const handleSaveEdit = () => {
-    const updatedTasks = tasks.map((task, index) =>
-      index === editIndex ? { ...task, text: editTask } : task  // Update the task text at the edit index
-    );
-    setTasks(updatedTasks);  // Update tasks state
-    setEditIndex(null);  // Reset edit mode after saving
-    setEditTask("");  // Clear the edit input
-  };
-
-  // Marks a task as completed or incomplete
-  const handleCompleteTask = (index) => {
-    const updatedTasks = tasks.map((task, i) =>
-      i === index ? { ...task, completed: !task.completed } : task  // Toggle completed status
-    );
-    setTasks(updatedTasks);  // Update the tasks list
-  };
-
-  return (
-    <div className="todo-app">
-      {/* Main UI rendering for adding/editing tasks and displaying the task list */}
-      <h1>Todo App</h1>
-      <div className="input-section">
-        {/* Conditional rendering between adding and editing a task */}
-        {editIndex === null ? (
-          <input
-            type="text"
-            placeholder="Add new task"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}  // Update the newTask state on input change
-          />
-        ) : (
-          <input
-            type="text"
-            value={editTask}
-            onChange={(e) => setEditTask(e.target.value)}  // Update the editTask state on input change
-          />
-        )}
-        <button onClick={editIndex === null ? handleAddTask : handleSaveEdit}>
-          {/* Button text switches between Add and Save Edit */}
-          {editIndex === null ? "Add Task" : "Save Edit"}
-        </button>
-      </div>
-      <ul className="task-list">
-        {/* Rendering each task dynamically */}
-        {tasks.map((task, index) => (
-          <li key={index} className={`task-item ${task.completed ? "completed" : ""}`}>
-            <span>{task.text}</span>
-            <div className="buttons">
-              <button onClick={() => handleEditTask(index)}>Edit</button>
-              <button onClick={() => handleDeleteTask(index)}>Delete</button>
-              <button onClick={() => handleCompleteTask(index)}>
-                {task.completed ? "Undo" : "Complete"}
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export default TodoApp;
-
-
-.completed {
-  text-decoration: line-through;
-  color: gray;
-}
+useEffect(() => {
+  console.log("Runs only once (on mount)");
+}, []);
 ```
+
+**Behavior:**  
+- Runs **once** when the component mounts
+- Never runs again
+- Commonly used for setup code (e.g. fetch data, start a timer)
+
+---
+
+## ✅ 2. **No Dependency Array**
+
+```js
+useEffect(() => {
+  console.log("Runs after every render");
+});
+```
+
+**Behavior:**  
+- Runs **after every render** (initial + all updates)
+- Be careful! Can lead to performance issues if heavy logic is inside
+
+---
+
+## ✅ 3. **With Dependencies** `[someState, someProp]`
+
+```js
+useEffect(() => {
+  console.log("Runs on mount + when someState or someProp changes");
+}, [someState, someProp]);
+```
+
+**Behavior:**
+- Runs on **first render**
+- Re-runs **whenever one of the dependencies changes**
+
+---
+
+### 🔁 Cleanup Example (with dependency):
+```js
+useEffect(() => {
+  const id = setInterval(() => {
+    console.log("Tick");
+  }, 1000);
+
+  return () => clearInterval(id); // cleanup
+
+}, []); // only starts once, cleans up on unmount
+```
+
+If you had a dependency inside like `[count]`, the effect would **re-run** every time `count` changes, and the previous interval would be cleared and reset.
+
+---
+
+### ⚠️ Summary
+
+| Dependency Array | Runs When? |
+|------------------|------------|
+| `[]`             | Once on mount |
+| none             | After **every render** |
+| `[a, b]`         | On mount + whenever `a` or `b` changes |
+
+---
+
+Let me know if you want to play with examples or get into cleanup, timers, or API calls!

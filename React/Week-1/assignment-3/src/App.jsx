@@ -6,6 +6,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const fetchUser = async (userId) => {
     setLoading(true);
     setError(null);
@@ -25,9 +26,11 @@ function App() {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchUser(count);
   }, [count]);
+  
   const incrementCount = () => {
     setCount((prevCount) => prevCount + 1);
   };
