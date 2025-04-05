@@ -6,65 +6,78 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
+  background-color: #f7f7f7; /* Light gray background */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Align to top to see shadow better */
   min-height: 100vh;
+  padding-top: 50px; /* Add some padding from the top */
 }
 
 .todo-app {
-  background-color: #fff;
+  background-color: #fff; /* White background for the app container */
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 350px;
-  max-width: 100%;
+  border-radius: 10px; /* Rounded corners for the container */
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1); /* Softer, larger shadow */
+  width: 100%; /* Responsive width */
+  max-width: 400px; /* Max width to prevent it getting too large */
 }
 
 h1 {
   text-align: center;
   color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 28px; /* Slightly larger font size for title */
+  margin-bottom: 25px; /* Increased space below title */
+  font-weight: bold; /* Make title bold */
 }
 
 .input-section {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  gap: 10px; /* Space between input and button */
+  margin-bottom: 25px; /* Increased space below input section */
 }
 
-input {
-  width: 75%;
+input[type="text"] { /* Target text input specifically */
+  flex-grow: 1; /* Allow input to take up remaining space */
   padding: 12px 15px;
   font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid #ddd; /* Light border for input */
+  border-radius: 6px; /* Rounded corners for input */
   outline: none;
   transition: border-color 0.3s;
 }
 
-input:focus {
-  border-color: #4caf50;
+input[type="text"]:focus {
+  border-color: #5cb85c; /* Use a green similar to the button for focus */
 }
 
+/* General button styles - base */
 button {
-  padding: 12px 20px;
+  padding: 12px 15px; /* Default padding */
   font-size: 16px;
   cursor: pointer;
-  background-color: #4caf50;
-  color: white;
   border: none;
-  border-radius: 6px;
-  transition: background-color 0.3s;
-  min-width: 100px;
-  margin-left: 10px;
+  border-radius: 6px; /* Rounded corners for buttons */
+  transition: background-color 0.3s, opacity 0.3s;
+  color: white; /* White text for buttons */
+  white-space: nowrap; /* Prevent text wrapping */
+  background-color: #42c942;
+}
+button:hover {
+  opacity: 0.9; /* Slight fade effect on hover */
 }
 
-button:hover {
-  background-color: #45a049;
+/* Specific style for the Add Task button */
+.add-task-btn {
+  background-color: #0ef20e; /* Green color for Add Task button */
+  padding: 12px 20px; /* Adjust padding as needed */
+  /* flex-grow: 0; */ /* Don't allow add button to grow */
+  /* flex-shrink: 0; */ /* Don't allow add button to shrink */
+}
+
+.add-task-btn:hover {
+  background-color: #4cae4c; /* Darker green on hover */
+  opacity: 1; /* Override general hover opacity if changing background */
 }
 
 ul {
@@ -74,54 +87,67 @@ ul {
 
 .task-item {
   display: flex;
-  flex-direction: column; /* Stack task text on top */
-  justify-content: flex-start;
-  align-items: flex-start;
-  background-color: #fafafa;
-  margin-bottom: 12px;
-  padding: 12px 15px;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  flex-direction: column; /* Stack task text above buttons */
+  align-items: flex-start; /* Align items to the start */
+  background-color: #dcd5d5; /* White background for task items */
+  margin-bottom: 15px; /* Space between task items */
+  padding: 15px; /* Padding inside task items */
+  border-radius: 8px; /* Rounded corners for task items */
+  border: 1px solid #eee; /* Lighter border for task items */
+  width: 100%; /* Ensure task item takes full width */
 }
 
 .task-item span {
   font-size: 16px;
   color: #333;
-  margin-bottom: 12px; /* Space between task text and buttons */
+  margin-bottom: 15px; /* Space between task text and buttons */
+  word-break: break-all; /* Prevent long text from overflowing */
 }
 
 .buttons {
   display: flex;
-  justify-content: space-between; /* Make buttons side by side */
-  width: 100%; /* Make buttons fill the available width */
-  gap: 10px; /* Space between buttons */
+  justify-content: space-between; /* Distribute buttons evenly */
+  width: 100%; /* Make button container take full width */
+  gap: 10px; /* Space between the buttons */
 }
 
+/* Styles for buttons within a task item (Edit, Delete, Complete) */
 .task-item button {
-  background-color: #ff6347;
-  padding: 8px 12px;
-  font-size: 14px;
-  width: 48%; /* Make the buttons take up equal space */
+  background-color: #ff6347; /* Coral/Orange color */
+  padding: 8px 10px; /* Smaller padding for these buttons */
+  font-size: 14px; /* Smaller font size */
+  flex: 1; /* Allow buttons to grow equally to fill space */
+  text-align: center;
 }
 
 .task-item button:hover {
-  background-color: #e53e3e;
+  background-color: #e5533d; /* Darker coral/orange on hover */
+  opacity: 1; /* Override general hover opacity */
 }
 
+
 @media (max-width: 480px) {
+  body {
+    padding-top: 20px; /* Less padding on small screens */
+  }
   .todo-app {
-    width: 90%;
-    padding: 20px;
+    width: 90%; /* Use more screen width */
+    padding: 20px; /* Reduce padding */
   }
 
-  input {
-    width: 60%;
+  /* Keep input and button side-by-side if possible, adjust sizes */
+  input[type="text"] {
+     padding: 10px 12px;
+     font-size: 14px;
   }
 
-  button {
-    width: 30%;
-    font-size: 14px;
-    padding: 10px;
+  .add-task-btn {
+     padding: 10px 15px;
+     font-size: 14px;
+  }
+
+  .task-item button {
+      font-size: 12px; /* Even smaller font on task buttons */
+      padding: 7px 8px; /* Adjust padding */
   }
 }

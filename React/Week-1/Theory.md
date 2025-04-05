@@ -896,3 +896,104 @@ Vite (pronounced "veet") is a next-generation frontend tooling that provides a s
     ```
     In this example, when the user clicks the "Home" link, the URL changes to `/`, and the `Home` component is rendered. Similarly, clicking "About" changes the URL to `/about` and renders the `About` component, all without a full page reload.
 
+```js
+import { useState } from "react";
+import "./App.css";
+
+const TodoApp = () => {
+  // Main component for TodoApp that manages tasks and their interactions (add, edit, delete, complete)
+  const [tasks, setTasks] = useState([]);  // State to store the list of tasks
+  const [newTask, setNewTask] = useState("");  // State to store the new task input
+  const [editIndex, setEditIndex] = useState(null);  // State to track the index of the task being edited
+  const [editTask, setEditTask] = useState("");  // State to store the task being edited
+
+  // Adds a new task to the list
+  const handleAddTask = () => {
+    if (newTask) {
+      setTasks([...tasks, { text: newTask, completed: false }]);  // Add task with text and completed status
+      setNewTask("");  // Clear input field after adding the task
+    }
+  };
+
+  // Deletes a task based on the index
+  const handleDeleteTask = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);  // Remove the task at the specified index
+    setTasks(updatedTasks);  // Update the tasks list
+  };
+
+  // Sets up the task for editing by saving its index and content
+  const handleEditTask = (index) => {
+    setEditIndex(index);  // Save the index of the task being edited
+    setEditTask(tasks[index].text);  // Set the text of the task being edited
+  };
+
+  // Saves the edited task and updates the task list
+  const handleSaveEdit = () => {
+    const updatedTasks = tasks.map((task, index) =>
+      index === editIndex ? { ...task, text: editTask } : task  // Update the task text at the edit index
+    );
+    setTasks(updatedTasks);  // Update tasks state
+    setEditIndex(null);  // Reset edit mode after saving
+    setEditTask("");  // Clear the edit input
+  };
+
+  // Marks a task as completed or incomplete
+  const handleCompleteTask = (index) => {
+    const updatedTasks = tasks.map((task, i) =>
+      i === index ? { ...task, completed: !task.completed } : task  // Toggle completed status
+    );
+    setTasks(updatedTasks);  // Update the tasks list
+  };
+
+  return (
+    <div className="todo-app">
+      {/* Main UI rendering for adding/editing tasks and displaying the task list */}
+      <h1>Todo App</h1>
+      <div className="input-section">
+        {/* Conditional rendering between adding and editing a task */}
+        {editIndex === null ? (
+          <input
+            type="text"
+            placeholder="Add new task"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}  // Update the newTask state on input change
+          />
+        ) : (
+          <input
+            type="text"
+            value={editTask}
+            onChange={(e) => setEditTask(e.target.value)}  // Update the editTask state on input change
+          />
+        )}
+        <button onClick={editIndex === null ? handleAddTask : handleSaveEdit}>
+          {/* Button text switches between Add and Save Edit */}
+          {editIndex === null ? "Add Task" : "Save Edit"}
+        </button>
+      </div>
+      <ul className="task-list">
+        {/* Rendering each task dynamically */}
+        {tasks.map((task, index) => (
+          <li key={index} className={`task-item ${task.completed ? "completed" : ""}`}>
+            <span>{task.text}</span>
+            <div className="buttons">
+              <button onClick={() => handleEditTask(index)}>Edit</button>
+              <button onClick={() => handleDeleteTask(index)}>Delete</button>
+              <button onClick={() => handleCompleteTask(index)}>
+                {task.completed ? "Undo" : "Complete"}
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default TodoApp;
+
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+```
