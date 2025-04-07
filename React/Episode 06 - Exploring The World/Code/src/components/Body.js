@@ -20,33 +20,38 @@ const Body = () => {
     fetchData();
   }, []);
 
-  // --- Hardcoded Data (Keep as is for now) ---
-
+ 
 
   const fetchData = async () => {
     // In a real app, fetch from API:
-    // try {
-    //   const response = await fetch('YOUR_API_ENDPOINT');
-    //   if (!response.ok) throw new Error('Network response was not ok');
-    //   const json = await response.json();
-    //   // --- IMPORTANT: Extract the actual restaurant array from the API response ---
-    //   // This path might differ based on the real API structure
-    //   const restaurants = json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants || []; 
-    //   setListOfRestaurants(restaurants);
-    //   setFilteredRestaurant(restaurants); // Initialize displayed list with all restaurants
-    // } catch (error) {
-    //   console.error("Failed to fetch restaurants:", error);
-    //   // Handle error state if needed
-    //   setListOfRestaurants([]);
-    //   setFilteredRestaurant([]);
-    // }
+    try {
+    
+        const data = await fetch(
+          'https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING'
+        );
+      
+        const json = await data.json();
+        // console.log(json);
+
+        // console.log(json?.data?.cards?.[1].card?.card?.gridElements?.infoWithStyle?.restaurants?.[0]?.info?.name);
+        const data2 = json?.data?.cards?.[1].card?.card?.gridElements?.infoWithStyle?.restaurants;
+        console.log(data2)
+        setListOfRestaurants(data2);
+      setFilteredRestaurant(data2);
+      
+    }catch (error) {
+      console.error("Failed to fetch restaurants:", error);
+      // Handle error state if needed
+      setListOfRestaurants([]);
+      setFilteredRestaurant([]);
+    }
 
     // Using hardcoded data for now:
-    console.log("Using hardcoded data");
+    // console.log("Using hardcoded data");
     // Make sure resList contains the correct structure if you copy-pasted
     // It looks like each item in your resList IS the restaurant object needed.
-    setListOfRestaurants(resList);
-    setFilteredRestaurant(resList); // Initialize displayed list with all restaurants
+    // setListOfRestaurants(resList);
+    // setFilteredRestaurant(resList); // Initialize displayed list with all restaurants
   };
 
   // --- Search Handler ---
@@ -54,7 +59,7 @@ const Body = () => {
     console.log('Searching for:', searchText);
     const filtered = listOfRestaurants.filter((res) =>
       // Safely access nested properties with optional chaining (?.)
-      res?.data?.name?.toLowerCase().includes(searchText.toLowerCase())
+      res?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredRestaurant(filtered); // Update the DISPLAYED list
   };
@@ -64,7 +69,7 @@ const Body = () => {
     console.log('Filtering top rated');
     const filtered = listOfRestaurants.filter(
       // Convert avgRating to number for comparison if it's a string
-      (res) => parseFloat(res?.data?.avgRating) > 4 
+      (res) => parseFloat(res?.info?.avgRating) > 4.5 
     );
     setFilteredRestaurant(filtered); // Update the DISPLAYED list
   };
@@ -134,7 +139,7 @@ const Body = () => {
         ) : (
           filteredRestaurant.map((restaurant) => (
             // Ensure resData gets the nested data object RestaurantCard expects
-            <RestaurantCard key={restaurant?.data?.id} resData={restaurant} /> 
+            <RestaurantCard key={restaurant?.info?.id} resData={restaurant} /> 
           ))
         )}
       </div>

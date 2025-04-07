@@ -79,9 +79,12 @@
   text-align: left;
 }
 
+
 .res-logo {
   width: 100%;
   border-radius: 10px 10px 0 0;
+  object-fit: cover;
+  height: 200px;
 }
 
 .res-logo:hover {
