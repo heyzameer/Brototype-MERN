@@ -21,7 +21,7 @@ const RestaurantCard = (props) => {
     >
       <img
         className="res-logo"
-        src={CDN_URL + cloudinaryImageId}
+        src={'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_600/FOOD_CATALOG/IMAGES/CMS/2024/11/21/3062f0b8-3085-4312-aadf-d213b7ef3697_410b262c-4b77-4f63-886c-4287146c585e.jpg'}
         alt="Biryani"
       />
 
