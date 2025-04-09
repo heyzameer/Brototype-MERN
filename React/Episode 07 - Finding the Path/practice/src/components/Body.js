@@ -15,7 +15,10 @@ const Body = () => {
 
   // console.log('Body rendered'); // Optional: for debugging re-renders
 
-  // Fetch data only on initial mount
+  // if no dependepnct array it render every time  compnent render
+  // if empty [] only once in the initiaL STAGE 
+  // [dependecy] only if dependency changes.Props Functions Derived values useState` values 
+
   useEffect(() => {
     fetchData();
   }, []);
