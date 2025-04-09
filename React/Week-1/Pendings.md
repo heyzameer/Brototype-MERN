@@ -36,3 +36,16 @@ Here are the React topics from the list, ordered from basic to advanced:
 34. React concurrent
 35. Latest features in React
 36. How to prevent entire right click events from the react app
+
+- When and why do we need `lazy()`?
+- What is `suspense`?
+- Why we got this `error`: A component was suspended while responding to `synchronous input`. This will cause the `UI` to be replaced with a `loading indicator`. To `fix this`, `updates that suspend` should be wrapped with `start transition`? How does `suspense fix` this error?
+- `Advantages and Disadvantages` of using this `code splitting pattern`?
+- When `do we and why do we need suspense`?
+
+
+
+- What is prop drilling?
+- What is lifting the state up?
+- What are Context Provider and Context Consumer?
+- If you don't pass a value to the provider does it take the default value?

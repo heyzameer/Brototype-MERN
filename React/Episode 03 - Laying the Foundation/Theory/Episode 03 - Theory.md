@@ -6,6 +6,7 @@
 
 A: JSX stands for JavaScript XML.
 JSX allows us to write HTML elements in JavaScript and place them in the DOM without any createElement() and/or appendChild() methods.
+
 JSX makes it easier to write and add HTML in React.
 JSX converts HTML tags into react elements.
 

@@ -33,11 +33,15 @@ useEffect accepts `two arguments`, a `callback function` and a `dependency array
 
 ```
 useEffect(() => {}, [])
-```
+``
+`
+useEffect is a React Hook that lets you run side effects (like data fetching, DOM updates, subscriptions) in function components after rendering.
 
 The `() => {}` is callback function and `[]` is called a empty dependency array.
 If anything that we pass (suppose currentState) inside the `[]` it trigger the callback function and changes the state of the application.
-
+  // if no dependepnct array it render every time  compnent render
+  // if empty [] only once in the initiaL STAGE 
+  // [dependecy] only if dependency changes.Props Functions Derived values useState` values 
 ```
 useEffect(() => {
     setCurrentState("true");
@@ -46,7 +50,7 @@ useEffect(() => {
 
 If we do not pass empty dependency array then the useEffect runs everytime when the UI is rendered.
 
-```
+```js
 useEffect(() => {})
 ```
 
@@ -98,6 +102,8 @@ A: `Conditional rendering` in React works the same way conditions work in `JavaS
 // Using Logical &&
 {isLoggedIn && <button>Logout</button>}
 ```
+***Dynamic Rendering:**
+Rendering content dynamically based on data or props (like rendering lists, or content fetched from APIs).
 
 ## Q: What is `CORS`?
 

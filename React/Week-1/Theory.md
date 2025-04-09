@@ -8,6 +8,8 @@ You're right! Vite has become the modern and recommended way to quickly bootstra
 
 Vite (pronounced "veet") is a next-generation frontend tooling that provides a significantly faster and leaner development experience for modern web projects. It leverages native ES Modules in the browser during development, eliminating the need for bundling. For production, it bundles your code with Rollup, which is known for its efficient code splitting.
 
+Vite is a fast frontend build tool that uses native ES modules in development and bundles code with lightning speed for production.
+
 **Advantages of Vite over CRA:**
 
 *   **Fast Development Server:** Vite utilizes native browser ES Modules, meaning your code isn't bundled during development. This results in incredibly fast server startup times (often under a second) and near-instantaneous Hot Module Replacement (HMR). CRA, on the other hand, needs to bundle your entire application before the development server starts, leading to longer wait times, especially in larger projects.
@@ -1104,3 +1106,1278 @@ If you had a dependency inside like `[count]`, the effect would **re-run** every
 ---
 
 Let me know if you want to play with examples or get into cleanup, timers, or API calls!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+Great! Let’s begin from the top of your list and go step by step:
+
+---
+
+### **1. One-Way Data Binding**
+
+**Definition:**  
+One-way data binding means that data flows in one direction — from the parent component to the child component via props. The child cannot directly modify the parent’s state.
+
+**Explanation:**  
+React uses one-way data binding to ensure that the UI is always consistent with the underlying data. It improves predictability and debugging.
+
+**Example:**
+```jsx
+function Parent() {
+  const message = "Hello from Parent!";
+  return <Child text={message} />;
+}
+
+function Child({ text }) {
+  return <p>{text}</p>; // Displays "Hello from Parent!"
+}
+```
+
+In this case, the `Child` receives data via props. It cannot modify the value of `message`.
+
+---
+
+
+### **2. Conditional Rendering / Dynamic Rendering**
+
+**Definition:**  
+Conditional rendering in React allows you to render different UI elements based on certain conditions (like boolean values, state, etc.).
+
+**Explanation:**  
+This can be achieved using JavaScript operators like `if`, `ternary operators`, or `&&` for rendering certain parts of the UI conditionally.
+
+**Example:**
+```jsx
+function Greeting({ isLoggedIn }) {
+  return (
+    <div>
+      {isLoggedIn ? <h1>Welcome Back!</h1> : <h1>Please Log In</h1>}
+    </div>
+  );
+}
+```
+In this example, `Greeting` component will render either "Welcome Back!" or "Please Log In" depending on the `isLoggedIn` prop.
+
+---
+
+### **3. Controlled vs Uncontrolled Component**
+
+**Definition:**  
+- **Controlled Component:** The component’s state is controlled by React (via `useState` or `this.setState`).
+- **Uncontrolled Component:** The component’s state is controlled by the DOM, and you use refs to interact with the element directly.
+
+**Explanation:**
+- **Controlled Components** are preferred because React manages the state, making it predictable.
+- **Uncontrolled Components** allow you to interact with form elements directly without keeping their state in React.
+
+**Example (Controlled Component):**
+```jsx
+function ControlledInput() {
+  const [value, setValue] = useState("");
+
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+}
+```
+
+**Example (Uncontrolled Component):**
+```jsx
+function UncontrolledInput() {
+  const inputRef = useRef();
+
+  const handleSubmit = () => {
+    alert('Input value is: ' + inputRef.current.value);
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+}
+```
+
+---
+
+### **4. Immutability of State**
+
+**Definition:**  
+In React, state is treated as immutable. When you update the state, you should not directly modify it but instead create a new copy with updated values.
+
+**Explanation:**  
+Immutability ensures that React can detect changes and re-render components efficiently. It prevents side-effects and makes state transitions predictable.
+
+**Example:**
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1); // Don't modify `count` directly
+  };
+
+  return <button onClick={increment}>Count: {count}</button>;
+}
+```
+
+---
+
+### **5. Synthetic Events**
+
+**Definition:**  
+Synthetic events are React’s cross-browser wrapper around the native DOM events. They normalize event handling across different browsers.
+
+**Explanation:**  
+React wraps the native browser events into a synthetic event, which helps handle events in a consistent manner. It also includes methods like `.preventDefault()` and `.stopPropagation()`.
+
+**Example:**
+```jsx
+function ButtonClick() {
+  const handleClick = (event) => {
+    alert('Button clicked!');
+    event.preventDefault();
+  };
+
+  return <button onClick={handleClick}>Click Me</button>;
+}
+```
+
+---
+
+### **6. Pass Data from Child to Parent**
+
+**Definition:**  
+To pass data from a child component to a parent component, you need to use a function in the parent passed down as a prop.
+
+**Explanation:**  
+In React, data flows from parent to child via props, but if you want to pass data from child to parent, you can use a callback function in the parent and pass it to the child.
+
+**Example:**
+```jsx
+function Parent() {
+  const [message, setMessage] = useState("");
+
+  const handleMessage = (msg) => {
+    setMessage(msg);
+  };
+
+  return <Child sendMessage={handleMessage} />;
+}
+
+function Child({ sendMessage }) {
+  return (
+    <div>
+      <button onClick={() => sendMessage("Hello from Child!")}>
+        Send Message to Parent
+      </button>
+    </div>
+  );
+}
+```
+
+---
+
+### **7. Purpose of Using Spread Operator When Updating (React)**
+
+**Definition:**  
+The spread operator (`...`) is used to create a shallow copy of an object or array, allowing you to update specific properties without mutating the original state.
+
+**Explanation:**  
+React requires immutability, and using the spread operator helps you create a new state object or array with updated values, which triggers re-rendering.
+
+**Example:**
+```jsx
+function TodoList() {
+  const [todos, setTodos] = useState([{ id: 1, text: "Learn React" }]);
+
+  const updateTodo = (id, newText) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, text: newText } : todo
+      )
+    );
+  };
+
+  return (
+    <div>
+      {todos.map((todo) => (
+        <div key={todo.id}>
+          {todo.text}
+          <button onClick={() => updateTodo(todo.id, "Updated text")}>
+            Update
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+---
+
+### **8. PropTypes**
+
+**Definition:**  
+`PropTypes` is a runtime type-checking feature for React props. It helps ensure that the props passed to a component are of the expected type.
+
+**Explanation:**  
+It provides an easy way to validate that the correct type of data is passed to a component, which helps prevent bugs in the application.
+
+**Example:**
+```jsx
+import PropTypes from 'prop-types';
+
+function Greeting({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
+
+Greeting.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+```
+
+---
+
+### **9. Hooks, Custom Hooks**
+
+**Definition:**  
+- **Hooks** are functions that allow you to "hook into" React state and lifecycle features from function components.
+- **Custom Hooks** are user-defined hooks that allow you to reuse stateful logic.
+
+**Explanation:**  
+Hooks like `useState`, `useEffect`, `useContext`, etc., are used to manage state, side effects, and context in function components. Custom hooks are built to encapsulate logic that can be shared between multiple components.
+
+**Example (useState Hook):**
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;
+}
+```
+
+**Example (Custom Hook):**
+```jsx
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    const item = window.localStorage.getItem(key);
+    return item ? JSON.parse(item) : initialValue;
+  });
+
+  const setValue = (value) => {
+    setStoredValue(value);
+    window.localStorage.setItem(key, JSON.stringify(value));
+  };
+
+  return [storedValue, setValue];
+}
+```
+
+---
+
+### **10. Rules of Using Hooks / Why Can't Hooks Be Used in Conditions/Branching Statements**
+
+**Definition:**  
+Hooks must always be called at the top level of the component or in custom hooks. They should not be called conditionally or inside loops or nested functions.
+
+**Explanation:**  
+React relies on the order in which hooks are called to maintain the correct state between renders. If hooks are called conditionally, React cannot guarantee the correct order of execution.
+
+**Example:**
+```jsx
+function Example() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  if (isLoggedIn) {
+    const [count, setCount] = useState(0); // Incorrect: hook called conditionally
+  }
+
+  return <button onClick={() => setIsLoggedIn(!isLoggedIn)}>Toggle</button>;
+}
+```
+
+---
+
+### **11. Lifecycle Events in Functional Components / Unmounting in Functional Component (`useEffect` Basics, Cleanup)**
+
+**Definition:**  
+Lifecycle events in functional components are handled using the `useEffect` hook, which allows you to perform side effects such as fetching data, subscribing to events, or cleaning up resources when the component unmounts.
+
+**Explanation:**  
+- **Mounting**: Runs when the component is added to the DOM.
+- **Updating**: Runs when the component state or props change.
+- **Unmounting**: Runs when the component is removed from the DOM (cleanup).
+
+**Example:**
+```jsx
+import { useEffect } from "react";
+
+function Timer() {
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      console.log("Timer running...");
+    }, 1000);
+
+    // Cleanup function (unmounting)
+    return () => {
+      clearInterval(timerId);
+      console.log("Timer cleaned up");
+    };
+  }, []); // Empty dependency array ensures this runs once
+
+  return <div>Timer is running...</div>;
+}
+```
+
+---
+
+
+---
+
+### **12. Limitations of Functional Components**
+
+**Definition:**  
+Functional components in React have some limitations compared to class components, especially in earlier versions of React. However, with the introduction of hooks, functional components can do almost everything class components can.
+
+**Explanation:**  
+Before hooks, functional components did not have built-in state management or lifecycle methods. With hooks, these limitations were lifted, but there are still some nuances:
+- Functional components are less optimized when managing more complex state or side effects without hooks.
+- No error boundaries in functional components until React 16.8.
+
+**Example (Before hooks, using class components for state management):**
+```jsx
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
+
+  increment = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  render() {
+    return <button onClick={this.increment}>Count: {this.state.count}</button>;
+  }
+}
+```
+
+With hooks, this can now be done in a functional component:
+```jsx
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;
+}
+```
+
+---
+
+### **13. Pure Components / Creating a Pure Component / React.memo**
+
+**Definition:**  
+- **Pure Components:** A React component that only re-renders when its props or state change.
+- **React.memo:** A higher-order component that prevents unnecessary re-renders of functional components.
+
+**Explanation:**  
+- **PureComponent** in class components automatically performs a shallow comparison of props and state. It re-renders only if the props or state change.
+- `React.memo` in functional components works similarly by memoizing the result of a component's render to avoid re-rendering if the props haven't changed.
+
+**Example (PureComponent):**
+```jsx
+class PureCounter extends React.PureComponent {
+  render() {
+    return <button>{this.props.count}</button>;
+  }
+}
+```
+
+**Example (React.memo):**
+```jsx
+const PureCounter = React.memo(function PureCounter({ count }) {
+  return <button>{count}</button>;
+});
+```
+
+---
+
+### **14. `useRef` (Advantages, Accessing Uncontrolled Elements, Changing/Modifying Value, vs Regular Variable)**
+
+**Definition:**  
+`useRef` is a hook in React that returns a mutable object which persists for the lifetime of the component. It is used to access DOM elements directly and store mutable values without causing a re-render.
+
+**Explanation:**  
+- `useRef` can store a reference to a DOM element or a mutable value that doesn't trigger re-renders when changed.
+- Unlike regular state variables, changes in `useRef` don't cause the component to re-render.
+
+**Example (Accessing DOM Element):**
+```jsx
+function FocusInput() {
+  const inputRef = useRef();
+
+  const focusInput = () => {
+    inputRef.current.focus(); // Focus the input element
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+**Example (Storing a mutable value):**
+```jsx
+function Timer() {
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      countRef.current += 1; // Updates ref without re-rendering
+      console.log(countRef.current);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return <div>Check the console for count.</div>;
+}
+```
+
+---
+
+### **15. `useMemo`**
+
+**Definition:**  
+`useMemo` is a hook that memoizes the result of a computation, recomputing it only when the dependencies change. This optimizes performance by avoiding expensive re-calculations on every render.
+
+**Explanation:**  
+`useMemo` returns a memoized value, which can help optimize performance for expensive calculations. It's similar to `React.memo`, but works on values instead of components.
+
+**Example:**
+```jsx
+import { useMemo } from "react";
+
+function ExpensiveComputation({ number }) {
+  const compute = useMemo(() => {
+    return number * 2; // Expensive computation
+  }, [number]);
+
+  return <div>Result: {compute}</div>;
+}
+```
+
+---
+
+### **16. `useMemo` Dependency**
+
+**Definition:**  
+`useMemo` accepts a second argument, which is a dependency array. This array tells React when to recompute the memoized value.
+
+**Explanation:**  
+`useMemo` only recomputes the result when the values inside the dependency array change. If the dependencies stay the same, the previously memoized value is returned.
+
+**Example:**
+```jsx
+import { useMemo } from "react";
+
+function ExpensiveComputation({ number }) {
+  const compute = useMemo(() => {
+    console.log('Computing...');
+    return number * 2; // Expensive computation
+  }, [number]); // Recomputes only when `number` changes
+
+  return <div>Result: {compute}</div>;
+}
+```
+
+---
+
+### **17. `useLayoutEffect`**
+
+**Definition:**  
+`useLayoutEffect` is similar to `useEffect`, but it fires synchronously after all DOM mutations, ensuring that the DOM is updated before the browser paints the screen.
+
+**Explanation:**  
+This hook is useful when you need to measure the DOM before painting, such as for animations or layout adjustments.
+
+**Example:**
+```jsx
+import { useLayoutEffect, useState } from "react";
+
+function LayoutEffectExample() {
+  const [width, setWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Set initial width
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return <div>Window width: {width}</div>;
+}
+```
+
+---
+
+### **18. Render Props**
+
+**Definition:**  
+A pattern where a component uses a function as a prop to share dynamic data with a child component.
+
+**Explanation:**  
+The component that uses the render prop gives access to data, and the child component can render content based on that data.
+
+**Example:**
+```jsx
+function MouseTracker({ render }) {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  return render(mousePosition);
+}
+
+function App() {
+  return (
+    <MouseTracker
+      render={({ x, y }) => <div>Mouse position: {x}, {y}</div>}
+    />
+  );
+}
+```
+
+---
+
+### **19. HOC (Higher-Order Component) / Create Props Proxy for HOC**
+
+**Definition:**  
+A **Higher-Order Component (HOC)** is a function that takes a component and returns a new component with additional props or functionality.
+
+**Explanation:**  
+HOCs allow code reuse and abstraction. Common examples include `withRouter` in React Router or `connect` in Redux.
+
+**Example (HOC):**
+```jsx
+function withExtraInfo(Component) {
+  return function (props) {
+    return <Component {...props} extraInfo="Extra data" />;
+  };
+}
+
+function DisplayInfo({ extraInfo }) {
+  return <div>{extraInfo}</div>;
+}
+
+const EnhancedComponent = withExtraInfo(DisplayInfo);
+```
+
+---
+
+### **20. `forwardRef`**
+
+**Definition:**  
+`forwardRef` is a React function used to pass refs to a child component.
+
+**Explanation:**  
+`forwardRef` is useful when you need to forward a ref through a component to one of its children.
+
+**Example:**
+```jsx
+const Button = React.forwardRef((props, ref) => (
+  <button ref={ref} {...props}>
+    {props.children}
+  </button>
+));
+
+const App = () => {
+  const buttonRef = useRef();
+  
+  return <Button ref={buttonRef}>Click me</Button>;
+};
+```
+
+---
+
+### **21. `dangerouslySetInnerHTML`**
+
+**Definition:**  
+`dangerouslySetInnerHTML` is a React property used to set raw HTML content inside an element.
+
+**Explanation:**  
+It is called "dangerous" because it can expose your application to cross-site scripting (XSS) attacks if used improperly.
+
+**Example:**
+```jsx
+function MyComponent() {
+  const rawHTML = "<h1>Hello, World!</h1>";
+
+  return <div dangerouslySetInnerHTML={{ __html: rawHTML }} />;
+}
+```
+
+---
+
+Continuing with the explanations:
+
+---
+
+### **22. React Portals**
+
+**Definition:**  
+React portals provide a way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+
+**Explanation:**  
+Portals are used when you need to render content outside the regular component tree, such as modals or tooltips, without disrupting the rest of the application layout.
+
+**Example:**
+```jsx
+import { useState } from "react";
+import ReactDOM from "react-dom";
+
+function Modal({ onClose }) {
+  return (
+    <div style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}>
+      <div style={{ backgroundColor: "white", margin: "auto", padding: "20px" }}>
+        <p>Modal Content</p>
+        <button onClick={onClose}>Close</button>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setIsModalOpen(true)}>Open Modal</button>
+      {isModalOpen && ReactDOM.createPortal(
+        <Modal onClose={() => setIsModalOpen(false)} />,
+        document.body
+      )}
+    </div>
+  );
+}
+```
+
+---
+
+### **23. Error Boundary**
+
+**Definition:**  
+An **Error Boundary** is a component that catches JavaScript errors in its child components and logs them, preventing the app from crashing and providing a fallback UI.
+
+**Explanation:**  
+Error boundaries use `componentDidCatch` or `static getDerivedStateFromError` to catch errors during rendering, lifecycle methods, and in constructors of the whole tree below them.
+
+**Example:**
+```jsx
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Error caught by ErrorBoundary:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children;
+  }
+}
+
+function BuggyComponent() {
+  throw new Error("I crashed!");
+  return <div>Buggy component</div>;
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <BuggyComponent />
+    </ErrorBoundary>
+  );
+}
+```
+
+---
+
+### **24. Suspense**
+
+**Definition:**  
+**Suspense** is a feature in React for handling asynchronous operations, like code-splitting and data fetching, by showing a fallback UI while waiting for content to load.
+
+**Explanation:**  
+Suspense allows components to "wait" for something to finish loading before rendering, such as lazy-loaded components or data from an API. It uses the `fallback` prop to show a loading state while the content is being loaded.
+
+**Example (code-splitting with Suspense):**
+```jsx
+import React, { Suspense, lazy } from "react";
+
+const LazyComponent = lazy(() => import("./LazyComponent"));
+
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LazyComponent />
+    </Suspense>
+  );
+}
+```
+
+---
+
+### **25. `useLocation` (Related to React Router, Common in React SPAs)**
+
+**Definition:**  
+`useLocation` is a hook from React Router that provides access to the current location object, which represents the current URL in a React Single Page Application (SPA).
+
+**Explanation:**  
+You can use `useLocation` to get the current pathname, search, and hash, and it updates whenever the route changes.
+
+**Example:**
+```jsx
+import { useLocation } from "react-router-dom";
+
+function CurrentPage() {
+  const location = useLocation();
+  
+  return <div>Current pathname is: {location.pathname}</div>;
+}
+```
+
+---
+
+### **26. React Optimization - Learn More**
+
+**Definition:**  
+React Optimization refers to techniques and practices that improve the performance of React applications, such as reducing unnecessary re-renders and optimizing resource loading.
+
+**Explanation:**  
+- **React.memo**, **PureComponent**, **useMemo**, and **useCallback** are some tools to optimize rendering.
+- Code-splitting and lazy-loading improve loading times.
+- **React Profiler** helps identify bottlenecks in the app.
+
+---
+
+### **27. React Profiler**
+
+**Definition:**  
+React Profiler is a tool that helps measure the performance of your React application. It shows how many times a component re-renders and how long those renders take.
+
+**Explanation:**  
+The profiler can identify components that are rendering more than necessary, allowing developers to focus on optimization.
+
+**Example:**
+```jsx
+import { Profiler } from "react";
+
+function App() {
+  return (
+    <Profiler id="App" onRender={(id, phase, actualDuration) => {
+      console.log(`Rendered ${id} during ${phase} phase. Took ${actualDuration}ms.`);
+    }}>
+      <MyComponent />
+    </Profiler>
+  );
+}
+```
+
+---
+
+### **28. Drawbacks/Limitations of `useMemo` & `React.memo` / `useCallback`**
+
+**Definition:**  
+- **`useMemo`**: Used to memoize expensive computations.
+- **`React.memo`**: Memoizes functional components to avoid unnecessary re-renders.
+- **`useCallback`**: Memoizes callback functions to prevent unnecessary re-creations of functions.
+
+**Explanation:**  
+- **Drawbacks**: These optimizations might introduce unnecessary complexity in the code. For trivial cases, they may even harm performance because of the overhead of memoizing values.
+- **When to use**: Use them when dealing with expensive calculations or functions passed to child components that don’t change frequently.
+
+---
+
+### **29. Automatic Batching**
+
+**Definition:**  
+Automatic Batching is a feature in React that batches state updates from different events or sources into a single render to improve performance.
+
+**Explanation:**  
+Before automatic batching, React would perform a render for each state update. With automatic batching, React collects multiple updates and performs them in a single render cycle.
+
+---
+
+### **30. `ReactDOMClient`**
+
+**Definition:**  
+`ReactDOMClient` is the new entry point for React's rendering in React 18 and beyond. It is used to create roots for rendering React components.
+
+**Explanation:**  
+It replaces `ReactDOM.render` in earlier versions of React, enabling features like concurrent rendering and Suspense on the server.
+
+**Example:**
+```jsx
+import { createRoot } from 'react-dom/client';
+import App from './App';
+
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
+```
+
+---
+
+### **31. `ReactDOMServer`**
+
+**Definition:**  
+`ReactDOMServer` is used for server-side rendering (SSR) of React components, rendering components to static HTML that can be sent to the client.
+
+**Explanation:**  
+SSR helps improve performance and SEO by generating the HTML content on the server before sending it to the client.
+
+**Example:**
+```jsx
+import ReactDOMServer from 'react-dom/server';
+import App from './App';
+
+const html = ReactDOMServer.renderToString(<App />);
+console.log(html); // Prints static HTML string
+```
+
+---
+
+### **32. Diffing Algorithm / How Diffing Algorithm Works**
+
+**Definition:**  
+React’s diffing algorithm compares the previous and current virtual DOM to determine the minimum number of changes required to update the real DOM.
+
+**Explanation:**  
+React performs a "reconciliation" process, which efficiently updates the real DOM by using a diffing algorithm. It compares the virtual DOM trees and applies the smallest set of changes.
+
+---
+
+### **33. React Fiber**
+
+**Definition:**  
+React Fiber is the new reconciliation engine in React 16 and later. It enhances the performance of React's rendering process by allowing asynchronous rendering and incremental updates.
+
+**Explanation:**  
+Fiber enables features like concurrent rendering and better error boundaries by splitting rendering work into chunks.
+
+---
+
+### **34. React Concurrent**
+
+**Definition:**  
+React Concurrent Mode is a set of new features that help React apps stay responsive and fluid by rendering updates in the background and pausing work when necessary.
+
+**Explanation:**  
+It allows React to interrupt rendering work to focus on higher-priority tasks, resulting in smoother user experiences.
+
+---
+
+### **35. Latest Features in React**
+
+**Definition:**  
+React's latest features include Concurrent Mode, React Suspense, automatic batching, React Server components, and hooks like `useTransition` and `useDeferredValue`.
+
+---
+
+### **36. How to Prevent Entire Right-Click Events in the React App**
+
+**Definition:**  
+Preventing right-click events in React involves intercepting the default behavior of the browser’s context menu.
+
+**Explanation:**  
+You can use the `onContextMenu` event to prevent the default right-click menu from appearing.
+
+**Example:**
+```jsx
+function App() {
+  const handleRightClick = (event) => {
+    event.preventDefault(); // Prevent the context menu
+    alert("Right-click is disabled!");
+  };
+
+  return <div onContextMenu={handleRightClick}>Right-click disabled here</div>;
+}
+```
+
+---
+
+Let’s go through each of your queries in detail:
+
+---
+
+### **When and why do we need `lazy()`?**
+
+**Definition:**  
+`React.lazy()` is a function that allows you to load components lazily, i.e., only when they are needed, which helps in reducing the initial load time of your application by splitting the bundle.
+
+**When do we need it?**  
+You need `React.lazy()` when:
+- You have large components or libraries that you don't need to load initially.
+- You want to improve the loading performance of your application, especially for single-page applications (SPA) or large React applications.
+- You want to implement **code splitting** and only load certain components when they are required (for example, when navigating to a specific route).
+
+**Why do we need it?**  
+It helps to **optimize bundle size** by deferring the loading of components until they are rendered, reducing the time it takes for the application to become interactive initially.
+
+**Example:**
+```jsx
+import React, { Suspense } from 'react';
+
+const LazyComponent = React.lazy(() => import('./LazyComponent'));
+
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LazyComponent />
+    </Suspense>
+  );
+}
+```
+
+---
+
+### **What is `Suspense`?**
+
+**Definition:**  
+**Suspense** is a React component that allows you to declaratively wait for some code (like a lazy-loaded component or a data-fetching operation) to be ready before rendering the component.
+
+**Explanation:**  
+It acts as a "boundary" for asynchronous operations and displays a fallback UI (e.g., loading spinner) while waiting for resources like lazy-loaded components or data to be fetched. It helps in showing a loading state in a clean way.
+
+**Example:**
+```jsx
+import React, { Suspense, lazy } from 'react';
+
+const LazyComponent = lazy(() => import('./LazyComponent'));
+
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LazyComponent />
+    </Suspense>
+  );
+}
+```
+
+---
+
+### **Why do we get this error: A component was suspended while responding to `synchronous input`?**
+
+**Error Explanation:**  
+This error occurs when a component is trying to "suspend" during the processing of synchronous input (e.g., when a user interacts with the UI, like typing in an input box), and React tries to delay the update to show a loading state. Since this delay occurs during a synchronous event, React interrupts the process and replaces the UI with a loading indicator.
+
+**Why does it happen?**  
+When React tries to suspend the component during an event (like a user typing), it conflicts with the immediate nature of input handling. React expects rendering to be synchronous for inputs, so it issues this error to prevent interrupting the user experience.
+
+**How `Suspense` fixes it:**  
+React introduced the **`startTransition` API** to wrap updates that cause suspension. When wrapped in `startTransition`, these updates are treated as "low-priority" tasks, and React can wait to process them until the high-priority tasks (like responding to user input) have been handled.
+
+**Example:**
+```jsx
+import { startTransition, useState } from 'react';
+
+function MyComponent() {
+  const [value, setValue] = useState('');
+
+  const handleChange = (e) => {
+    startTransition(() => {
+      setValue(e.target.value);  // Suspended updates are wrapped in startTransition
+    });
+  };
+
+  return <input value={value} onChange={handleChange} />;
+}
+```
+
+---
+
+### **Advantages and Disadvantages of Using the Code Splitting Pattern (like `lazy()`)**
+
+**Advantages:**
+1. **Improved Performance**: By deferring loading of non-critical parts of the application, you can significantly reduce the initial load time.
+2. **Better User Experience**: Users can start interacting with the application sooner as less data needs to be loaded upfront.
+3. **Optimized Bundle Size**: The final JavaScript bundle is smaller, as only the necessary parts of the app are loaded initially.
+
+**Disadvantages:**
+1. **Overhead in Handling Fallbacks**: Implementing Suspense and fallbacks for all components may increase complexity, especially for large applications.
+2. **Increased Initial Load Time for Larger Apps**: If you don't manage how you split the code, multiple chunks might get loaded simultaneously, increasing initial loading times.
+3. **SEO Concerns**: For server-side rendering (SSR), lazy loading may not be ideal, as content might not be available immediately for search engines to crawl.
+
+---
+
+### **When do we and why do we need `Suspense`?**
+
+**When do we need it?**
+- **Lazy Loading**: You need `Suspense` when you're using `React.lazy()` to load components dynamically and want to display a fallback UI while they load.
+- **Data Fetching**: With the introduction of Suspense for Data Fetching, you can use it to manage loading states when fetching data from an API.
+
+**Why do we need it?**
+- **Simplified Loading States**: It simplifies showing loading states and ensures a better user experience when components or data are not immediately available.
+- **Code Splitting**: Helps in implementing code-splitting to load only parts of the application as required, reducing the initial load time.
+
+**Example:**
+```jsx
+import React, { Suspense, lazy } from 'react';
+
+// Dynamically import the component
+const LazyComponent = lazy(() => import('./LazyComponent'));
+
+function App() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazyComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+---
+
+### **What is Prop Drilling?**
+
+**Definition:**  
+Prop drilling refers to the process of passing data from a parent component to a deeply nested child component through several layers of intermediate components.
+
+**Explanation:**  
+While prop drilling is a simple and effective way to share data between components, it can become cumbersome and hard to maintain as the component tree grows.
+
+**Example:**
+```jsx
+function Parent() {
+  const message = "Hello from Parent!";
+  return <Child1 message={message} />;
+}
+
+function Child1({ message }) {
+  return <Child2 message={message} />;
+}
+
+function Child2({ message }) {
+  return <div>{message}</div>;
+}
+```
+
+---
+
+### **What is Lifting State Up?**
+
+**Definition:**  
+Lifting state up is the process of moving the state from a child component to a common parent so that the state can be shared among multiple child components.
+
+**Explanation:**  
+State should be lifted up when you need to share data between multiple components and ensure they stay in sync.
+
+**Example:**
+```jsx
+function Parent() {
+  const [value, setValue] = useState("");
+
+  return (
+    <div>
+      <Child1 value={value} />
+      <Child2 onChange={(e) => setValue(e.target.value)} />
+    </div>
+  );
+}
+
+function Child1({ value }) {
+  return <div>{value}</div>;
+}
+
+function Child2({ onChange }) {
+  return <input type="text" onChange={onChange} />;
+}
+```
+
+---
+
+### **What are Context Provider and Context Consumer?**
+
+**Definition:**  
+- **Context Provider**: A component that provides a value to the component tree.
+- **Context Consumer**: A component that consumes and uses the value provided by the Context Provider.
+
+**Explanation:**  
+Context allows you to avoid prop drilling by providing a way to share values between components without explicitly passing props through every level of the tree.
+
+**Example:**
+```jsx
+const MyContext = React.createContext();
+
+function Parent() {
+  return (
+    <MyContext.Provider value="Hello from context">
+      <Child />
+    </MyContext.Provider>
+  );
+}
+
+function Child() {
+  return (
+    <MyContext.Consumer>
+      {(value) => <div>{value}</div>}
+    </MyContext.Consumer>
+  );
+}
+```
+
+---
+
+### **If you don't pass a value to the provider, does it take the default value?**
+
+**Definition:**  
+If you don't provide a value to a `Context.Provider`, React will use the **default value** provided when the context was created.
+
+**Explanation:**  
+The default value is set when creating the context using `React.createContext()`. If a `Provider` is not supplied with a `value`, React will fall back to this default value.
+
+**Example:**
+```jsx
+const MyContext = React.createContext("Default Value");
+
+function Parent() {
+  return (
+    <MyContext.Provider>
+      <Child />
+    </MyContext.Provider>
+  );
+}
+
+function Child() {
+  return (
+    <MyContext.Consumer>
+      {(value) => <div>{value}</div>} {/* Will display "Default Value" */}
+    </MyContext.Consumer>
+  );
+}
+```
+
+---
+

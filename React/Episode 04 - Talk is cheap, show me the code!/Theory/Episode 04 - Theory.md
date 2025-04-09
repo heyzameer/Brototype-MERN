@@ -135,6 +135,81 @@ function App() {
 }
 ```
 
+In React, you can pass **any valid JavaScript value** as props to a component, including:
+
+1. **Primitives**:
+   - `string`
+   - `number`
+   - `boolean`
+   - `null` / `undefined`
+   
+2. **Objects**:
+   - Plain objects (`{}`) 
+   - Arrays (`[]`)
+   
+3. **Functions**:
+   - You can pass functions as props, for example, event handlers or callback functions.
+
+4. **React elements/components**:
+   - Components themselves (either JSX elements or function components).
+
+5. **Other Data Types**:
+   - Any other valid JavaScript value like `Date`, `RegExp`, or even custom class instances.
+
+---
+
+### Example of Passing Props in One Line
+
+Here are some examples of passing props in one line in JSX:
+
+```jsx
+// Passing a string prop
+<ChildComponent name="John" />
+
+// Passing a number prop
+<ChildComponent age={25} />
+
+// Passing a boolean prop
+<ChildComponent isActive={true} />
+
+// Passing an object prop
+<ChildComponent user={{ name: "John", age: 25 }} />
+
+// Passing a function prop
+<ChildComponent onClick={() => console.log("Clicked!")} />
+
+// Passing an array as a prop
+<ChildComponent items={['apple', 'banana', 'cherry']} />
+```
+
+---
+
+### Example of Using Props in the Component
+
+```jsx
+function ChildComponent({ name, age, isActive, user, onClick, items }) {
+  return (
+    <div>
+      <h1>{name} is {age} years old</h1>
+      <p>Status: {isActive ? "Active" : "Inactive"}</p>
+      <p>User Info: {user.name}, {user.age} years old</p>
+      <button onClick={onClick}>Click Me!</button>
+      <ul>
+        {items.map((item, index) => <li key={index}>{item}</li>)}
+      </ul>
+    </div>
+  );
+}
+```
+
+---
+
+### Key Points:
+- Props can be of **any data type**.
+- Functions, especially event handlers, are commonly passed as props.
+- You can **pass multiple props** to a component in one line, and they will be available within the component.
+- Make sure to validate props (optionally) using **PropTypes** or TypeScript for better type safety.
+
 ## Q: What is `Config Driven UI`?
 
 A: `Config Driven UI` are based on the configurations of the data application receives. It is rather a good practice to use config driven UIs to make application for dynamic.

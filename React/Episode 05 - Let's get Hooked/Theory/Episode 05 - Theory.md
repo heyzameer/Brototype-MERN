@@ -82,6 +82,21 @@ import MyComponent, {MyComponent2} from "./MyComponent";
 A: In React version 16.8, React introduced a new pattern called Hooks. React Hooks are simple JavaScript functions that we can use to isolate the reusable part from a functional component. Hooks can be stateful and can manage side-effects.
 Hooks allow you to reuse stateful logic without changing your component hierarchy. This makes it easy to share Hooks among many components or with the community.
 
+// * React Hook -> A normal JavaScript function which is given to us by React (or) Normal JS utility functions
+
+//*React Hooks are functions that let you use state and other React features in functional components.
+
+// * In React, state is an object that holds data or information about a component and determines how that component behaves or renders
+
+  
+// * In React, **props** (short for "properties") are read-only inputs passed from a parent component to a child component to customize or configure it.
+
+// * useState() - Super Powerful variable
+// * useEffect() - 
+
+//* wheneever state variable changes react re renders the component
+
+
 ### React provides a bunch of standard in-built hooks:
 
 - useState: To manage states. Returns a stateful value and an updater function to update it.
