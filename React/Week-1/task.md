@@ -103,7 +103,7 @@ const [count, setCount] = useState(0);
         🔄 Undo
       </button>
     </div>
-  );
+ );
   ```
 
 
@@ -234,14 +234,6 @@ const AppLayout = () => {
       );
 
 
-     function App() {
-      return (
-        <Suspense fallback={<div>Loading...</div>}>
-          <LazyComponent />
-        </Suspense>
-      );
-  / }
-
 
     function App() {
       const handleRightClick = (event) => {
@@ -252,8 +244,11 @@ const AppLayout = () => {
       return <div onContextMenu={handleRightClick}>Right-click disabled here</div>;
     }
 
-    const LazyComponent = React.lazy(() => import('./LazyComponent'));
+const LazyComponent = React.lazy(() => import('./LazyComponent'));
 
+import React, { Suspense, lazy } from 'react';
+
+const LazyComponent = lazy(() => import('./MyComponent')); // Lazy load
 
 function App() {
   return (
@@ -262,6 +257,16 @@ function App() {
     </Suspense>
   );
 }
+
+// MyComponent.jsx
+import React from 'react';
+
+function MyComponent() {
+  return <div>I am loaded lazily!</div>;
+}
+
+export default MyComponent;
+
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
