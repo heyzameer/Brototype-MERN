@@ -36,7 +36,7 @@ function ThrottledResize() {
 
 ```js
 import { useState, useEffect } from 'react';
-// aiting fro in activity
+// waiting fro in activity
 function DebouncedInput() {
   const [text, setText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
@@ -253,6 +253,7 @@ const AppLayout = () => {
     }
 
     const LazyComponent = React.lazy(() => import('./LazyComponent'));
+
 
 function App() {
   return (
