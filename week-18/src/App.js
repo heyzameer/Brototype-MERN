@@ -1,49 +1,49 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { useState } from 'react';
+import { useState,useRef } from 'react';
 import './index.css';  // Import the CSS file
 
 const AppLayout = () => {
-  const [count, setCount] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+  // const [count, setCount] = useState(0);
+  // const [isRunning, setIsRunning] = useState(false);
 
-  useEffect(() => {
-    let interval;
+  // useEffect(() => {
+  //   let interval;
 
-    if (isRunning) {
-      interval = setInterval(() => {
-        setCount(prev => prev + 1);
-      }, 1000);
-    }
+  //   if (isRunning) {
+  //     interval = setInterval(() => {
+  //       setCount(prev => prev + 1);
+  //     }, 1000);
+  //   }
 
-    return () => {console.log("cleared"); clearInterval(interval);} // Cleanup
-  }, [isRunning]);
+  //   return () => {console.log("cleared"); clearInterval(interval);} // Cleanup
+  // }, [isRunning]);
 
-  function start() {
-    setIsRunning(true);
+  // function start() {
+  //   setIsRunning(true);
     
-  }
+  // }
 
-  function stop() {
-    setIsRunning(false);
-  }
+  // function stop() {
+  //   setIsRunning(false);
+  // }
 
-  function reset() {
-    setIsRunning(false);
-    setCount(prev => prev = 0);
-  }
+  // function reset() {
+  //   setIsRunning(false);
+  //   setCount(prev => prev = 0);
+  // }
 
 
-  return (
-    <>
-    <div className="container">
-    <p>{count}</p>
-    <button onClick={start}>Start</button>
-    <button onClick={stop}>Stop</button>
-    <button onClick={reset}>reset</button>
-    </div>
-    </>
-  )
+  // return (
+  //   <>
+  //   <div className="container">
+  //   <p>{count}</p>
+  //   <button onClick={start}>Start</button>
+  //   <button onClick={stop}>Stop</button>
+  //   <button onClick={reset}>reset</button>
+  //   </div>
+  //   </>
+  // )
 
 
 
@@ -134,6 +134,48 @@ const AppLayout = () => {
     //   </div>
     // );
 
+
+    //   const inputRef = useRef();
+    // console.log("rerender")
+    //   const focusInput = () => {
+    //     inputRef.current.focus(); // Focus the input element
+    //   };
+    
+    //   return (
+    //     <div>
+    //       <input ref={inputRef} type="text" />
+    //       <button onClick={focusInput}>Focus Input</button>
+    //     </div>
+    //   );
+
+
+    // function App() {
+    //   return (
+    //     <Suspense fallback={<div>Loading...</div>}>
+    //       <LazyComponent />
+    //     </Suspense>
+    //   );
+    // }
+
+
+    // function App() {
+    //   const handleRightClick = (event) => {
+    //     event.preventDefault(); // Prevent the context menu
+    //     alert("Right-click is disabled!");
+    //   };
+    
+    //   return <div onContextMenu={handleRightClick}>Right-click disabled here</div>;
+    // }
+
+    // const LazyComponent = React.lazy(() => import('./LazyComponent'));
+
+// function App() {
+//   return (
+//     <Suspense fallback={<div>Loading...</div>}>
+//       <LazyComponent />
+//     </Suspense>
+//   );
+// }
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

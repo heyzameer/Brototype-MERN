@@ -200,6 +200,12 @@ Vite is a fast frontend build tool that uses native ES modules in development an
 *   **SSR Disadvantages:** Server load can be higher as it needs to render HTML for each request, can be more complex to implement.
 *   **Note:** Frameworks like Next.js for React make implementing SSR easier.
 
+## Q: What is the difference between `Client Side Routing` and `Server Side Routing`?
+
+A: In `Server-side routing or rendering (SSR)`, every change in URL, http request is made to server to fetch the webpage, and replace the current webpage with the older one.
+
+In `Client-side routing or rendering (CSR)`, during the first load, the webapp is loaded from server to client, after which whenever there is a change in URL, the router library navigates the user to the new page without sending any request to backend. All `Single Page Applications uses client-side routing`.
+
 **Concept of reusability**
 
 *   **Definition:** The principle of designing and developing components or code modules that can be used in multiple parts of an application or even in different projects without modification or with minimal adjustments.
@@ -299,6 +305,21 @@ In the above example:
 - **State** can be changed and triggers a re-render.
 - In functional components, we use the `useState` hook to handle state.
 
+
+
+// * React Hook -> A normal JavaScript function which is given to us by React (or) Normal JS utility functions
+
+//*React Hooks are functions that let you use state and other React features in functional components.
+
+// * In React, state is an object that holds data or information about a component and determines how that component behaves or renders
+
+  
+// * In React, **props** (short for "properties") are read-only inputs passed from a parent component to a child component to customize or configure it.
+
+// * useState() - Super Powerful variable
+// * useEffect() - 
+
+//* wheneever state variable changes react re renders the component
 ---
 
 ### 3. **Hooks**
@@ -766,8 +787,7 @@ Let me know if you want examples of specific hooks or more detailed explanations
 *   **Definition:** A built-in React Hook that allows you to perform side effects in functional components.
 *   **Explanation:** Side effects are operations that interact with the outside world, such as data fetching, subscriptions, timers, and manual DOM manipulations. `useEffect` combines the functionality of several class component lifecycle methods (`componentDidMount`, `componentDidUpdate`, `componentWillUnmount`). It takes a callback function that contains your side effect and an optional dependency array.
     *   **Without a dependency array:** The effect runs after every render.
-    *   **With an empty dependency array (`[]`):** The effect runs only once after the initial render (like `componentDidMount`) and performs cleanup when the component unmounts (like `componentWillUnmount`).
-   **`useEffect` (Continued)**
+    *   **With an empty dependency array (`[]`):** The effect runs only once after the initial render (like `componentDidMount`) and performs cleanup when the component unmounts (like `componentWillUnmount`)
 
 *   **With dependencies (`dependencyArray`):** The effect runs after the initial render and whenever any of the values in the `dependencyArray` change. If you provide a cleanup function (returned by the effect callback), it runs before the next effect runs or when the component unmounts.
 *   **Example (ComponentDidMount-like behavior):**
