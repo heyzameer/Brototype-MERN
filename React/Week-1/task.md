@@ -1,6 +1,8 @@
 ```js
 import { useEffect, useState } from 'react';
 
+
+// controlling the frequency
 function ThrottledResize() {
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -22,7 +24,7 @@ function ThrottledResize() {
 
   return <h2>Window Width: {width}px</h2>;
 }
-```
+``` 
 
 
 
@@ -34,7 +36,7 @@ function ThrottledResize() {
 
 ```js
 import { useState, useEffect } from 'react';
-
+// aiting fro in activity
 function DebouncedInput() {
   const [text, setText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
