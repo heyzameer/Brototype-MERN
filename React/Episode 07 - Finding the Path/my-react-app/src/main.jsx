@@ -11,11 +11,13 @@ import { StrictMode } from 'react'
 import About from './components/About';
 import Contact from './components/Contact';
 import AppLayout from './App';
+import Error from './components/Error';
 
 const appRouter = createBrowserRouter([
   {
     path: '/',
-    element: <AppLayout />
+    element: <AppLayout />,
+    errorElement: <Error/>
   },
   {
     path: '/about',
@@ -23,7 +25,7 @@ const appRouter = createBrowserRouter([
   },
   {
     path: '/contact',
-    element: <Contact /> // Replace with <Contact /> if you have a Contact component
+    element: <Contact /> 
   }
 ]);
 
