@@ -206,6 +206,30 @@ A: In `Server-side routing or rendering (SSR)`, every change in URL, http reques
 
 In `Client-side routing or rendering (CSR)`, during the first load, the webapp is loaded from server to client, after which whenever there is a change in URL, the router library navigates the user to the new page without sending any request to backend. All `Single Page Applications uses client-side routing`.
 
+
+Sure! Here are the clean, simple definitions for both:
+
+---
+
+### ✅ **Client Side Routing**
+
+**Definition**:  
+Client Side Routing is a navigation technique used in single-page applications (SPAs) where the browser handles route changes without making a full page request to the server. It uses JavaScript to load and display components based on the URL, providing a smoother and faster user experience.
+
+🧠 *Example*: In a React app using React Router, clicking on a link updates the URL and shows a new component—without reloading the page.
+
+---
+
+### ✅ **Server Side Routing**
+
+**Definition**:  
+Server Side Routing is a traditional routing method where every time the URL changes, the browser sends a request to the server, and the server responds with a complete new HTML page. Each route is handled by the server, and a full page reload occurs on navigation.
+
+🧠 *Example*: In a PHP or Django website, clicking a link sends a request to the server, which returns a new web page.
+
+---
+
+
 **Concept of reusability**
 
 *   **Definition:** The principle of designing and developing components or code modules that can be used in multiple parts of an application or even in different projects without modification or with minimal adjustments.
