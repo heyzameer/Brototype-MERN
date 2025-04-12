@@ -1,5 +1,6 @@
 import { LOGO_URL } from '../utils/constants';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   //   let btnName = 'Login';
@@ -14,9 +15,13 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
+          <li><Link to='/'>Home</Link></li>
+          {/* using acnchor tag reload the entire page */}
+          <li>
+            <a href='/about'>About Us</a>
+            </li>
+          {/* using link we can move diff page without reloading */}
+          <li><Link to='/contact'>Contact Us</Link></li>
           <li>Cart</li>
           <button
             className="loginBtn"

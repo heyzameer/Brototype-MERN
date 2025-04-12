@@ -60,7 +60,9 @@
 }
 
 .res-card {
+
   width: 200px;
+  
   background-color: #fff;
   /* height: 300px; */
   /* padding: 5px; */
@@ -82,6 +84,11 @@
   flex-direction: column;
   gap: 10px;
   text-align: left;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 
@@ -185,4 +192,55 @@
 .search button:hover,
 .filter-btn:hover {
   background-color: #09a909;
+}
+
+
+
+
+.menu {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.menu h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.menu h3 {
+  margin: 0.3rem 0;
+  color: #666;
+  font-weight: 500;
+}
+
+.menu h2 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  color: #444;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.menu li {
+  background-color: white;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  color: #333;
 }
