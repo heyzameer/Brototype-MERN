@@ -1,29 +1,25 @@
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Shimmer from './Shimmer';
 import { MENU_API } from '../utils/constants';
-import useRestuarantMenu from '../utils/useRestuarantMenu';
 
 const RestuarantMenu = () => {
-//   const [resInfo, setResInfo] = useState(null);
+  const [resInfo, setResInfo] = useState(null);
   const { resId } = useParams();
 
-  const resInfo = useRestuarantMenu(resId)
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await fetch(`${MENU_API}${resId}`);
+        const json = await response.json();
+        setResInfo(json.data);
+      } catch (error) {
+        console.error("Failed to fetch menu:", error);
+      }
+    };
 
-// created a custom hook to get the data by folowing single responsibilty principle
-//   useEffect(() => {
-//     const fetchMenu = async () => {
-//       try {
-//         const response = await fetch(`${MENU_API}${resId}`);
-//         const json = await response.json();
-//         setResInfo(json.data);
-//       } catch (error) {
-//         console.error("Failed to fetch menu:", error);
-//       }
-//     };
-
-//     fetchMenu();
-//   }, [resId]);
+    fetchMenu();
+  }, [resId]);
 
   if (!resInfo) return <Shimmer />;
 
