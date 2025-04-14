@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{lazy,Suspense} from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
@@ -12,6 +12,14 @@ import AppLayout from './App';
 import Body from './components/Body';
 import Error from './components/Error';
 import RestaurantMenu from './components/RestuarantMenu'
+import Shimmer from './components/Shimmer';
+
+
+// import Grocery from './components/Grocery';
+//lazy loading or on demand loadig
+// grocery has new js file
+//suspense avaoid the erorr we need wrap inisde wrap
+const Grocery = lazy(()=> import('./components/Grocery'))
 
 const appRouter = createBrowserRouter([
   {
@@ -30,6 +38,10 @@ const appRouter = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />
+      },
+      {
+        path: 'grocery',
+        element: <Suspense fallback={<Shimmer/>}><Grocery /></Suspense>
       },
       {
         path:"/restuarants/:resId",

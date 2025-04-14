@@ -9,5 +9,6 @@
 - Custom Hooks
 - Modularity in Code
 - Modular Bundling
-- Code Splitting
+- Code Splitting or Code Chunking or Lazy Loading or dynamic bundling or on demand loading
+-- breaking down code logial chunk 
 - Lazy Loading

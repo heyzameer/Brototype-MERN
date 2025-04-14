@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import RestaurantCard from './RestaurantCard';
 import Shimmer from './Shimmer';
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 
 const Body = () => {
@@ -46,6 +47,8 @@ const Body = () => {
     setSearchText('');
   };
 
+  const onlineStatus = useOnlineStatus();
+  if(onlineStatus=== false) return <h1>Looks like your offline check your internet connection</h1>
   if (!allRestaurants.length) return <Shimmer />;
 
   return (
