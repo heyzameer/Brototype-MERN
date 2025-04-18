@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import RestaurantCard from './RestaurantCard';
+import RestaurantCard,{withPromotedLabel} from './RestaurantCard';
 import Shimmer from './Shimmer';
 import { Link } from 'react-router-dom';
 import useOnlineStatus from '../utils/useOnlineStatus';
@@ -10,6 +10,9 @@ const Body = () => {
   const [displayedRestaurants, setDisplayedRestaurants] = useState([]);
   const [searchText, setSearchText] = useState('');
 
+
+  const RestuarantCardPromoted = withPromotedLabel(RestaurantCard);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,6 +21,7 @@ const Body = () => {
         const restaurants = json?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
         setAllRestaurants(restaurants);
         setDisplayedRestaurants(restaurants);
+        console.log(restaurants);
       } catch (error) {
         console.error('Fetch error:', error);
         setAllRestaurants([]);
@@ -109,7 +113,8 @@ const Body = () => {
           to={"restuarants/" + res?.info?.id}
           className="no-underline text-inherit"
         >
-          <RestaurantCard resData={res} />
+          {parseFloat(res?.info?.avgRating) >= 4.5 ? (<RestuarantCardPromoted resData={res}/> ): (<RestaurantCard resData={res} />)}
+          
         </Link>
       ))
     )}
