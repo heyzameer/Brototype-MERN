@@ -1,14 +1,16 @@
-// import ItemList from './ItemList';
+import ItemList from './ItemList';
 
 const RestaurantCategory = ({data}) => {
   // const handleClick = () => {
   //   setShowIndex();
   // };
-console.log(data);
+
+console.log("cat");
+console.log(data.itemCards);
   return (
     <div>
     {/*Accordion Header */}
-    <div className="w-6/12 mx-auto my-4 bg-gray-50 shadow-lg p-4 ">
+    <div className=" mx-auto my-4 bg-gray-50 shadow-lg p-4 rounded-b-md">
       <div
         className="flex justify-between cursor-pointer"
       >
@@ -18,6 +20,7 @@ console.log(data);
         <span>🔽</span>
       </div>
       {/* Accordion Body */}
+      {<ItemList items={data.itemCards}  />}
       </div>
     </div>
   );

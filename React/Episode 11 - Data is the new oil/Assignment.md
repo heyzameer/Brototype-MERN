@@ -3,7 +3,7 @@
 # Episode 11 - Data is the new oil
 
 ## Theory Assignment:
-
+- Higher order component
 - What is prop drilling?
 - What is lifting the state up?
 - What are Context Provider and Context Consumer?
