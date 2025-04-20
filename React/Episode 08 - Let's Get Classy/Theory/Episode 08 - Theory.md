@@ -152,3 +152,83 @@ function Counter() {
 If you change the dependencies in `useEffect`, cleanup happens **before the effect runs again**, but that's still not a full unmount — it’s called **effect cleanup**, not component unmount.
 
 Want to go deeper into this or see a visual example?
+
+
+
+Great question! Understanding the **Render Phase** and **Commit Phase** in a **React Class Component lifecycle** helps you grasp what's happening under the hood when your component mounts, updates, or unmounts.
+
+---
+
+## 🌀 React Class Component Lifecycle Phases
+
+React’s rendering process is split into **two main phases**:
+
+### 1️⃣ **Render Phase**
+- **What happens?**
+  - React **calls the render method** of the component.
+  - Calculates the **new virtual DOM** (no actual DOM changes yet).
+  - It's **pure** — no side effects allowed here (e.g., no network requests, no DOM manipulation).
+
+- **Methods called:**
+  - `constructor()` – once (initial setup)
+  - `static getDerivedStateFromProps()` – rarely used
+  - `render()` – builds virtual DOM
+  - `shouldComponentUpdate()` – lets you optimize unnecessary re-renders
+
+---
+
+### 2️⃣ **Commit Phase**
+- **What happens?**
+  - React **commits changes** to the actual DOM.
+  - Side effects are allowed here.
+  - Safe to interact with DOM, do network requests, start timers, etc.
+
+- **Methods called:**
+  - `componentDidMount()` – runs after first render (mount)
+  - `componentDidUpdate()` – runs after each update (state/props change)
+  - `componentWillUnmount()` – runs before component is removed from DOM
+
+---
+
+## 🔁 Lifecycle Flow Example
+
+### When component is **mounting**:
+
+```plaintext
+constructor()
+⬇
+getDerivedStateFromProps()
+⬇
+render()   ← Render Phase
+⬇
+componentDidMount() ← Commit Phase
+```
+
+### When component is **updating** (due to state/props):
+
+```plaintext
+getDerivedStateFromProps()
+⬇
+shouldComponentUpdate()
+⬇
+render()   ← Render Phase
+⬇
+componentDidUpdate() ← Commit Phase
+```
+
+### When component is **unmounting**:
+
+```plaintext
+componentWillUnmount() ← Commit Phase
+```
+
+---
+
+## 🧠 Quick Tips:
+- **Use `render()`** to build UI only — don’t fetch or mutate state.
+- **Use `componentDidMount()`** to fetch data, start timers, add subscriptions.
+- **Use `componentWillUnmount()`** to clean up (e.g., clear timers, remove listeners).
+
+---
+
+Want a visual diagram or to see the same thing in functional components with hooks (`useEffect`)?

@@ -8,6 +8,9 @@ const TodoApp = () => {
   const [editIndex, setEditIndex] = useState(null); 
   const [editTask, setEditTask] = useState(""); 
 
+  const [deletedTasks, setDeletedTasks] = useState([]); // New state for deleted tasks
+
+
   // Adds a new task to the list
   const handleAddTask = () => {
     if (newTask) {
@@ -17,9 +20,13 @@ const TodoApp = () => {
   };
 
   // Deletes a task based on the index
+
+  // Updated delete handler
   const handleDeleteTask = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);  
+    const taskToDelete = tasks[index];
+    const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
+    setDeletedTasks([...deletedTasks, taskToDelete]); // Add to deleted
   };
 
   // Sets up the task for editing by saving its index and content
@@ -86,6 +93,19 @@ const TodoApp = () => {
           </li>
         ))}
       </ul>
+      {deletedTasks.length > 0 && (
+  <div className="deleted-section">
+    <h2>Deleted Tasks</h2>
+    <ul className="deleted-task-list">
+      {deletedTasks.map((task, index) => (
+        <li key={index} className="deleted-task-item">
+          <span>{task.text}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
     </div>
   );
 };
