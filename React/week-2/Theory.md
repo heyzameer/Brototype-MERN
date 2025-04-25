@@ -1208,6 +1208,8 @@ Want a real example with `useState` inside context or updating theme?
 
 No worries! Let’s break it down **super simple**, step by step — like building blocks.
 
+
+
 ---
 
 ### 🧠 What Is Global Context?
@@ -1451,3 +1453,84 @@ const Card = ({ children }) => {
 ---
 
 Let me know if you'd like a visual or example using your own code!
+
+
+
+
+`React.memo` is your go-to performance booster for **functional components** — kind of like saying _“Hey React, don’t re-render this unless the props actually change.”_
+
+---
+
+### 🧠 What is `React.memo`?
+
+It’s a **higher-order component** that wraps around a functional component and prevents unnecessary re-renders.
+
+---
+
+### ✅ Basic Syntax:
+
+```jsx
+const MyComponent = ({ name }) => {
+  console.log('Rendered!');
+  return <div>Hello {name}</div>;
+};
+
+export default React.memo(MyComponent);
+```
+
+Now, `MyComponent` will only re-render if the `name` prop **changes**.
+
+---
+
+### 🔥 When to Use It:
+
+Use `React.memo` when:
+- Your component is **pure** (output depends only on props).
+- Re-rendering is **expensive** (e.g., heavy UI, long list items).
+- You're passing **unchanged props** from a parent that re-renders often.
+
+---
+
+### 🧪 Example with Parent:
+
+```jsx
+const Child = React.memo(({ count }) => {
+  console.log("Child rendered");
+  return <div>Count: {count}</div>;
+});
+
+const Parent = () => {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState('');
+
+  return (
+    <div>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+      <Child count={count} />
+    </div>
+  );
+};
+```
+
+🧾 Here, typing in the input won’t re-render `Child` unless `count` changes — thanks to `React.memo`.
+
+---
+
+### 🛠️ With Custom Comparison:
+
+```jsx
+const MemoComp = React.memo(MyComponent, (prevProps, nextProps) => {
+  // return true to SKIP render, false to ALLOW render
+  return prevProps.name === nextProps.name;
+});
+```
+
+---
+
+### ⚠️ Watch Out:
+- It **only works with props**, not state or context changes inside the component.
+- Doesn’t help if the props change every render (like inline objects/functions — use `useMemo`/`useCallback` there).
+
+---
+
