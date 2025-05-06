@@ -126,7 +126,7 @@ const AppLayout = () => {
   useEffect(() => {
     let interval;
 
-    if (isRunning) {
+    if (isRunning) { 
       interval = setInterval(() => {
         setCount(prev => prev + 1);
       }, 1000);

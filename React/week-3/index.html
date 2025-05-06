@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LetzGo - Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+      padding: 2rem;
+      background-color: #fff;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    img {
+      width: 64px;
+      margin-bottom: 2.5rem;
+    }
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    input {
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 0.375rem;
+      padding: 0.5rem 1rem;
+      width: 100%;
+      font-size: 1.125rem;
+      margin-bottom: 1.75rem;
+    }
+    button, .captain-link {
+      background-color: #111;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      width: 100%;
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .text-center {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .text-blue {
+      color: #2563eb;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="uber logo" />
+      <form onsubmit="event.preventDefault(); /* handle login logic here */">
+        <h3>What's your email</h3>
+        <input type="email" name="email" id="email" required placeholder="email@example.com" />
+
+        <h3>Password</h3>
+        <input type="password" name="password" id="password" required placeholder="password" />
+
+        <button type="submit">Login</button>
+      </form>
+      <p class="text-center">
+        New here? <a href="/signup" class="text-blue">Create new Account</a>
+      </p>
+    </div>
+    <div>
+      <a href="/captain-login" class="captain-link">Sign as Captain</a>
+    </div>
+  </div>
+</body>
+</html>
