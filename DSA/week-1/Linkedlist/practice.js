@@ -115,10 +115,14 @@ class LinkedList{
 
 // Example usage
 const list = new LinkedList();
-list.addFirst(10);
-list.addLast(20);
-list.addAt(1, 15);
+list.addFirst(14);
+list.addFirst(13);
+list.addFirst(16);
+list.addFirst(12);
+list.addFirst(11);
+// list.addLast(20);
+// list.addAt(1, 15);
 list.printList(); // Output: 10 ->
-list.removeFirst();
-list.printList(); // Output: 15 ->
-console.log(list.find(20)); // Returns the node with data 20
+// list.removeFirst();
+// list.printList(); // Output: 15 ->
+// console.log(list.find(20)); // Returns the node with data 20

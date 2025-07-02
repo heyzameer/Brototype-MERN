@@ -1441,4 +1441,81 @@ console.log(thirdLargest([10, 5, 20, 20, 8, 6])); // → 10
 | Third Smallest  | `O(n)`          | `O(1)`           |
 | Second Largest  | `O(n)`          | `O(1)`           |
 | Third Largest   | `O(n)`          | `O(1)`           |
- 
+
+
+
+ ### ✅ What is a Prime Number?
+
+A **prime number** is a natural number greater than 1 that has **exactly two distinct positive divisors**:
+**1 and itself.**
+
+---
+
+### ✅ Examples of Prime Numbers:
+
+```
+2, 3, 5, 7, 11, 13, 17, 19, 23, ...
+```
+
+* `2` is the **smallest** and **only even** prime number.
+* `1` is **not prime** (only one divisor).
+* `0` and negative numbers are **not prime**.
+
+---
+
+## ✅ JavaScript Program: Check if a Number is Prime
+
+### 🔹 Efficient Version (√n approach):
+
+```javascript
+function isPrime(n) {
+  if (n < 2) return false;
+
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) return false;
+  }
+
+  return true;
+}
+
+console.log(isPrime(11)); // true
+console.log(isPrime(15)); // false
+```
+
+---
+
+## ✅ Print All Prime Numbers in a Range (1 to N)
+
+```javascript
+function printPrimes(n) {
+  for (let i = 2; i <= n; i++) {
+    if (isPrime(i)) {
+      console.log(i);
+    }
+  }
+}
+
+printPrimes(30);
+
+
+function removePrimesManual(arr) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (!isPrime(arr[i])) {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+
+```
+
+---
+
+## 🧠 Time Complexity:
+
+* **Single Prime Check:** `O(√n)`
+* **Print All Primes up to N:** `O(n√n)`
+* ✅ (Optional) You can use **Sieve of Eratosthenes** to improve it to `O(n log log n)`.
+
+---
