@@ -1,0 +1,32 @@
+function selectionSort(arr) {
+  let n = arr.length;
+  let comparisons = 0;
+  let swaps = 0;
+
+  for (let i = 0; i < n - 1; i++) {
+    let minIndex = i;
+
+    for (let j = i + 1; j < n; j++) {
+      comparisons++;
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+
+    if (minIndex !== i) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+      swaps++;
+    }
+  }
+
+  console.log("Total comparisons:", comparisons);
+  console.log("Total swaps:", swaps);
+  return arr;
+}
+
+// Test on sorted array
+const sortedArray = [1, 2, 3, 4, 5];
+console.log("Before:", sortedArray);
+const result = selectionSort([...sortedArray]);
+
+console.log("After: ", result);
