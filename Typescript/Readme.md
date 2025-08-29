@@ -1,3 +1,104 @@
+Got it 👍 Let’s set up **TypeScript with `prompt-sync`** in VS Code from scratch.
+
+---
+
+## 🔹 Step 1: Make a New Project
+
+Open VS Code and in terminal run:
+
+```sh
+mkdir ts-input-demo
+cd ts-input-demo
+npm init -y
+```
+
+This creates a new Node project.
+
+---
+
+## 🔹 Step 2: Install TypeScript and Tools
+
+```sh
+npm install typescript ts-node @types/node --save-dev
+```
+
+* `typescript` → compiler (`tsc`)
+* `ts-node` → lets you run `.ts` files directly (no need to compile every time)
+* `@types/node` → TypeScript types for Node.js
+
+---
+
+## 🔹 Step 3: Initialize TypeScript Config
+
+```sh
+npx tsc --init
+```
+
+This creates a `tsconfig.json` file.
+(make sure `"module": "commonjs"` is set inside it).
+
+---
+
+## 🔹 Step 4: Install `prompt-sync`
+
+```sh
+npm install prompt-sync
+npm install --save-dev @types/prompt-sync
+```
+
+---
+
+## 🔹 Step 5: Create `index.ts`
+
+```ts
+import promptSync from "prompt-sync";
+
+const prompt = promptSync();
+
+const charInput: string = prompt("Enter a character: ");
+
+if (charInput.length === 1) {
+  console.log(`You entered: ${charInput}`);
+} else {
+  console.log("Please enter only one character.");
+}
+```
+
+---
+
+## 🔹 Step 6: Run the Program
+
+Option 1 (Direct run with ts-node, easier ⚡):
+
+```sh
+npx ts-node index.ts
+```
+
+Option 2 (Compile first, then run):
+
+```sh
+npx tsc index.ts
+node index.js
+```
+
+---
+
+✅ Example Run:
+
+```
+Enter a character: A
+You entered: A
+```
+
+---
+
+Do you want me to make a **loop version** that keeps asking until the user enters exactly one character?
+
+
+
+
+
+
 Here are clean, concise, and beginner-friendly **TypeScript Notes** on the listed topics:
 
 ---
@@ -605,6 +706,96 @@ let person = new Person();
 
 // you must tell TypeScript: "Don't worry, I promise I'll assign them" using the ! (definite assignment assertion) operator.
 ```
+<!-- 
+
+---
+
+### 🔹 What is Definite Assignment Assertion?
+
+In **TypeScript**, normally when you declare a variable or class property **without initializing it**, the compiler warns you that it might be `undefined`.
+But sometimes, **you as the developer know** that the variable will definitely be assigned a value **before it’s used**, even though TypeScript cannot verify it.
+
+In such cases, you can use the **`!` operator** (exclamation mark) after the variable name.
+This tells TypeScript:
+👉 “Don’t worry, this variable will definitely be assigned a value before being used.”
+
+This is called a **Definite Assignment Assertion**.
+
+---
+
+### 🔹 Example without Definite Assignment Assertion
+
+```ts
+class Student {
+  name: string; // ❌ Error: Property 'name' has no initializer
+                // and is not definitely assigned in the constructor
+}
+```
+
+TypeScript complains because `name` is declared but not initialized.
+
+---
+
+### 🔹 Using Definite Assignment Assertion
+
+```ts
+class Student {
+  name!: string; // ✅ No error now
+
+  setName(n: string) {
+    this.name = n;
+  }
+
+  printName() {
+    console.log(this.name.toUpperCase());
+  }
+}
+
+const s = new Student();
+s.setName("Zameer");
+s.printName(); // ZAMEER
+```
+
+Here, `name!: string;` means:
+
+* I promise that `name` will be assigned before it’s used.
+* TypeScript won’t give a compile-time error.
+
+---
+
+### 🔹 Another Example
+
+```ts
+let value!: number;
+
+initialize();
+console.log(value + 10); // Safe to use
+
+function initialize() {
+  value = 50;
+}
+```
+
+Without `!`, TypeScript would complain that `value` might be used before assignment.
+With `!`, you assure the compiler that it will be initialized before being used.
+
+---
+
+### 🔹 When to Use?
+
+✅ Use when you are **sure** the variable will be initialized before use.
+❌ Don’t use just to silence errors, otherwise it may lead to **runtime errors**.
+
+---
+
+### 🔹 Interview Question
+
+**Q:** What is a Definite Assignment Assertion in TypeScript?
+**A:** It’s a way to tell the TypeScript compiler that a variable or property will definitely be initialized before it’s used, even if TypeScript cannot verify it. It is written using the `!` operator after the variable name.
+
+---
+
+Do you want me to also explain how this is **different from Non-Null Assertion (`value!`)**? -->
 
 ---
 
@@ -1426,6 +1617,182 @@ const todo: Readonly<Todo> = { title: "Learn TS" };
 ```
 
 ---
+Got it 👍 Let’s go step by step and understand **decorators in TypeScript** in a simple but complete way.
+
+---
+
+## 🔹 What are Decorators?
+
+* Decorators are **special functions** in TypeScript that let you **add extra behavior** to classes, methods, properties, or parameters.
+* They are written with an **`@` symbol** before the name.
+* Think of them like **annotations** or **wrappers** that can *modify, extend, or observe* the thing they’re applied to.
+
+⚠️ Note: To use decorators, you must enable them in `tsconfig.json`:
+
+```json
+{
+  "experimentalDecorators": true
+}
+```
+
+---
+
+## 🔹 Types of Decorators
+
+TypeScript supports multiple kinds of decorators:
+
+1. **Class Decorator**
+
+   * Applied to a class.
+   * Used to add metadata, logging, or even modify the constructor.
+
+   ```ts
+   function Logger(constructor: Function) {
+     console.log("Class Created:", constructor.name);
+   }
+
+   @Logger
+   class Person {
+     constructor(public name: string) {}
+   }
+   // 👉 Logs: "Class Created: Person"
+   ```
+
+---
+
+2. **Property Decorator**
+
+   * Applied to a property in a class.
+   * Can be used for validation, metadata, or tracking.
+
+   ```ts
+   function Readonly(target: any, propertyKey: string) {
+     Object.defineProperty(target, propertyKey, {
+       writable: false
+     });
+   }
+
+   class Book {
+     @Readonly
+     title: string = "TS Guide";
+   }
+
+   const b = new Book();
+   // b.title = "New"; ❌ Error (readonly)
+   ```
+
+---
+
+3. **Method Decorator**
+
+   * Applied to a method of a class.
+   * Can modify how a method works (e.g., logging, permissions).
+
+   ```ts
+   function LogMethod(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+     const original = descriptor.value;
+     descriptor.value = function (...args: any[]) {
+       console.log(`Calling ${propertyKey} with`, args);
+       return original.apply(this, args);
+     };
+   }
+
+   class Calculator {
+     @LogMethod
+     add(a: number, b: number) {
+       return a + b;
+     }
+   }
+
+   new Calculator().add(2, 3); 
+   // 👉 Logs: "Calling add with [2,3]"
+   ```
+
+---
+
+4. **Accessor Decorator**
+
+   * Applied to getters and setters.
+   * Can control access or log usage.
+
+   ```ts
+   function LogAccessor(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+     console.log(`Accessor applied to: ${propertyKey}`);
+   }
+
+   class Student {
+     private _age: number = 20;
+
+     @LogAccessor
+     get age() {
+       return this._age;
+     }
+   }
+   ```
+
+---
+
+5. **Parameter Decorator**
+
+   * Applied to method parameters.
+   * Often used for dependency injection frameworks.
+
+   ```ts
+   function LogParameter(target: any, propertyKey: string, parameterIndex: number) {
+     console.log(`Parameter at index ${parameterIndex} in method ${propertyKey}`);
+   }
+
+   class Teacher {
+     greet(@LogParameter message: string) {
+       console.log(message);
+     }
+   }
+   ```
+
+---
+
+## 🔹 Custom Decorator with Generics
+
+You can even make decorators that accept **parameters** or use **generics**.
+
+```ts
+function DefaultValue<T>(defaultVal: T) {
+  return function (target: any, propertyKey: string) {
+    let value: T = defaultVal;
+
+    Object.defineProperty(target, propertyKey, {
+      get: () => value,
+      set: (newVal: T) => value = newVal
+    });
+  };
+}
+
+class User {
+  @DefaultValue<string>("Guest")
+  name!: string;
+}
+
+const u = new User();
+console.log(u.name); // 👉 "Guest"
+```
+
+---
+
+✅ **In short**:
+
+* Decorators are powerful for meta-programming.
+* They help add **cross-cutting concerns** like logging, validation, or DI without cluttering your main code.
+
+---
+
+Would you like me to also show you **a real-world example** (like authentication check decorator or timing decorator) that you could reuse in projects?
+
+
+
+
+
+
+
 
 Let me know if you'd like explanations for more utility types like `Pick`, `Omit`, or `Record`.
 
