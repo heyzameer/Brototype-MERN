@@ -245,6 +245,21 @@
 //     console.log(`${inputString} is not a palindrome.`);
 // }
 
+function reverseString(str: string): string {
+  let reversed = "";
+
+  // Loop from end to start
+  for (let i = str.length - 1; i >= 0; i--) {
+    reversed += str[i];
+  }
+
+  return reversed;
+}
+
+const original = "TypeScript";
+const reversed = reverseString(original);
+
+console.log(reversed); // "tpircSpeyT"
 
 
 
@@ -805,7 +820,7 @@ var library = [
 // for (var i = 0; i < library.length; i++) {
 // 	var book = library[i];
 // 	if (book!.readingStatus) {
-// 		console.log("Already read '" + book!.title + "' by " + book!.author + ".");
+		// console.log("Already read '" + book!.title + "' by " + book!.author + ".");
 // 	} else {
 // 		console.log("You still need to read '" + book!.title + "' by " + book!.author + ".");
 // 	}

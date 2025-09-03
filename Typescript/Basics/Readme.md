@@ -1207,7 +1207,7 @@ function identity<T>(arg: T): T {
 
 console.log(identity<string>("Hello")); // Output: Hello
 console.log(identity<number>(42));      // Output: 42
-console.log(indentity(false)) // false
+console.log(identity(false)) // false
 ```
 
 You can also **omit the type** — TypeScript can infer it:
