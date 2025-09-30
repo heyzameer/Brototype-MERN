@@ -1,32 +1,33 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import {useEffect, useState } from 'react';
+
 import './App.css';
 import Navbar from './components/Account';
 import Shop from './components/Shop';
 
 function App() {
   const [count, setCount] = useState(0);
+  const [action, setAction] = useState(false);
+
+  useEffect(() => {
+    let interval;
+    if(action){
+      interval = setInterval(() => {
+        setCount((pre)=>pre+1)
+      }, 1000);
+    }
+    else{
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  },[action]);
 
   return (
     <>
-      <div className="container m-5">
-        {/* Flex row with two boxes */}
-        <div className="d-flex justify-content-between gap-3">
-
-
-          {/* Box 2 */}
-          <div className="flex-fill p-4 bg-secondary rounded text-white">
-            <Shop />
-          </div>
-          {/* Box 1 */}
-          <div className="flex-fill p-4 bg-primary rounded text-white">
-            <Navbar />
-          </div>
-
-
-        </div>
-      </div>
+      <h1>stop watch</h1>
+      <p>Count: {count}</p>
+      <button onClick={() =>setAction(true)}>start</button>
+      <button onClick={() =>setAction(false)}>stop</button>
+      <button onClick={() =>setCount(0)}>reset</button>
     </>
   );
 }

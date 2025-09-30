@@ -46,9 +46,6 @@ Everything in JavaScript happens inside an **Execution Context**. This execution
 - Example:  
   ```js
   let n = 2;
-  ```
-  In memory, this is stored as:  
-  ```js
   { n: 2 }
   ```
 

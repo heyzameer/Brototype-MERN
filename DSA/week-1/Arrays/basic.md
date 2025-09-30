@@ -1519,3 +1519,161 @@ function removePrimesManual(arr) {
 * ✅ (Optional) You can use **Sieve of Eratosthenes** to improve it to `O(n log log n)`.
 
 ---
+
+
+Here’s how you can **segregate odd and even numbers** in an array using JavaScript.
+
+---
+
+## **Approach 1: Using Two-Pointer Technique (In-Place, O(1) Space)**
+
+This method rearranges numbers **in-place** without using extra space.
+
+### **Code:**
+
+```javascript
+function segregateOddEven(arr) {
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left < right) {
+        // Move left pointer forward if number is even
+        while (arr[left] % 2 === 0 && left < right) {
+            left++;
+        }
+
+        // Move right pointer backward if number is odd
+        while (arr[right] % 2 !== 0 && left < right) {
+            right--;
+        }
+
+        // Swap if left is odd and right is even
+        if (left < right) {
+            [arr[left], arr[right]] = [arr[right], arr[left]];
+            left++;
+            right--;
+        }
+    }
+    return arr;
+}
+
+// Example usage:
+let nums = [12, 34, 45, 9, 8, 90, 3];
+console.log(segregateOddEven(nums)); 
+// Output: [12, 34, 90, 8, 9, 45, 3] (Even numbers first, odd numbers last)
+```
+
+---
+
+## **Approach 2: Using Extra Arrays (Simpler, O(n) Space)**
+
+This method uses additional space to separate odds and evens, then combines them.
+
+### **Code:**
+
+```javascript
+function segregateOddEvenExtraSpace(arr) {
+    let even = [];
+    let odd = [];
+
+    for (let num of arr) {
+        if (num % 2 === 0) {
+            even.push(num);
+        } else {
+            odd.push(num);
+        }
+    }
+
+    return [...even, ...odd];  // Combine evens first, then odds
+}
+
+// Example usage:
+let nums = [12, 34, 45, 9, 8, 90, 3];
+console.log(segregateOddEvenExtraSpace(nums));
+// Output: [12, 34, 8, 90, 45, 9, 3]
+```
+
+---
+
+## **Time and Space Complexity**
+
+| **Approach**           | **Time Complexity** | **Space Complexity** |
+| ---------------------- | ------------------- | -------------------- |
+| Two-Pointer (In-Place) | **O(n)**            | **O(1)**             |
+| Extra Array            | **O(n)**            | **O(n)**             |
+
+
+
+
+
+
+
+
+Sure! Let’s go **step by step** on how to calculate the sum of an array using **recursion** in JavaScript. I’ll also explain the logic clearly.
+
+---
+
+### **Recursive Logic**
+
+1. Base Case: If the array is empty, return 0.
+2. Recursive Case: Sum of the array = first element + sum of the rest of the array.
+
+---
+
+### **JavaScript Example**
+
+```javascript
+function sumArray(arr, n) {
+    if (n <= 0) {
+        return 0; // Base case: no elements left
+    } else {
+        return sumArray(arr, n - 1) + arr[n - 1]; // Recursive step
+    }
+}
+
+// Example usage
+const numbers = [1, 2, 3, 4, 5];
+const total = sumArray(numbers, numbers.length);
+console.log(total); // Output: 15
+```
+
+---
+
+### **Explanation**
+
+* `n` represents how many elements we are considering from the array.
+* `sumArray(arr, n - 1)` calculates the sum of the first `n-1` elements.
+* `arr[n - 1]` is added to include the last element in the current recursive call.
+* The recursion stops when `n` becomes 0 (base case).
+
+---
+
+✅ **Alternative (Simpler Recursive Approach)**
+
+```javascript
+function sumArray(arr) {
+    if (arr.length === 0) return 0;
+    return arr[0] + sumArray(arr.slice(1));
+}
+
+console.log(sumArray([1, 2, 3, 4, 5])); // 15
+```
+
+```javascript
+function reverseString(str) {
+    if (str === "") return ""; // Base case
+    return reverseString(str.slice(1)) + str[0]; // Recursive step
+}
+
+console.log(reverseString("hello")); // "olleh"
+```
+* Here, we take the **first element** (`arr[0]`) and add it to the sum of the **rest of the array** (`arr.slice(1)`).
+
+---
+
+If you want, I can also show a **recursive sum without using `.slice()`** to make it more efficient memory-wise, which is ideal for large arrays.
+
+Do you want me to show that version too?
+
+---
+
