@@ -1,12 +1,12 @@
-// const array = [1,2,3,4,5,6,7]
-// let odd = array.reduce((acc,item)=>{
-//     if(item>acc && item%2!==0) {
-//         acc = item;
-//     }
-//     return acc;
-// },0)
+const array = [1,2,3,4,5,6,7]
+let odd = array.reduce((acc,item)=>{
+    if(item>acc && item%2!==0) {
+        acc = item;
+    }
+    return acc;
+},0)
 
-// console.log(odd);
+console.log(odd);
 
 // const array = [1,2,3,4,1,2];
 // let nonRepeating = array.filter((item,index)=>{

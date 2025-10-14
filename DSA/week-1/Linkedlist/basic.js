@@ -89,6 +89,50 @@ class LinkedList {
     result += 'null';
     console.log(result);
   }
+
+
+  deleteFirstOdd() {
+  if (!this.head) return;
+
+  // If head is odd
+  if (this.head.data % 2 !== 0) {
+    this.head = this.head.next;
+    return;
+  }
+
+  let curr = this.head;
+  // Traverse until the next node is odd
+  while (curr.next && curr.next.data % 2 === 0) {
+    curr = curr.next;
+  }
+
+  // Delete the first odd node
+  if (curr.next) {
+    curr.next = curr.next.next;
+  }
+}
+
+deleteAllOdd() {
+  let curr = this.head;
+
+  // Handle odd nodes at the start
+  while (curr && curr.data % 2 !== 0) {
+    this.head = curr.next;
+    curr = this.head;  // move curr to new head
+  }
+
+  // Traverse rest of the list
+  while (curr && curr.next) {
+    if (curr.next.data % 2 !== 0) {
+      curr.next = curr.next.next; // skip the odd node
+      // no need to move curr here, check new curr.next
+    } else {
+      curr = curr.next; // move forward if next is even
+    }
+  }
+}
+
+
 }
 
 // ------------------------------

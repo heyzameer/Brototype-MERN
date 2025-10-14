@@ -40,7 +40,7 @@ class LinkedList {
         return count;
     }
 
-    addLast(data, index) {
+    addAt(data, index) {
         if (index < 0 || index > this.size) return;
         if (index === 0) {
             this.addFirst(data);
@@ -74,6 +74,17 @@ class LinkedList {
         return removedNode.data;
     }
 
+    removeEnd() {
+        if (!this.head) return null;    
+     let curr = this.head;
+     while (curr.next && curr.next.next) {
+         curr = curr.next;
+        }
+        const removedNode = curr.next;
+        curr.next = null;
+        return removedNode ? removedNode.data : null;
+    }
+
     removeFirstOdd() {
         if (!this.head) return; // Empty list
 
@@ -97,6 +108,34 @@ class LinkedList {
         }
     }
 
+    removeAt(index) {
+        if (index < 0 || index >= this.size()) return null;
+        if (index === 0) return this.removeTop();   
+        let curr = this.head;
+        for (let i = 0; i < index - 1; i++) {
+            curr = curr.next;
+        }
+        const removedNode = curr.next;
+        curr.next = curr.next ? curr.next.next : null;
+        return removedNode.data;
+
+    }
+    isPalindrome() {
+    let arr = [];
+    let curr = this.head;
+    while (curr) {
+      arr.push(curr.data);
+      curr = curr.next;
+    }
+
+    let left = 0, right = arr.length - 1;
+    while (left < right) {
+      if (arr[left] !== arr[right]) return false;
+      left++;
+      right--;
+    }
+    return true;
+  }
 }
 
 const list = new LinkedList();

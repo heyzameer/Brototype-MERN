@@ -7,6 +7,8 @@ import Shop from './components/Shop';
 function App() {
   const [count, setCount] = useState(0);
   const [action, setAction] = useState(false);
+  const [resized, setResized] = useState(false);
+
 
   useEffect(() => {
     let interval;
@@ -21,6 +23,14 @@ function App() {
     return () => clearInterval(interval);
   },[action]);
 
+  
+  const handleResize = () => {
+    setResized(prev => !prev);
+    console.log('Window resized');
+  }
+  window.addEventListener('resize', handleResize);
+
+
   return (
     <>
       <h1>stop watch</h1>
@@ -28,6 +38,8 @@ function App() {
       <button onClick={() =>setAction(true)}>start</button>
       <button onClick={() =>setAction(false)}>stop</button>
       <button onClick={() =>setCount(0)}>reset</button>
+    
+
     </>
   );
 }

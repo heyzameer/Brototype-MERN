@@ -153,7 +153,7 @@ A **Binary Tree** is a hierarchical data structure in which:
 * Each node stores:
 
   * A **value**
-  * A pointer to the **left child**
+  * A pointer to the **left child** 
   * A pointer to the **right child**
 
 ---
