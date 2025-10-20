@@ -69,6 +69,184 @@ function useFetch(url) {
 ```
 
 **Why:** Replace HOCs/render-props for logic reuse in functional components.
+Perfect 👍 — let’s go step-by-step and learn **how to create Custom Hooks in React**, with **concept, rules, syntax, and real examples**.
+
+---
+
+## 🧠 What is a Custom Hook?
+
+A **Custom Hook** is a **JavaScript function** that **starts with `use`** and **allows you to reuse stateful logic** between components.
+It helps **remove code duplication** and **keep components clean**.
+
+💬 In short:
+
+> “Custom Hooks = reusable logic extracted from React components.”
+
+---
+
+## ⚙️ Rules of Custom Hooks
+
+1. **Must start with `use`** → e.g., `useFetch`, `useAuth`, `useToggle`.
+2. **Can use other hooks** → like `useState`, `useEffect`, etc.
+3. **Must be called at the top level** (not inside loops, conditions, or nested functions).
+4. **Return values** (data, functions, or both) that the component can use.
+
+---
+
+## 🧩 Basic Example — useToggle
+
+Let’s create a simple custom hook to toggle between `true` and `false`.
+
+### ✅ Step 1: Create `useToggle.js`
+
+```jsx
+import { useState } from "react";
+
+export default function useToggle(initialValue = false) {
+  const [value, setValue] = useState(initialValue);
+
+  const toggleValue = () => {
+    setValue((prev) => !prev);
+  };
+
+  return [value, toggleValue];
+}
+```
+
+---
+
+### ✅ Step 2: Use It in a Component
+
+```jsx
+import React from "react";
+import useToggle from "./useToggle";
+
+function ToggleExample() {
+  const [isVisible, toggleVisibility] = useToggle();
+
+  return (
+    <div>
+      <button onClick={toggleVisibility}>
+        {isVisible ? "Hide" : "Show"} Text
+      </button>
+      {isVisible && <p>Hello, I am visible now!</p>}
+    </div>
+  );
+}
+
+export default ToggleExample;
+```
+
+---
+
+## 🔁 Example 2 — useFetch (Custom Hook for API calls)
+
+### useFetch.js
+
+```jsx
+import { useState, useEffect } from "react";
+
+export default function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) throw new Error("Network error");
+        return res.json();
+      })
+      .then((data) => setData(data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, [url]);
+
+  return { data, loading, error };
+}
+```
+
+### Using It
+
+```jsx
+import useFetch from "./useFetch";
+
+function Users() {
+  const { data, loading, error } = useFetch(
+    "https://jsonplaceholder.typicode.com/users"
+  );
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  return (
+    <ul>
+      {data.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+---
+
+## 🔐 Example 3 — useLocalStorage
+
+```jsx
+import { useState } from "react";
+
+export default function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(() => {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : initialValue;
+  });
+
+  const setStoredValue = (newValue) => {
+    setValue(newValue);
+    localStorage.setItem(key, JSON.stringify(newValue));
+  };
+
+  return [value, setStoredValue];
+}
+```
+
+---
+
+## 💡 Advantages of Custom Hooks
+
+| ✅ Pros              | 🔍 Description                              |
+| :------------------ | :------------------------------------------ |
+| ♻ Reusable logic    | Write once, use anywhere                    |
+| 🧼 Clean components | Keeps UI logic separate from business logic |
+| 🔄 Composable       | Combine multiple hooks easily               |
+| 🧩 Maintainable     | Easier testing and debugging                |
+
+---
+
+## ⚖️ Custom Hook vs HOC
+
+| Feature                   | Custom Hook | HOC                |
+| ------------------------- | ----------- | ------------------ |
+| Reuse logic               | ✅ Yes       | ✅ Yes              |
+| Uses component wrapping   | ❌ No        | ✅ Yes              |
+| Easier syntax             | ✅           | ❌                  |
+| Preferred in modern React | ✅           | ❌ (legacy pattern) |
+
+---
+
+## ✅ Summary
+
+A Custom Hook is a **function that encapsulates logic** using other hooks and returns **stateful values or functions** for reuse.
+
+Examples include:
+
+* `useFetch` → data fetching
+* `useToggle` → toggle logic
+* `useForm` → form handling
+* `useDebounce` → delay-based input handling
+* `useLocalStorage` → persistent state
 
 ---
 
