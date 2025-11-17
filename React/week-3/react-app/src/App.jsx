@@ -1,45 +1,43 @@
-import {useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import './App.css';
-import Navbar from './components/Account';
-import Shop from './components/Shop';
 
 function App() {
   const [count, setCount] = useState(0);
   const [action, setAction] = useState(false);
-  const [resized, setResized] = useState(false);
 
-
+  // Stopwatch logic
   useEffect(() => {
     let interval;
-    if(action){
+    if (action) {
       interval = setInterval(() => {
-        setCount((pre)=>pre+1)
+        setCount(prev => prev + 1);
       }, 1000);
     }
-    else{
-      clearInterval(interval);
-    }
     return () => clearInterval(interval);
-  },[action]);
+  }, [action]);
 
-  
-  const handleResize = () => {
-    setResized(prev => !prev);
-    console.log('Window resized');
-  }
-  window.addEventListener('resize', handleResize);
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      console.log('Window resized:', window.innerWidth, 'x', window.innerHeight);
+    };
 
+    // Add listener once when component mounts
+    window.addEventListener('resize', handleResize);
+
+    // Clean up listener when component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // empty dependency -> runs once
 
   return (
     <>
-      <h1>stop watch</h1>
+      <h1>Stopwatch</h1>
       <p>Count: {count}</p>
-      <button onClick={() =>setAction(true)}>start</button>
-      <button onClick={() =>setAction(false)}>stop</button>
-      <button onClick={() =>setCount(0)}>reset</button>
-    
-
+      <button onClick={() => setAction(true)}>Start</button>
+      <button onClick={() => setAction(false)}>Stop</button>
+      <button onClick={() => setCount(0)}>Reset</button>
     </>
   );
 }
