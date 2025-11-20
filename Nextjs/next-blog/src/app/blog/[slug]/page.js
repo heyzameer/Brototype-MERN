@@ -1,5 +1,3 @@
-// app/blog/[slug]/page.js
-// 'use server';
 
 import Image from 'next/image';
 import Link from 'next/link';

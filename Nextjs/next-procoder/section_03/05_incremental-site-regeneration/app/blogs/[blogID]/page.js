@@ -1,6 +1,8 @@
 import Link from "next/link";
 
+// Disable dynamic params to only allow predefined blogIDs
 export const dynamicParams = false;
+// Revalidate every 5 seconds
 export const revalidate = 5;
 
 export async function generateStaticParams() {

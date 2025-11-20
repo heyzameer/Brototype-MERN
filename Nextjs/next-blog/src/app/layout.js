@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         </main>
         <footer className="bg-gray-900 text-white py-8 mt-12">
           <div className="container mx-auto px-4 text-center">
-            <p>&copy; 2024 Next.js Blog. Built with Next.js 14 & MongoDB.</p>
+            <p>&copy; 2025 Next.js Blog. Built with Next.js 16 & MongoDB.</p>
           </div>
         </footer>
       </body>

@@ -1,41 +1,42 @@
-// app/news/page.js
 import NewsCard from '@/components/NewsCard';
 
 // Force dynamic rendering (SSR)
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// export const dynamic = 'force-dynamic';
+export const revalidate = 5;
 
 async function getNews() {
   try {
-    // Using JSONPlaceholder as fallback if News API key not available
+    // const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=12', {
+    //   cache: 'no-store',
+    // });
+    console.log('Fetching news from API...');
     const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=12', {
-      cache: 'no-store', // Ensure fresh data on every request
+      cache: 'force-cache',
     });
-
     if (!response.ok) {
       throw new Error('Failed to fetch news');
     }
-
     const data = await response.json();
-    
-    // Transform data to match our news format
-    return data.map(item => ({
-      id: item.id,
-      title: item.title.charAt(0).toUpperCase() + item.title.slice(1),
-      description: item.body.substring(0, 150) + '...',
-      source: 'JSONPlaceholder',
-      publishedAt: new Date().toISOString(),
-      url: `https://jsonplaceholder.typicode.com/posts/${item.id}`,
-    }));
+    const timestamp = new Date().toLocaleString();
+    return {
+      news: data.map(item => ({
+        id: item.id,
+        title: item.title.charAt(0).toUpperCase() + item.title.slice(1),
+        description: item.body.substring(0, 150) + '...',
+        source: 'JSONPlaceholder',
+        publishedAt: new Date().toISOString(),
+        url: `https://jsonplaceholder.typicode.com/posts/${item.id}`,
+      })),
+      timestamp,
+    };
   } catch (error) {
     console.error('Error fetching news:', error);
-    return [];
+    return { news: [], timestamp: new Date().toLocaleString() };
   }
 }
 
 export default async function NewsPage() {
-  const news = await getNews();
-  const timestamp = new Date().toLocaleString();
+  const { news, timestamp } = await getNews();
 
   return (
     <div className="container mx-auto px-4 py-12">

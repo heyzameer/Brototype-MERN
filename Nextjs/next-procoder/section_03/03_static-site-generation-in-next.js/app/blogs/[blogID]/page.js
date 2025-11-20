@@ -3,9 +3,11 @@ import Link from "next/link";
 // If you want to PREVENT Next.js from generating unknown routes, add:
 export const dynamicParams = false;
 
-
+// export const revalidate = 10;
 export async function generateStaticParams() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+const response = await fetch("https://jsonplaceholder.typicode.com/todos",{
+next: { revalidate: 20 }
+});
   const data = await response.json();
   console.log(data);
   return data.map(({ id }) => ({ blogID: `${id}` }));

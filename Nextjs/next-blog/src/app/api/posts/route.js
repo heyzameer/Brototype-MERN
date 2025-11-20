@@ -1,4 +1,3 @@
-// app/api/posts/route.js
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Post from '@/lib/models/Post';

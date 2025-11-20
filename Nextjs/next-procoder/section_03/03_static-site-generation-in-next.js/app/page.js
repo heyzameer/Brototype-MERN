@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { NextResponse } from "next/server";
 
 const Home = () => {
+
   return (
     <>
       <nav>
