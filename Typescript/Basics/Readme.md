@@ -706,7 +706,6 @@ let person = new Person();
 
 // you must tell TypeScript: "Don't worry, I promise I'll assign them" using the ! (definite assignment assertion) operator.
 ```
-<!-- 
 
 ---
 
@@ -795,7 +794,7 @@ With `!`, you assure the compiler that it will be initialized before being used.
 
 ---
 
-Do you want me to also explain how this is **different from Non-Null Assertion (`value!`)**? -->
+Do you want me to also explain how this is **different from Non-Null Assertion (`value!`)**? -
 
 ---
 
