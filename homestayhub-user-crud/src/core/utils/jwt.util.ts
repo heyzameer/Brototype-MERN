@@ -1,19 +1,23 @@
 import jwt from "jsonwebtoken";
-import {
-  JWT_ACCESS_SECRET,
-  JWT_REFRESH_SECRET,
-  JWT_ACCESS_EXPIRES,
-  JWT_REFRESH_EXPIRES,
-} from "../config/env.js";
+import { JwtPayload, Role } from "../types/jwt.types.js";
 
-export const signAccessToken = (payload: object) =>
-  jwt.sign(payload, JWT_ACCESS_SECRET, { expiresIn: JWT_ACCESS_EXPIRES });
+const JWT_SECRET = process.env.JWT_SECRET || 'default_secret'; 
 
-export const signRefreshToken = (payload: object) =>
-  jwt.sign(payload, JWT_REFRESH_SECRET, { expiresIn: JWT_REFRESH_EXPIRES });
+export function signAccessToken(payload: { sub: string; roles: Role[]; email?: string }) {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
+}
 
-export const verifyAccessToken = (token: string) =>
-  jwt.verify(token, JWT_ACCESS_SECRET);
-
-export const verifyRefreshToken = (token: string) =>
-  jwt.verify(token, JWT_REFRESH_SECRET);
+/**
+ * Verify and return typed JwtPayload.
+ * Will throw if invalid/expired.
+ */
+export function verifyAccessToken(token: string): JwtPayload {
+  const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload | string;
+  if (typeof decoded === "string") {
+    // defensive: jwt.verify can return string for non-object payloads
+    throw new Error("Invalid token payload");
+  }
+  // Ensure roles array exists
+  decoded.roles = decoded.roles ?? ["user"];
+  return decoded;
+}

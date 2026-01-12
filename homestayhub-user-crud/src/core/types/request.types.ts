@@ -1,6 +1,12 @@
 import { Request } from "express";
-import { JwtPayload } from "./jwt.types.js";
+import { Role } from "./jwt.types.js";
+
+export interface AuthUser {
+  id: string;
+  role: Role;
+  email?: string;
+}
 
 export interface AuthRequest extends Request {
-  user?: JwtPayload;
+  user?: AuthUser;
 }
