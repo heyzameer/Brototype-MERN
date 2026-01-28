@@ -1,8 +1,3 @@
-Great goal 👌 Learning SOLID at a **senior level** will seriously improve your architecture thinking.
-We’ll go step by step exactly as you asked.
-
----
-
 # 1️⃣ What is SOLID?
 
 **SOLID** is a set of **5 object-oriented design principles** that help you write:
